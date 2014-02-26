@@ -1,0 +1,31 @@
+{
+  "name": "app_placeholder",
+  "version": "0.0.2",
+  "description": "ERROR: No README.md file found!",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": "",
+  "author": "",
+  "private": true,
+  "dependencies": {
+    "express": "3.x",
+    "connect": "2.x",
+    "async": "0.x",
+    "optimist": "0.x",
+    "ace_mvc": "0.x",
+    "bundle-fork": "0.x",
+    "bundle_categories": "0.x",
+    "lodash-fork": "0.x",
+    "diff-fork": "0.x",
+    "dom-fork": "0.x",
+    "dom_selection": "0.x",
+    "cookies-fork": "0.x",
+    "es5": "0.x",
+    "debug-fork": "0.x",
+    "marked-fork": "0.x",
+    "outlet": "0.x",
+    "ojson": "0.x",
+    "manifest_mvc": "0.x"
+  }
+}

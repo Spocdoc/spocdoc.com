@@ -1,0 +1,40 @@
+.body .coming-soon a{display:inline-block;*display:inline;*zoom:1}
+@media print{}@media only screen and (max-width: 51em){}.body .coming-soon a{cursor:pointer;text-align:center;line-height:2em;padding:0 1em;margin:0 .25em;white-space:nowrap;-webkit-touch-callout:none;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;-webkit-border-radius:3px;border-radius:3px;font-weight:300;border:1px solid;color:#333;}
+.body .coming-soon a:hover{text-decoration:none}
+.body .coming-soon a:active span{position:relative;top:1px;left:1px}
+.body .top{background:#f5f5f5}
+.body .bar{position:relative;height:4em}
+.body .logo{position:absolute;bottom:0;line-height:3.7em;}
+.body .logo span{display:none}
+.body .logo:before{font-family:spocdicons;content:'\f020';font-size:1.7em}
+.body .highlight{background:#fffa57}
+.body .tagline{text-align:center;font-size:3em;font-weight:300;}
+.body .tagline span{white-space:nowrap}
+.body .tagline .carat{font-weight:normal;vertical-align:3px;color:#4183c4;margin-left:2px}
+@media only screen and (max-width: 51em){.body .tagline{font-size:2em}
+}.body .coming-soon{text-align:center;padding-bottom:2em;padding-top:4em;}
+@media only screen and (max-width: 51em){.body .coming-soon{padding-top:3em}
+}.body .coming-soon a{font-size:1.25em;}
+@media only screen and (max-width: 51em){.body .coming-soon a{font-size:1.15em}
+}.body .bottom{padding-top:1em;font-size:.9em}
+ body{font-family:'Helvetica Neue',Helvetica,arial,freesans,clean,sans-serif}
+.centering{margin:0 auto;max-width:59.5em;padding:0 2em;}
+@media print{.centering,.centering{max-width:40em !important}
+}@media only screen and (max-width: 51em){.centering,.centering{max-width:36em;padding:0 .6em}
+}.preload *{-webkit-transition:none !important;-moz-transition:none !important;-o-transition:none !important;-ms-transition:none !important;transition:none !important}
+.progress-meter{clear:left;margin:12px 10px 4px;height:8px;padding:3px;background:#ebebeb;-webkit-border-radius:7px;border-radius:7px;-webkit-box-shadow:inset 0 2px 3px rgba(0,0,0,0.2),0 1px #fff;box-shadow:inset 0 2px 3px rgba(0,0,0,0.2),0 1px #fff;}
+.progress-meter .progress-meter-bar{height:100%;background:#73c822;border:1px solid;border-color:#6eb626 #62a21f #5a9122;-webkit-border-radius:4px;border-radius:4px;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;background-image:-webkit-linear-gradient(#73c822, #67aa24);background-image:-moz-linear-gradient(#73c822, #67aa24);background-image:-o-linear-gradient(#73c822, #67aa24);background-image:-ms-linear-gradient(#73c822, #67aa24);background-image:linear-gradient(#73c822, #67aa24);-webkit-box-shadow:inset 0 1px rgba(255,255,255,0.15);box-shadow:inset 0 1px rgba(255,255,255,0.15);-webkit-transition:all 0.15s ease-in;-moz-transition:all 0.15s ease-in;-o-transition:all 0.15s ease-in;-ms-transition:all 0.15s ease-in;transition:all 0.15s ease-in;-webkit-transition-property:width;-moz-transition-property:width;-o-transition-property:width;-ms-transition-property:width;transition-property:width}
+.no-css{display:none}
+.no-scroll{overflow:hidden !important;height:100% !important}
+.ios-full-height{height:100%}
+@font-face{font-family:'spocdicons';font-weight:normal;font-style:normal;src:url("//spocdoc.com:8080/e9b07c8fcf9911aa11b85953/fonts/spocdicons.eot");src:url("//spocdoc.com:8080/e9b07c8fcf9911aa11b85953/fonts/spocdicons.eot#iefix") format("embedded-opentype")}
+@font-face{font-family:'spocdicons';font-weight:normal;font-style:normal;src:url("data:application/font-woff;base64,d09GRk9UVE8AAAeAAAoAAAAABzgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABDRkYgAAAA9AAAA+oAAAPqpHVRW09TLzIAAATgAAAAYAAAAGAZ8BcxY21hcAAABUAAAABMAAAATBA14JdnYXNwAAAFjAAAAAgAAAAIAAAAEGhlYWQAAAWUAAAANgAAADYWMkrjaGhlYQAABcwAAAAkAAAAJB7WF6pobXR4AAAF8AAAABQAAAAUHaQAAG1heHAAAAYEAAAABgAAAAYABVAAbmFtZQAABgwAAAFUAAABVFmkAChwb3N0AAAHYAAAACAAAAAgAAMAAAEABAQAAQEBC3Nwb2NkaWNvbnMAAQIAAQA9+BwC+BsD+BgEHgoABIj/i4seCgAEiP+LiwwHi/yUHBmkHAYABR0AAACCDx0AAACHER0AAAALHQAAA98SAAYBAQsVFxkcIXNwb2NkaWNvbnNzcG9jZGljb25zdTB1MXUyMHVGMDIwAAACAYkAAwAFAgABAAUACQANABADShz4AA4c+AAOHPgADv6UDhwRpPe4gRU1iyqgILMIi/e2BfcFT+xt24vSi8eYvabJrKq7i8mLt4erg6B+rnCpYqVipEG7INAxxkrHZcdkx3jVi+EIi/eN9yf3EPe6i/OL8nTwXAiL+5sFLMgmqSCL+wKLVGKLOotNr1XTXs9fzmDOYe1M0Ei0RLBKnj2LMIv7MlL7C/sHOylJ+xZp+zeLCBwFr/nuFckoqvsJi/sbi/sSavsFSClEIDJVIIs+i0eeUbEIi/wkBYs1jFOOcQj7losFjqONw4vjCIscBMEFi9CJu4ilCPeEi4s5BcHHzqrbi/cPi+tQ0vsKCPti/KMVpsCZxYvMi9R/yXW+bc9erVCLXotbcVhYCIv8LgW+W7tzuIvAi7Wqq8sI+d772hX7JYv7Ab1D8U3kbPcMi/cti/fp9yD3Pveri/eoi/ce+z6L++mL+yts+wxNMkQkIFj7I4sIifm3FUWLXWp1SX1lhEyLMosykkuZZqFIuWrRi9CLuauizJixksuL5ovkhMp+sXTNXaxGiwj6XP23FfsXiyG9O+4+6mX3C4v3Iov3IbD3DdXv2/b1wPcZi9aL2XXbYAiL+4QFT8FMpkqLRotUbWJPaFZ6S4s/i0GdTK9WtFHBbc+L04vUqdPICIv7mwUyXDV0NosI+G33SxVN72z3CYv3Gov3E6z3A8zs0/TlwPaL1ovPeMhmCIv4FAWL4YnEiKYI95aLBYZziVKLMgiLHPtTBYtGjVuQcgj7hIuL3AVVUEhuO4v7DosqxUT3CAj3YvihFXBYfVGLSotDl02hV6hJt2rIi7iLu6S/vAiL+CoFV7tao1yLWItibGtNCPri/VgV+yWL+wC9QvFN5Gz3DIv3LYv36fcg9z73q4v3qIv3Hvs+i/vpi/srbPsMTTJEJCBY+yOLCIn5txVFi11qdUl9ZYRMizKLMpJLmWahSLlq0YvQi7mrosyYsZLLi+aL5ITKfrF0zV2sRosI+lz9txX7F4shvTvuPupl9wuL9yKL9yGw9w3V79v29cD3GYvWi9l122AIi/uEBU/BTKZKi0aLVG1iT2hWekuLP4tBnUyvVrRRwW3Pi9SL06nTyAiL+5sFMlw1dDaLCA4cCAAUHAgAFYsMCgAAAAMIAAGQAAUAAAUzBZkAAAEeBTMFmQAAA9cAZgISAAAAAAAAAAAAAAAAAAAAARAAAAAAAAAAAAAAAAAAAAAAQAAA8CAGAP4A/gAGAAIAAAAAAQAAAAAAAAAAAAAAIAAAAAAAAgAAAAMAAAAUAAMAAQAAABQABAA4AAAACgAIAAIAAgABACDwIP/9//8AAAAAACDwIP/9//8AAf/jD+QAAwABAAAAAAAAAAAAAAABAAH//wAPAAEAAAAAAACJkUstXw889QALCAAAAAAAzyAA8wAAAADPIADzAAD+ABjUBgAAAAAIAAIAAAAAAAAAAQAABgD+AAAAGaQAAAAAGNQAAQAAAAAAAAAAAAAAAAAAAAUAAAAAAAAAAAAAAAAEAAAAGaQAAAAAUAAABQAAAAAADgCuAAEAAAAAAAEAFAAAAAEAAAAAAAIADgBcAAEAAAAAAAMAFAAqAAEAAAAAAAQAFABqAAEAAAAAAAUAFgAUAAEAAAAAAAYACgA+AAEAAAAAAAoAKAB+AAMAAQQJAAEAFAAAAAMAAQQJAAIADgBcAAMAAQQJAAMAFAAqAAMAAQQJAAQAFABqAAMAAQQJAAUAFgAUAAMAAQQJAAYAFABIAAMAAQQJAAoAKAB+AHMAcABvAGMAZABpAGMAbwBuAHMAVgBlAHIAcwBpAG8AbgAgADEALgAwAHMAcABvAGMAZABpAGMAbwBuAHNzcG9jZGljb25zAHMAcABvAGMAZABpAGMAbwBuAHMAUgBlAGcAdQBsAGEAcgBzAHAAbwBjAGQAaQBjAG8AbgBzAEcAZQBuAGUAcgBhAHQAZQBkACAAYgB5ACAASQBjAG8ATQBvAG8AbgADAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA") format("woff"),url("//spocdoc.com:8080/9c9a6c36a238061e67a221e6/fonts/spocdicons.svg") format("svg"),url("//spocdoc.com:8080/6d63005e3789933b20039df8/fonts/spocdicons.ttf") format("truetype")}
+body{margin:0;padding:0}
+a{text-decoration:none;color:#4183c4;}
+a:hover{text-decoration:underline}
+a:link{color:#4183c4}
+a:visited{color:#939}
+*{-webkit-tap-highlight-color:rgba(0,0,0,0)}
+ul{list-style:none;margin:0;padding:0;}
+ul li{display:block}
+  

@@ -1,0 +1,60 @@
+@import '../utils'
+
+.top
+  background LANDING_GRAY
+
+.bar
+  position relative
+  height 4em
+
+.logo
+  position absolute
+  bottom 0px
+  line-height 3.7em
+
+  span
+    display none
+ 
+  &:before
+    font-family spocdicons
+    content: '\f020'
+    font-size 1.7em
+
+.highlight
+  background YELLOW_COLOR
+
+.tagline
+  text-align center
+  font-size 3em
+  font-weight 300
+
+  span 
+    white-space nowrap
+
+  .carat
+    font-weight normal
+    vertical-align 3px
+    color LINK_COLOR
+    margin-left 2px
+
+  @media MEDIA_REMOVE_SIDEBAR
+    font-size 2em
+
+.coming-soon
+  text-align center
+  padding-bottom 2em
+  padding-top 4em
+
+  @media MEDIA_REMOVE_SIDEBAR
+    padding-top 3em
+
+  a
+    @extend $button
+    font-size 1.25em
+
+    @media MEDIA_REMOVE_SIDEBAR
+      font-size 1.15em
+
+.bottom
+  padding-top 1em
+  font-size 0.9em

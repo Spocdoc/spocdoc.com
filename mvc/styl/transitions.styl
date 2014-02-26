@@ -1,0 +1,14 @@
+ease()
+  transition all 0.05s ease-in
+  if length(arguments)
+    transition-property unquote(join(', ',arguments))
+
+easeSlow()
+  transition all 0.1s ease-in
+  if length(arguments)
+    transition-property unquote(join(', ',arguments))
+
+easeVerySlow()
+  transition all 0.15s ease-in
+  if length(arguments)
+    transition-property unquote(join(', ',arguments))

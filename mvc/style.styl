@@ -1,0 +1,92 @@
+@import 'nib'
+
+// -----------------
+// UTILS
+// -----------------
+
+@import './utils.styl'
+
+.preload *
+  transition none !important
+
+.centering
+  @extend $centering
+
+.progress-meter
+  clear: left;
+  margin: 12px 10px 4px;
+  height: 8px;
+  padding: 3px;
+  background: #ebebeb;
+  border-radius: 7px;
+  box-shadow: inset 0 2px 3px rgba(0, 0, 0, 0.2), 0 1px white;
+
+  .progress-meter-bar
+    height: 100%;
+    background: #73c822;
+    border: 1px solid;
+    border-color: #6eb626 #62a21f #5a9122;
+    border-radius: 4px;
+    box-sizing: border-box;
+    background-image: linear-gradient(#73c822, #67aa24);
+    box-shadow: inset 0 1px rgba(255, 255, 255, 0.15);
+    easeVerySlow 'width'
+
+.no-css 
+  display none
+
+.no-scroll
+  overflow hidden !important
+  height 100% !important
+
+// for iOS (no current way to add styles from a javascript package import)
+.ios-full-height
+  height 100%
+
+// -----------------
+// STANDARD GLOBAL
+// -----------------
+
+// for IE
+@font-face
+  font-family:'spocdicons'
+  font-weight:normal
+  font-style:normal
+  src:url("/fonts/spocdicons.eot")
+  src:url("/fonts/spocdicons.eot#iefix") format("embedded-opentype")
+
+// for standard
+@font-face
+  font-family:'spocdicons'
+  font-weight:normal
+  font-style:normal
+  src: url("/fonts/spocdicons.woff") format("woff"),url("/fonts/spocdicons.svg") format("svg"),url("/fonts/spocdicons.ttf") format("truetype")
+
+body
+  @extend $sansserif
+  margin 0
+  padding 0
+
+a
+  text-decoration none
+  color LINK_COLOR
+
+  &:hover
+    text-decoration underline
+
+  &:link
+    color LINK_COLOR
+
+  &:visited
+    color #993399
+
+*
+  -webkit-tap-highlight-color rgba(0,0,0,0)
+
+ul
+  list-style none
+  margin 0
+  padding 0
+
+  li
+    display block

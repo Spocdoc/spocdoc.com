@@ -1,0 +1,162 @@
+IE_TRANSPARENT = "chroma(color=#bada55)"
+
+$IE-TRANSPARENT
+  *filter: unquote(IE_TRANSPARENT)
+
+$sansserif
+  font-family: 'Helvetica Neue', Helvetica, arial, freesans, clean, sans-serif
+
+$serif
+  font-family: Georgia, 'Times New Roman', Times, serif
+  line-height 1.6em
+
+$fixed
+  font-family: Menlo, Monoco, Andale Mono, Courier, monospace
+  font-size: 0.9em
+  line-height: 1.5em
+  tab-size: 4
+  white-space: pre-wrap
+
+$inline-block
+  display inline-block
+  *display inline
+  *zoom 1
+
+@import './styl/colors'
+@import './styl/constants'
+
+$centering
+  margin 0 auto
+  max-width unit(MAX_TEXT_WIDTH + SIDEBAR_WIDTH + MAX_SIDEBAR_PADDING, em)
+  padding 0 unit(PADDING_SIDES, em)
+
+  @media print
+    max-width unit(MAX_TEXT_WIDTH,em) !important
+
+  @media MEDIA_REMOVE_SIDEBAR
+    max-width unit(WIDTH_WITHOUT_SIDEBAR,em)
+    padding 0 unit(PADDING_SIDES_SMALL, em)
+
+$nofocus
+  outline: 0 solid transparent
+  *outline-color #bada55
+  *filter: unquote(IE_TRANSPARENT)
+
+$scrolling
+  overflow-scrolling touch
+  overflow auto
+
+$scrolling-y
+  overflow-scrolling touch
+  overflow scroll
+  overflow-x hidden
+
+$scrolling-x
+  overflow-scrolling touch
+  overflow scroll
+  overflow-y hidden
+
+$placeholder-editable
+  &.empty:before
+    content: attr(data-placeholder);
+    width: 0;
+    height 0
+    float: left;
+    white-space: nowrap;
+    color: #b3b3b3;
+
+$focusShadow
+  box-shadow: inset 0px 1px 2px rgba(0,0,0,0.1)
+
+$form-field-borders
+  @extend $IE-TRANSPARENT
+
+  // color BLACK_COLOR
+  outline none
+
+  border-style solid
+  border-color transparent
+  *border-color #bada55
+  border-width 0px
+  border-bottom-width 1px
+  border-bottom-color LINK_COLOR
+
+  &:hover
+    // border-color #ddd
+    // border-top-color lighten(LINK_COLOR, 20%)
+    // border-bottom-color LINK_COLOR
+    cursor text
+
+  &:focus, &.focus, &.focus:hover, &:focus:hover
+    border-color transparent
+    *border-color #bada55
+    border-bottom-color BLACK_COLOR
+    @extend $nofocus
+
+$message
+  font-size 0.9em
+  line-height 1.2em
+  padding 0.3em 1em 0.3em 2.2em
+  -webkit-font-smoothing antialiased
+  position relative
+
+$message-content
+  &:before
+    content '\f045'
+    font-family spocdicons
+    position absolute
+    left 1em
+
+$error-message
+  @extend $message
+  @extend $message-content
+  color white
+  background RED_COLOR
+
+$warn-message-bg
+  background WARN_COLOR
+  @extend $message
+
+$warn-message-content
+  color white
+  @extend $message
+  @extend $message-content
+
+  a
+    &, &:link, &:active
+      text-decoration underline
+      color white
+
+$warn-message
+  @extend $warn-message-bg
+  @extend $warn-message-content
+
+$info-message-bg
+  background INFO_COLOR
+  @extend $message
+
+$info-message-content
+  color white
+  @extend $message
+  @extend $message-content
+
+  a
+    &, &:link, &:active
+      text-decoration underline
+      color white
+
+$info-message
+  @extend $info-message-bg
+  @extend $info-message-content
+
+
+$cols
+  display table
+
+  & > *
+    display table-cell
+    vertical-align top
+
+
+@import './styl/button.styl'
+@import './styl/transitions.styl'
