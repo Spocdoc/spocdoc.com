@@ -5,7 +5,7 @@
         "fileCacheFor": ["styl"],
         "hashAssets": true,
         "assetRoot": "../public",
-        "assetServerRoot": "//spocdoc.com:8080",
+        "assetServerRoot": "//127.0.0.1:8081",
         "disableClientJS": false
     },
     "routes": "routes",

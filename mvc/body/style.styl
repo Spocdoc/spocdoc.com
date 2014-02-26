@@ -1,60 +1,52 @@
 @import '../utils'
 
-.top
-  background LANDING_GRAY
+.content 
+  margin-top unit(LOGGED_OUT_HEIGHT,em)
 
-.bar
-  position relative
-  height 4em
-
-.logo
-  position absolute
-  bottom 0px
-  line-height 3.7em
-
-  span
-    display none
- 
-  &:before
-    font-family spocdicons
-    content: '\f020'
-    font-size 1.7em
-
-.highlight
-  background YELLOW_COLOR
-
-.tagline
-  text-align center
-  font-size 3em
-  font-weight 300
-
-  span 
-    white-space nowrap
-
-  .carat
-    font-weight normal
-    vertical-align 3px
-    color LINK_COLOR
-    margin-left 2px
-
-  @media MEDIA_REMOVE_SIDEBAR
-    font-size 2em
-
-.coming-soon
-  text-align center
-  padding-bottom 2em
-  padding-top 4em
-
-  @media MEDIA_REMOVE_SIDEBAR
-    padding-top 3em
-
-  a
-    @extend $button
-    font-size 1.25em
-
-    @media MEDIA_REMOVE_SIDEBAR
-      font-size 1.15em
-
-.bottom
-  padding-top 1em
+.footer
+  white-space nowrap
+  text-align justify
   font-size 0.9em
+  padding-top unit(PADDING_SIDES_SMALL, em)
+  border-top 1px solid BOTTOM_COLOR
+
+  @media print
+    display none
+
+  .box
+    float left
+    width 33%
+    text-align center
+
+    ul
+      text-align left
+      display inline-block
+
+  .bottom-box
+    clear both
+    text-align center
+    padding-top 1em
+
+.social
+  a
+    margin-right 0.15em
+    cursor pointer
+
+    &:hover
+      text-decoration none
+
+    &:before
+      font-family 'spocdicons'
+
+  .twitter:before
+    content: '\f030'
+
+  .facebook:before
+    content: '\f031'
+
+  .linkedin:before
+    content: '\f032'
+
+
+@import './styl/landing'
+@import './styl/bar'

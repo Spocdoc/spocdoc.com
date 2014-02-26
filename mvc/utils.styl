@@ -23,12 +23,14 @@ $inline-block
   *zoom 1
 
 @import './styl/colors'
-@import './styl/constants'
+@import './styl/constants.styl'
 
 $centering
   margin 0 auto
   max-width unit(MAX_TEXT_WIDTH + SIDEBAR_WIDTH + MAX_SIDEBAR_PADDING, em)
   padding 0 unit(PADDING_SIDES, em)
+  box-sizing border-box
+  width 100%
 
   @media print
     max-width unit(MAX_TEXT_WIDTH,em) !important

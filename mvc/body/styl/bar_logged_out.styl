@@ -1,0 +1,126 @@
+WWS = WIDTH_WITH_SIDEBAR
+WOS = WIDTH_WITHOUT_SIDEBAR
+T1 = LOGGED_OUT_FULL
+T10 = LOGGED_OUT_FULL_SMALL
+
+MWWS = MEDIA_WITH_SIDEBAR
+MT10 = "only screen and (min-width: " + (T10) + "em)"
+
+hideMenu()
+  .menu-outer .menu-button, .dropdown-caret, .dropdown-caret-center, .dropdown-caret-right
+    display none
+
+  .logo-container
+    text-align left
+
+  .has-menu
+    &:after
+      content '\f025'
+
+  .right-div
+    position absolute
+    bottom 0
+    right 0
+
+    li
+      display inline !important
+
+    li > a
+      font-size 1em
+
+    .menu-divider
+      display none
+
+    .invite-me
+      display inline !important
+      margin-bottom -2px !important
+
+    .log-in
+      display inline
+      font-weight 300 !important
+      font-size 1em !important
+      padding 0 !important
+
+      &:hover
+        background none !important
+        color LINK_COLOR !important
+
+
+      span
+        display none
+
+  .right-div-min
+    display none
+
+  .menu-outer
+    position absolute
+    width 100%
+    text-align center
+    bottom 0
+    left 0
+
+  .dropdown-menu
+    background none
+    box-shadow none
+    border none
+    position static
+    white-space nowrap
+    padding 0
+    margin 0
+
+    .tabs li
+      display inline-block
+
+      & > a
+        font-size 1em
+        padding 4px 15px 2px
+        margin-bottom 1px
+
+        &.selected, &:hover
+          border-bottom 3px solid LINK_COLOR
+          margin-bottom -2px
+
+  .tabs
+    .blog, .about
+      display inline
+
+
+shortenRight()
+  .right-div
+    .log-in
+      span
+        display none
+
+    .invite-me
+      margin-right 0 !important
+
+  .dropdown-menu
+    .tabs li > a
+      padding-right 13px
+      padding-left 13px
+  
+
+.logged-out
+  .tabs
+    .blog, .about
+      display block
+    .connect, .search
+      display none
+
+@media MT10
+  hideMenu()
+  .invite-me
+    margin-right 0!important
+      
+@media MWWS
+  .dropdown-menu
+    .tabs li > a
+      padding-right 20px
+      padding-left 20px
+  .right-div
+    .log-in
+      span
+        display inline
+    .invite-me
+      margin-right 0.5em !important
+

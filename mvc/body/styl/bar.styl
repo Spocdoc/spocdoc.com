@@ -1,0 +1,113 @@
+.bar
+  height unit(LOGGED_OUT_HEIGHT,em)
+  position absolute
+  top 0
+  left 0
+  width 100%
+
+  .centering
+    height 100%
+
+.bar-content
+  position relative
+  height 100%
+
+.bar-border
+  width 100%
+  position absolute
+  bottom 0
+  z-index -1
+  left unit(- PADDING_SIDES_SMALL, em)
+  padding 0 unit(PADDING_SIDES_SMALL, em)
+  border-bottom unit(BOTTOM_BORDER, px) solid BOTTOM_COLOR
+
+.logo-container 
+  text-align center
+  width 100%
+  position absolute
+  left 0
+  bottom 0
+
+.menu-outer
+  position absolute
+  left 1em
+  bottom 4px
+
+.logo-h1
+  margin 0
+  font-size 1em
+  // line-height unit(LOGGED_OUT_HEIGHT - TAB_HEAD - TAB_FOOT, em)
+  // position absolute
+  // bottom 0
+  margin-bottom -0.2em
+
+  span
+    display none
+    font-size 2em
+
+  &:before
+    font-family spocdicons
+    content: '\f020'
+    font-size 2em
+
+.log-in
+  cursor pointer
+
+  &, &:link, &:visited
+    color BLACK_COLOR
+
+  &:hover
+    text-decoration none
+    color LINK_COLOR
+
+.has-menu
+  &:after
+    content '\f02d'
+    margin-left 0.2em
+    font-family spocdicons
+    float right
+    margin-top 0.125em
+
+.tabs
+  .blog, .about
+    display none
+
+.dropdown-menu li > a.invite-me, .invite-me
+  @extend $button-green
+
+.menu-outer
+  .right-div
+    .invite-me
+      display none
+
+.right-div-min
+  position absolute
+  right 0
+  bottom 0
+
+.right-div
+  .invite-me
+    margin-right 0
+    margin-bottom 2px
+
+.main-menu
+  .menu-toggle
+    &:before
+      font-family: 'spocdicons'
+      content: '\f03f'
+
+  .dropdown-menu
+    float none
+    left -0.5em
+
+.made-in-ny
+  display block
+  background-image: url('img/made_in_ny.png')
+  background-size cover
+  width 40px
+  height 40px
+  margin auto
+
+@import './bar_landing.styl'
+@import './bar_logged_out.styl'
+

@@ -1,16 +1,84 @@
-.top
+include ../utils
+
+.bar
   .centering
-    .bar
-      .logo: span Spocdoc
-    p.tagline
-      span Collaborative docs for
-      |  
-      span
-        | the 
-        span.highlight “TL;DR” era.
-        span.carat |
-    .coming-soon
-      a Coming Soon!
-.bottom
-  .centering
-    a(href="mailto:mike@spocdoc.com") Contact Us
+    .bar-content
+      .bar-border
+      .logo-container
+        h1.logo-h1: a#logo.logo(title="Spocdoc"): span SpocDoc
+      a#plus.plus(title="Create").hidden: span Create
+
+      .menu-outer.main-menu
+        +menu-button
+        +menu-center
+          h1 Log In With
+          ul.tabs
+            li: a.about#about(title="About"): span About
+            li: a.blog#blog(title="Blog"): span Blog
+            li: a.explore#explore(title="Explore"): span Explore
+            li: a.connect#connect(title="Connect"): span Connect
+            li: a.doc.has-menu-sep#document(title="Docs"): span Docs
+            li: a.selected.search#search(title="Search"): span Search
+
+          ul.right-div
+            li: a.invite-me: span Invite me!
+            li.menu-divider: hr
+            li: a.log-in.has-menu: span Log In
+
+            //.menu-outer.hidden
+              a Mike Robertson
+              +menu-right
+                ul
+                  li: a Tags
+                  li: a Import
+                  li: a Account
+                  li.menu-divider: hr
+                  li: a Help
+                  li.menu-divider: hr
+                  li: a Log Out
+
+              +menu-right
+                ul
+                  li: a Evernote
+                  li: a Twitter
+                  li: a Github
+                  li: a LinkedIn
+                  li.menu-divider: hr
+                  li: a New Account
+
+      .right-div.right-div-min
+        a.invite-me: span Invite me!
+            
+hr.no-css
+#content.content
+  .landing-content
+    .centering
+      h1.tagline
+        em Unleash
+        |  your mind.
+      p.promo
+        | Finally find, share,  your thoughts, your notes, 
+      | with next step in collaborative blogging, wiki-ing, docs, notes, editing, book writing, journaling...
+
+.centering
+  #centeredContent.centered-content
+  #footer.footer
+    .box: ul
+      li: a About
+      li: a Blog
+      li: a Investors
+    .box: ul
+      li: a Careers
+      li: a APIs
+      li: a Legal
+    .box: ul
+      li: a Contact Us
+      li: a Press
+      li
+        .social
+          a.twitter(target='blank',href='http://twitter.com/SpocdocApp')
+          a.angel-list(target='blank')
+          a.gust(target='blank')
+          a.linkedin(target='blank')
+    .bottom-box
+      a.made-in-ny.hidden

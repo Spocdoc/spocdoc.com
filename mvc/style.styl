@@ -32,8 +32,28 @@
     box-shadow: inset 0 1px rgba(255, 255, 255, 0.15);
     easeVerySlow 'width'
 
-.no-css 
-  display none
+.no-css, .hidden
+  display none !important
+
+.btn
+  border none
+  background none
+  padding 0
+  margin 0
+  box-sizing content-box
+  color black
+  @extend $nofocus
+
+  &:hover
+    cursor pointer
+
+.icon-bar
+  display block
+  width 22px
+  height 2px
+  margin-top 4px
+  background black
+
 
 .no-scroll
   overflow hidden !important
@@ -61,6 +81,9 @@
   font-weight:normal
   font-style:normal
   src: url("/fonts/spocdicons.woff") format("woff"),url("/fonts/spocdicons.svg") format("svg"),url("/fonts/spocdicons.ttf") format("truetype")
+
+html
+  font-size 16px
 
 body
   @extend $sansserif
@@ -90,3 +113,6 @@ ul
 
   li
     display block
+
+@import './styl/print'
+@import './styl/dropdown_menu'
