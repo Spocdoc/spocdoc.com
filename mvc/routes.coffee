@@ -6,10 +6,16 @@ module.exports =
   list: (add) ->
     add '?:menu'
     add '?:dialog'
-    add '/'
+    add '/', page: ''
+    add '/about', page: 'about'
+    add '/blog', page: 'blog'
+    add '/explore', page: 'explore'
+    add '/search', page: 'search'
+    add '/connect', page: 'connect'
 
   configure: ->
     @map
+      page: '/page'
       menu: '/$menu'
       dialog: '/$dialog'
 

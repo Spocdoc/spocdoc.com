@@ -1,0 +1,66 @@
+@import '../../utils'
+
+.body-landing
+  // background LANDING_GRAY
+  min-height 26em
+  // margin-top -1px
+  margin-bottom 3em
+
+  .tagline
+    font-weight 300
+    text-align center
+    padding-top 2em
+    font-size 2.5em
+
+    em
+      color darken(LINK_COLOR, 20%)
+      font-weight bold
+      font-style normal
+
+  .promo
+    line-height 1.6em
+    margin auto
+    font-size 1.1em
+    max-width 30em
+    padding 0 unit(PADDING_SIDES_SMALL,em)
+
+  .headliner
+    margin-bottom 4em
+
+  .marketing-section-what
+    position relative
+    left unit(- PADDING_SIDES_SMALL, em)
+    padding unit(PADDING_SIDES_SMALL, em)
+    width 100%
+    margin unit(PADDING_SIDES_SMALL, em) auto
+    max-width 35em
+
+    @extend $article-text
+
+    h1
+      margin-top 0
+      font-size 1.5em
+      font-weight normal
+
+  .invite-section
+    text-align center
+    padding-top 2em
+
+    .invite-me
+      font-size 1.5em
+
+    .find-out-more
+      @extend $button
+
+
+  @media MEDIA_NO_PHONE_MODE
+    .tagline
+      font-size 3em
+
+    .promo
+      font-size 1.2em
+      max-width 35em
+
+    .marketing-section
+      h1
+        font-size 2em

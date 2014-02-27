@@ -25,11 +25,13 @@
   text-align center
   width 100%
   position absolute
+  z-index 0
   left 0
   bottom 0
 
 .main-menu
   position absolute
+  z-index 1
   left 1em
   bottom 3px
 
@@ -52,16 +54,29 @@
   // line-height unit(LOGGED_OUT_HEIGHT - TAB_HEAD - TAB_FOOT, em)
   // position absolute
   // bottom 0
-  margin-bottom -0.2em
+  margin-bottom -3px
+  @extend $inline-block
 
   span
     display none
     font-size 2em
 
-  &:before
-    font-family spocdicons
-    content: '\f020'
-    font-size 2em
+  a
+    cursor pointer
+
+    &, &:link, &:visited
+      color BLACK_COLOR
+      ease 'color'
+
+    &:hover
+      text-decoration none
+      color LINK_COLOR
+      ease 'color'
+
+    &:before
+      font-family spocdicons
+      content: '\f020'
+      font-size 2em
 
 .log-in
   cursor pointer

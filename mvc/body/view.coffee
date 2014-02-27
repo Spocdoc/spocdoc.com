@@ -1,22 +1,41 @@
 regexOn = /(?:^|\s+)on(?:$|\s+)/g
 
+tabs = [
+  'about'
+  'blog'
+  'explore'
+  'connect'
+  'docs'
+  'search'
+]
+
 module.exports =
   outlets: [
     'menu'
     'dialog'
+    'content'
+    'tab'
   ]
 
   internal: [
     'dialogView'
   ]
 
+  $content: 'view'
   $menuButton: linkdown: ['toggleMenu', 'on']
   $logIn: linkup: ['toggleMenu', 'login']
   $logInBack: linkdown: ['toggleMenu','login']
   $inviteMe1: linkdown: ['toggleDialog','inviteMe']
   $inviteMe2: linkdown: ['toggleDialog','inviteMe']
-  $inviteMe3: linkdown: ['toggleDialog','inviteMe']
   $dialog: view: 'dialogView'
+
+  $about: link: ['depute','showPage','about']
+  $blog: link: ['depute','showPage','blog']
+  $explore: link: ['depute','showPage','explore']
+  $connect: link: ['depute','showPage','connect']
+  $docs: link: ['depute','showPage','docs']
+  $search: link: ['depute','showPage','search']
+  $logo: link: ['depute','showPage','']
   
   toggleMenu: (which) ->
     menu = @menu.get() || ''
@@ -56,9 +75,12 @@ module.exports =
 
       @$bar.toggleClass 'blurred', blur
       @$content.toggleClass 'blurred', blur
-      @$centeredContent.toggleClass 'blurred', blur
       @$footer.toggleClass 'blurred', blur
 
+    (tab) ->
+      for t in tabs
+        @$[t].toggleClass 'selected', !!(t is tab)
+      return
 
   ]
 

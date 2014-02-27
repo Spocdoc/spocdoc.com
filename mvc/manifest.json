@@ -13,13 +13,16 @@
     "mediator": "mediator",
     "layout": "layout.jade",
     "templates": {
+        "body/about": "body/about/template.jade",
         "body/invite_me": "body/invite_me/template.jade",
+        "body/landing": "body/landing/template.jade",
         "body": "body/template.jade",
         "dialog": "views/dialog.jade",
         "slides": "views/slides.jade"
     },
     "styles": {
         "body/invite_me": "body/invite_me/style.styl",
+        "body/landing": "body/landing/style.styl",
         "body": "body/style.styl",
         "": "style.styl",
         "dialog": "views/dialog.styl",
@@ -27,7 +30,9 @@
     },
     "models": {},
     "views": {
+        "body/about": "body/about/view.coffee",
         "body/invite_me": "body/invite_me/view.coffee",
+        "body/landing": "body/landing/view.coffee",
         "body": "body/view.coffee",
         "dialog": "views/dialog.coffee",
         "slides": "views/slides.coffee"
@@ -106,9 +111,11 @@
                         "../../dom_mobile/lib/index.coffee",
                         "../../dom_mobile/browser -ios/index.coffee",
                         "index.coffee", "views/slides.coffee",
-                        "body/invite_me/view.coffee", "routes.coffee",
-                        "body/controller.coffee",
-                        "views/dialog.coffee", "body/view.coffee"
+                        "body/invite_me/view.coffee",
+                        "views/dialog.coffee", "routes.coffee",
+                        "body/landing/view.coffee",
+                        "body/about/view.coffee", "body/view.coffee",
+                        "body/controller.coffee"
                     ],
                     "generated": "bundle/debug [-ie<=8 -ios debug].js"
                 },
@@ -181,9 +188,11 @@
                         "../../dom_mobile/browser ios/safari.coffee",
                         "../../dom_mobile/browser ios/index.coffee",
                         "index.coffee", "views/slides.coffee",
-                        "body/invite_me/view.coffee", "routes.coffee",
-                        "body/controller.coffee",
-                        "views/dialog.coffee", "body/view.coffee"
+                        "body/invite_me/view.coffee",
+                        "views/dialog.coffee", "routes.coffee",
+                        "body/landing/view.coffee",
+                        "body/about/view.coffee", "body/view.coffee",
+                        "body/controller.coffee"
                     ],
                     "generated": "bundle/debug [-ie<=8 debug ios].js"
                 }
@@ -191,8 +200,9 @@
             "css": {
                 "": {
                     "sources": ["body/invite_me/style.styl",
-                        "body/style.styl", "style.styl",
-                        "views/dialog.styl", "views/slides.styl"
+                        "body/landing/style.styl", "body/style.styl",
+                        "style.styl", "views/dialog.styl",
+                        "views/slides.styl"
                     ],
                     "generated": "bundle/debug [].css"
                 }
