@@ -5,24 +5,31 @@
         "fileCacheFor": ["styl"],
         "hashAssets": true,
         "assetRoot": "../public",
-        "assetServerRoot": "//spocdoc.com:8081",
+        "assetServerRoot": "//127.0.0.1:8081",
+        "templateGlobals": "template_globals.coffee",
         "disableClientJS": false
     },
     "routes": "routes",
     "mediator": "mediator",
     "layout": "layout.jade",
     "templates": {
+        "body/invite_me": "body/invite_me/template.jade",
         "body": "body/template.jade",
+        "dialog": "views/dialog.jade",
         "slides": "views/slides.jade"
     },
     "styles": {
+        "body/invite_me": "body/invite_me/style.styl",
         "body": "body/style.styl",
         "": "style.styl",
+        "dialog": "views/dialog.styl",
         "slides": "views/slides.styl"
     },
     "models": {},
     "views": {
+        "body/invite_me": "body/invite_me/view.coffee",
         "body": "body/view.coffee",
+        "dialog": "views/dialog.coffee",
         "slides": "views/slides.coffee"
     },
     "controllers": {
@@ -31,11 +38,14 @@
     "bundle": {
         "debug": {
             "js": {
-                "-ie<=8 debug": {
+                "-ie<=8 -ios debug": {
                     "sources": ["../../es5/browser-min.js",
                         "../../sockio-fork/browser/socket.io.min.js",
                         "../../debug-fork/browser debug/debug.min.js",
                         "../../dom-fork/$/jquery/browser-min -ie<9 debug/jquery-2.0.3.js",
+                        "../../dom-fork/$/browser.coffee",
+                        "../../dom-fork/index.coffee",
+                        "../../html5/browser -ie<9/index.coffee",
                         "../../json-fork/browser -ie<8/index.js",
                         "../../console-fork/index.js",
                         "../../function_names/browser.coffee",
@@ -60,8 +70,6 @@
                         "../../diff-fork/lib/diff.coffee",
                         "../../diff-fork/index.coffee",
                         "../../outlet/index.coffee",
-                        "../../dom-fork/$/browser.coffee",
-                        "../../dom-fork/index.coffee",
                         "../../ace_mvc/lib/ace/link.coffee",
                         "../../ace_mvc/lib/ace/outlet_wrap.coffee",
                         "../../manifest_mvc/type_to_class.coffee",
@@ -90,16 +98,101 @@
                         "../../ace_mvc/lib/ace/build/browser.coffee",
                         "../../ace_mvc/lib/ace/index.coffee",
                         "../../ace_mvc/browser.coffee",
+                        "../../dom_selection/browser/rangy/browser -ie<9.coffee",
+                        "../../dom_selection/browser/index.coffee",
+                        "../../dom_text/browser/index.coffee",
+                        "../../events-fork/emitter.coffee",
+                        "../../dom_focus_group/index.coffee",
+                        "../../dom_mobile/lib/index.coffee",
+                        "../../dom_mobile/browser -ios/index.coffee",
+                        "index.coffee", "views/slides.coffee",
+                        "body/invite_me/view.coffee", "routes.coffee",
                         "body/controller.coffee", "body/view.coffee",
-                        "routes.coffee", "views/slides.coffee"
+                        "views/dialog.coffee"
                     ],
-                    "generated": "bundle/debug [-ie<=8 debug].js"
+                    "generated": "bundle/debug [-ie<=8 -ios debug].js"
+                },
+                "-ie<=8 debug ios": {
+                    "sources": ["../../es5/browser-min.js",
+                        "../../sockio-fork/browser/socket.io.min.js",
+                        "../../debug-fork/browser debug/debug.min.js",
+                        "../../dom-fork/$/jquery/browser-min -ie<9 debug/jquery-2.0.3.js",
+                        "../../dom-fork/$/browser.coffee",
+                        "../../dom-fork/index.coffee",
+                        "../../html5/browser -ie<9/index.coffee",
+                        "../../json-fork/browser -ie<8/index.js",
+                        "../../console-fork/index.js",
+                        "../../function_names/browser.coffee",
+                        "../../lodash-fork/browser.coffee",
+                        "../../debug-fork/browser debug/index.coffee",
+                        "../../ojson/index.coffee",
+                        "../../uri-fork/querystring.coffee",
+                        "../../uri-fork/index.coffee",
+                        "../../navigate-fork/index.coffee",
+                        "../../navigate-fork/cache.coffee",
+                        "../../mongo-fork/browser.coffee",
+                        "../../diff-fork/clone/index.coffee",
+                        "../../diff-fork/lib/types/object.coffee",
+                        "../../diff-fork/lib/types/array.coffee",
+                        "../../diff-fork/lib/types/number.coffee",
+                        "../../diff-fork/lib/types/string/diff_match_patch.js",
+                        "../../diff-fork/lib/types/string/index.coffee",
+                        "../../diff-fork/lib/types/date.coffee",
+                        "../../diff-fork/lib/register.coffee",
+                        "../../diff-fork/lib/to_mongo.coffee",
+                        "../../diff-fork/lib/to_outlets.coffee",
+                        "../../diff-fork/lib/diff.coffee",
+                        "../../diff-fork/index.coffee",
+                        "../../outlet/index.coffee",
+                        "../../ace_mvc/lib/ace/link.coffee",
+                        "../../ace_mvc/lib/ace/outlet_wrap.coffee",
+                        "../../manifest_mvc/type_to_class.coffee",
+                        "../../ace_mvc/lib/mvc/build_classes.coffee",
+                        "../../ace_mvc/lib/mvc/configs.coffee",
+                        "../../ace_mvc/lib/mvc/template.coffee",
+                        "../../ace_mvc/lib/ace/jquery_monkey/browser.coffee",
+                        "../../cookies-fork/lib/utils.coffee",
+                        "../../cookies-fork/browser.coffee",
+                        "../../ace_mvc/lib/router/route/parse_route.coffee",
+                        "../../ace_mvc/lib/router/route/path.coffee",
+                        "../../ace_mvc/lib/router/route/query_hash.coffee",
+                        "../../ace_mvc/lib/router/route/index.coffee",
+                        "../../ace_mvc/lib/router/var.coffee",
+                        "../../ace_mvc/lib/router/context.coffee",
+                        "../../ace_mvc/lib/router/index.coffee",
+                        "../../ace_mvc/lib/mvc/model/query_client/browser.coffee",
+                        "../../ace_mvc/lib/mvc/model/query.coffee",
+                        "../../ace_mvc/lib/mvc/model/register.coffee",
+                        "../../ace_mvc/lib/mvc/base.coffee",
+                        "../../diff-fork/conflict/index.coffee",
+                        "../../ace_mvc/lib/mvc/model/index.coffee",
+                        "../../ace_mvc/lib/mvc/view.coffee",
+                        "../../ace_mvc/lib/mvc/controller.coffee",
+                        "../../sockio-fork/browser/index.coffee",
+                        "../../ace_mvc/lib/ace/build/browser.coffee",
+                        "../../ace_mvc/lib/ace/index.coffee",
+                        "../../ace_mvc/browser.coffee",
+                        "../../dom_selection/browser/rangy/browser -ie<9.coffee",
+                        "../../dom_selection/browser/index.coffee",
+                        "../../dom_text/browser/index.coffee",
+                        "../../events-fork/emitter.coffee",
+                        "../../dom_focus_group/index.coffee",
+                        "../../dom_mobile/lib/index.coffee",
+                        "../../dom_mobile/browser ios/safari.coffee",
+                        "../../dom_mobile/browser ios/index.coffee",
+                        "index.coffee", "views/slides.coffee",
+                        "body/invite_me/view.coffee", "routes.coffee",
+                        "body/controller.coffee", "body/view.coffee",
+                        "views/dialog.coffee"
+                    ],
+                    "generated": "bundle/debug [-ie<=8 debug ios].js"
                 }
             },
             "css": {
                 "": {
-                    "sources": ["body/style.styl", "style.styl",
-                        "views/slides.styl"
+                    "sources": ["body/invite_me/style.styl",
+                        "body/style.styl", "style.styl",
+                        "views/dialog.styl", "views/slides.styl"
                     ],
                     "generated": "bundle/debug [].css"
                 }
@@ -241,5 +334,6 @@
                 }
             }
         }
-    }
+    },
+    "index": "index"
 }

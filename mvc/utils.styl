@@ -10,6 +10,22 @@ $serif
   font-family: Georgia, 'Times New Roman', Times, serif
   line-height 1.6em
 
+$article-text
+  font-weight 300
+  line-height 1.6em
+
+  ul
+    list-style-type disc
+    list-style-position inside
+    text-indent -1em
+    padding-left 1em
+    margin-top 1em
+    margin-bottom 1em
+
+    li
+      display list-item
+
+
 $fixed
   font-family: Menlo, Monoco, Andale Mono, Courier, monospace
   font-size: 0.9em
@@ -21,6 +37,10 @@ $inline-block
   display inline-block
   *display inline
   *zoom 1
+
+$strong-shadow
+  box-shadow 0 3px 11px hsla(0, 0%, 0%, 0.5) !important
+
 
 @import './styl/colors'
 @import './styl/constants.styl'
@@ -70,6 +90,37 @@ $placeholder-editable
 $focusShadow
   box-shadow: inset 0px 1px 2px rgba(0,0,0,0.1)
 
+$menu-content
+  border-color #999
+  border-color rgba(0,0,0,0.2)
+  border-style solid
+  border-width 1px
+  border-radius 4px
+  box-shadow 0 5px 10px rgba(0,0,0,0.2)
+  background-clip padding-box
+
+  background #fff
+  background-color rgba(255,255,255,.98)
+  border 0
+  box-shadow 0 1px 4px rgba(0,0,0,.25)
+  padding 10px 0 5px
+  user-select none
+
+$form-field-borders-box
+  @extend $IE-TRANSPARENT
+  outline none
+  background none
+  padding 0
+  margin 0
+  border 1px solid #ccc
+
+  &:hover
+    border-color hsl(0,0,50%)
+
+  &:focus, &.focus, &.focus:hover, &:focus:hover
+    border-color LINK_COLOR
+
+
 $form-field-borders
   @extend $IE-TRANSPARENT
 
@@ -101,6 +152,7 @@ $message
   padding 0.3em 1em 0.3em 2.2em
   -webkit-font-smoothing antialiased
   position relative
+  white-space normal
 
 $message-content
   &:before

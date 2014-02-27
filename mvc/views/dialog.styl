@@ -1,0 +1,106 @@
+@import '../utils.styl'
+
+TITLEBAR_HEIGHT = 2
+
+.dialog
+  position fixed
+  top 0
+  left 0
+  width 100%
+  height 100%
+
+  .centering
+    height 100%
+    padding unit(LOGGED_OUT_HEIGHT - 1, em) unit(PADDING_SIDES_SMALL, em) !important
+    box-sizing border-box
+
+  &.small
+    .centering
+      max-width 30em !important
+
+    .dialog-content
+      padding-left unit(PADDING_SIDES_SMALL, em)
+      padding-right unit(PADDING_SIDES_SMALL, em)
+
+    .dialog-container
+      height auto !important
+      max-height 100%
+      overflow auto !important // XXX this is a bug: causes the title bar to scroll also
+
+.dialog-container
+  position relative
+  z-index 20
+  margin 0
+  padding 0
+  height 100%
+  overflow hidden
+  @extend $menu-content
+  @extend $strong-shadow
+
+.dialog-back
+  position fixed
+  top 0 
+  left 0
+  width 100%
+  height 100%
+  z-index -1
+  background none
+
+.dialog-title-bar
+  text-align center
+
+  margin 0
+  padding 0 unit(PADDING_SIDES_SMALL, em)
+  height unit(TITLEBAR_HEIGHT, em)
+  box-sizing border-box
+
+  height unit(TITLEBAR_HEIGHT, em)
+  overflow hidden
+
+  line-height unit(TITLEBAR_HEIGHT, em)
+  font-size 1.25em
+
+  .dialog-close
+    @extend $inline-block
+    position absolute
+    z-index 1
+    right 0
+    padding 0 unit(PADDING_SIDES_SMALL, em)
+    cursor pointer
+
+    &, &:link, &:visited
+      color BOTTOM_COLOR
+
+    &:hover
+      text-decoration none
+      color LINK_COLOR
+
+    &:before
+      content: '\f051'
+      font-family spocdicons
+      font-size 0.5em
+      vertical-align 1em
+
+    span
+      display none
+
+  h1
+    @extend $inline-block
+    padding 0 2em
+    margin 0
+    font-size inherit
+    font-weight normal
+    text-overflow ellipsis
+    overflow hidden
+    white-space nowrap
+    box-sizing border-box
+    max-width 100%
+
+.dialog-content
+  position relative
+  top unit(- TITLEBAR_HEIGHT - MENU_PADDING_TOP, em)
+  margin-bottom unit(- TITLEBAR_HEIGHT - MENU_PADDING_TOP, em)
+  padding-top unit(TITLEBAR_HEIGHT + MENU_PADDING_TOP, em)
+  height 100%
+  box-sizing border-box
+

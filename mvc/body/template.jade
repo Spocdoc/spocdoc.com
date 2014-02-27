@@ -1,6 +1,6 @@
 include ../utils
 
-.bar
+.bar#bar
   .centering
     .bar-content
       .bar-border
@@ -20,7 +20,7 @@ include ../utils
             li: a.selected.search#search(title="Search"): span Search
 
           ul.right-div
-            li: a.invite-me: span Invite me!
+            li: a#inviteMe1.invite-me: span Invite me!
             li.menu-divider: hr
             li.menu-outer.login-menu
               a#logIn.log-in.has-menu: span Log In
@@ -34,7 +34,17 @@ include ../utils
                   li: a Github
                   li: a LinkedIn
                   li.menu-divider: hr
-                  li: a New Account
+                form.form
+                  label.input-group.has-error
+                    input(type='text', spellcheck="false", placeholder="Username or email")#username
+                    p.error#usernameError This username doesn't exist
+                  label.input-group
+                    input(type="password", placeholder="Password")#password
+                    p.error#passwordError This password doesn't match
+                  div.submit-div#submitDiv
+                    button(type="submit").submit#submit.has-spinner
+                      span Log In
+                    #submitSpinner.spinner(title="Waiting for the server...")
 
 
             //.menu-outer.hidden
@@ -50,7 +60,7 @@ include ../utils
                   li: a Log Out
 
       .right-div.right-div-min
-        a.invite-me: span Invite me!
+        a#inviteMe2.invite-me: span Invite me!
             
 hr.no-css
 #content.content
@@ -85,3 +95,5 @@ hr.no-css
           a.linkedin(target='blank')
     .bottom-box
       a.made-in-ny.hidden
+
+#dialog

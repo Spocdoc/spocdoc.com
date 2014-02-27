@@ -12,6 +12,100 @@
 .centering
   @extend $centering
 
+.no-scroll
+  overflow hidden
+
+.blurred
+  -webkit-filter blur(5px)
+  opacity 0.5
+
+.oauth-list
+  list-style-type none !important
+  text-indent 0 !important
+  padding 0 !important
+  text-align center !important
+
+  li
+    display inline-block !important
+
+    a
+      @extend $button-blue
+      margin 5px
+
+
+
+.form
+  .submit-div
+    position relative
+    text-align center
+    margin 0
+    padding 0
+
+  .submit
+    background none
+    border none
+    font-size 1em
+    padding 0
+    margin 0
+    outline 0
+    color #ccc
+
+    span
+      display none
+
+    &:hover
+      cursor default
+
+  .submit:before
+    // content: '\f026';
+    content: '\f050';
+    font-family: spocdicons;
+    font-size 1.6em
+    line-height 1.6em
+
+  .can-submit
+    &:hover
+      cursor pointer
+      color LINK_COLOR
+
+  .can-submit
+    color: BLACK_COLOR
+
+  .can-submit:active
+    color darken(LINK_COLOR,20%)
+
+  .input-group
+    // width 11em
+    margin 5px 20px
+    display block
+
+    input
+      @extend $form-field-borders-box
+      background none
+      color BLACK_COLOR
+      margin 0
+
+      width 100%
+      box-sizing border-box
+
+      font-size 1em
+
+      padding 0.2em 0.5em
+      line-height 1.6em
+
+    .error
+      @extend $error-message
+      display none
+      border-radius 0 0 4px 4px
+      margin-top 0
+
+    &.has-error
+      input
+        border-color ERROR_COLOR !important
+
+      .error
+        display block
+
 .progress-meter
   clear: left;
   margin: 12px 10px 4px;
@@ -99,6 +193,9 @@ a
 
   &:hover
     text-decoration underline
+
+  &:active
+    color darken(LINK_COLOR,20%)
 
   &:link
     color LINK_COLOR

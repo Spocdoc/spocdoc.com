@@ -1,0 +1,23 @@
+p Spocdoc is currently in limited release, so is invitation-based.
+
+ul.instructions
+  li Use one of the services below and we'll email the address they have.
+  li Or enter your email and we'll email you a link when a spot opens.
+
+ul.oauth-list
+  li: a.evernote Evernote
+  li: a.twitter Twitter
+  li: a.github Github
+  li: a.linkedin LinkedIn
+
+hr
+
+form.form
+  label.input-group.has-error
+    input(type='text', spellcheck="false", placeholder="Email")#username
+    p.error#usernameError This email is invalid
+  div.submit-div#submitDiv
+    button(type="submit").submit#submit.has-spinner
+      span Invite me!
+    #submitSpinner.spinner(title="Waiting for the server...")
+
