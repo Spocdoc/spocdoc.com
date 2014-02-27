@@ -1,4 +1,5 @@
-#!/usr/bin/env coffee#--nodejs --debug-brk
+#!/usr/bin/env coffee
+#--nodejs --debug-brk
 
 Manifest = require 'manifest_mvc'
 
