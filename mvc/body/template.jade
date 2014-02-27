@@ -5,13 +5,12 @@ include ../utils
     .bar-content
       .bar-border
       .logo-container
-        h1.logo-h1: a#logo.logo(title="Spocdoc"): span SpocDoc
+        h1.logo-h1: a#logo.logo(title="Spocdoc"): span Spocdoc
       a#plus.plus(title="Create").hidden: span Create
 
-      .menu-outer.main-menu
-        +menu-button
+      .menu-outer.main-menu#mainMenu
+        +menu-button('menuButton')
         +menu-center
-          h1 Log In With
           ul.tabs
             li: a.about#about(title="About"): span About
             li: a.blog#blog(title="Blog"): span Blog
@@ -23,7 +22,20 @@ include ../utils
           ul.right-div
             li: a.invite-me: span Invite me!
             li.menu-divider: hr
-            li: a.log-in.has-menu: span Log In
+            li.menu-outer.login-menu
+              a#logIn.log-in.has-menu: span Log In
+              +menu-right
+                .heading
+                  a#logInBack.back: span back
+                  h3 Log In
+                ul
+                  li: a Evernote
+                  li: a Twitter
+                  li: a Github
+                  li: a LinkedIn
+                  li.menu-divider: hr
+                  li: a New Account
+
 
             //.menu-outer.hidden
               a Mike Robertson
@@ -36,15 +48,6 @@ include ../utils
                   li: a Help
                   li.menu-divider: hr
                   li: a Log Out
-
-              +menu-right
-                ul
-                  li: a Evernote
-                  li: a Twitter
-                  li: a Github
-                  li: a LinkedIn
-                  li.menu-divider: hr
-                  li: a New Account
 
       .right-div.right-div-min
         a.invite-me: span Invite me!

@@ -12,15 +12,18 @@
     "mediator": "mediator",
     "layout": "layout.jade",
     "templates": {
-        "body": "body/template.jade"
+        "body": "body/template.jade",
+        "slides": "views/slides.jade"
     },
     "styles": {
         "body": "body/style.styl",
-        "": "style.styl"
+        "": "style.styl",
+        "slides": "views/slides.styl"
     },
     "models": {},
     "views": {
-        "body": "body/view.coffee"
+        "body": "body/view.coffee",
+        "slides": "views/slides.coffee"
     },
     "controllers": {
         "body": "body/controller.coffee"
@@ -87,15 +90,18 @@
                         "../../ace_mvc/lib/ace/build/browser.coffee",
                         "../../ace_mvc/lib/ace/index.coffee",
                         "../../ace_mvc/browser.coffee",
-                        "body/controller.coffee", "body/view.coffee",
-                        "routes.coffee"
+                        "views/slides.coffee",
+                        "body/controller.coffee", "routes.coffee",
+                        "body/view.coffee"
                     ],
                     "generated": "bundle/debug [-ie<=8 debug].js"
                 }
             },
             "css": {
                 "": {
-                    "sources": ["body/style.styl", "style.styl"],
+                    "sources": ["body/style.styl", "style.styl",
+                        "views/slides.styl"
+                    ],
                     "generated": "bundle/debug [].css"
                 }
             }

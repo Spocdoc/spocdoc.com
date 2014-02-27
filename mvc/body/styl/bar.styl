@@ -28,10 +28,23 @@
   left 0
   bottom 0
 
-.menu-outer
+.main-menu
   position absolute
   left 1em
-  bottom 4px
+  bottom 3px
+
+  & > .dropdown-caret-center,
+  & > .dropdown-menu
+    display none
+
+  &[data-menu~="on"]
+    & > .dropdown-caret-center,
+    & > .dropdown-menu
+      display block
+
+    .menu-button
+      .icon-bar
+        background LINK_COLOR
 
 .logo-h1
   margin 0
@@ -56,9 +69,9 @@
   &, &:link, &:visited
     color BLACK_COLOR
 
-  &:hover
-    text-decoration none
-    color LINK_COLOR
+.main-menu[data-menu~='login'] .log-in, .log-in:hover
+  text-decoration none
+  color LINK_COLOR
 
 .has-menu
   &:after
@@ -75,7 +88,7 @@
 .dropdown-menu li > a.invite-me, .invite-me
   @extend $button-green
 
-.menu-outer
+.main-menu
   .right-div
     .invite-me
       display none
@@ -86,6 +99,7 @@
   bottom 0
 
 .right-div
+  text-align left
   .invite-me
     margin-right 0
     margin-bottom 2px
@@ -107,6 +121,83 @@
   width 40px
   height 40px
   margin auto
+
+.login-menu
+  & > .dropdown-caret-right,
+  & > .dropdown-menu-right,
+  .heading
+    display none
+
+WWS = WIDTH_WITH_SIDEBAR
+WOS = WIDTH_WITHOUT_SIDEBAR
+T1 = LOGGED_OUT_FULL
+T10 = LOGGED_OUT_FULL_SMALL
+
+MWWS = MEDIA_WITH_SIDEBAR
+MT10 = "not screen and (min-width: " + (T10) + "em)"
+
+@media MT10
+  .main-menu[data-menu~='login']
+    .tabs
+      display none
+
+    .right-div
+      & > .menu-divider 
+        display none
+
+      .login-menu
+        .log-in
+          display none
+
+        & > .dropdown-menu-right
+          position static
+          display block
+          margin 0
+          padding 0
+          border 0
+          box-shadow none
+
+        .heading
+          display block
+          height 2em
+          position relative
+          z-index 2
+          background #f5f5f5
+          border-radius 4px 4px 0 0
+          margin-top -10px
+
+          .back
+            position absolute
+            display block 
+            width 1em
+            top 0.5em
+            left 0.5em
+
+            &, &:link, &:visited
+              color #969696
+
+            span
+              display none
+
+            &:before
+              content '\f048'
+              font-family spocdicons
+              margin-left 0.1em
+              margin-right 0.8em
+
+            &:hover
+              color LINK_COLOR
+              text-decoration none
+
+          h3
+            margin-top 0
+            padding 0 20px 0 2em
+            font-size 1em
+            font-weight bold
+            line-height 2em
+            white-space nowrap
+            padding-right 20px
+
 
 @import './bar_landing.styl'
 @import './bar_logged_out.styl'

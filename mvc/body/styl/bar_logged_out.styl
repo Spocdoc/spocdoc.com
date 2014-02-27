@@ -7,8 +7,28 @@ MWWS = MEDIA_WITH_SIDEBAR
 MT10 = "only screen and (min-width: " + (T10) + "em)"
 
 hideMenu()
-  .menu-outer .menu-button, .dropdown-caret, .dropdown-caret-center, .dropdown-caret-right
-    display none
+  .main-menu
+    & > .menu-button,
+    & > .dropdown-caret,
+    & > .dropdown-caret-center,
+    & > .dropdown-caret-right
+      display none !important
+
+    & > .dropdown-menu
+      display block !important
+
+    &[data-menu~="login"]
+      .login-menu
+        & > .dropdown-caret-right,
+        & > .dropdown-menu-right
+          display block
+
+  .login-menu
+    & > .dropdown-caret-right
+      right -22px
+
+    & > .dropdown-menu-right
+      right -22px
 
   .logo-container
     text-align left
@@ -22,13 +42,13 @@ hideMenu()
     bottom 0
     right 0
 
-    li
+    & > li
       display inline !important
 
-    li > a
+    & > li > a
       font-size 1em
 
-    .menu-divider
+    & > li.menu-divider
       display none
 
     .invite-me
@@ -45,40 +65,39 @@ hideMenu()
         background none !important
         color LINK_COLOR !important
 
-
       span
         display none
 
   .right-div-min
     display none
 
-  .menu-outer
+  .main-menu
     position absolute
     width 100%
     text-align center
     bottom 0
     left 0
 
-  .dropdown-menu
-    background none
-    box-shadow none
-    border none
-    position static
-    white-space nowrap
-    padding 0
-    margin 0
+    & > .dropdown-menu
+      background none
+      box-shadow none
+      border none
+      position static
+      white-space nowrap
+      padding 0
+      margin 0
 
-    .tabs li
-      display inline-block
+      .tabs li
+        display inline-block
 
-      & > a
-        font-size 1em
-        padding 4px 15px 2px
-        margin-bottom 1px
+        & > a
+          font-size 1em
+          padding 4px 15px 2px
+          margin-bottom 1px
 
-        &.selected, &:hover
-          border-bottom 3px solid LINK_COLOR
-          margin-bottom -2px
+          &.selected, &:hover
+            border-bottom 3px solid LINK_COLOR
+            margin-bottom -2px
 
   .tabs
     .blog, .about
@@ -113,10 +132,12 @@ shortenRight()
     margin-right 0!important
       
 @media MWWS
-  .dropdown-menu
-    .tabs li > a
-      padding-right 20px
-      padding-left 20px
+  .main-menu
+    & > .dropdown-menu
+      .tabs li > a
+        padding-right 20px
+        padding-left 20px
+
   .right-div
     .log-in
       span
