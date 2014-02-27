@@ -90,9 +90,8 @@
                         "../../ace_mvc/lib/ace/build/browser.coffee",
                         "../../ace_mvc/lib/ace/index.coffee",
                         "../../ace_mvc/browser.coffee",
-                        "views/slides.coffee",
-                        "body/controller.coffee", "routes.coffee",
-                        "body/view.coffee"
+                        "body/controller.coffee", "body/view.coffee",
+                        "routes.coffee", "views/slides.coffee"
                     ],
                     "generated": "bundle/debug [-ie<=8 debug].js"
                 }
