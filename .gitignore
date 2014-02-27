@@ -1,7 +1,5 @@
 node_modules
 package.yml
-public/*
-!public/bundle
 public/bundle/debug*
 test
 .*.css
