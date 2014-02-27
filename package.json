@@ -26,6 +26,7 @@
     "marked-fork": "0.x",
     "outlet": "0.x",
     "ojson": "0.x",
-    "manifest_mvc": "0.x"
+    "manifest_mvc": "0.x",
+    "dom_focus_group": "0.x"
   }
 }
