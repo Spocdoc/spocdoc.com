@@ -3,13 +3,29 @@
   min-height 26em
   // margin-top -1px
 
+
 .tagline
   font-weight 300
-  font-size 3em
   text-align center
   padding-top 2em
+  font-size 2.5em
 
   em
     color darken(LINK_COLOR, 20%)
     font-weight bold
     font-style normal
+
+.promo
+  line-height 1.6em
+  margin auto
+  font-size 1.1em
+  max-width 30em
+
+@media MEDIA_NO_PHONE_MODE
+  .tagline
+    font-size 3em
+
+  .promo
+    font-size 1.2em
+    max-width 35em
+  
