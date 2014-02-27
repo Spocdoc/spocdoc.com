@@ -15,6 +15,7 @@ module.exports =
   $logInBack: linkdown: ['toggleMenu','login']
   $inviteMe1: linkdown: ['toggleDialog','inviteMe']
   $inviteMe2: linkdown: ['toggleDialog','inviteMe']
+  $inviteMe3: linkdown: ['toggleDialog','inviteMe']
   $dialog: view: 'dialogView'
   
   toggleMenu: (which) ->

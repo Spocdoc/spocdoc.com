@@ -107,8 +107,8 @@
                         "../../dom_mobile/browser -ios/index.coffee",
                         "index.coffee", "views/slides.coffee",
                         "body/invite_me/view.coffee", "routes.coffee",
-                        "body/controller.coffee", "body/view.coffee",
-                        "views/dialog.coffee"
+                        "body/controller.coffee",
+                        "views/dialog.coffee", "body/view.coffee"
                     ],
                     "generated": "bundle/debug [-ie<=8 -ios debug].js"
                 },
@@ -182,8 +182,8 @@
                         "../../dom_mobile/browser ios/index.coffee",
                         "index.coffee", "views/slides.coffee",
                         "body/invite_me/view.coffee", "routes.coffee",
-                        "body/controller.coffee", "body/view.coffee",
-                        "views/dialog.coffee"
+                        "body/controller.coffee",
+                        "views/dialog.coffee", "body/view.coffee"
                     ],
                     "generated": "bundle/debug [-ie<=8 debug ios].js"
                 }
