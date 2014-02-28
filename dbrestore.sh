@@ -2,7 +2,7 @@
 
 main()
 {
-  mongorestore --host /tmp/mongodb-27017.sock 
+  mongorestore --host /tmp/mongodb-27017.sock $1
   
 }
 
