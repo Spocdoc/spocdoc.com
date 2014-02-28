@@ -2,14 +2,17 @@ module.exports =
   inlets: [
     'main'
     'sidebar'
+    'showSidebar'
   ]
 
   $main: 'view'
   $sidebar: 'view'
-
   $sidebarChevron: linkdown: 'toggleSidebar'
 
-  toggleSidebar: ->
-    @$root.toggleClass 'sidebar-shown'
+  outletMethods: [
+    (showSidebar) -> @$root.toggleClass 'sidebar-shown', !!showSidebar
+  ]
+
+  toggleSidebar: -> @showSidebar.set !@showSidebar.get()
 
 

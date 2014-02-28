@@ -6,6 +6,7 @@ module.exports =
   list: (add) ->
     add '?:menu'
     add '?:dialog'
+    add '?dsb=:docsShowSidebar'
     add '/', page: ''
     add '/about', page: 'about'
     add '/blog', page: 'blog'
@@ -18,4 +19,5 @@ module.exports =
       page: '/page'
       menu: '/$menu'
       dialog: '/$dialog'
+      docsShowSidebar: '/docs/$showSidebar'
 

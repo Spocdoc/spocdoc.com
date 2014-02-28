@@ -1,0 +1,90 @@
+@import '../../utils'
+
+$search-word
+  // intentionally not extending $inline-block. IE8 contenteditable block
+  display inline-block
+  display unquote('inline\0')
+
+.search-field
+
+  .search-container
+    width 75%
+    font-size 1.7em
+    position relative
+
+  .search-clear
+    position absolute
+    right 0
+    top 0
+    display block
+    font-size: 0.8em;
+    line-height: 2em;
+    padding-right: 3px;
+
+    &, &:link, &:visited
+      color: hsl(0, 0%, 70%);
+
+    &:hover
+      color LINK_COLOR
+      text-decoration none
+
+    &:before
+      content: '\f051'
+      font-family spocdicons
+      font-size 0.5em
+      vertical-align middle
+
+    span
+      display none
+
+  &.empty
+    .search-clear
+      display none
+
+  .search-header
+    @extend $sansserif
+    font-size 1em
+    font-weight normal
+    margin 0
+
+  .search-field
+    @extend $form-field-borders
+    @extend $placeholder-editable
+
+    overflow: hidden
+    margin-bottom 1.3em
+    padding: 3px 1.5em 3px 0;
+    white-space pre-wrap
+    min-height 1em
+
+    display block
+
+    .matched
+      font-weight bolder
+
+    .text
+      @extend $search-word
+
+    .tag
+      @extend $search-word
+      color DBLUE_COLOR 
+
+    .meta
+      @extend $search-word
+      color DGREEN_COLOR
+
+    .invalid
+      text-decoration line-through
+
+    .person
+      @extend $search-word
+      color DBLUE_COLOR
+
+  .search.focus, .search:focus, .search.focus:hover
+    border-bottom: 1px solid hsl(0,0%,56%)
+
+  .search:focus
+    @extend $nofocus
+
+  .search .matched
+    font-weight: bolder

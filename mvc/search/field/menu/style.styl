@@ -1,0 +1,105 @@
+@import '../../../utils'
+
+selectedBackground = hsl(0,0%,75%)
+
+.search-field-menu
+  position: absolute
+  background-color: white
+
+  min-width: 3em
+  max-width: 75%
+  width: auto !important
+  width: 50%
+
+  max-height: 50%
+  height: auto !important
+  height: 15em
+
+  overflow: hidden
+  overflow-y: auto
+
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  border: 1px solid #ccc;
+  border-top-color: #d9d9d9;
+
+  font-family: Helvetica, Arial, sans-serif
+  font-size: 13px
+
+  display: inline-block
+
+  ul
+    padding: 0
+    margin: 0
+
+  li
+    padding-left: 5px
+    list-style: none
+    line-height: 1.8em
+    white-space: nowrap
+    clear: right
+    overflow: hidden
+    text-overflow: ellipsis
+    padding-right: 0.8em
+
+  li.adorned
+      padding-right: 2.8em
+
+  li.selected
+    background: selectedBackground
+
+  li .matched
+    font-weight: bolder
+
+  li .stem
+    visibility: hidden
+
+  .slash
+    position: absolute
+    display: inline
+    z-index: 2
+    width: 1.8em
+    right: 0.4em
+    height: 1em
+    border-radius: 0.35em
+    text-align: center
+    font-family: Helvetica, Arial, sans-serif
+    font-size: 10px
+    color: black
+    margin-top: 0.4em
+    line-height: 1em
+    background: white
+
+  &.focus .slash
+    border: 0.2em solid darken(selectedBackground,20)
+
+  li .slash
+    @extend .search-field-menu .slash
+    display: none
+
+  li.selected .slash
+    display: block
+
+  li .tab
+    @extend .search-field-menu .slash
+    border: 0.2em solid darken(white, 20)
+    font-weight: normal
+    color: hsl(0,0%,42%)
+    display: block
+
+  &.focus li .tab
+    display: none
+
+  & li:hover
+    background-color: lighten(selectedBackground,20)
+
+  & li.selected:hover
+    background-color: selectedBackground
+
+  hr
+    border: 0
+    height: 0
+    padding: 0
+    margin: 0.2em
+    border-top: 1px solid rgba(0, 0, 0, 0.1)
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3)
+

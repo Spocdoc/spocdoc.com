@@ -5,12 +5,7 @@ module.exports =
     'doc'
   ]
 
-  $main: -> new @View['test'] this, 'main'
+  $main: -> new @View['md/article'] this, 'main', doc: => @doc
   $sidebar: -> new @View['sidebar_split'] this, 'sidebar',
-    top: new @View['docs/sidebar_top'] this, 'sidebarTop'
+    top: new @Controller['docs/sidebar_top'] this, 'sidebarTop'
     bottom: new @Controller['docs/sidebar_tabs'] this, 'sidebarTabs'
-
-  constructor: ->
-    # @sidebar.set sidebar = new @View['document/sidebar'] this, 'sidebar'
-    # @sidebarTabs.set sidebarTabs = new @Controller['document/sidebar_tabs'] this, 'sidebar_tabs'
-    return

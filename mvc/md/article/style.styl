@@ -1,0 +1,49 @@
+@import '../../utils'
+
+.md-article
+  .content
+    position relative
+
+    .html
+      @extend $article-text
+
+    .root
+      @extend $nofocus
+
+    .carat-spot
+      width 0
+      height 2px
+      position absolute
+      z-index -1
+      // background lighten(LINK_COLOR,20%)
+      background lighten(LINK_COLOR,20%)
+      easeSlow('width', 'left')
+
+      &.starting
+        transition none
+
+  a:hover
+    cursor: pointer
+
+  pre
+    @extend $fixed
+    padding: 0
+    margin: 0
+
+  .md-editor-heading
+    font-weight: bold
+
+  .md-html-heading
+    h1
+      font-size: 2em
+
+    h2
+      font-size: 1.5em
+
+    h3
+      font-size: 1.17em
+
+  .md-html-spaced-list li
+    margin-top: 1em
+
+
