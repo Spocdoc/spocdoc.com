@@ -1,3 +1,6 @@
+DOC_ABOUT = '6507bdb347de85cf373121da'
+
+
 module.exports =
   outlets: [
     'page'
@@ -16,8 +19,11 @@ module.exports =
           title: 'Invite Me!'
           small: true
           content: new @View['body/invite_me'] this, 'inviteMeContent'
+      when 'docs'
+        @controllers['docs'] ||= new @Controller['docs'] this, 'docs'
       when 'about'
-        @controllers['about'] ||= new @View['body/about'] this, 'about'
+        (controller = @getController('docs')).doc.set @Model['docs'].read DOC_ABOUT
+        controller
       else
         null
 

@@ -1,51 +1,53 @@
 @import '../utils'
 
-.content 
-  margin-top unit(LOGGED_OUT_HEIGHT,em)
+.body > .centering
+  & > .content 
+    margin-top unit(LOGGED_OUT_HEIGHT + 2,em)
 
-.footer
-  white-space nowrap
-  text-align justify
-  font-size 0.9em
-  padding-top unit(PADDING_SIDES_SMALL, em)
-  border-top 1px solid BOTTOM_COLOR
+  & > .footer
+    white-space nowrap
+    text-align justify
+    font-size 0.9em
+    padding-top unit(PADDING_SIDES_SMALL, em)
+    border-top 1px solid BOTTOM_COLOR
+    margin-top 3em
 
-  @media print
-    display none
+    @media print
+      display none
 
-  .box
-    float left
-    width 33%
-    text-align center
+    .box
+      float left
+      width 33%
+      text-align center
 
-    ul
-      text-align left
-      display inline-block
+      ul
+        text-align left
+        display inline-block
 
-  .bottom-box
-    clear both
-    text-align center
-    padding-top 1em
+    .bottom-box
+      clear both
+      text-align center
+      padding-top 1em
 
-.social
-  a
-    margin-right 0.15em
-    cursor pointer
+    .social
+      a
+        margin-right 0.15em
+        cursor pointer
 
-    &:hover
-      text-decoration none
+        &:hover
+          text-decoration none
 
-    &:before
-      font-family 'spocdicons'
+        &:before
+          font-family 'spocdicons'
 
-  .twitter:before
-    content: '\f030'
+      .twitter:before
+        content: '\f030'
 
-  .facebook:before
-    content: '\f031'
+      .facebook:before
+        content: '\f031'
 
-  .linkedin:before
-    content: '\f032'
+      .linkedin:before
+        content: '\f032'
 
 @import './styl/landing'
 @import './styl/bar'

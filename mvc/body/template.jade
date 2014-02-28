@@ -11,12 +11,12 @@ include ../utils
       .menu-outer.main-menu#mainMenu
         +menu-button('menuButton')
         +menu-center
-          ul.tabs
+          ul.main-tabs
             li: a.about#about(title="About"): span About
             li: a.blog#blog(title="Blog"): span Blog
-            li: a.explore#explore(title="Explore"): span Explore
+            li: a.hidden.explore#explore(title="Explore"): span Explore
             li: a.connect#connect(title="Connect"): span Connect
-            li: a.docs.has-menu-sep#docs(title="Docs"): span Docs
+            li: a.hidden.docs.has-menu-sep#docs(title="Docs"): span Docs
             li: a.search#search(title="Search"): span Search
 
           ul.right-div
@@ -68,22 +68,19 @@ hr.no-css
 
   #footer.footer
     .box: ul
-      li: a About
-      li: a Blog
+      li: a#footAbout About
+      li: a#footBlog Blog
       li: a Investors
     .box: ul
       li: a Careers
       li: a APIs
       li: a Legal
     .box: ul
-      li: a Contact Us
+      li: a(href="mailto:mike@spocdoc.com") Contact Us
       li: a Press
       li
         .social
           a.twitter(target='blank',href='http://twitter.com/SpocdocApp')
-          a.angel-list(target='blank')
-          a.gust(target='blank')
-          a.linkedin(target='blank')
     .bottom-box
       a.made-in-ny.hidden
 

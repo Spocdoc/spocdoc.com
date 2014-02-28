@@ -1,0 +1,28 @@
+@import '../utils'
+
+.sidebar_split
+  height 100%
+
+  & > table
+    height 100%
+    width 100%
+    border-spacing 0
+    border-collapse collapse
+    table-layout fixed
+    @extend $sansserif
+    font-size 0.9em
+
+    td
+      vertical-align top
+
+      &.sidebar-top
+        height 1%
+        width 100%
+      &.sidebar-bottom
+        height 99%
+        width 100%
+
+    .sidebar-bottom-content
+      height 100%
+      width 100%
+      position relative

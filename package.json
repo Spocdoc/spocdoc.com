@@ -30,6 +30,7 @@
     "dom_focus_group": "0.x",
     "dom_text": "0.x",
     "dom_mobile": "0.x",
+    "dates-fork": "0.x",
     "html5": "0.x"
   }
 }

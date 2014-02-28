@@ -36,6 +36,10 @@ module.exports =
   $docs: link: ['depute','showPage','docs']
   $search: link: ['depute','showPage','search']
   $logo: link: ['depute','showPage','']
+
+  # footer links
+  $footAbout: link: ['depute','showPage','about']
+  $footBlog: link: ['depute','showPage','blog']
   
   toggleMenu: (which) ->
     menu = @menu.get() || ''
@@ -80,6 +84,9 @@ module.exports =
     (tab) ->
       for t in tabs
         @$[t].toggleClass 'selected', !!(t is tab)
+
+      # don't show the footer if there's a fixed position element
+      @$footer.toggleClass 'hidden', !!tab
       return
 
   ]

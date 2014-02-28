@@ -1,0 +1,24 @@
+@import '../utils'
+
+.with_sidebar
+  .main
+    margin-right unit(SIDEBAR_WIDTH + MIN_SIDEBAR_PADDING, em)
+    background green
+
+  .sidebar-container
+    float right
+    width unit(SIDEBAR_WIDTH,em)
+
+  .sidebar
+    position fixed
+    top 0
+    height 100%
+    box-sizing border-box
+    margin 0
+    padding unit(LOGGED_OUT_HEIGHT, em) 0
+    width unit(SIDEBAR_WIDTH,em)
+
+  @media MEDIA_REMOVE_SIDEBAR
+
+    .main
+      margin-right 0

@@ -8,6 +8,7 @@
  [] add "or" text to the HR in the invite dialog
  [] add a graphic showing merge of services see img/2014-02-27-01.JPG
  [] the spocdoc logo shouldn't be a link when you're on the landing page
+ [] reorder the sidebar so that the content shows up at the top first
 
 # implementation
 
