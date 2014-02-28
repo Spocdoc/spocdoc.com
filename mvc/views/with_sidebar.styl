@@ -1,13 +1,19 @@
 @import '../utils'
 
+SIDEBAR_LAYER_RIGHT =  1.4
+SIDEBAR_FROM_BAR_BOTTOM = 2
+CHEVRON_FROM_TOP = 4
+
 .with_sidebar
   .main
-    margin-right unit(SIDEBAR_WIDTH + MIN_SIDEBAR_PADDING, em)
+    margin-right 0
     background green
 
   .sidebar-container
     float right
-    width unit(SIDEBAR_WIDTH,em)
+    width unit(SIDEBAR_WIDTH + 2 * PADDING_SIDES_SMALL,em)
+    position relative
+    left -0.4em
 
   .sidebar
     position fixed
@@ -15,10 +21,90 @@
     height 100%
     box-sizing border-box
     margin 0
-    padding unit(LOGGED_OUT_HEIGHT, em) 0
-    width unit(SIDEBAR_WIDTH,em)
+    padding unit(LOGGED_OUT_HEIGHT - SIDEBAR_FROM_BAR_BOTTOM, em) 0
+    width 0
+    z-index 900
 
-  @media MEDIA_REMOVE_SIDEBAR
+    .menu-outer
+      height 100%
+      width unit(SIDEBAR_WIDTH + 2 * PADDING_SIDES_SMALL,em)
+      left -9px
+      display none
 
+    .dropdown-caret
+      top unit(SIDEBAR_FROM_BAR_BOTTOM + CHEVRON_FROM_TOP, em)
+
+    .dropdown-menu
+      height 100%
+      position static
+      box-sizing border-box
+      padding-left unit(PADDING_SIDES_SMALL, em)
+      padding-right unit(PADDING_SIDES_SMALL, em)
+
+      & > div
+        height 100%
+
+    .sidebar-chevron
+      position absolute
+      margin-left unit(SIDEBAR_WIDTH + 2 * PADDING_SIDES_SMALL, em)
+      top unit(CHEVRON_FROM_TOP + LOGGED_OUT_HEIGHT, em)
+
+      padding-right unit(PADDING_SIDES_SMALL, em)
+      width unit(SIDEBAR_LAYER_RIGHT, em)
+
+      line-height 23px
+
+      &:link, &:visited, &
+        color BLACK_COLOR
+
+      &:before
+        font 19px spocdicons
+        content: '\f02e'
+
+      &:hover
+        color LINK_COLOR
+        text-decoration none
+
+        &:before
+          content: '\f02c'
+
+
+  @media MEDIA_WITH_SIDEBAR
     .main
-      margin-right 0
+      margin-right unit(SIDEBAR_WIDTH + MIN_SIDEBAR_PADDING, em)
+
+    .sidebar-container
+      width unit(SIDEBAR_WIDTH,em)
+      position static
+
+    .sidebar
+      padding unit(LOGGED_OUT_HEIGHT, em) 0
+      z-index 0
+
+      .menu-outer
+        width unit(SIDEBAR_WIDTH,em)
+        left 0
+        display block !important
+
+    .sidebar-chevron
+      display none
+
+    .dropdown-menu
+      border 0
+      box-shadow none
+      background none
+      padding 0 !important
+
+    .dropdown-caret
+      display none
+
+.sidebar-shown
+  .menu-outer
+    display block !important
+
+  .sidebar-chevron
+    &:link, &:visited, &
+      color LINK_COLOR !important
+    &:before
+      content: '\f02c' !important
+

@@ -22,44 +22,46 @@
 
   min-width 6em
 
-  h1
-    font-size 1em
-    margin 0
-    padding 0 15px
-    white-space nowrap
-    font-weight bold
-    color #ccc
+  &.with-list
 
-  li
-    display block
-    float none
-    line-height 0\9
-    line-height inherit
-
-    & > a
-      position relative
-      display block
-      white-space nowrap
-      float none
-      clear both
-      font-weight normal
-      text-shadow none
-      cursor pointer
-
-      font-size 15px
-      line-height 18px
-      padding 5px 20px
+    h1
+      font-size 1em
       margin 0
-      color BLACK_COLOR
+      padding 0 15px
+      white-space nowrap
+      font-weight bold
+      color #ccc
 
-      &:hover, &:focus
-        text-decoration none
-        background LINK_COLOR
-        color white
+    li
+      display block
+      float none
+      line-height 0\9
+      line-height inherit
 
-      &:active
-        background darken(LINK_COLOR,20%)
-        border-color darken(LINK_COLOR,20%) !important
+      & > a
+        position relative
+        display block
+        white-space nowrap
+        float none
+        clear both
+        font-weight normal
+        text-shadow none
+        cursor pointer
+
+        font-size 15px
+        line-height 18px
+        padding 5px 20px
+        margin 0
+        color BLACK_COLOR
+
+        &:hover, &:focus
+          text-decoration none
+          background LINK_COLOR
+          color white
+
+        &:active
+          background darken(LINK_COLOR,20%)
+          border-color darken(LINK_COLOR,20%) !important
 
 .dropdown-menu-right
   float none
@@ -137,13 +139,12 @@
     .caret-inner 
       display inline-block
 
-.dropdown-menu.to-left
-  .dropdown-caret
-    top 11px
-    width 12px
-    height 24px
-    left auto
-    right -12px
+.dropdown-caret.to-left
+  top 11px
+  width 12px
+  height 24px
+  left auto
+  right -12px
 
-    .caret-outer
-      left -8px
+  .caret-outer
+    left -8px

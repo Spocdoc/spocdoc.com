@@ -7,3 +7,9 @@ module.exports =
   $main: 'view'
   $sidebar: 'view'
 
+  $sidebarChevron: linkdown: 'toggleSidebar'
+
+  toggleSidebar: ->
+    @$root.toggleClass 'sidebar-shown'
+
+

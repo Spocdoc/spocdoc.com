@@ -2,6 +2,20 @@ mixin menu
   .dropdown-caret
     span.caret-outer
     span.caret-inner
+  .dropdown-menu.with-list
+    block
+
+mixin menu-to-left
+  .dropdown-caret.to-left
+    span.caret-outer
+    span.caret-inner
+  .dropdown-menu.with-list
+    block
+
+mixin menu-to-left-no-list
+  .dropdown-caret.to-left
+    span.caret-outer
+    span.caret-inner
   .dropdown-menu
     block
 
@@ -9,14 +23,14 @@ mixin menu-center
   .dropdown-caret-center
     span.caret-outer
     span.caret-inner
-  .dropdown-menu
+  .dropdown-menu.with-list
     block
 
 mixin menu-right
   .dropdown-caret-right
     span.caret-outer
     span.caret-inner
-  .dropdown-menu-right
+  .dropdown-menu-right.with-list
     block
 
 mixin menu-button(id)
