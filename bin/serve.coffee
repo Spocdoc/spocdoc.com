@@ -7,6 +7,7 @@ optimist = require 'optimist'
 Manifest = require 'manifest_mvc'
 ace = require 'ace_mvc'
 fs = require 'fs'
+path = require 'path'
 
 argv = optimist
   .default({
@@ -19,9 +20,13 @@ if argv.help
   optimist.showHelp()
   process.exit 0
 
+
+key = fs.readFileSync path.resolve __dirname, '../resources/ssl.key'
+cert = fs.readFileSync path.resolve __dirname, '../resources/ssl.crt'
+
 app = express()
 app.use express.compress()
-server = require('http').createServer(app)
+server = require('https').createServer {key, cert}, app
 
 app.use connect.cookieParser()
 app.use connect.multipart()

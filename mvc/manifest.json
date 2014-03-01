@@ -13,7 +13,6 @@
     "mediator": "mediator",
     "layout": "layout.jade",
     "templates": {
-        "body/about": "body/about/template.jade",
         "body/invite_me": "body/invite_me/template.jade",
         "body/landing": "body/landing/template.jade",
         "body": "body/template.jade",
@@ -32,7 +31,6 @@
         "with_sidebar": "views/with_sidebar.jade"
     },
     "styles": {
-        "body/about": "body/about/style.styl",
         "body/invite_me": "body/invite_me/style.styl",
         "body/landing": "body/landing/style.styl",
         "body": "body/style.styl",
@@ -54,7 +52,6 @@
         "docs": "models/docs.coffee"
     },
     "views": {
-        "body/about": "body/about/view.coffee",
         "body/invite_me": "body/invite_me/view.coffee",
         "body/landing": "body/landing/view.coffee",
         "body": "body/view.coffee",
@@ -182,7 +179,6 @@
                         "views/slides.coffee",
                         "body/invite_me/view.coffee",
                         "views/dialog.coffee",
-                        "body/about/view.coffee", "routes.coffee",
                         "body/landing/view.coffee",
                         "views/test.coffee", "models/docs.coffee",
                         "body/view.coffee",
@@ -192,14 +188,14 @@
                         "docs/sidebar_tabs/outline/view.coffee",
                         "docs/sidebar_tabs/media/view.coffee",
                         "views/tab_rows.coffee",
-                        "views/with_sidebar.coffee",
                         "docs/sidebar_top/view.coffee",
                         "docs/sidebar_top/controller.coffee",
                         "search/field/menu/view.coffee",
                         "search/field/view.coffee",
                         "md/article/view.coffee",
                         "body/controller.coffee",
-                        "docs/controller.coffee"
+                        "docs/controller.coffee",
+                        "views/with_sidebar.coffee", "routes.coffee"
                     ],
                     "generated": "bundle/debug [-ie<=8 -ios debug].js"
                 },
@@ -305,7 +301,6 @@
                         "views/slides.coffee",
                         "body/invite_me/view.coffee",
                         "views/dialog.coffee",
-                        "body/about/view.coffee", "routes.coffee",
                         "body/landing/view.coffee",
                         "views/test.coffee", "models/docs.coffee",
                         "body/view.coffee",
@@ -315,22 +310,21 @@
                         "docs/sidebar_tabs/outline/view.coffee",
                         "docs/sidebar_tabs/media/view.coffee",
                         "views/tab_rows.coffee",
-                        "views/with_sidebar.coffee",
                         "docs/sidebar_top/view.coffee",
                         "docs/sidebar_top/controller.coffee",
                         "search/field/menu/view.coffee",
                         "search/field/view.coffee",
                         "md/article/view.coffee",
                         "body/controller.coffee",
-                        "docs/controller.coffee"
+                        "docs/controller.coffee",
+                        "views/with_sidebar.coffee", "routes.coffee"
                     ],
                     "generated": "bundle/debug [-ie<=8 debug ios].js"
                 }
             },
             "css": {
                 "": {
-                    "sources": ["body/about/style.styl",
-                        "body/invite_me/style.styl",
+                    "sources": ["body/invite_me/style.styl",
                         "body/landing/style.styl", "body/style.styl",
                         "docs/sidebar_tabs/style.styl",
                         "docs/sidebar_top/style.styl",
