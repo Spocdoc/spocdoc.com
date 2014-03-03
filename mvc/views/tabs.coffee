@@ -17,6 +17,7 @@ module.exports =
       unless tabs and tabs.length
         null
       else
+        return tabs[0] if @ace.onServer
         current = @selected.value
         return current if current in tabs
 

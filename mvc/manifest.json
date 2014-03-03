@@ -22,7 +22,6 @@
         "contact_us": "contact_us/template.jade",
         "docs/sidebar_tabs/media": "docs/sidebar_tabs/media/template.jade",
         "docs/sidebar_tabs/outline": "docs/sidebar_tabs/outline/template.jade",
-        "docs/sidebar_tabs": "docs/sidebar_tabs/template.jade",
         "docs/sidebar_top": "docs/sidebar_top/template.jade",
         "md/article": "md/article/template.jade",
         "md/head": "md/head/template.jade",
@@ -234,9 +233,7 @@
                         "views/tabs.coffee",
                         "docs/sidebar_tabs/outline/view.coffee",
                         "docs/sidebar_tabs/media/view.coffee",
-                        "views/tab_rows.coffee",
                         "docs/sidebar_top/view.coffee",
-                        "docs/sidebar_top/controller.coffee",
                         "search/field/menu/view.coffee",
                         "search/field/view.coffee",
                         "md/article/view.coffee",
@@ -261,10 +258,12 @@
                         "search/results/controller.coffee",
                         "search/results/doc/view.coffee",
                         "search/results/view.coffee",
-                        "search/controller.coffee",
                         "models/users_priv.coffee",
                         "md/head/view.coffee",
-                        "body/controller.coffee", "body/view.coffee"
+                        "body/controller.coffee", "body/view.coffee",
+                        "docs/sidebar_top/controller.coffee",
+                        "search/controller.coffee",
+                        "views/tab_rows.coffee"
                     ],
                     "generated": "bundle/debug [-ie<=8 -ios debug].js"
                 },
@@ -384,9 +383,7 @@
                         "views/tabs.coffee",
                         "docs/sidebar_tabs/outline/view.coffee",
                         "docs/sidebar_tabs/media/view.coffee",
-                        "views/tab_rows.coffee",
                         "docs/sidebar_top/view.coffee",
-                        "docs/sidebar_top/controller.coffee",
                         "search/field/menu/view.coffee",
                         "search/field/view.coffee",
                         "md/article/view.coffee",
@@ -411,10 +408,12 @@
                         "search/results/controller.coffee",
                         "search/results/doc/view.coffee",
                         "search/results/view.coffee",
-                        "search/controller.coffee",
                         "models/users_priv.coffee",
                         "md/head/view.coffee",
-                        "body/controller.coffee", "body/view.coffee"
+                        "body/controller.coffee", "body/view.coffee",
+                        "docs/sidebar_top/controller.coffee",
+                        "search/controller.coffee",
+                        "views/tab_rows.coffee"
                     ],
                     "generated": "bundle/debug [-ie<=8 debug ios].js"
                 }
