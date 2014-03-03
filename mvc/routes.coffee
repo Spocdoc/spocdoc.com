@@ -2,6 +2,9 @@ Outlet = require 'outlet'
 
 module.exports =
   start: ->
+    @Model['sessions'].initSession this
+    @ace.loggedIn = new Outlet (->
+      @session.get('user')?.get()?.present), this, true
 
   list: (add) ->
     add '?:menu'
@@ -13,6 +16,7 @@ module.exports =
     add '/explore', page: 'explore'
     add '/search', page: 'search'
     add '/connect', page: 'connect'
+    add '/contact_us', page: 'contactUs'
 
   configure: ->
     @map

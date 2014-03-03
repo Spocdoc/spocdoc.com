@@ -1,0 +1,49 @@
+@import '../utils'
+
+ICON_HEIGHT = 50px
+
+.contact_us
+  .container
+    text-align center
+
+    & > ul
+      display inline-block
+      text-align left 
+
+      li
+        margin-bottom 1em
+        display inline-block
+
+        a
+          display inline-block
+          height ICON_HEIGHT
+          padding 1em
+
+          &:hover
+            .icon
+              background LINK_COLOR
+
+        .icon
+          display inline-block
+          background hsl(0,0,90%)
+          width ICON_HEIGHT
+          height ICON_HEIGHT
+          border-radius 50%
+
+          &:before 
+            font-family spocdicons
+            color white
+            display inline-block
+            text-align center
+            line-height ICON_HEIGHT
+            font-size (ICON_HEIGHT/2)
+            width 100%
+
+        .twitter .icon:before
+          content: '\f030'
+        .email .icon:before
+          content: '\f052'
+
+        .text
+          padding-left 1em
+      

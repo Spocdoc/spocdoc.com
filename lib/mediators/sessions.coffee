@@ -10,6 +10,7 @@ debug = global.debug "ace:app:sessions"
 debugError = global.debug "error"
 async = require 'async'
 OJSON = require 'ojson'
+getProviderUser = require '../get_provider_user'
 
 checksum = (sessId) -> hash "#{sessId}#{secret}"
 
@@ -141,6 +142,7 @@ module.exports = (Base) ->
         when 'readOrCreate' then @_readOrCreate id, version, cb
         when 'checkInvite' then @_checkInvite args.inviteCode, cb
         when 'signup' then @_signupUser args.email, args.username, args.password, cb
+        when 'invite' then @_invite args, cb
         else super
       return
 
@@ -248,6 +250,101 @@ module.exports = (Base) ->
 
             @dbRead 'users_priv', null, null, {_id: user._id, password: checksum password}, 1, null, proxy
         ]
+
+
+    _invite: (details, cb) ->
+      user = userPriv = id = undefined
+
+      async.waterfall [
+        (next) =>
+          # email is required
+          unless details.email
+            getProviderUser details, (err, userDetails) ->
+              return next "NO_EMAIL" if err? or !userDetails?.email
+              details.email = userDetails.email
+              details.username ||= userDetails.username
+              details.name ||= userDetails.name
+              next()
+          else
+            next()
+
+        (next) =>
+          id = new ObjectID()
+
+          user =
+            _id: id
+            _v: 1
+            username: null
+            priv: new DBRef 'users_priv', id
+
+          userPriv =
+            _id: id
+            _v: 1
+            email: details.email
+            draft: DRAFT_TEXT
+            draftSelection: [0, DRAFT_TEXT.length]
+            draftFiller: ''
+
+          if details.username
+            userPriv.prefUsername = details.username
+
+          if details.password
+            userPriv.password = checksum password
+
+          if details.provider
+            userPriv.oauth =
+              provider: details.provider
+              id: details.id
+              access: details.access
+              secret: details.secret
+              refresh: details.refresh
+
+          proxy = new callback.Read -> cb.reject "DB_ERROR"
+          proxy.doc = (doc) ->
+            userPriv.lastDoc = doc.lastDoc
+            next()
+
+          @baseRead coll, @session.sessId, 0, null, null, null, proxy
+
+        (next) =>
+          @handlers['users_priv']._chooseDraftFiller next
+
+        (fillerText, next) =>
+          userPriv.draftFiller = fillerText
+
+          cbUser = new callback.Create cb.cb
+          cbUser.ok = next
+          cbUser.reject = (err='') ->
+            if /\bduplicate key\b/.test err
+              if /\busers.\$username\b/.test err
+                return cb.reject "DUP_USERNAME"
+            debugError "Error creating user: #{err}"
+            cb.reject "DB_ERROR"
+          @baseCreate 'users', user, cbUser
+
+        (next) =>
+          cbUserPriv = new callback.Create cb.cb
+          cbUserPriv.ok = =>
+            @_setUsersPriv userPriv
+            @_sendUserDocs user, userPriv
+            cb.ok id
+          cbUserPriv.reject = (err) =>
+            if /\bduplicate key\b/.test(err) and /\busers_priv.\$email\b/.test(err)
+              cb.reject "DUP_EMAIL"
+            else
+              debugError "Error creating user_priv: #{err}"
+              cb.reject "DB_ERROR"
+
+            deleteCb = new callback.Create ->
+            @baseDelete 'users', id, deleteCb
+
+          @baseCreate 'users_priv', userPriv, cbUserPriv
+
+      ], (err) =>
+        if err?
+          cb.reject err
+
+      return
 
     _signupUser: (email, username, password, cb) ->
       id = new ObjectID()

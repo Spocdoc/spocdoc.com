@@ -1,0 +1,11 @@
+p That provider won't tell us your email. Lame. How can we reach you?
+
+form.form
+  label.input-group.has-error
+    input(type='text', spellcheck="false", placeholder="Email")#username
+    p.error#usernameError This email is invalid
+  div.submit-div#submitDiv
+    button(type="submit").submit#submit.has-spinner
+      span Invite me!
+    #submitSpinner.spinner(title="Waiting for the server..."): != spinner
+

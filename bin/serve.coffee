@@ -8,18 +8,22 @@ Manifest = require 'manifest_mvc'
 ace = require 'ace_mvc'
 fs = require 'fs'
 path = require 'path'
+connectOauth = require 'connect_oauth'
+
+sessionSecret = 'EfrisjixTd/oDeR2reBJwm0tT67DDaVe9qW/JUYPOzjnY9502zXpQDzm'
 
 argv = optimist
   .default({
     p: 1337
+    h: '127.0.0.1'
   })
   .alias('p','port')
+  .alias('h','host')
   .argv
 
 if argv.help
   optimist.showHelp()
   process.exit 0
-
 
 key = fs.readFileSync path.resolve __dirname, '../resources/ssl.key'
 cert = fs.readFileSync path.resolve __dirname, '../resources/ssl.crt'
@@ -30,6 +34,11 @@ server = require('https').createServer {key, cert}, app
 
 app.use connect.cookieParser()
 app.use connect.multipart()
+app.use express.session secret: sessionSecret
+connectOauth app,
+  protocol: 'https'
+  host: argv.host
+  port: argv.port
 
 app.configure 'development', ->
   app.use connect.logger 'dev'

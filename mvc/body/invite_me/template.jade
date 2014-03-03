@@ -4,11 +4,26 @@ ul.instructions
   li Use one of the services below and we'll email the address they have.
   li Or enter your email and we'll email you a link when a spot opens.
 
-ul.oauth-list
-  li: a.evernote Evernote
-  li: a.twitter Twitter
-  li: a.github Github
-  li: a.linkedin LinkedIn
+#oauth
+
+  ul.oauth-list
+    li
+      a.has-spinner#evernote.evernote(target="_blank") Evernote
+      .spinner(title="Waiting for other window..."): != spinner
+    li
+      a.has-spinner#twitter.twitter(target="_blank") Twitter
+      .spinner(title="Waiting for other window..."): != spinner
+    li
+      a.has-spinner#github.github(target="_blank") Github
+      .spinner(title="Waiting for other window..."): != spinner
+    li
+      a.has-spinner#linkedin.linkedin(target="_blank") LinkedIn
+      .spinner(title="Waiting for other window..."): != spinner
+    li
+      a.has-spinner#tumblr.tumblr(target="_blank") Tumblr
+      .spinner(title="Waiting for other window..."): != spinner
+
+  p.error#oauthError
 
 hr
 
@@ -19,5 +34,5 @@ form.form
   div.submit-div#submitDiv
     button(type="submit").submit#submit.has-spinner
       span Invite me!
-    #submitSpinner.spinner(title="Waiting for the server...")
+    #submitSpinner.spinner(title="Waiting for the server..."): != spinner
 

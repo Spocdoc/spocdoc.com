@@ -36,6 +36,7 @@ module.exports =
   $docs: link: ['depute','showPage','docs']
   $search: link: ['depute','showPage','search']
   $logo: link: ['depute','showPage','']
+  $contactUs: link: ['depute','showPage','contactUs']
 
   # footer links
   $footAbout: link: ['depute','showPage','about']
@@ -86,7 +87,8 @@ module.exports =
         @$[t].toggleClass 'selected', !!(t is tab)
 
       # don't show the footer if there's a fixed position element
-      @$footer.toggleClass 'hidden', !!tab
+      showFooter = !tab or tab is 'contactUs'
+      @$footer.toggleClass 'hidden', !showFooter
       return
 
   ]
