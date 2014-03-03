@@ -11,6 +11,7 @@ module.exports =
     if page then @getController page else @controllers['landing'] ||= new @View['body/landing'] this, 'landing', deputy: @view
 
   showPage: (page) ->
+    @view.toggleMenu 'on', false
     @page.set page
     @closeDialog()
     return
@@ -41,6 +42,8 @@ module.exports =
       when 'about'
         (controller = @getController('docs')).doc.set @Model['docs'].read DOC_ABOUT
         controller
+      when 'search','blog'
+        @controllers['search'] ||= new @Controller['search'] this, 'search'
       when 'contactUs'
         @controllers['contactUs'] ||= new @View['contact_us'] this, 'contactUs'
       else

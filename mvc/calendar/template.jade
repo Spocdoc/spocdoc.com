@@ -1,0 +1,12 @@
+pre#year.calendar-year
+.calendar-scrolling#scrolling
+  table.calendar-table#calendar.not-selecting
+  #CalendarFoot
+  //-
+    script(type="text/javascript").
+      (function () {
+        if (window.Ace.booting) {
+          var foot = document.getElementById("CalendarFoot");
+          if (foot && (foot = foot.parentNode)) foot.scrollTop = foot.scrollHeight;
+        }
+      }());

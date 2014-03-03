@@ -1,0 +1,205 @@
+@import '../utils.styl'
+
+CELL_SIZE = 2.2em
+YEAR_HEIGHT = 1.5em
+COLOR_0 =  white
+COLOR_1 = #f3f3f3
+COLOR_0_HIGHLIGHT = YELLOW_COLOR
+COLOR_1_HIGHLIGHT = #f0f346
+EMPTY_COLOR = hsla(0,100%,0%,0.5)
+
+#CalendarFoot
+  width 0
+  height 0
+  margin 0
+  border 0
+
+.calendar-scrolling
+  @extend $IE-TRANSPARENT
+  @extend $scrolling-y
+
+  border-top YEAR_HEIGHT solid transparent
+  *border-top-color #bada55
+
+  box-sizing border-box
+  height 100%
+  position relative
+  top (- YEAR_HEIGHT)
+
+.calendar-year 
+  font-size 14px
+  width 100%
+  text-align center
+  height YEAR_HEIGHT
+  line-height YEAR_HEIGHT
+  box-sizing border-box
+  display block
+  @extend $nofocus
+  @extend $sansserif
+  @extend $form-field-borders
+  margin 0
+  padding 0
+
+  position relative
+  z-index 1
+
+  &:hover
+    color LINK_COLOR
+
+  &.invalid
+    color RED_COLOR
+    font-weight bold
+    letter-spacing 1px
+
+.calendar-table
+  border-spacing 0
+  font-size 12px
+  font-weight: 400;
+  cursor pointer
+  user-select none
+
+  tbody
+    padding 0
+    margin 0
+    border 0
+
+    &.color1
+      background COLOR_1
+
+      .othermonth
+        background COLOR_0
+
+      &.range
+        background COLOR_1_HIGHLIGHT
+
+        .othermonth
+          background COLOR_0_HIGHLIGHT
+
+      .range
+        background COLOR_1_HIGHLIGHT
+
+        &.othermonth
+          background COLOR_0_HIGHLIGHT
+
+    &.color0
+      background COLOR_0
+
+      .othermonth
+        background COLOR_1
+
+      &.range
+        background COLOR_0_HIGHLIGHT
+
+        .othermonth
+          background COLOR_1_HIGHLIGHT
+
+      .range
+        background COLOR_0_HIGHLIGHT
+
+        &.othermonth
+          background COLOR_1_HIGHLIGHT
+
+    &.color1
+      td.month
+        background COLOR_1
+    &.color0
+      td.month
+        background COLOR_0
+
+  tr.year-start
+    td
+      border-top 1px solid BLACK_COLOR
+
+  td
+    width: CELL_SIZE
+    height: CELL_SIZE
+    line-height CELL_SIZE
+    box-sizing border-box
+    color EMPTY_COLOR
+
+    padding: 0;
+    margin: 0
+
+    text-align: center;
+
+    div
+      position relative
+      width 100%
+      height 100%
+
+    &.non-empty
+      font-weight bold
+      color black
+
+    &.range-start
+      div:before
+        font-family spocdicons
+        content: '\f047'
+        position absolute
+        left 0
+        font-size 1.3em
+        color BLACK_COLOR
+
+    &.range-end
+      div:after
+        font-family spocdicons
+        content: '\f046'
+        position absolute
+        top 0em
+        right 0
+        font-size 1.3em
+        color BLACK_COLOR
+
+  &.selecting-end
+    td
+      &.range-end
+        div:after
+          right -2px
+          font-size 1.7em
+          color LINK_COLOR
+  &.selecting-start
+    td
+      &.range-start
+        div:before
+          left -2px
+          font-size 1.7em
+          color LINK_COLOR
+
+  &.not-selecting
+    td
+      &:hover
+        background LINK_COLOR !important
+        color white
+        cursor pointer
+
+  .month
+    vertical-align top
+    color BLACK_COLOR
+
+.calendar-table
+  tbody.color1
+    td.range-start.range-end:hover
+      color EMPTY_COLOR
+      &.non-empty
+        color black
+      background COLOR_1_HIGHLIGHT !important
+      &.othermonth
+        background COLOR_0_HIGHLIGHT !important
+  tbody.color0
+    td.range-start.range-end:hover
+      color EMPTY_COLOR
+      &.non-empty
+        color black
+      background COLOR_0_HIGHLIGHT !important
+      &.othermonth
+        background COLOR_1_HIGHLIGHT !important
+
+  tbody
+    td.future
+      cursor default !important
+
+      background white !important
+
+      &:hover
+        cursor default !important
+        background white !important

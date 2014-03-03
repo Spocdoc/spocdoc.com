@@ -3,15 +3,15 @@ dates = require 'dates-fork'
 Outlet = require 'outlet'
 
 module.exports =
-  # tags: ->
-  #   @_tags ||= new Outlet (=>
-  #     tags = @get('tags').get() || [] # always lower case
+  tags: ->
+    @_tags ||= new Outlet (=>
+      tags = @get('tags').get() || [] # always lower case
 
-  #     if priv = @session.get('user')?.get('priv')?.get()
-  #       priv.getDisplayTags tags
-  #     else
-  #       tags
-  #   ), null, true
+      if priv = @session.get('user')?.get('priv')?.get()
+        priv.getDisplayTags tags
+      else
+        tags
+    ), null, true
 
   static:
     build: (globals, text, meta=0) ->

@@ -6,8 +6,8 @@ module.exports =
       'Outline'
       'Media'
     ]
-    # orderedTabs: -> @session.get('user')?.get('priv')?.get('docTabs')
-    # rowStarts: -> @session.get('user')?.get('priv')?.get('docTabStarts')
+    orderedTabs: -> @session.get('user')?.get('priv')?.get('docTabs')
+    rowStarts: -> @session.get('user')?.get('priv')?.get('docTabStarts')
 
   getCell: (tab) ->
     tabClass = typeToClass tab

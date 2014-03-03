@@ -1,0 +1,56 @@
+@import '../../../utils'
+
+.search-sidebar_tabs-tags
+  &.slides
+    height 100%
+
+    .slide
+      ease(margin)
+      padding 0
+      position relative
+      height 100%
+      box-sizing border-box
+      padding 0.5em 0
+
+      .heading
+        height 2em
+        position relative
+        z-index 2
+
+        .back
+          position absolute
+          display block 
+          width 1em
+          top 0.5em
+          left 0.5em
+
+          &, &:link, &:visited
+            color #969696
+
+          span
+            display none
+
+          &:before
+            content '\f048'
+            font-family spocdicons
+            margin-left 0.1em
+            margin-right 0.8em
+
+          &:hover
+            color LINK_COLOR
+            text-decoration none
+
+        h3
+          margin-top 0
+          padding-left 2em
+          font-size 1em
+          font-weight bold
+          line-height 2em
+
+        & + div
+          box-sizing border-box
+          border-top 2em solid white
+          position relative
+          top -2em
+
+

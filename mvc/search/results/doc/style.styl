@@ -1,0 +1,176 @@
+@import '../../../utils'
+
+.search-results-doc
+
+  .article
+    overflow hidden
+
+    margin 0 -0.6em
+
+    border-radius 5px
+
+    .header
+      // Fix for :hover in IE8
+      background url('data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7')
+
+    &:hover
+      background hsl(0, 0%, 96%)
+
+    &.no-bg
+      &:hover
+        background white
+
+  .result-content
+    @extend $IE-TRANSPARENT
+    border-style solid
+    border-width 10em 0 1em 0
+    border-color transparent
+    padding 0 0.6em
+    margin -10em -0.6em 0 -0.6em
+
+    *border-color #bada55
+
+    &:hover
+      border-color white
+      background white
+
+  .header
+    line-height 1.4em
+    position relative
+    @extend $sansserif
+
+    h1
+      font-size: 1em
+      margin 0
+      padding 0
+      letter-spacing 1px
+
+      a
+        &, &:visited, &:link
+          text-decoration none
+          color black
+          *color LINK_COLOR
+          *text-decoration underline
+
+
+    &:hover
+      cursor pointer
+
+      .chevron
+        color LINK_COLOR !important
+
+    padding 0.6em
+    padding-right 2.1em
+
+    .chevron
+      span
+        display none
+
+      &, &:link, &:active, &:visited
+        color BLACK_COLOR
+
+      &:after
+        content: '\f043';
+        font-family: spocdicons;
+        position: absolute;
+        display: block;
+        top: 50%;
+        margin-top: -.6em;
+        right: 0.6em;
+
+    .empty
+      display none
+
+  .section
+    @extend $serif
+    @extend $nofocus
+    line-height 1.6em
+    padding unit(PADDING_SIDES_SMALL,em)
+    margin 0.4em 1.6em 1em 1.6em
+    border 1px solid black
+    overflow hidden
+    max-height 32em
+    background white
+
+    .match-sentence
+      background YELLOW_COLOR
+
+    .match-word
+      font-weight bold
+
+    .section-content
+      max-height 32em
+      overflow hidden
+
+  .tags
+    li
+      a
+        @extend $inline-block
+        height 100%
+        margin 0
+        padding 0
+        vertical-align top
+
+        &, &:link, &:visited
+          color: #4183c4;
+          text-decoration none
+      &:hover a, a:hover
+        background #4183c4
+        -webkit-font-smoothing antialiased
+        color white
+      a:hover ~ a
+        background white
+        color #4183c4
+        -webkit-font-smoothing subpixel-antialiased
+
+
+  .tags, .authors
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+    li
+      @extend $inline-block
+      padding-right: 0.4em;
+      color: #4183c4;
+
+      &:after
+        content ','
+        color black
+
+      &:last-child:after
+        content ''
+
+  .date
+    color BLACK_COLOR
+
+  .date, .authors, .tags
+    margin-left 1.5em
+
+    &:before
+      position absolute
+      left 0.6em
+      width 1em
+      text-align center
+      font-family spocdicons
+
+  .date:before
+    content: '\f04d'
+
+  .authors:before
+    content: '\f022'
+
+  .tags:before
+    content: '\f03e'
+
+  .meta
+    margin-top 1px
+
+    .date
+      float left
+
+    .length
+      float right
+
+  .header-bottom
+    clear both

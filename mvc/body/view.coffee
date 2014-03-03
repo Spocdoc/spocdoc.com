@@ -1,5 +1,3 @@
-regexOn = /(?:^|\s+)on(?:$|\s+)/g
-
 tabs = [
   'about'
   'blog'
@@ -42,22 +40,24 @@ module.exports =
   $footAbout: link: ['depute','showPage','about']
   $footBlog: link: ['depute','showPage','blog']
   
-  toggleMenu: (which) ->
+  toggleMenu: (which, toggleOn) ->
     menu = @menu.get() || ''
     if menu is menuNew = menu.replace ///(?:^|\s+)#{which}(?:$|\s+)///g, ' '
       # currently off
+      return if toggleOn? and !toggleOn
       menu = menu.split(' ').concat(which).join(' ')
     else
+      return if toggleOn? and toggleOn
       menu = if menuNew is ' ' then '' else menuNew
 
     @menu.set menu
     return
 
-  toggleDialog: (which, onOff) ->
+  toggleDialog: (which, toggleOn) ->
     which ||= ''
 
-    if onOff?
-      if onOff
+    if toggleOn?
+      if toggleOn
         @dialog.set which
       else
         @dialog.set ''
