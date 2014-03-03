@@ -274,16 +274,17 @@ module.exports = (Base) ->
           user =
             _id: id
             _v: 1
-            username: null
+            username: " #{id}" # prefix with space so it's otherwise an invalid user
             priv: new DBRef 'users_priv', id
 
           userPriv =
             _id: id
             _v: 1
             email: details.email
-            draft: DRAFT_TEXT
-            draftSelection: [0, DRAFT_TEXT.length]
-            draftFiller: ''
+            # draft: DRAFT_TEXT
+            # draftSelection: [0, DRAFT_TEXT.length]
+            # draftFiller: ''
+            created: new Date()
 
           if details.username
             userPriv.prefUsername = details.username
@@ -306,11 +307,11 @@ module.exports = (Base) ->
 
           @baseRead coll, @session.sessId, 0, null, null, null, proxy
 
-        (next) =>
-          @handlers['users_priv']._chooseDraftFiller next
+        # (next) =>
+        #   @handlers['users_priv']._chooseDraftFiller next
 
-        (fillerText, next) =>
-          userPriv.draftFiller = fillerText
+        (next) =>
+          # userPriv.draftFiller = fillerText
 
           cbUser = new callback.Create cb.cb
           cbUser.ok = next
@@ -360,9 +361,9 @@ module.exports = (Base) ->
         _v: 1
         password: checksum password
         email: email
-        draft: DRAFT_TEXT
-        draftSelection: [0, DRAFT_TEXT.length]
-        draftFiller: ''
+        # draft: DRAFT_TEXT
+        # draftSelection: [0, DRAFT_TEXT.length]
+        # draftFiller: ''
 
       async.waterfall [
         (next) =>

@@ -27,10 +27,10 @@ ul.instructions
 
 hr
 
-form.form
-  label.input-group.has-error
-    input(type='text', spellcheck="false", placeholder="Email")#username
-    p.error#usernameError This email is invalid
+form.form#emailForm
+  label.input-group#emailGroup
+    input(type='text', spellcheck="false", placeholder="Email")#email
+    p.error#emailError
   div.submit-div#submitDiv
     button(type="submit").submit#submit.has-spinner
       span Invite me!

@@ -49,9 +49,6 @@ module.exports =
       return
 
   invite: (details, cb) ->
-    debugger
-    console.log OJSON.toOJSON(details) # TODO DEBUG
-    debugger
     @run 'invite', details, (code) =>
       if ok = code is 'o'
         @Model.reread()

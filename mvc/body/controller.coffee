@@ -24,13 +24,16 @@ module.exports =
         switch which
           when 'inviteMe'
             controller.title.set 'Invite Me!'
-            controller.content.set new @View['body/invite_me'] this, 'inviteMeContent', deputy: @view
+            controller.content.set @controllers['inviteMeContent'] ||= new @View['body/invite_me'] this, 'inviteMeContent', deputy: @view
           when 'youreInvited'
             controller.title.set 'We\'ll invite you!'
-            controller.content.set new @View['body/invite_me/youre_invited'] this, 'youreInvitedContent', deputy: @view
+            controller.content.set @controllers['youreInvitedContent'] ||= new @View['body/invite_me/youre_invited'] this, 'youreInvitedContent', deputy: @view
           when 'missingEmail'
             controller.title.set 'No email'
-            controller.content.set new @View['body/invite_me/missing_email'] this, 'missingEmailContent', deputy: @view
+            controller.content.set content = @controllers['missingEmailContent'] ||= new @View['body/invite_me/missing_email'] this, 'missingEmailContent', deputy: @view
+            # quick hack to pass state from one to the other...
+            if main = @controllers['inviteMeContent']
+              content.info = main.info
 
         controller
       when 'docs'

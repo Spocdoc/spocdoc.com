@@ -36,12 +36,12 @@ include ../utils
                   li: a Tumblr
                   li.menu-divider: hr
                 form.form
-                  label.input-group.has-error
+                  label.input-group
                     input(type='text', spellcheck="false", placeholder="Username or email")#username
-                    p.error#usernameError This username doesn't exist
+                    p.error#usernameError
                   label.input-group
                     input(type="password", placeholder="Password")#password
-                    p.error#passwordError This password doesn't match
+                    p.error#passwordError
                   div.submit-div#submitDiv
                     button(type="submit").submit#submit.has-spinner
                       span Log In

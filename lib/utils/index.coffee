@@ -1,3 +1,5 @@
+regexEmail = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/
+
 module.exports =
   'defaultArr': (defaultTabs, orderedTabs) ->
     allTabs = {}
@@ -31,3 +33,6 @@ module.exports =
       ++len
 
     arr
+
+  'checkEmail': (email) -> !!regexEmail.test(email)
+    

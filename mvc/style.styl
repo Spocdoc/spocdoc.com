@@ -67,8 +67,22 @@ h1
   display none
   border-radius 4px
 
+.warn
+  @extend $warn-message
+  display none
+  border-radius 4px
+
+.info
+  @extend $warn-message
+  display none
+  border-radius 4px
+
 .has-error
   .error
+    display block
+  .warn
+    display block
+  .info
     display block
 
 
