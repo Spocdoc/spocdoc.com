@@ -25,7 +25,9 @@ hideMenu()
 
   .login-menu
     & > .dropdown-caret-right
-      right -22px
+      left auto
+      right auto
+      // right -22px
 
     & > .dropdown-menu-right
       right -22px
@@ -39,6 +41,7 @@ hideMenu()
   .has-menu
     &:after
       content '\f025'
+      position static
 
   .right-div
     position absolute
@@ -46,7 +49,7 @@ hideMenu()
     right 0
 
     & > li
-      display inline !important
+      display inline-block !important
 
     & > li > a
       font-size 1em
@@ -55,15 +58,17 @@ hideMenu()
       display none
 
     .invite-me
-      display inline !important
+      display inline-block !important
       margin-bottom -2px !important
       font-size 1em   !important
 
     .log-in
-      display inline !important
+      display inline-block !important
       font-weight 300 !important
       font-size 1em !important
       padding 0 !important
+      background none !important
+      color BLACK_COLOR !important
 
       &:hover
         background none !important

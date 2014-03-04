@@ -6,6 +6,17 @@ module.exports =
     'page'
   ]
 
+  internal: [
+    'lastDoc': ->
+      if @ace.loggedIn.get()
+        @session.get('user').get('priv')?.get('lastDoc')
+      else
+        @session.get('lastDoc')
+  ]
+
+  # show docs tab if lastDoc is set...
+  $showDocs: -> @lastDoc
+
   $tab: -> @page
   $content: (page) ->
     if page then @getController page else @controllers['landing'] ||= new @View['body/landing'] this, 'landing', deputy: @view
@@ -14,6 +25,13 @@ module.exports =
     @view.toggleMenu 'on', false
     @page.set page
     @closeDialog()
+    return
+
+  showDoc: (docId) ->
+    return unless docId
+    (controller = @getController('docs')).doc.set @Model['docs'].read docId
+    @lastDoc.set docId
+    @showPage 'docs'
     return
 
   getController: (which) ->
@@ -38,7 +56,8 @@ module.exports =
 
         controller
       when 'docs'
-        @controllers['docs'] ||= new @Controller['docs'] this, 'docs'
+        (controller = @controllers['docs'] ||= new @Controller['docs'] this, 'docs').doc.set @lastDoc.value
+        controller
       when 'about'
         (controller = @getController('docs')).doc.set @Model['docs'].read DOC_ABOUT
         controller

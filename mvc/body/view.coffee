@@ -13,6 +13,7 @@ module.exports =
     'dialog'
     'content'
     'tab'
+    'showDocs'
   ]
 
   internal: [
@@ -90,6 +91,8 @@ module.exports =
       showFooter = !tab or tab is 'contactUs'
       @$footer.toggleClass 'hidden', !showFooter
       return
+
+    (showDocs) -> @$docs.toggleClass 'hidden', !showDocs
 
   ]
 

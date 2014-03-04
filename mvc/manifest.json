@@ -226,6 +226,7 @@
                         "../lib/tag_list/index.coffee",
                         "../lib/tags/index.coffee",
                         "calendar/calendar.coffee",
+                        "routes/resource.coffee",
                         "views/slides.coffee", "views/dialog.coffee",
                         "body/landing/view.coffee",
                         "views/test.coffee", "models/docs.coffee",
@@ -242,7 +243,7 @@
                         "models/sessions.coffee",
                         "models/users.coffee",
                         "body/invite_me/youre_invited/view.coffee",
-                        "contact_us/view.coffee", "routes.coffee",
+                        "contact_us/view.coffee",
                         "mixins/editable line/view.coffee",
                         "mixins/editable text/view.coffee",
                         "mixins/editable val/view.coffee",
@@ -259,11 +260,12 @@
                         "search/results/view.coffee",
                         "models/users_priv.coffee",
                         "md/head/view.coffee",
-                        "body/controller.coffee", "body/view.coffee",
                         "docs/sidebar_top/controller.coffee",
                         "views/tab_rows.coffee",
+                        "search/results/doc/view.coffee",
                         "search/controller.coffee",
-                        "search/results/doc/view.coffee"
+                        "body/view.coffee", "body/controller.coffee",
+                        "routes/index.coffee"
                     ],
                     "generated": "bundle/debug [-ie<=8 -ios debug].js"
                 },
@@ -376,6 +378,7 @@
                         "../lib/tag_list/index.coffee",
                         "../lib/tags/index.coffee",
                         "calendar/calendar.coffee",
+                        "routes/resource.coffee",
                         "views/slides.coffee", "views/dialog.coffee",
                         "body/landing/view.coffee",
                         "views/test.coffee", "models/docs.coffee",
@@ -392,7 +395,7 @@
                         "models/sessions.coffee",
                         "models/users.coffee",
                         "body/invite_me/youre_invited/view.coffee",
-                        "contact_us/view.coffee", "routes.coffee",
+                        "contact_us/view.coffee",
                         "mixins/editable line/view.coffee",
                         "mixins/editable text/view.coffee",
                         "mixins/editable val/view.coffee",
@@ -409,11 +412,12 @@
                         "search/results/view.coffee",
                         "models/users_priv.coffee",
                         "md/head/view.coffee",
-                        "body/controller.coffee", "body/view.coffee",
                         "docs/sidebar_top/controller.coffee",
                         "views/tab_rows.coffee",
+                        "search/results/doc/view.coffee",
                         "search/controller.coffee",
-                        "search/results/doc/view.coffee"
+                        "body/view.coffee", "body/controller.coffee",
+                        "routes/index.coffee"
                     ],
                     "generated": "bundle/debug [-ie<=8 debug ios].js"
                 }
