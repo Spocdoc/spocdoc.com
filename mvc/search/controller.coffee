@@ -6,6 +6,7 @@ module.exports =
 
   outlets: [
     'doc'
+    'number'
   ]
 
   internal: [
@@ -25,6 +26,11 @@ module.exports =
   $sidebar: -> new @View['sidebar_split'] this, 'sidebar',
     top: @controllers['top']
     bottom: @controllers['bottom']
+
+  addTagToSearch: (tag) ->
+    if @controllers['field'].addTag tag
+      @number.set 1+(@number.get()|0)
+    return
 
   # for tabs
   getCell: (tab) -> @controllers[tab]
@@ -103,7 +109,7 @@ module.exports =
     return
 
   constructor: ->
-    field = @controllers['field'] = new @View['search/field'] this, 'search'
+    field = @controllers['field'] = new @View['search/field'] this, 'field'
 
     @controllers['results'] = new @Controller['search/results'] this, 'results',
       query: @query
