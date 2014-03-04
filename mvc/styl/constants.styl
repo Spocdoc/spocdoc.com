@@ -48,6 +48,10 @@ LOGGED_OUT_FULL_SMALL = LOGGED_OUT_FULL - RIGHT_WIDTH_REDUCTION
 
 MEDIA_NO_PHONE_MODE = "only screen and (min-width: " + (LOGGED_OUT_FULL_SMALL) + "em)"
 
+MEDIA_PHONE_MODE = "not screen and (min-width: " + (LOGGED_OUT_FULL_SMALL) + "em)"
+
+MEDIA_TABLET_ZONE = "screen and (min-width:  " + (LOGGED_OUT_FULL_SMALL) + "em) and (max-width: " + (WIDTH_WITH_SIDEBAR) + "em)"
+
 MEDIA_FONT_RESIZE = "only screen and (max-width: " + (CONTENT_PADDING_RIGHT + 2 * PADDING_SIDES + MIN_TEXT_WIDTH * LARGE_FONT) + "em)"
 MEDIA_REMOVE_SIDEBAR = "only screen and (max-width: " + (WIDTH_WITH_SIDEBAR) + "em)"
 MEDIA_WITH_SIDEBAR = "not screen and (max-width: " + (WIDTH_WITH_SIDEBAR) + "em)"

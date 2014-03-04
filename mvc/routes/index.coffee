@@ -13,6 +13,7 @@ module.exports =
     add '?:menu'
     add '?:dialog'
     add '?dsb=:docsShowSidebar'
+    add '?ssb=:searchShowSidebar'
 
     add '/', page: ''
     add '/about', page: 'about'
@@ -32,6 +33,7 @@ module.exports =
       menu: '/$menu'
       dialog: '/$dialog'
       docsShowSidebar: '/docs/$showSidebar'
+      searchShowSidebar: '/search/$showSidebar'
       search:
         q: '/search/field/$search'
         number: '/search/number'

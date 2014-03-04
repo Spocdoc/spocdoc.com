@@ -17,11 +17,14 @@ hideMenu()
     & > .dropdown-menu
       display block !important
 
-    &[data-menu~="login"]
+  [data-menu~="login"]
+    .main-menu
       .login-menu
         & > .dropdown-caret-right,
         & > .dropdown-menu-right
           display block
+      .log-in
+        color LINK_COLOR !important
 
   .login-menu
     & > .dropdown-caret-right

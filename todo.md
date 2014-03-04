@@ -17,3 +17,7 @@
 # implementation
 
  [] dialog has a "small" outlet. this was to make the width of the centering div smaller
+
+# improvements
+
+ [] make the sidebar dots less obtrusive -- e.g., move them up to the top as you scroll down so they're not right at the reading level

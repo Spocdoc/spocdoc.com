@@ -72,8 +72,21 @@ CHEVRON_FROM_SIDE = 0
         &:before
           content: '\f02c'
 
+@media MEDIA_PHONE_MODE
+  [data-menu~="on"]
+    .with_sidebar
+      .sidebar
+        display none
 
-  @media MEDIA_WITH_SIDEBAR
+@media MEDIA_TABLET_ZONE
+  [data-menu~="login"]
+    .with_sidebar
+      .sidebar
+        display none
+
+
+@media MEDIA_WITH_SIDEBAR
+  .with_sidebar
     .main
       margin-right unit(SIDEBAR_WIDTH + MIN_SIDEBAR_PADDING, em)
 

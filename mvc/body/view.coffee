@@ -71,7 +71,7 @@ module.exports =
 
   outletMethods: [
     (menu) ->
-      @$mainMenu.attr 'data-menu',(menu||'')
+      @$root.attr 'data-menu',(menu||'')
 
     (dialog) ->
       @dialogView.set dialog = if dialog then @depute('getController',dialog) else null
