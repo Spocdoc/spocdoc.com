@@ -4,8 +4,10 @@
 
   .article
     overflow hidden
+    cursor pointer
 
     margin 0 -0.6em
+    margin-bottom 1em
 
     border-radius 5px
 
@@ -21,18 +23,20 @@
         background white
 
   .result-content
-    @extend $IE-TRANSPARENT
-    border-style solid
-    border-width 10em 0 1em 0
-    border-color transparent
-    padding 0 0.6em
-    margin -10em -0.6em 0 -0.6em
+    // @extend $IE-TRANSPARENT
+    // border-style solid
+    // border-width 10em 0 1em 0
+    // border-color transparent
+    // padding 0 0.6em
+    // margin -10em -0.6em 0 -0.6em
+    // *border-color #bada55
 
-    *border-color #bada55
+    padding 0
+    cursor text
 
-    &:hover
-      border-color white
-      background white
+    // &:hover
+    //   border-color white
+    //   background white
 
   .header
     line-height 1.4em
@@ -56,27 +60,26 @@
     &:hover
       cursor pointer
 
-      .chevron
-        color LINK_COLOR !important
+      // .chevron
+      //   color LINK_COLOR !important
 
     padding 0.6em
-    padding-right 2.1em
 
-    .chevron
-      span
-        display none
+    // .chevron
+    //   span
+    //     display none
 
-      &, &:link, &:active, &:visited
-        color BLACK_COLOR
+    //   &, &:link, &:active, &:visited
+    //     color BLACK_COLOR
 
-      &:after
-        content: '\f043';
-        font-family: spocdicons;
-        position: absolute;
-        display: block;
-        top: 50%;
-        margin-top: -.6em;
-        right: 0.6em;
+    //   &:after
+    //     content: '\f043';
+    //     font-family: spocdicons;
+    //     position: absolute;
+    //     display: block;
+    //     top: 50%;
+    //     margin-top: -.6em;
+    //     right: 0.6em;
 
     .empty
       display none
@@ -86,8 +89,9 @@
     @extend $nofocus
     line-height 1.6em
     padding unit(PADDING_SIDES_SMALL,em)
-    margin 0.4em 1.6em 1em 1.6em
-    border 1px solid black
+    margin 0.4em unit(PADDING_SIDES_SMALL,em) 1em unit(PADDING_SIDES_SMALL,em)
+    border 1px solid #ddd
+    border-radius 5px
     overflow hidden
     max-height 32em
     background white
@@ -144,24 +148,24 @@
   .date
     color BLACK_COLOR
 
-  .date, .authors, .tags
-    margin-left 1.5em
+  // .date, .authors, .tags
+  //   margin-left 1.5em
 
-    &:before
-      position absolute
-      left 0.6em
-      width 1em
-      text-align center
-      font-family spocdicons
+  //   &:before
+  //     position absolute
+  //     left 0.6em
+  //     width 1em
+  //     text-align center
+  //     font-family spocdicons
 
-  .date:before
-    content: '\f04d'
+  // .date:before
+  //   content: '\f04d'
 
-  .authors:before
-    content: '\f022'
+  // .authors:before
+  //   content: '\f022'
 
-  .tags:before
-    content: '\f03e'
+  // .tags:before
+  //   content: '\f03e'
 
   .meta
     margin-top 1px

@@ -256,14 +256,14 @@
                         "search/sidebar_tabs/tags/list/view.coffee",
                         "calendar/view.coffee",
                         "search/results/controller.coffee",
-                        "search/results/doc/view.coffee",
                         "search/results/view.coffee",
                         "models/users_priv.coffee",
                         "md/head/view.coffee",
                         "body/controller.coffee", "body/view.coffee",
                         "docs/sidebar_top/controller.coffee",
+                        "views/tab_rows.coffee",
                         "search/controller.coffee",
-                        "views/tab_rows.coffee"
+                        "search/results/doc/view.coffee"
                     ],
                     "generated": "bundle/debug [-ie<=8 -ios debug].js"
                 },
@@ -406,14 +406,14 @@
                         "search/sidebar_tabs/tags/list/view.coffee",
                         "calendar/view.coffee",
                         "search/results/controller.coffee",
-                        "search/results/doc/view.coffee",
                         "search/results/view.coffee",
                         "models/users_priv.coffee",
                         "md/head/view.coffee",
                         "body/controller.coffee", "body/view.coffee",
                         "docs/sidebar_top/controller.coffee",
+                        "views/tab_rows.coffee",
                         "search/controller.coffee",
-                        "views/tab_rows.coffee"
+                        "search/results/doc/view.coffee"
                     ],
                     "generated": "bundle/debug [-ie<=8 debug ios].js"
                 }

@@ -24,7 +24,6 @@ module.exports =
   ]
 
   $title: link: showDocLink
-  $chevron: link: showDocLink
 
   title: -> @model.get('title')
   tags: -> @model.get()?.tags()

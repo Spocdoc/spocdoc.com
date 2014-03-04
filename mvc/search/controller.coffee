@@ -1,3 +1,6 @@
+_ = require 'lodash-fork'
+dates = require 'dates-fork'
+
 module.exports =
   view: 'with_sidebar'
 
@@ -102,23 +105,25 @@ module.exports =
   constructor: ->
     field = @controllers['field'] = new @View['search/field'] this, 'search'
 
-    results = @controllers['results'] = new @Controller['search/results'] this, 'results',
+    @controllers['results'] = new @Controller['search/results'] this, 'results',
       query: @query
       spec: field.spec
       dateStart: field.dateStart
       dateEnd: field.dateEnd
       specTags: field.specTags
 
-    dates = @controllers['Dates'] = new @View["search/sidebar_tabs/dates"] this, "datesContent",
+    @controllers['Dates'] = new @View["search/sidebar_tabs/dates"] this, "datesContent",
       nonEmpty: @allDates
+      dateStart: field.dateStart
+      dateEnd: field.dateEnd
 
-    tags = @controllers['Tags'] = new @Controller["search/sidebar_tabs/tags"] this, "tagsContent",
+    @controllers['Tags'] = new @Controller["search/sidebar_tabs/tags"] this, "tagsContent",
       subTags: @subTags
       specTags: field.specTags
       
-    top = @controllers['top'] = new @View['search/sidebar_top'] this, 'sidebarTop'
+    @controllers['top'] = new @View['search/sidebar_top'] this, 'sidebarTop'
 
-    bottom = @controllers['bottom'] = new @View['tab_rows'] this, 'sidebarTabs',
+    @controllers['bottom'] = new @View['tab_rows'] this, 'sidebarTabs',
       defaultTabs: [
         'Tags'
         'Dates'
