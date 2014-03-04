@@ -29,8 +29,8 @@ module.exports =
 
   showDoc: (docId) ->
     return unless docId
-    (controller = @getController('docs')).doc.set @Model['docs'].read docId
     @lastDoc.set docId
+    @getController('docs').id.set docId
     @showPage 'docs'
     return
 
@@ -56,10 +56,16 @@ module.exports =
 
         controller
       when 'docs'
-        (controller = @controllers['docs'] ||= new @Controller['docs'] this, 'docs').doc.set @lastDoc.value
+        controller = @controllers['docs'] ||= new @Controller['docs'] this, 'docs', id: =>
+          controller.id.value or @lastDoc.value
         controller
       when 'about'
-        (controller = @getController('docs')).doc.set @Model['docs'].read DOC_ABOUT
+        controller = @controllers['static'] ||= new @Controller['docs'] this, 'static', id: =>
+          switch @page.get()
+            when 'about'
+              DOC_ABOUT
+            else
+              controller.id.value
         controller
       when 'search','blog'
         @controllers['search'] ||= new @Controller['search'] this, 'search'

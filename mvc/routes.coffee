@@ -1,9 +1,13 @@
 Outlet = require 'outlet'
+_ = require 'lodash-fork'
+
+regexSpace = new RegExp _.regexp_s, 'g'
+regexNonUrl = /[^a-zA-Z0-9_-]/g
+
+toSlug = (name) ->
+  (name||'').replace(regexSpace, '-').replace(regexNonUrl,'')
 
 module.exports =
-  methods:
-    resource: require './resource'
-
   start: ->
     @Model['sessions'].initSession this
     @ace.loggedIn = new Outlet (->
@@ -28,6 +32,10 @@ module.exports =
     add 'docs', '/docs/:title?/:id', page: 'docs'
 
   configure: ->
+    slug = @var '/docs/title'
+    slug.addOutflow =>
+      @docs['title'].set toSlug slug.value
+
     @map
       page: '/page'
       menu: '/$menu'
@@ -41,5 +49,8 @@ module.exports =
         dateScrollTop: '/search/sidebar_tabs/dates_content/calendar/$scrollDateTop'
         dateScrollBottom: '/search/sidebar_tabs/dates_content/calendar/$scrollDateBottom'
         dateScrollBot: '/search/sidebar_tabs/dates_content/calendar/$scrollBot'
-      docs: resource: ['/docs/doc','docs','title']
+      docs:
+        id: '/docs/id'
+        
+        # resource: ['/docs/doc','docs','title']
 

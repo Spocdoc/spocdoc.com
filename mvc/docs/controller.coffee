@@ -2,7 +2,9 @@ module.exports =
   view: 'with_sidebar'
 
   outlets: [
-    'doc'
+    'id'
+    'doc': (id) -> @Model['docs'].read id
+    'title': -> @doc.get('title')
   ]
 
   $main: -> new @View['md/article'] this, 'main', doc: => @doc

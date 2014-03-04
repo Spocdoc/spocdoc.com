@@ -21,3 +21,4 @@
 # improvements
 
  [] make the sidebar dots less obtrusive -- e.g., move them up to the top as you scroll down so they're not right at the reading level
+ [] get rid of the menu button on mobile. instead, wrap the navigation below the site logo see skinnyties.com

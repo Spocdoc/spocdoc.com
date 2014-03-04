@@ -119,7 +119,7 @@ module.exports =
       if tag = $target.attr('data-tag')
         ['depute','addTagToSearch',$target.attr('data-tag')]
       else
-        ['depute','showDoc',@model.get()]
+        ['depute','showDoc',@model.get()?.id]
 
     @$header.on 'mouseenter', 'li', =>
       @$article.addClass 'no-bg'
