@@ -16,9 +16,11 @@ argv = optimist
   .default({
     p: 1337
     h: '127.0.0.1'
+    P: 'https'
   })
   .alias('p','port')
   .alias('h','host')
+  .alias('P','protocol')
   .argv
 
 if argv.help
@@ -30,13 +32,16 @@ cert = fs.readFileSync path.resolve __dirname, '../resources/ssl.crt'
 
 app = express()
 app.use express.compress()
-server = require('https').createServer {key, cert}, app
+if argv.protocol is 'https'
+  server = require('https').createServer {key, cert}, app
+else
+  server = require('http').createServer app
 
 app.use connect.cookieParser()
 app.use connect.multipart()
 app.use express.session secret: sessionSecret
 connectOauth app,
-  protocol: 'https'
+  protocol: argv.protocol
   host: argv.host
   port: argv.port
 

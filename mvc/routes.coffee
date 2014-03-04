@@ -13,11 +13,23 @@ module.exports =
     @ace.loggedIn = new Outlet (->
       @session.get('user')?.get()?.present), this, true
 
+    unless @ace.onServer
+      $window = $ global
+      scrollEvent = => @scrollTop.set @_scrollTop = $window.scrollTop()
+      $('body').on 'touchmove', scrollEvent
+      $window.on 'scroll', scrollEvent unless $.hasTouch()
+
+    return
+
+  afterPush: ->
+    @scrollTop.set 0
+
   list: (add) ->
     add '?:menu'
     add '?:dialog'
     add '?dsb=:docsShowSidebar'
     add '?ssb=:searchShowSidebar'
+    add '#s=:scrollTop'
 
     add '/', page: ''
     add '/about', page: 'about'
@@ -26,8 +38,8 @@ module.exports =
     add '/connect', page: 'connect'
     add '/contact_us', page: 'contactUs'
 
-    add 'search', '/blog/:number', '?:q&:tab&ts=:tagSlides', '#ds1=:dateScrollTop&ds2=:dateScrollBottom&ds3=:dateScrollBot', page: 'blog'
-    add 'search', '/blog', '?:q&:tab&ts=:tagSlides', '#ds1=:dateScrollTop&ds2=:dateScrollBottom&ds3=:dateScrollBot', page: 'blog'
+    add 'search', '/blog/:number', '?:q', '#ds1=:dateScrollTop&ds2=:dateScrollBottom&ds3=:dateScrollBot', page: 'blog'
+    add 'search', '/blog', '?:q', '#ds1=:dateScrollTop&ds2=:dateScrollBottom&ds3=:dateScrollBot', page: 'blog'
 
     add 'docs', '/docs/:title?/:id', page: 'docs'
 
@@ -36,7 +48,21 @@ module.exports =
     slug.addOutflow =>
       @docs['title'].set toSlug slug.value
 
+    unless @ace.onServer
+      $window = $ global
+
+    scrollTop = 0
+    setScroll = =>
+      $window.scrollTop(scrollTop)
+      return
+    @scrollTop.addOutflow =>
+      unless @ace.onServer or @_scrollTop is scrollTop = @scrollTop.value or 0
+        Outlet.atEnd setScroll
+      return
+
+
     @map
+      contentScroll: '/$scrollTop'
       page: '/page'
       menu: '/$menu'
       dialog: '/$dialog'
@@ -45,10 +71,9 @@ module.exports =
       search:
         q: '/search/field/$search'
         number: '/search/number'
-        tagSlides: '/search/sidebar/tags_content/$slides'
-        dateScrollTop: '/search/sidebar_tabs/dates_content/calendar/$scrollDateTop'
-        dateScrollBottom: '/search/sidebar_tabs/dates_content/calendar/$scrollDateBottom'
-        dateScrollBot: '/search/sidebar_tabs/dates_content/calendar/$scrollBot'
+        dateScrollTop: '/search/datesContent/calendar/$scrollDateTop'
+        dateScrollBottom: '/search/datesContent/calendar/$scrollDateBottom'
+        dateScrollBot: '/search/datesContent/calendar/$scrollBot'
       docs:
         id: '/docs/id'
         

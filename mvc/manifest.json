@@ -253,18 +253,18 @@
                         "search/sidebar_tabs/dates/view.coffee",
                         "search/sidebar_tabs/tags/controller.coffee",
                         "search/sidebar_tabs/tags/list/view.coffee",
-                        "calendar/view.coffee",
                         "search/results/controller.coffee",
                         "search/results/view.coffee",
                         "models/users_priv.coffee",
                         "md/head/view.coffee",
                         "docs/sidebar_top/controller.coffee",
                         "views/tab_rows.coffee",
-                        "search/controller.coffee",
-                        "body/view.coffee",
                         "search/results/doc/view.coffee",
                         "docs/controller.coffee",
-                        "body/controller.coffee", "routes.coffee"
+                        "calendar/view.coffee",
+                        "search/controller.coffee",
+                        "body/controller.coffee", "body/view.coffee",
+                        "routes.coffee"
                     ],
                     "generated": "bundle/debug [-ie<=8 -ios debug].js"
                 },
@@ -404,18 +404,18 @@
                         "search/sidebar_tabs/dates/view.coffee",
                         "search/sidebar_tabs/tags/controller.coffee",
                         "search/sidebar_tabs/tags/list/view.coffee",
-                        "calendar/view.coffee",
                         "search/results/controller.coffee",
                         "search/results/view.coffee",
                         "models/users_priv.coffee",
                         "md/head/view.coffee",
                         "docs/sidebar_top/controller.coffee",
                         "views/tab_rows.coffee",
-                        "search/controller.coffee",
-                        "body/view.coffee",
                         "search/results/doc/view.coffee",
                         "docs/controller.coffee",
-                        "body/controller.coffee", "routes.coffee"
+                        "calendar/view.coffee",
+                        "search/controller.coffee",
+                        "body/controller.coffee", "body/view.coffee",
+                        "routes.coffee"
                     ],
                     "generated": "bundle/debug [-ie<=8 debug ios].js"
                 }

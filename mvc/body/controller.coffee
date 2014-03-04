@@ -23,6 +23,7 @@ module.exports =
 
   showPage: (page) ->
     @view.toggleMenu 'on', false
+    @getController page # for the side-effects... bad form
     @page.set page
     @closeDialog()
     return
@@ -56,8 +57,9 @@ module.exports =
 
         controller
       when 'docs'
-        controller = @controllers['docs'] ||= new @Controller['docs'] this, 'docs', id: =>
-          controller.id.value or @lastDoc.value
+        controller = @controllers['docs'] ||= new @Controller['docs'] this, 'docs'
+        unless controller.id.value
+          controller.id.set @lastDoc.value
         controller
       when 'about'
         controller = @controllers['static'] ||= new @Controller['docs'] this, 'static', id: =>
