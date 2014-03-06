@@ -54,9 +54,15 @@ module.exports =
       return
 
     (doc, md='') ->
-      return if !md and !@doc.value
-      differentDoc = @oldDoc isnt @doc.value
-      @oldDoc = @doc.value # XXX memory: pointer to unused doc
+      return if !md and !doc
+      console.log "UPDATING DOC WITH MD",md.substr(0,100)
+
+      # this is so update isn't called if the content is completely different.
+      # TODO: a better way would be to look at the diff and heuristically
+      # determine whether the tree should be regenerated
+      docId = '' + (doc?.id)
+      differentDoc = @oldDocId isnt docId
+      @oldDocId = docId
 
       if @mode is MODE_TEXT
         if editor = @editor
