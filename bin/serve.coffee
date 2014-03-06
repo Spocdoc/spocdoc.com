@@ -3,12 +3,13 @@
 
 connect = require 'connect'
 express = require 'express'
-optimist = require 'optimist'
 Manifest = require 'manifest_mvc'
 ace = require 'ace_mvc'
 fs = require 'fs'
 path = require 'path'
 connectOauth = require 'connect_oauth'
+manifestArgs = if 0 <= tmp = process.argv.indexOf('--manifest') then process.argv.splice(tmp).slice(1) else []
+optimist = require 'optimist'
 
 sessionSecret = 'EfrisjixTd/oDeR2reBJwm0tT67DDaVe9qW/JUYPOzjnY9502zXpQDzm'
 
@@ -21,6 +22,8 @@ argv = optimist
   .alias('p','port')
   .alias('h','host')
   .alias('P','protocol')
+  .boolean('manifest')
+  .describe('manifest', 'followed by a series of manifest options')
   .argv
 
 if argv.help
@@ -56,7 +59,7 @@ app.configure 'production', ->
 
 debugger
 
-manifest = new Manifest '../mvc'
+manifest = new Manifest '../mvc', manifestArgs
 
 app.use ace server, manifest,
   # cookies:

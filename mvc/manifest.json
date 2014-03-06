@@ -1,11 +1,12 @@
 {
     "options": {
+        "_": [],
+        "assetServerRoot": "//127.0.0.1:8081",
         "framework": "ace_mvc",
         "bundler": "bundle-fork",
         "fileCacheFor": ["styl"],
         "hashAssets": true,
         "assetRoot": "../public",
-        "assetServerRoot": "//127.0.0.1:8081",
         "templateGlobals": "template_globals.coffee",
         "disableClientJS": false
     },
@@ -241,8 +242,6 @@
                         "mixins/editable line/view.coffee",
                         "mixins/editable text/view.coffee",
                         "mixins/editable val/view.coffee",
-                        "body/invite_me/view.coffee",
-                        "body/invite_me/missing_email/view.coffee",
                         "search/sidebar_top/view.coffee",
                         "search/page/view.coffee",
                         "search/sidebar_tabs/dates/view.coffee",
@@ -257,8 +256,10 @@
                         "calendar/view.coffee",
                         "search/controller.coffee",
                         "body/view.coffee", "routes.coffee",
+                        "body/invite_me/missing_email/view.coffee",
                         "body/controller.coffee",
                         "docs/sidebar_top/view.coffee",
+                        "body/invite_me/view.coffee",
                         "docs/controller.coffee"
                     ],
                     "generated": "bundle/debug [-ie<=8 -ios debug].js"
@@ -390,8 +391,6 @@
                         "mixins/editable line/view.coffee",
                         "mixins/editable text/view.coffee",
                         "mixins/editable val/view.coffee",
-                        "body/invite_me/view.coffee",
-                        "body/invite_me/missing_email/view.coffee",
                         "search/sidebar_top/view.coffee",
                         "search/page/view.coffee",
                         "search/sidebar_tabs/dates/view.coffee",
@@ -406,8 +405,10 @@
                         "calendar/view.coffee",
                         "search/controller.coffee",
                         "body/view.coffee", "routes.coffee",
+                        "body/invite_me/missing_email/view.coffee",
                         "body/controller.coffee",
                         "docs/sidebar_top/view.coffee",
+                        "body/invite_me/view.coffee",
                         "docs/controller.coffee"
                     ],
                     "generated": "bundle/debug [-ie<=8 debug ios].js"
