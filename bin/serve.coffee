@@ -30,13 +30,22 @@ if argv.help
   optimist.showHelp()
   process.exit 0
 
+readCertificateChain = ->
+  fs.readFileSync(file,encoding:'utf-8') for file in fs.readdirSync(path.resolve(__dirname, '../resources/ssl_chain')).filter((name) -> /^\d+\.pem$/.test name).sort (a,b) ->
+    a = parseInt(a,10)
+    b = parseInt(b,10)
+    return -1 if b < a
+    return 1 if a < b
+    0
+
 key = fs.readFileSync path.resolve __dirname, '../resources/ssl.key'
 cert = fs.readFileSync path.resolve __dirname, '../resources/ssl.crt'
+ca = readCertificateChain()
 
 app = express()
 app.use express.compress()
 if argv.protocol is 'https'
-  server = require('https').createServer {key, cert}, app
+  server = require('https').createServer {key, cert, ca}, app
 else
   server = require('http').createServer app
 
