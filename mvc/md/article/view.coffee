@@ -100,7 +100,7 @@ module.exports =
 
               $.selection html.offsetToPos(start, sel.start), html.offsetToPos(end, sel.end) if sel
           else
-            console.log "HTML CREATE with md",md.susbtr(0,100)
+            console.log "HTML CREATE with md",md.substr(0,100)
             console.log "bootstrapped", @template.bootstrapped
             html = @html = new Html md, (if @template.bootstrapped then @$content else null), depth: 1
             @$content.prepend html.$root
