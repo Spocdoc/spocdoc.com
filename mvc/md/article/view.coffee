@@ -104,8 +104,8 @@ module.exports =
             console.log "bootstrapped", @template.bootstrapped
             html = @html = new Html md, (if @template.bootstrapped then @$content else null), depth: 1
             @$content.prepend html.$root
-        catch _error
-          console.log "CAUGHT",_error
+      catch _error
+        console.log "CAUGHT",_error
 
       return
   ]
