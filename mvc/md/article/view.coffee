@@ -60,52 +60,52 @@ module.exports =
 
       try
 
-      # this is so update isn't called if the content is completely different.
-      # TODO: a better way would be to look at the diff and heuristically
-      # determine whether the tree should be regenerated
-      docId = '' + (doc?.id)
-      differentDoc = @oldDocId isnt docId
-      @oldDocId = docId
+        # this is so update isn't called if the content is completely different.
+        # TODO: a better way would be to look at the diff and heuristically
+        # determine whether the tree should be regenerated
+        docId = '' + (doc?.id)
+        differentDoc = @oldDocId isnt docId
+        @oldDocId = docId
 
-      if @mode is MODE_TEXT
-        if editor = @editor
-          editor.update '', false if differentDoc
+        if @mode is MODE_TEXT
+          if editor = @editor
+            editor.update '', false if differentDoc
 
-          if diffstr = strdiff editor.src, md
-            eqRanges = strdiff.equalRanges diffstr
+            if diffstr = strdiff editor.src, md
+              eqRanges = strdiff.equalRanges diffstr
 
-            if sel = $.selection()
-              start = eqRanges.updateOffset editor.posToOffset sel.start
-              end = eqRanges.updateOffset editor.posToOffset sel.end
+              if sel = $.selection()
+                start = eqRanges.updateOffset editor.posToOffset sel.start
+                end = eqRanges.updateOffset editor.posToOffset sel.end
 
-            editor.update md, false, eqRanges
+              editor.update md, false, eqRanges
 
-            $.selection editor.offsetToPos(start, sel.start), editor.offsetToPos(end, sel.end) if sel
+              $.selection editor.offsetToPos(start, sel.start), editor.offsetToPos(end, sel.end) if sel
+          else
+            editor = @editor = new Editor md, if @template.bootstrapped then @$content else null
+            @$content.prepend editor.$root
         else
-          editor = @editor = new Editor md, if @template.bootstrapped then @$content else null
-          @$content.prepend editor.$root
-      else
-        if html = @html
-          html.update '' if differentDoc
+          if html = @html
+            html.update '' if differentDoc
 
-          if diffstr = strdiff html.src, md
-            eqRanges = strdiff.equalRanges diffstr
+            if diffstr = strdiff html.src, md
+              eqRanges = strdiff.equalRanges diffstr
 
-            if sel = $.selection()
-              start = eqRanges.updateOffset html.posToOffset sel.start
-              end = eqRanges.updateOffset html.posToOffset sel.end
+              if sel = $.selection()
+                start = eqRanges.updateOffset html.posToOffset sel.start
+                end = eqRanges.updateOffset html.posToOffset sel.end
 
-            console.log "HTML UPDATE",eqRanges
-            html.update md, eqRanges
+              console.log "HTML UPDATE",eqRanges
+              html.update md, eqRanges
 
-            $.selection html.offsetToPos(start, sel.start), html.offsetToPos(end, sel.end) if sel
-        else
-          console.log "HTML CREATE with md",md.susbtr(0,100)
-          console.log "bootstrapped", @template.bootstrapped
-          html = @html = new Html md, (if @template.bootstrapped then @$content else null), depth: 1
-          @$content.prepend html.$root
-      catch _error
-        console.log "GOT ERROR: ",_error
+              $.selection html.offsetToPos(start, sel.start), html.offsetToPos(end, sel.end) if sel
+          else
+            console.log "HTML CREATE with md",md.susbtr(0,100)
+            console.log "bootstrapped", @template.bootstrapped
+            html = @html = new Html md, (if @template.bootstrapped then @$content else null), depth: 1
+            @$content.prepend html.$root
+        catch _error
+          console.log "CAUGHT",_error
 
       return
   ]
