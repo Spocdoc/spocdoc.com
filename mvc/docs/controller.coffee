@@ -1,3 +1,5 @@
+typeToClass = require 'manifest_mvc/type_to_class'
+
 module.exports =
   view: 'with_sidebar'
 
@@ -5,9 +7,37 @@ module.exports =
     'id'
     'doc': (id) -> @Model['docs'].read id
     'title': -> @doc.get('title')
+    'editable': -> @doc.get()?.editable()
   ]
 
-  $main: -> new @View['md/article'] this, 'main', doc: => @doc
+  $main: -> @controllers['main']
   $sidebar: -> new @View['sidebar_split'] this, 'sidebar',
-    top: new @Controller['docs/sidebar_top'] this, 'sidebarTop'
-    bottom: new @Controller['docs/sidebar_tabs'] this, 'sidebarTabs'
+    top: @controllers['top']
+    bottom: @controllers['bottom']
+
+  # for tabs
+  getCell: (tab) ->
+    tabClass = typeToClass tab
+    @controllers[tab] ||= new @View["docs/sidebar_tabs/#{tabClass}"] this, "#{tabClass}_content"
+  freeCell: (tab) ->
+
+  constructor: ->
+    @controllers['main'] = new @View['md/article'] this, 'main',
+      doc: @doc
+      editable: @editable
+
+    field = @controllers['field'] = new @View['search/field'] this, 'field'
+    @controllers['top'] = new @View['docs/sidebar_top'] this, 'sidebarTop',
+      search: field
+      editable: @editable
+
+    @controllers['bottom'] = new @View['tab_rows'] this, 'sidebarTop',
+      defaultTabs: [
+        'Outline'
+        'Media'
+      ]
+      orderedTabs: -> @session.get('user')?.get('priv')?.get('docTabs')
+      rowStarts: -> @session.get('user')?.get('priv')?.get('docTabStarts')
+
+    return
+

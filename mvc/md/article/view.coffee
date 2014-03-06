@@ -39,12 +39,18 @@ module.exports =
   outlets: [
     'doc'
     'md': -> @doc.get('text')
+    'editable'
   ]
-
 
   outletMethods: [
     (doc) ->
       @switchToHtml()
+      return
+
+    (editable) ->
+      unless editable
+        @switchToHtml()
+      @html?.$content.prop('contenteditable',!!editable)
       return
 
     (doc, md='') ->
@@ -116,7 +122,9 @@ module.exports =
     return
 
   switchToText: ->
-    return if @mode is MODE_TEXT
+    return true if @mode is MODE_TEXT
+
+    return false unless @editable.value
     @mode = MODE_TEXT
 
     if (html = @html) and sel = $.selection()
@@ -145,10 +153,11 @@ module.exports =
         $scrollParent = @$root.scrollParent()
         $scrollParent.scrollTop(Math.round($scrollParent.scrollTop() + newCarat.top - oldCarat.top))
         @moveCarat(oldCarat,$.selection.coords(sel))
-    return
+
+    true
 
   switchToHtml: ->
-    return if @mode is MODE_HTML
+    return true if @mode is MODE_HTML
     @mode = MODE_HTML
 
     if (editor = @editor) and sel = $.selection()
@@ -178,14 +187,13 @@ module.exports =
         $scrollParent.scrollTop(Math.round($scrollParent.scrollTop() + newCarat.top - oldCarat.top))
         @moveCarat(oldCarat,$.selection.coords(sel))
 
-    return
+    true
 
   switchModes: ->
     if @mode is MODE_HTML
       @switchToText()
     else
       @switchToHtml()
-    return
 
   handleInput: ->
     if editor = @editor
@@ -213,9 +221,6 @@ module.exports =
     @html = @editor = null
     @mode = MODE_HTML
 
-    # TODO: determine when document is editable
-    @$content.addClass 'editable'
-
     # TODO: one approach to clicking editable links
     # @$content.attr 'contenteditable', true
     # @$content.on 'mousedown', 'a', =>
@@ -235,6 +240,7 @@ module.exports =
       return
 
     @$content.on 'keydown', (event) =>
+      return unless @editable.value
       return if event.keyCode in KEY_NON_MUTATING or event.keyCode is KEY_F and (event.ctrlKey or event.metaKey)
 
       if event.keyCode is KEY_ESC
@@ -244,7 +250,7 @@ module.exports =
         return false
 
       if @mode is MODE_HTML
-        @switchToText()
+        return false unless @switchToText()
 
       switch event.keyCode
         when KEY_ENTER
@@ -270,6 +276,8 @@ module.exports =
       return
 
     @$content.on 'mouseup keyup', (event) =>
+      return unless @editable.value
+
       if event.keyCode is KEY_ESC
         if Date.now() > @lastEsc + TOGGLE_LAG_MILLIS
           @switchModes()

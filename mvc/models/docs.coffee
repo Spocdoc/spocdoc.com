@@ -13,6 +13,16 @@ module.exports =
         tags
     ), null, true
 
+  editable: ->
+    @_editable ||= new Outlet (=>
+      # editors is an array of ObjectId's
+      return false unless (editors = @get('editors').get()) and id = @session.get('user')?.get()?.id
+      id = ''+id
+      for editor in editors when id is ''+editor
+        return true
+      false
+    ), null, true
+
   static:
     build: (globals, text, meta=0) ->
       # TODO

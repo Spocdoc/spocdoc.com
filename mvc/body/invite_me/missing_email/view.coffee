@@ -42,7 +42,6 @@ module.exports =
 
     info = @info || {}
     info.email = email
-    debugger
 
     @inviting = true
     @session.get().invite info, (err, user) =>
