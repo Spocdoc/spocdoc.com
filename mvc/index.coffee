@@ -16,6 +16,7 @@ dates['dateToStr'] = dates.dateToStr
 
 Outlet = require 'outlet'
 Outlet['block'] = Outlet.block
+Outlet['atEnd'] = Outlet.atEnd
 Outlet.prototype['addOutflow'] = Outlet::addOutflow
 
 Cookies = require 'cookies-fork'
