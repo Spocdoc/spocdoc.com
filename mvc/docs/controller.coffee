@@ -31,7 +31,7 @@ module.exports =
       search: field
       editable: @editable
 
-    @controllers['bottom'] = new @View['tab_rows'] this, 'sidebarTop',
+    @controllers['bottom'] = new @View['tab_rows'] this, 'sidebarTabs',
       defaultTabs: [
         'Outline'
         'Media'
