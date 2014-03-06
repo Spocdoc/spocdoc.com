@@ -55,6 +55,7 @@ module.exports =
 
     (doc, md='') ->
       return if !md and !doc
+      console.log "UPDATE WITH MD",md.substr(0,100)
 
       # this is so update isn't called if the content is completely different.
       # TODO: a better way would be to look at the diff and heuristically
@@ -96,6 +97,8 @@ module.exports =
 
             $.selection html.offsetToPos(start, sel.start), html.offsetToPos(end, sel.end) if sel
         else
+          console.log "HTML CREATE with md",md.susbtr(0,100)
+          console.log "bootstrapped", @template.bootstrapped
           html = @html = new Html md, (if @template.bootstrapped then @$content else null), depth: 1
           @$content.prepend html.$root
 
