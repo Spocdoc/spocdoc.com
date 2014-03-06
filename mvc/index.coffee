@@ -5,7 +5,7 @@ require 'dom_text'
 require 'debug-fork'
 require 'es5'
 require 'dom_mobile'
-require 'html5'
+require 'html5-fork'
 
 dates = require 'dates-fork'
 dates['strToDateRange'] = dates.strToDateRange
