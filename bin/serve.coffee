@@ -31,7 +31,8 @@ if argv.help
   process.exit 0
 
 readCertificateChain = ->
-  fs.readFileSync(file,encoding:'utf-8') for file in fs.readdirSync(path.resolve(__dirname, '../resources/ssl_chain')).filter((name) -> /^\d+\.pem$/.test name).sort (a,b) ->
+  dir = path.resolve(__dirname, '../resources/ssl_chain')
+  fs.readFileSync(path.resolve(dir,file),encoding:'utf-8') for file in fs.readdirSync(dir).filter((name) -> /^\d+\.pem$/.test name).sort (a,b) ->
     a = parseInt(a,10)
     b = parseInt(b,10)
     return -1 if b < a
