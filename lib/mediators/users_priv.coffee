@@ -41,14 +41,15 @@ module.exports = (Base) ->
           for op in ops
             if op.k in IMMUTABLE_FIELDS
               return next new Error("Can't change those fields directly")
+        next()
 
-        if !to.draftFiller?
-          @_chooseDraftFiller (err, filler) ->
-            moreOps = diff to, filler, path: ['draftFiller']
-            to.draftFiller = filler
-            next null, moreOps
-        else
-          next()
+        # if !to.draftFiller?
+        #   @_chooseDraftFiller (err, filler) ->
+        #     moreOps = diff to, filler, path: ['draftFiller']
+        #     to.draftFiller = filler
+        #     next null, moreOps
+        # else
+        #   next()
       super
 
     _chooseDraftFiller: (cb) ->

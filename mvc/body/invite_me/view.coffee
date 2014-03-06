@@ -90,7 +90,6 @@ module.exports =
       $li.removeClass 'in-progress'
 
       debug "oauth got err,info",err,info
-      console.log "oauth got err,info",err,info
 
       if err? or !info
         @$oauth.addClass 'has-error'
