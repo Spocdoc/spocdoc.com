@@ -32,7 +32,7 @@
     "dom_mobile": "0.x",
     "dates-fork": "0.x",
     "mongo-fork": "0.x",
-    "html5": "0.x",
+    "html5-fork": "0.x",
     "hash-fork": "0.x",
     "connect_oauth": "0.x",
     "evernote": "1.x",
