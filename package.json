@@ -38,6 +38,7 @@
     "evernote": "1.x",
     "twit": "1.x",
     "request": "2.x",
-    "tumblr.js": "0.x"
+    "tumblr.js": "0.x",
+    "tag_map": "0.x"
   }
 }
