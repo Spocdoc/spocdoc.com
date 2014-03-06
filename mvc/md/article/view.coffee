@@ -56,6 +56,9 @@ module.exports =
     (doc, md='') ->
       return if !md and !doc
       console.log "UPDATE WITH MD",md.substr(0,100)
+      console.log "MODE IS ",@mode,"VS",MODE_TEXT
+
+      try
 
       # this is so update isn't called if the content is completely different.
       # TODO: a better way would be to look at the diff and heuristically
@@ -101,6 +104,8 @@ module.exports =
           console.log "bootstrapped", @template.bootstrapped
           html = @html = new Html md, (if @template.bootstrapped then @$content else null), depth: 1
           @$content.prepend html.$root
+      catch _error
+        console.log "GOT ERROR: ",_error
 
       return
   ]
