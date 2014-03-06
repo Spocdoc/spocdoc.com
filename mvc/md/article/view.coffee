@@ -55,7 +55,6 @@ module.exports =
 
     (doc, md='') ->
       return if !md and !doc
-      console.log "UPDATING DOC WITH MD",md.substr(0,100)
 
       # this is so update isn't called if the content is completely different.
       # TODO: a better way would be to look at the diff and heuristically
@@ -92,6 +91,7 @@ module.exports =
               start = eqRanges.updateOffset html.posToOffset sel.start
               end = eqRanges.updateOffset html.posToOffset sel.end
 
+            console.log "HTML UPDATE",eqRanges
             html.update md, eqRanges
 
             $.selection html.offsetToPos(start, sel.start), html.offsetToPos(end, sel.end) if sel
