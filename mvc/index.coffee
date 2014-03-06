@@ -14,6 +14,10 @@ dates['dateToNumber'] = dates.dateToNumber
 dates['daysInMonth'] = dates.daysInMonth
 dates['dateToStr'] = dates.dateToStr
 
+connectOauth = require 'connect_oauth'
+connectOauth['startOauth'] = connectOauth.startOauth
+connectOauth['stopOauth'] = connectOauth.stopOauth
+
 Outlet = require 'outlet'
 Outlet['block'] = Outlet.block
 Outlet['atEnd'] = Outlet.atEnd
