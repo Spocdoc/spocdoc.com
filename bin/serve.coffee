@@ -61,6 +61,9 @@ debugger
 
 manifest = new Manifest '../mvc', manifestArgs
 
+favicon = fs.readFileSync path.resolve __dirname, '../public/img/favicon.ico'
+app.get '/favicon.ico', (req,res,next) -> res.end favicon
+
 app.use ace server, manifest,
   # cookies:
     # domain: '192.168.1.107'
