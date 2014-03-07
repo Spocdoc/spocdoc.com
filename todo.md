@@ -22,3 +22,11 @@
 
  [] make the sidebar dots less obtrusive -- e.g., move them up to the top as you scroll down so they're not right at the reading level
  [] get rid of the menu button on mobile. instead, wrap the navigation below the site logo see skinnyties.com
+ [] consolidate the cookies so there's a single cookie managed by connect
+
+    it should be secure. and in that case you don't have to sign the cookie, just include the session id in the @req.session
+
+    to notify other windows when the session has changed, delete the old session after the new session is present
+
+    modify the `present` outlet in ace_mvc/model so that it shows present only when the document is known to be present on both the server and the client (this will mean using a separate field -- e.g., `clientPresent`) as a spinner (so when you create a new document on the client, this field is true even before it appears on the server)
+
