@@ -11,8 +11,6 @@ connectOauth = require 'connect_oauth'
 manifestArgs = if 0 <= tmp = process.argv.indexOf('--manifest') then process.argv.splice(tmp).slice(1) else []
 optimist = require 'optimist'
 
-sessionSecret = 'EfrisjixTd/oDeR2reBJwm0tT67DDaVe9qW/JUYPOzjnY9502zXpQDzm'
-
 argv = optimist
   .default({
     p: 1337
@@ -52,7 +50,7 @@ else
 
 app.use connect.cookieParser()
 app.use connect.multipart()
-app.use express.session secret: sessionSecret
+app.use express.cookieSession secret: 'EfrisjixTd/oDeR2reBJwm0tT67DDaVe9qW/JUYPOzjnY9502zXpQDzm'
 connectOauth app,
   protocol: argv.protocol
   host: argv.host
