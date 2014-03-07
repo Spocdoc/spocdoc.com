@@ -14,12 +14,19 @@ module.exports =
         model
 
       lastCookie = ctx.cookies.get('session')?[0]
+      lastSession = undefined
+      oldSessions = []
       cookieUpdater = ->
         session = ctx.session.get()
         cookie = session?.get('cookie')?.get()
+        if session isnt lastSession
+          oldSessions.push lastSession if lastSession
+          lastSession = session
         unless cookie?[0] in [undefined, lastCookie]
           @cookies.set 'session', cookie
           lastCookie = cookie[0]
+          oldSession.delete() for oldSession in oldSessions
+          oldSessions.length = 0
         return
 
       ctx._sessionCookieUpdater = new Outlet cookieUpdater, ctx, true
