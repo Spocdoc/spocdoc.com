@@ -234,7 +234,6 @@
                         "search/field/view.coffee",
                         "md/article/view.coffee",
                         "views/with_sidebar.coffee",
-                        "models/sessions.coffee",
                         "models/users.coffee",
                         "body/invite_me/youre_invited/view.coffee",
                         "contact_us/view.coffee",
@@ -259,7 +258,8 @@
                         "body/controller.coffee",
                         "docs/sidebar_top/view.coffee",
                         "body/invite_me/view.coffee",
-                        "docs/controller.coffee"
+                        "docs/controller.coffee",
+                        "models/sessions.coffee"
                     ],
                     "generated": "bundle/debug [-ie<=8 -ios debug].js"
                 },
@@ -382,7 +382,6 @@
                         "search/field/view.coffee",
                         "md/article/view.coffee",
                         "views/with_sidebar.coffee",
-                        "models/sessions.coffee",
                         "models/users.coffee",
                         "body/invite_me/youre_invited/view.coffee",
                         "contact_us/view.coffee",
@@ -407,7 +406,8 @@
                         "body/controller.coffee",
                         "docs/sidebar_top/view.coffee",
                         "body/invite_me/view.coffee",
-                        "docs/controller.coffee"
+                        "docs/controller.coffee",
+                        "models/sessions.coffee"
                     ],
                     "generated": "bundle/debug [-ie<=8 debug ios].js"
                 }
