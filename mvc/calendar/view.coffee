@@ -39,7 +39,7 @@ module.exports =
 
   outletMethods: [
     (inWindow, scrollDateTop, scrollDateBottom, scrollBot) ->
-      if !inWindow
+      if !inWindow or @ace.onServer
         @_scrollBot = null
         return
 

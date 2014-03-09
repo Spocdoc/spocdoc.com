@@ -3,6 +3,9 @@ IE_TRANSPARENT = "chroma(color=#bada55)"
 $IE-TRANSPARENT
   *filter: unquote(IE_TRANSPARENT)
 
+@import './styl/colors'
+@import './styl/constants.styl'
+
 $sansserif
   font-family: 'Helvetica Neue', Helvetica, arial, freesans, clean, sans-serif
 
@@ -25,6 +28,9 @@ $article-text
     li
       display list-item
 
+  @media MEDIA_WITH_SIDEBAR
+    font-size 1.125em
+
 
 $fixed
   font-family: Menlo, Monoco, Andale Mono, Courier, monospace
@@ -41,9 +47,6 @@ $inline-block
 $strong-shadow
   box-shadow 0 3px 11px hsla(0, 0%, 0%, 0.5) !important
 
-
-@import './styl/colors'
-@import './styl/constants.styl'
 
 $centering
   margin 0 auto
