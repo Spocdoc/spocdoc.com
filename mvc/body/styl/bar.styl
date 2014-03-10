@@ -39,6 +39,20 @@
   & > .dropdown-menu
     display none
 
+  .menu-button-overlay
+    top unit(- (1 + PADDING_SIDES_SMALL), em) !important
+    left unit(- (1 + PADDING_SIDES_SMALL), em) !important
+    padding unit(1 + PADDING_SIDES_SMALL, em)
+    padding-bottom 3px
+
+  .login-menu .menu-button-overlay
+    position absolute !important
+    bottom 0
+    top auto !important
+    left -2px !important
+    padding 1.6em 1.2em 0 2px !important
+
+
 [data-menu~="on"]
   .main-menu
     & > .dropdown-caret-center,

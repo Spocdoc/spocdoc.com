@@ -13,6 +13,7 @@
  [] when the "log in" text in the menu isn't visible (instead showing just an arrow), the header should be present without back button
  [] when showing the menu navigation, the current tab should be highlighted on the left (blue vertical line)
  [] in firefox, the blur when a dialog is open causes any active menus to become highly translucent...
+ [] small dialogs should be centered vertically
 
 # implementation
 

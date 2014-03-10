@@ -22,7 +22,9 @@ module.exports =
 
   $content: 'view'
   $menuButton: linkdown: ['toggleMenu', 'on']
+  $menuButtonOverlay: linkdown: ['toggleMenu', 'on']
   $logIn: linkup: ['toggleMenu', 'login']
+  $logInOverlay: linkup: ['toggleMenu', 'login']
   $logInBack: linkdown: ['toggleMenu','login']
   $inviteMe1: linkdown: ['toggleDialog','inviteMe']
   $inviteMe2: linkdown: ['toggleDialog','inviteMe']

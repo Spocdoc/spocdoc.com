@@ -9,6 +9,7 @@ MT10 = MEDIA_NO_PHONE_MODE //"only screen and (min-width: " + (T10) + "em)"
 hideMenu()
   .main-menu
     & > .menu-button,
+    & > .menu-button-overlay,
     & > .dropdown-caret,
     & > .dropdown-caret-center,
     & > .dropdown-caret-right
@@ -70,15 +71,17 @@ hideMenu()
       font-weight 300 !important
       font-size 1em !important
       padding 0 !important
+
+      span
+        display none
+
+    .log-in, .menu-button-overlay
       background none !important
       color BLACK_COLOR !important
 
       &:hover
         background none !important
         color LINK_COLOR !important
-
-      span
-        display none
 
   .right-div-min
     display none
