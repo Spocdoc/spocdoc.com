@@ -30,3 +30,11 @@
 
     modify the `present` outlet in ace_mvc/model so that it shows present only when the document is known to be present on both the server and the client (this will mean using a separate field -- e.g., `clientPresent`) as a spinner (so when you create a new document on the client, this field is true even before it appears on the server)
 
+# Mobile
+
+ [] The menus don't work on mobile
+
+ [] The buttons at the bottom shouldn't be touch down
+
+ [] Invite me when the keyboard shows hides the field (chrome bug) on android 
+

@@ -60,11 +60,17 @@ TITLEBAR_HEIGHT = 2
   line-height unit(TITLEBAR_HEIGHT, em)
   font-size 1.25em
 
-  .dialog-close
-    @extend $inline-block
+  .dialog-close-container
     position absolute
     z-index 1
     right 0
+    top 0
+
+  .dialog-close
+    position fixed
+    right auto
+    margin-left -1.7em
+    @extend $inline-block
     padding 0 unit(PADDING_SIDES_SMALL, em)
     cursor pointer
 

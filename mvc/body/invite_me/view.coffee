@@ -24,7 +24,6 @@ module.exports =
 
   $emailError: 'text'
   $oauthError: 'text'
-  $email: 'text'
 
   $evernote: link: ['startOauth', 'evernote']
   $twitter: link: ['startOauth', 'twitter']
@@ -36,7 +35,7 @@ module.exports =
 
   outletMethods: [
     (inWindow) ->
-      if inWindow
+      if inWindow and !$.mobile
         @$email.focus()
       return
 

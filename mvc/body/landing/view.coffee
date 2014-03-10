@@ -1,3 +1,3 @@
 module.exports =
-  $inviteMe3: linkdown: ['depute','toggleDialog','inviteMe']
-  $findOutMore: linkdown: ['depute','showPage','about']
+  $inviteMe3: link: ['depute','toggleDialog','inviteMe']
+  $findOutMore: link: ['depute','showPage','about']

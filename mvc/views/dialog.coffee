@@ -14,3 +14,9 @@ module.exports =
     (small) -> @$root.toggleClass 'small', !!small
   ]
 
+  constructor: ->
+    @$root.on 'focus', 'input', (event) =>
+      if @$root.hasClass('small') and (elem = event.target).scrollIntoView
+        elem.scrollIntoView()
+      return
+

@@ -38,6 +38,13 @@
 h1
   font-weight 300
 
+.article-text
+  @extend $article-text
+
+.small
+  .article-text
+    font-size 1em
+
 // Spinner
 // --------
 .spinner
@@ -88,6 +95,10 @@ h1
 
 // forms
 // --------
+
+input
+  -webkit-appearance none
+  border-radius 0
 
 .form
   .submit-div
