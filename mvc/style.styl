@@ -16,8 +16,12 @@
   overflow hidden
 
 .blurred
-  -webkit-filter blur(5px)
   opacity 0.5
+
+// only on desktop -- mobile is too slow to render this effect without disruption
+.desktop
+  .blurred
+    -webkit-filter blur(5px)
 
 .oauth-list
   list-style-type none !important

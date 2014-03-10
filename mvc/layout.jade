@@ -13,3 +13,12 @@ html(lang="en")
     link(rel="shortcut icon" href="/favicon.ico?v=2")
     title Spocdoc
   body.preload.logged-out
+  script(type='text/javascript')
+    (function () {
+      var html = document.getElementsByTagName("html")[0];
+      if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Mobile/i.test(navigator.userAgent)) {
+        html.className += " mobile";
+      } else {
+        html.className += " desktop";
+      }
+    }());
