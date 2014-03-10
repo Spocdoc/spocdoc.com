@@ -49,6 +49,23 @@ h1
   .article-text
     font-size 1em
 
+// Vertical dots
+// --------
+.vert-dots
+  @extend $inline-block
+  padding 0 1em
+  cursor pointer
+
+  .dot
+    background BLACK_COLOR
+    width 4px
+    height 4px
+    margin-bottom 2px
+
+  &:hover
+    .dot
+      background LINK_COLOR
+
 // Spinner
 // --------
 .spinner

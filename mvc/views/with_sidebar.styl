@@ -13,7 +13,6 @@ CHEVRON_FROM_SIDE = 0
     float right
     width unit(SIDEBAR_WIDTH + 2 * PADDING_SIDES_SMALL,em)
     position relative
-    left -0.4em
 
   .sidebar
     position fixed
@@ -28,7 +27,7 @@ CHEVRON_FROM_SIDE = 0
     .menu-outer
       height 100%
       width unit(SIDEBAR_WIDTH + 2 * PADDING_SIDES_SMALL,em)
-      left -0.9em
+      left -12px
       display none
 
     .dropdown-caret
@@ -44,10 +43,11 @@ CHEVRON_FROM_SIDE = 0
       & > div
         height 100%
 
-    .sidebar-chevron
+    .vert-dots
       position absolute
-      margin-left unit(SIDEBAR_WIDTH + 2 * PADDING_SIDES_SMALL - CHEVRON_FROM_SIDE, em)
+      margin-left unit(SIDEBAR_WIDTH + 2 * PADDING_SIDES_SMALL - CHEVRON_FROM_SIDE - 1, em)
       top unit(CHEVRON_FROM_TOP + LOGGED_OUT_HEIGHT, em)
+      padding 4px 1em
       z-index 902
 
       padding-right unit(PADDING_SIDES_SMALL, em)
@@ -55,23 +55,13 @@ CHEVRON_FROM_SIDE = 0
 
       line-height 23px
 
-      opacity 0.5
-
       &:link, &:visited, &
         // color BLACK_COLOR
-        color LINK_COLOR
-
-      &:before
-        font 19px spocdicons
-        content: '\f02e'
+        color DARK_GRAY
 
       &:hover
         color LINK_COLOR
         text-decoration none
-        opacity 1
-
-        &:before
-          content: '\f02c'
 
 @media MEDIA_PHONE_MODE
   [data-menu~="on"]
@@ -104,7 +94,7 @@ CHEVRON_FROM_SIDE = 0
         left 0
         display block !important
 
-    .sidebar-chevron
+    .vert-dots
       display none
 
     .dropdown-menu
@@ -120,9 +110,7 @@ CHEVRON_FROM_SIDE = 0
   .menu-outer
     display block !important
 
-  .sidebar-chevron
+  .vert-dots
     &:link, &:visited, &
       color LINK_COLOR !important
-    &:before
-      content: '\f02c' !important
 
