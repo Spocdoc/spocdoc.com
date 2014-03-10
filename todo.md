@@ -38,3 +38,8 @@
 
  [] Invite me when the keyboard shows hides the field (chrome bug) on android 
 
+# Browser bugs
+
+ [] scrollIntoView with a fixed position element scrolls the document and the fixed position layer
+
+
