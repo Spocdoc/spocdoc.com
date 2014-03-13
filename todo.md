@@ -33,14 +33,12 @@
 
 # Mobile
 
- [] The menus don't work on mobile
+ [] the sidebar can get unusably short. it may be a good idea to zoom it out (just make all the fonts smaller) when it's on mobile (although this would shrink the calendar dates...)
 
- [] The buttons at the bottom shouldn't be touch down
+ [] the lack of memory management on the models means the browser crashes after some use
 
- [] Invite me when the keyboard shows hides the field (chrome bug) on android 
 
 # Browser bugs
 
  [] scrollIntoView with a fixed position element scrolls the document and the fixed position layer
-
 

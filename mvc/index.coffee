@@ -24,7 +24,7 @@ Outlet['atEnd'] = Outlet.atEnd
 Outlet.prototype['addOutflow'] = Outlet::addOutflow
 
 Cookies = require 'cookies-fork'
-Cookies.prototype['unset'] = Cookies.prototype.unset
+Cookies.prototype['unset'] = Cookies::.unset
 
 Html = require 'marked-fork/html'
 Html.prototype['posToOffset'] = Html::posToOffset

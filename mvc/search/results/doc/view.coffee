@@ -1,6 +1,6 @@
 debugError = global.debug 'ace:error'
 dates = require 'dates-fork'
-HtmlSnips = require 'marked-fork/html_snips'
+snips = require 'marked-fork/snips'
 
 showDocLink = -> ['depute','showDoc',@model.get()?.id]
 
@@ -33,33 +33,12 @@ module.exports =
 
   outletMethods: [
     (words, text) ->
-      switch (mode = if words.length then 'snips' else 'head')
-        when 'head'
-          if @mode isnt mode
-            (@head ||= new @View['md/head'] this, 'head').md.set @text
-            j =  0
-            while j < @snipsInView
-              @snips[j].detach()
-              ++j
-            @snipsInView = 0
-            @head.appendTo(@$content, this)
-
-        when 'snips'
-          if @mode isnt mode and @head
-            @head.md.unset @text
-            @head.detach()
-          md = new HtmlSnips(text or '', words)
-          snips = md.snips
-          j = 0
-          snipsInView = snips.length
-          while j < snipsInView
-            (view = @snips[j] ||= new @View['md/snip'] this, "snip#{j}").snip.set snips[j]
-            view.appendTo(@$content, this) if j >= @snipsInView
-            ++j
-          while j < @snipsInView
-            @snips[j].detach()
-            ++j
-          @snipsInView = snipsInView
+      html = ''
+      for snip in snips(text, words, depth: 1)
+        html += """<div class="section">"""
+        html += snip
+        html += """</div>"""
+      @$content.html html
       return
 
     (title) ->

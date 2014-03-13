@@ -37,17 +37,20 @@
       @extend $button-blue
       margin 5px
 
-// general headers
+// general headers, article text
 // -----
-h1
-  font-weight 300
-
 .article-text
   @extend $article-text
 
 .small
   .article-text
     font-size 1em
+
+.match-sentence
+  background: YELLOW_COLOR
+
+.match-word
+  font-weight: bold
 
 // Vertical dots
 // --------
@@ -58,8 +61,8 @@ h1
 
   .dot
     background BLACK_COLOR
-    width 4px
-    height 4px
+    width 3px
+    height 3px
     margin-bottom 2px
 
   &:hover

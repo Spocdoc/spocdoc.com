@@ -1,4 +1,4 @@
-HtmlHead = require 'marked-fork/html_head'
+snips = require 'marked-fork/snips'
 strdiff = require 'diff-fork/lib/types/string'
 debugError = global.debug 'ace:error'
 debug = global.debug 'app:head_md'
@@ -8,7 +8,7 @@ module.exports =
 
   outletMethods: [
     (md='') ->
-      @$content.html (new HtmlHead md, 5).html
+      # @$content.html (new HtmlHead md, 5).html
       return
   ]
 
