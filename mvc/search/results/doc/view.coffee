@@ -93,7 +93,7 @@ module.exports =
   constructor: ->
     @$authors.addClass 'empty' # TODO
 
-    @$header.link 'click', this, '', ($target, event) =>
+    @$article.link 'click', this, '', ($target, event) =>
       $target = $(event.target) # don't use currentTarget (the default)
       if tag = $target.attr('data-tag')
         ['depute','addTagToSearch',$target.attr('data-tag')]
