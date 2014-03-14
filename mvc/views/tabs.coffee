@@ -49,8 +49,8 @@ module.exports =
           html += """<li data-tab="#{tab}" draggable="true"><a title="#{tab}" data-tab="#{tab}" draggable="false" class="#{className}" href="#{$.link(this,'select',tab)}"><span>#{tab}</span></a></li>"""
       @$tabList.html html
       # always toggle, even if booting
-      @$tabList['removeClass!'] 'no-labels'
-      @$tabList['toggleClass!'] 'no-labels',(@$tabList.width() > @$root.width())
+      # @$tabList['removeClass!'] 'no-labels'
+      # @$tabList['toggleClass!'] 'no-labels',(@$tabList.width() > @$root.width())
 
       unless @ace.onServer
         li = @$tabList[0].firstChild
@@ -129,16 +129,16 @@ module.exports =
                   if dragSpec.view isnt spec.view
                     rootWidth = spec.view.$root.width()
 
-                    if ($dsList = dragSpec.view.$tabList).hasClass 'no-labels'
-                      # see if labels can be applied now
-                      $dsList.removeClass 'no-labels'
-                      if $dsList.width() > rootWidth
-                        $dsList.addClass 'no-labels'
+                    # if ($dsList = dragSpec.view.$tabList).hasClass 'no-labels'
+                    #   # see if labels can be applied now
+                    #   $dsList.removeClass 'no-labels'
+                    #   if $dsList.width() > rootWidth
+                    #     $dsList.addClass 'no-labels'
 
-                    unless ($list = spec.view.$tabList).hasClass 'no-labels'
-                      # see if labels should be removed now
-                      if $list.width() > rootWidth
-                        $list.addClass 'no-labels'
+                    # unless ($list = spec.view.$tabList).hasClass 'no-labels'
+                    #   # see if labels should be removed now
+                    #   if $list.width() > rootWidth
+                    #     $list.addClass 'no-labels'
 
                   # debug "NOW drag tabs",dragTabs
                   # debug "NOW this tabs",thisTabs
