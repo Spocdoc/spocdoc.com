@@ -18,7 +18,7 @@ module.exports =
   # for tabs
   getCell: (tab) ->
     tabClass = typeToClass tab
-    @controllers[tab] ||= new @View["docs/sidebar_tabs/#{tabClass}"] this, "#{tabClass}_content"
+    @controllers[tabClass] ||= new @View["docs/sidebar_tabs/#{tabClass}"] this, "#{tabClass}_content"
   freeCell: (tab) ->
 
   constructor: ->
@@ -30,6 +30,9 @@ module.exports =
     @controllers['top'] = new @View['docs/sidebar_top'] this, 'sidebarTop',
       search: field
       editable: @editable
+
+    @controllers['outline'] = new @View['md/outline'] this, 'outline_content',
+      doc: @doc
 
     @controllers['bottom'] = new @View['tab_rows'] this, 'sidebarTabs',
       defaultTabs: [
