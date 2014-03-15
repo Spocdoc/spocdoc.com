@@ -39,6 +39,8 @@ MODE_TEXT = 0
 MODE_HTML = 1
 
 updateSrc = (editor, md) ->
+  return if editor.src is md
+
   if sel = $.selection()
     start = editor.posToOffset sel.start
     end = editor.posToOffset sel.end
