@@ -300,11 +300,11 @@ module.exports = (Base) ->
               secret: details.secret
               refresh: details.refresh
 
+          # set the user's lastDoc based on the current session
           proxy = new callback.Read -> cb.reject "DB_ERROR"
           proxy.doc = (doc) ->
             userPriv.lastDoc = doc.lastDoc
             next()
-
           @baseRead coll, @session.sessId, 0, null, null, null, proxy
 
         # (next) =>
@@ -313,6 +313,7 @@ module.exports = (Base) ->
         (next) =>
           # userPriv.draftFiller = fillerText
 
+          # create the user
           cbUser = new callback.Create cb.cb
           cbUser.ok = next
           cbUser.reject = (err='') ->
@@ -324,20 +325,35 @@ module.exports = (Base) ->
           @baseCreate 'users', user, cbUser
 
         (next) =>
-          cbUserPriv = new callback.Create cb.cb
-          cbUserPriv.ok = =>
+          # create users_priv entry
+          cbUserPriv = new callback.Create =>
             @_setUsersPriv userPriv
             @_sendUserDocs user, userPriv
             cb.ok id
           cbUserPriv.reject = (err) =>
+            # if we can't create users_priv, always delete previously created user
+            deleteCb = new callback.Create ->
+            @baseDelete 'users', id, deleteCb
+
             if /\bduplicate key\b/.test(err) and /\busers_priv.\$email\b/.test(err)
-              cb.reject "DUP_EMAIL"
+              # duplicate email -- means the user exists already. 
+              proxy = new callback.Read => cb.reject "DUP_EMAIL"
+              proxy.doc = (docs) =>
+                return cb.reject "DUP_EMAIL" unless docs and doc = docs[0]
+                @_setUsersPriv userPriv = doc
+                id = ''+userPriv._id
+
+                proxy = new callback.Read => cb.reject "DUP_EMAIL"
+                proxy.doc = (user) =>
+                  @_sendUserDocs user, userPriv
+                  cb.ok id
+
+                @baseRead 'users', id, 0, null, null, null, proxy
+                return
+              @baseRead 'users_priv', null, null, {email: userPriv.email}, 1, null, proxy
             else
               debugError "Error creating user_priv: #{err}"
               cb.reject "DB_ERROR"
-
-            deleteCb = new callback.Create ->
-            @baseDelete 'users', id, deleteCb
 
           @baseCreate 'users_priv', userPriv, cbUserPriv
 

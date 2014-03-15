@@ -38,6 +38,19 @@ KEY_NON_MUTATING = [
 MODE_TEXT = 0
 MODE_HTML = 1
 
+updateSrc = (editor, md) ->
+  if sel = $.selection()
+    start = editor.posToOffset sel.start
+    end = editor.posToOffset sel.end
+
+  eqRanges = editor.update md
+
+  if sel and isFinite(start) and isFinite(end)
+    $.selection editor.offsetToPos(eqRanges.updateOffset(start)), editor.offsetToPos(eqRanges.updateOffset(end))
+
+  return
+
+
 module.exports =
   outlets: [
     'doc'
@@ -68,35 +81,13 @@ module.exports =
 
       if @mode is MODE_TEXT
         if editor = @editor
-          editor.update '', false if differentDoc
-
-          if diffstr = strdiff editor.src, md
-            eqRanges = strdiff.equalRanges diffstr
-
-            if sel = $.selection()
-              start = eqRanges.updateOffset editor.posToOffset sel.start
-              end = eqRanges.updateOffset editor.posToOffset sel.end
-
-            editor.update md, false, eqRanges
-
-            $.selection editor.offsetToPos(start, sel.start), editor.offsetToPos(end, sel.end) if sel
+          updateSrc editor, md
         else
           editor = @editor = new Editor md, if @template.bootstrapped then @$content else null
           @$content.prepend editor.$root
       else
         if html = @html
-          html.update '' if differentDoc
-
-          if diffstr = strdiff html.src, md
-            eqRanges = strdiff.equalRanges diffstr
-
-            if sel = $.selection()
-              start = eqRanges.updateOffset html.posToOffset sel.start
-              end = eqRanges.updateOffset html.posToOffset sel.end
-
-            html.update md, eqRanges
-
-            $.selection html.offsetToPos(start, sel.start), html.offsetToPos(end, sel.end) if sel
+          updateSrc html, md
         else
           html = @html = new Html md, (if @template.bootstrapped then @$content else null), depth: 1
           @$content.prepend html.$root
@@ -143,9 +134,7 @@ module.exports =
     md = @md.value || ''
 
     if editor = @editor
-      if diffstr = strdiff editor.src, md
-        eqRanges = strdiff.equalRanges diffstr
-        editor.update md, false, eqRanges
+      editor.update md
     else
       editor = @editor = new Editor md
 
@@ -153,9 +142,8 @@ module.exports =
     @$content.prepend editor.$root
     editor.$root.focus()
 
-    if sel
-      sel = $.selection editor.offsetToPos(start, sel.start),
-        editor.offsetToPos(end, sel.end)
+    if sel and isFinite(start) and isFinite(end)
+      sel = $.selection editor.offsetToPos(start), editor.offsetToPos(end)
 
       if oldCarat and newCarat = $.selection.coords(sel)
         $scrollParent = @$scrollParent ||= @$root.scrollParent()
@@ -176,9 +164,7 @@ module.exports =
     md = @md.value || ''
 
     if html = @html
-      if diffstr = strdiff html.src, md
-        eqRanges = strdiff.equalRanges diffstr
-        html.update md, eqRanges
+      html.update md
     else
       html = @html = new Html md, null, depth: 1
 
@@ -186,9 +172,8 @@ module.exports =
     @$content.prepend html.$root
     html.$root.focus()
 
-    if sel
-      sel = $.selection html.offsetToPos(start, sel.start),
-        html.offsetToPos(end, sel.end)
+    if sel and isFinite(start) and isFinite(end)
+      sel = $.selection html.offsetToPos(start), html.offsetToPos(end)
 
       if oldCarat and newCarat = $.selection.coords(sel)
         $scrollParent = @$scrollParent ||= @$root.scrollParent()
@@ -209,27 +194,35 @@ module.exports =
       text = node.textContent ? node.innerText ? ''
       src = editor.src
 
-      if diffstr = strdiff src, text
+      return if src is text
 
-        if sel = $.selection()
-          start = editor.posToOffset sel.start, true
-          end = editor.posToOffset sel.end, true
+      if sel = $.selection()
+        start = editor.posToOffset sel.start, true
+        end = editor.posToOffset sel.end, true
 
-        editor.update text, true, strdiff.equalRanges diffstr
+      editor.update text, true
 
-        @md.set text
+      @md.set text
 
+      if sel and isFinite(start) and isFinite(end)
         # TODO: figure out if it's necessary to change the selection -- the
         # cursor may already be in the right place. moving the cursor causes
         # the spell checker to run
-        $.selection editor.offsetToPos(start, sel.start), editor.offsetToPos(end, sel.end) if sel
+        $.selection editor.offsetToPos(start), editor.offsetToPos(end)
+
     return
 
   # TODO: this doesn't scroll to offset -- it scrolls to the top of the containing node...
   scrollToOffset: (offset) ->
     return unless article = (if @mode is MODE_TEXT then @editor else @html)
     return unless pos = article.offsetToPos offset
-    return unless (top = $.selection.coords(pos).top)?
+
+    node = node.parentNode if (node = pos['container']).nodeType is 3
+    return unless (top = node.getBoundingClientRect()?.top)?
+
+    # TODO: this is the more *correct* way to do it, but there's a BUG in safari on ios where boundingclientrect for a range returns document relative not viewport relative
+    # return unless (top = $.selection.coords(pos).top)?
+
     $scrollParent = @$scrollParent ||= @$root.scrollParent()
     $scrollParent.animate
       scrollTop: $scrollParent.scrollTop() + top - SCROLL_PADDING

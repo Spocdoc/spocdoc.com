@@ -39,6 +39,7 @@ Editor.prototype['update'] = Editor::update
 Outline = require 'marked-fork/outline'
 Outline.prototype['update'] = Outline::update
 Outline.prototype['posToOffset'] = Outline::posToOffset
+Outline.prototype['offsetToPos'] = Outline::offsetToPos
 
 strdiff = require 'diff-fork/lib/types/string'
 strdiff['equalRanges'] = strdiff.equalRanges
