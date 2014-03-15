@@ -22,7 +22,7 @@ module.exports =
   freeCell: (tab) ->
 
   constructor: ->
-    @controllers['main'] = new @View['md/article'] this, 'main',
+    main = @controllers['main'] = new @View['md/article'] this, 'main',
       doc: @doc
       editable: @editable
 
@@ -33,6 +33,7 @@ module.exports =
 
     @controllers['outline'] = new @View['md/outline'] this, 'outline_content',
       doc: @doc
+      deputy: main
 
     @controllers['bottom'] = new @View['tab_rows'] this, 'sidebarTabs',
       defaultTabs: [

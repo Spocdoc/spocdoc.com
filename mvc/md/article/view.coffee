@@ -1,10 +1,13 @@
 Editor = require 'marked-fork/editor'
 Html = require 'marked-fork/html'
+constants = require '../../constants'
 strdiff = require 'diff-fork/lib/types/string'
 debugError = global.debug 'ace:error'
 debug = global.debug 'app:article_md'
 
 TOGGLE_LAG_MILLIS = 300
+
+SCROLL_PADDING = 10
 
 KEY_ESC = 27
 KEY_ENTER = 13
@@ -155,7 +158,7 @@ module.exports =
         editor.offsetToPos(end, sel.end)
 
       if oldCarat and newCarat = $.selection.coords(sel)
-        $scrollParent = @$root.scrollParent()
+        $scrollParent = @$scrollParent ||= @$root.scrollParent()
         $scrollParent.scrollTop(Math.round($scrollParent.scrollTop() + newCarat.top - oldCarat.top))
         @moveCarat(oldCarat,$.selection.coords(sel))
 
@@ -188,7 +191,7 @@ module.exports =
         html.offsetToPos(end, sel.end)
 
       if oldCarat and newCarat = $.selection.coords(sel)
-        $scrollParent = @$root.scrollParent()
+        $scrollParent = @$scrollParent ||= @$root.scrollParent()
         $scrollParent.scrollTop(Math.round($scrollParent.scrollTop() + newCarat.top - oldCarat.top))
         @moveCarat(oldCarat,$.selection.coords(sel))
 
@@ -221,6 +224,18 @@ module.exports =
         # the spell checker to run
         $.selection editor.offsetToPos(start, sel.start), editor.offsetToPos(end, sel.end) if sel
     return
+
+  # TODO: this doesn't scroll to offset -- it scrolls to the top of the containing node...
+  scrollToOffset: (offset) ->
+    return unless article = (if @mode is MODE_TEXT then @editor else @html)
+    return unless pos = article.offsetToPos offset
+    return unless (top = $.selection.coords(pos).top)?
+    $scrollParent = @$scrollParent ||= @$root.scrollParent()
+    $scrollParent.animate
+      scrollTop: $scrollParent.scrollTop() + top - SCROLL_PADDING
+      constants.scrollMillis
+    return
+
 
   constructor: ->
     @html = @editor = null

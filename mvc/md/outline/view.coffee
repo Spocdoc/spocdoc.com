@@ -31,3 +31,11 @@ module.exports =
         @$root.prepend outline.$root
       return
   ]
+
+  constructor: ->
+    @$root.on 'click', 'p', (event) =>
+      return unless (p = event.currentTarget) and outline = @outline
+      @depute 'scrollToOffset', outline.posToOffset
+        'container': p
+        'offset': 0
+
