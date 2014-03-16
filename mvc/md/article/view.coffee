@@ -98,7 +98,7 @@ module.exports =
   ]
 
   moveCarat: (oldCarat, newCarat) ->
-    offset = @$root.offset()
+    # offset = @$root.offset()
 
     # TOP_DISPLACE = -8
     # LEFT_DISPLACE = -4
@@ -106,8 +106,8 @@ module.exports =
     TOP_DISPLACE = 0
     LEFT_DISPLACE = 0
 
-    leftEnd = newLeft = newCarat.left - offset.left + LEFT_DISPLACE
-    oldLeft = oldCarat.left - offset.left + LEFT_DISPLACE
+    leftEnd = newLeft = newCarat.left + LEFT_DISPLACE
+    oldLeft = oldCarat.left + LEFT_DISPLACE
 
     if newLeft < oldLeft
       leftStart = newLeft
@@ -116,7 +116,7 @@ module.exports =
       leftStart = oldLeft
       width = newLeft - oldLeft
 
-    ($caratSpot = @$caratSpot).css('top',(newCarat.top - offset.top)+'px')
+    ($caratSpot = @$caratSpot).css('top',(newCarat.top)+'px')
     $caratSpot.addClass('starting').css('left',leftStart+'px').css('width',width + 'px')
     $caratSpot.width() # force draw
     $caratSpot.removeClass('starting').css('left',leftEnd + "px").css('width',0)

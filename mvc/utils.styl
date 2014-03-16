@@ -17,6 +17,9 @@ $serif
 $article-text
   @extend $serif
 
+  .highlighted
+    background YELLOW_COLOR
+
   h1
     font-weight 300
     font-size 2em
@@ -45,7 +48,8 @@ $article-text
       display list-item
 
   ul.spaced, ol.spaced
-    margin-bottom 1em
+    & > li
+      margin-bottom 1em
 
   @media MEDIA_WITH_SIDEBAR
     font-size 1.125em

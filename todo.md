@@ -24,6 +24,8 @@
 
  [] dialog has a "small" outlet. this was to make the width of the centering div smaller
  [] when correcting a spelling error in the editor, switching back to HTML mode doesn't show the update until a key is pressed
+ [] the blue bar isn't in the right place when switching between editor & html modes if you've scrolled the page
+ [] evidently you can't get the boundingClientRect of whitespace nodes that don't render. Furthermore, if your cursor is within a non-rendering whitespace node, it will go to the wrong start point (try putting the cursor at the end of a blockquote)
 
 # improvements
 
@@ -36,6 +38,9 @@
     to notify other windows when the session has changed, delete the old session after the new session is present
 
     modify the `present` outlet in ace_mvc/model so that it shows present only when the document is known to be present on both the server and the client (this will mean using a separate field -- e.g., `clientPresent`) as a spinner (so when you create a new document on the client, this field is true even before it appears on the server)
+
+ [] add control-L to scroll to center the cursor vertically in editor
+ [] get smartypants to work with replacements that aren't character-to-character
 
 # Mobile
 
