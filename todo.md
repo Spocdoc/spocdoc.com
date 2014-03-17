@@ -27,6 +27,7 @@
  [] the blue bar isn't in the right place when switching between editor & html modes if you've scrolled the page
  [] evidently you can't get the boundingClientRect of whitespace nodes that don't render. Furthermore, if your cursor is within a non-rendering whitespace node, it will go to the wrong start point (try putting the cursor at the end of a blockquote)
  [] the word search produces erroneous word and sentence matches. e.g., search for gertrude in the hamlet doc
+ [] split the editor text search by double newline so the results don't display entire sections
 
 # improvements
 

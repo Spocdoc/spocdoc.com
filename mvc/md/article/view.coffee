@@ -102,12 +102,12 @@ module.exports =
           @emptySearch = false
 
         unless @ace.booting and @template.bootstrapped
-          html = if @mode is MODE_TEXT then "<div class='root search-results editor'>" else "<div class='root search-results html'>"
+          html = if @mode is MODE_TEXT then "<pre class='root search-results editor'>" else "<div class='root search-results html'>"
           for snip in editor.search(words)
             html += """<div class="section-wrapper"><div class="section">"""
             html += snip
             html += """</div></div>"""
-          html += '</div>'
+          html += if @mode is MODE_TEXT then "</pre>" else "</div>"
           @$searchContent.html html
       else
         unless @emptySearch
