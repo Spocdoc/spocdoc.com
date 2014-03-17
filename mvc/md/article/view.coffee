@@ -320,12 +320,12 @@ module.exports =
 
       return
 
-    unless @ace.onServer
-      $('body').on 'focus', '*', (event) =>
-        if target = event.target
-          unless @$root.contains target
-            @switchToHtml()
-        return
+    # unless @ace.onServer
+    #   $('body').on 'focus', '*', (event) =>
+    #     if target = event.target
+    #       unless @$root.contains target
+    #         @switchToHtml()
+    #     return
 
 
     # @$content.on 'blur', '.editor', =>
