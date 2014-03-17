@@ -98,7 +98,6 @@ module.exports =
       if tag = $target.attr('data-tag')
         return ['depute','addTagToSearch',$target.attr('data-tag')]
       else if @snips and (sel = $.selection()) and isFinite(start = @snips.posToOffset sel.start) and isFinite(end = @snips.posToOffset sel.end)
-        debugger
         ['depute','showDoc',@model.get()?.id, start, end, $.selection.coords(sel)]
       else
         ['depute','showDoc',@model.get()?.id]
