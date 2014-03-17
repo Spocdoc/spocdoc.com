@@ -261,9 +261,9 @@
                         "calendar/view.coffee",
                         "search/page/view.coffee",
                         "search/results/doc/view.coffee",
-                        "search/controller.coffee",
-                        "body/controller.coffee", "routes.coffee",
-                        "docs/controller.coffee"
+                        "search/controller.coffee", "routes.coffee",
+                        "docs/controller.coffee",
+                        "body/controller.coffee"
                     ],
                     "generated": "bundle/debug [-ie<=8 -ios debug].js"
                 },
@@ -415,9 +415,9 @@
                         "calendar/view.coffee",
                         "search/page/view.coffee",
                         "search/results/doc/view.coffee",
-                        "search/controller.coffee",
-                        "body/controller.coffee", "routes.coffee",
-                        "docs/controller.coffee"
+                        "search/controller.coffee", "routes.coffee",
+                        "docs/controller.coffee",
+                        "body/controller.coffee"
                     ],
                     "generated": "bundle/debug [-ie<=8 debug ios].js"
                 }

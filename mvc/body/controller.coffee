@@ -33,6 +33,7 @@ module.exports =
     (controller = @getController('docs')).id.set docId
     if startOffset? and endOffset? and carat?
       controller.initialPosition.set {startOffset, endOffset, carat}
+    controller.controllers.field.search.set ''
     @showPage 'docs'
     return
 
