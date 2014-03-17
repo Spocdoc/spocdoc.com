@@ -34,7 +34,7 @@ module.exports =
     add '#s=:scrollTop'
 
     add '/', page: ''
-    add '/about', page: 'about'
+    add 'about', '/about', '?:q', page: 'about'
     add '/explore', page: 'explore'
     add '/search', page: 'search'
     add '/connect', page: 'connect'
@@ -43,7 +43,7 @@ module.exports =
     add 'search', '/blog/:number', '?:q', '#ds1=:dateScrollTop&ds2=:dateScrollBottom&ds3=:dateScrollBot', page: 'blog'
     add 'search', '/blog', '?:q', '#ds1=:dateScrollTop&ds2=:dateScrollBottom&ds3=:dateScrollBot', page: 'blog'
 
-    add 'docs', '/docs/:title?/:id', page: 'docs'
+    add 'docs', '/docs/:title?/:id', '?:q', page: 'docs'
 
   configure: ->
     slug = @var '/docs/title'
@@ -69,6 +69,8 @@ module.exports =
       dialog: '/$dialog'
       docsShowSidebar: '/docs/$showSidebar'
       searchShowSidebar: '/search/$showSidebar'
+      about:
+        q: '/static/field/$search'
       search:
         q: '/search/field/$search'
         number: '/search/number'
@@ -76,6 +78,7 @@ module.exports =
         dateScrollBottom: '/search/datesContent/calendar/$scrollDateBottom'
         dateScrollBot: '/search/datesContent/calendar/$scrollBot'
       docs:
+        q: '/docs/field/$search'
         id: '/docs/id'
         
         # resource: ['/docs/doc','docs','title']

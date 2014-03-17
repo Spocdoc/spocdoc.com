@@ -23,12 +23,15 @@ module.exports =
   freeCell: (tab) ->
 
   constructor: ->
+    field = @controllers['field'] = new @View['search/field'] this, 'field'
+
     main = @controllers['main'] = new @View['md/article'] this, 'main',
       doc: @doc
       editable: @editable
       initialPosition: @initialPosition
+      search: field.search
+      spec: field.spec
 
-    field = @controllers['field'] = new @View['search/field'] this, 'field'
     @controllers['top'] = new @View['docs/sidebar_top'] this, 'sidebarTop',
       search: field
       editable: @editable

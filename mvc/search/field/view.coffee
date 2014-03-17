@@ -33,7 +33,43 @@ updateSelOffset = (offset, lenToPart, origSrc, newSrc) ->
 module.exports =
   outlets: [
     'search'
-    'spec': []
+    'spec': (search) ->
+      return @spec.value if search is @lastText
+      @lastText = search
+      @$search.toggleClass 'empty', !search
+      @$clear.toggleClass 'hidden', !search
+
+      current = makeSpec search
+
+      @$search.keepSelection =>
+        updateDom current, @$search[0]
+
+      # @spec.set current
+
+      specTags = @specTags.value || []
+      sameTags = true
+      tagI = 0
+      dateRange = badRange
+      for part in current
+        if part.key is 'date'
+          dateRange = dates.strRangeToDateRange part.value
+        else if part.type is 'tag'
+          unless (sameTags &&= (specTags[tagI] is part.value))
+            specTags[tagI] = part.value
+          ++tagI
+
+      unless specTags.length is tagI
+        sameTags = false
+        specTags.length = tagI
+
+      @dateStart.set dateRange[0]
+      @dateEnd.set dateRange[1]
+      unless @specTags.value
+        @specTags.set specTags
+      else unless sameTags
+        @specTags.modified()
+      # return search
+      return current
     'specTags'
     'dateStart'
     'dateEnd'
@@ -48,49 +84,13 @@ module.exports =
     'tagMapDep': ->
       @session.get('user')?.get('priv')?.get()?.tagMapDep
 
-    'specBuilder'
+    # 'specBuilder'
 
-    'queryUpdater': (tagMapDep, specBuilder) -> @updateQuery()
+    'queryUpdater': (tagMapDep, spec) -> @updateQuery()
   ]
 
   $menu: 'view'
 
-  specBuilder: (search) ->
-    return search if search is @lastText
-    @lastText = search
-    @$search.toggleClass 'empty', !search
-    @$clear.toggleClass 'hidden', !search
-
-    current = makeSpec search
-
-    @$search.keepSelection =>
-      updateDom current, @$search[0]
-
-    @spec.set current
-
-    specTags = @specTags.value || []
-    sameTags = true
-    tagI = 0
-    dateRange = badRange
-    for part in current
-      if part.key is 'date'
-        dateRange = dates.strRangeToDateRange part.value
-      else if part.type is 'tag'
-        unless (sameTags &&= (specTags[tagI] is part.value))
-          specTags[tagI] = part.value
-        ++tagI
-
-    unless specTags.length is tagI
-      sameTags = false
-      specTags.length = tagI
-
-    @dateStart.set dateRange[0]
-    @dateEnd.set dateRange[1]
-    unless @specTags.value
-      @specTags.set specTags
-    else unless sameTags
-      @specTags.modified()
-    return search
 
   changeSpec: (index, origSrc, newSrc) ->
     lenToPart = 0

@@ -59,6 +59,8 @@ module.exports =
     'md': -> @doc.get('text')
     'editable'
     'initialPosition' # startOffset, endOffset, carat when rendering a document
+    'search'
+    'spec'
   ]
 
   outletMethods: [
@@ -72,39 +74,57 @@ module.exports =
       @html?.$content.prop('contenteditable',!!editable)
       return
 
-    (doc, md='', initialPosition, inWindow) ->
+    (doc, md='', initialPosition, inWindow, spec) ->
       return if !md and !doc
 
-      # this is so update isn't called if the content is completely different.
-      # TODO: a better way would be to look at the diff and heuristically
-      # determine whether the tree should be regenerated
-      docId = '' + (doc?.id)
-      differentDoc = @oldDocId isnt docId
-      @oldDocId = docId
+      if spec and spec.length
+        words = []
+        for part in spec when part.type is 'text' # TODO skip tags and meta
+          words.push part.value
+        words = null unless words.length
 
       if @mode is MODE_TEXT
         if editor = @editor
           updateSrc editor, md
         else
-          editor = @editor = new Editor md, if @template.bootstrapped then @$content else null
-          @$content.prepend editor.$root
+          editor = @editor = new Editor md, if @ace.booting and @template.bootstrapped and !words then @$content else null
       else
         if editor = @html
           updateSrc editor, md
         else
-          editor = @html = new Html md, (if @template.bootstrapped then @$content else null), depth: 1
+          editor = @html = new Html md, (if @ace.booting and @template.bootstrapped and !words then @$content else null), depth: 1
+
+      if words
+        @scrollTop 0
+
+        if @emptySearch
+          editor.$root.detach()
+          @emptySearch = false
+
+        unless @ace.booting and @template.bootstrapped
+          html = if @mode is MODE_TEXT then "<div class='root search-results editor'>" else "<div class='root search-results html'>"
+          for snip in editor.search(words)
+            html += """<div class="section-wrapper"><div class="section">"""
+            html += snip
+            html += """</div></div>"""
+          html += '</div>'
+          @$searchContent.html html
+      else
+        unless @emptySearch
+          @scrollTop 0
+          @$searchContent.empty()
           @$content.prepend editor.$root
+          @emptySearch = true
 
-      if initialPosition and inWindow
-        @router.setAfterPushArg 'setScroll', false # don't set the scroll position
-        {startOffset, endOffset, carat} = initialPosition
-        if startOffset? and endOffset? and carat?
-          # select that range in the current editor
-          sel = $.selection editor.offsetToPos(startOffset), editor.offsetToPos(endOffset)
-          @moveCarat carat, sel
+        if initialPosition and inWindow
+          @router.setAfterPushArg 'setScroll', false # don't set the scroll position
+          {startOffset, endOffset, carat} = initialPosition
+          if startOffset? and endOffset? and carat?
+            # select that range in the current editor
+            sel = $.selection editor.offsetToPos(startOffset), editor.offsetToPos(endOffset)
+            @moveCarat carat, sel
 
-        @initialPosition.set null
-
+          @initialPosition.set null
       return
   ]
 
@@ -239,6 +259,13 @@ module.exports =
       constants.scrollMillis
     return
 
+  scrollTop: (y) ->
+    $scrollParent = @$scrollParent ||= @$root.scrollParent()
+    if arguments.length
+      $scrollParent.scrollTop y
+    else
+      $scrollParent.scrollTop()
+    return
 
   constructor: ->
     @html = @editor = null
@@ -296,6 +323,16 @@ module.exports =
           event.preventDefault()
           return false
 
+      return
+
+    @$searchContent.on 'click', =>
+      return if @emptySearch
+      return unless sel = $.selection()
+      return unless editor = (if @mode is MODE_HTML then @html else @editor)
+      return unless isFinite(startOffset = editor.posToOffset(sel.start)) and isFinite(endOffset = editor.posToOffset(sel.end))
+      carat = $.selection.coords(sel)
+      @search.set ''
+      @initialPosition.set {startOffset, endOffset, carat}
       return
 
     @$content.on 'mouseup keyup', (event) =>

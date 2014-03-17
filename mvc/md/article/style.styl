@@ -1,6 +1,45 @@
 @import '../../utils'
 
 .md-article
+
+  .search-results
+    .section
+      // @extend $serif
+      @extend $nofocus
+      // line-height 1.6em
+      margin-bottom 2em
+      cursor text
+
+      .match-sentence
+        background YELLOW_COLOR
+
+      .match-word
+        font-weight bold
+
+    .section-wrapper
+
+      &:after
+        @extend $IE-TRANSPARENT
+        font-family Helvetica, Arial, sans-serif
+        content '\00b7  \00b7  \00b7'
+        position absolute
+        left 0
+        width 100%
+        display block
+        text-align center
+        font-size 2em
+        line-height 1em
+        margin-top -1em
+        border-top 1px solid transparent
+        color DARK_GRAY
+
+      &:last-child
+        .section
+          margin-bottom 1em
+
+        &:after
+          content ''
+
   .footer
     border-bottom 2px solid black
     margin 2em 0
@@ -14,17 +53,17 @@
     .root
       @extend $nofocus
 
-    .carat-spot
-      width 0
-      height 2px
-      position fixed
-      z-index -1
-      // background lighten(LINK_COLOR,20%)
-      background lighten(LINK_COLOR,20%)
-      easeSlow('width', 'left')
+  .carat-spot
+    width 0
+    height 2px
+    position fixed
+    z-index -1
+    // background lighten(LINK_COLOR,20%)
+    background lighten(LINK_COLOR,20%)
+    easeSlow('width', 'left')
 
-      &.starting
-        transition none
+    &.starting
+      transition none
 
   a:hover
     cursor: pointer

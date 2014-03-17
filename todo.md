@@ -26,6 +26,7 @@
  [] when correcting a spelling error in the editor, switching back to HTML mode doesn't show the update until a key is pressed
  [] the blue bar isn't in the right place when switching between editor & html modes if you've scrolled the page
  [] evidently you can't get the boundingClientRect of whitespace nodes that don't render. Furthermore, if your cursor is within a non-rendering whitespace node, it will go to the wrong start point (try putting the cursor at the end of a blockquote)
+ [] the word search produces erroneous word and sentence matches. e.g., search for gertrude in the hamlet doc
 
 # improvements
 
