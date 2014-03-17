@@ -1,6 +1,6 @@
 debugError = global.debug 'ace:error'
 dates = require 'dates-fork'
-snips = require 'marked-fork/snips'
+Snips = require 'marked-fork/snips'
 
 showDocLink = -> ['depute','showDoc',@model.get()?.id]
 
@@ -34,7 +34,7 @@ module.exports =
   outletMethods: [
     (words, text) ->
       html = ''
-      for snip in snips(text, words, depth: 1)
+      for snip in (@snips = new Snips text, words, depth: 1).snips
         html += """<div class="section-wrapper"><div class="section">"""
         html += snip
         html += """</div></div>"""
@@ -96,7 +96,10 @@ module.exports =
     @$article.link 'click', this, '', ($target, event) =>
       $target = $(event.target) # don't use currentTarget (the default)
       if tag = $target.attr('data-tag')
-        ['depute','addTagToSearch',$target.attr('data-tag')]
+        return ['depute','addTagToSearch',$target.attr('data-tag')]
+      else if @snips and (sel = $.selection()) and isFinite(start = @snips.posToOffset sel.start) and isFinite(end = @snips.posToOffset sel.end)
+        debugger
+        ['depute','showDoc',@model.get()?.id, start, end, $.selection.coords(sel)]
       else
         ['depute','showDoc',@model.get()?.id]
 

@@ -1,6 +1,5 @@
 DOC_ABOUT = '6507bdb347de85cf373121da'
 
-
 module.exports =
   outlets: [
     'page'
@@ -28,10 +27,12 @@ module.exports =
     @closeDialog()
     return
 
-  showDoc: (docId) ->
+  showDoc: (docId, startOffset, endOffset, carat) ->
     return unless docId
     @lastDoc.set docId
-    @getController('docs').id.set docId
+    (controller = @getController('docs')).id.set docId
+    if startOffset? and endOffset? and carat?
+      controller.initialPosition.set {startOffset, endOffset, carat}
     @showPage 'docs'
     return
 

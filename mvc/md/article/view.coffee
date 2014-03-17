@@ -58,6 +58,7 @@ module.exports =
     'doc'
     'md': -> @doc.get('text')
     'editable'
+    'initialPosition' # startOffset, endOffset, carat when rendering a document
   ]
 
   outletMethods: [
@@ -71,7 +72,7 @@ module.exports =
       @html?.$content.prop('contenteditable',!!editable)
       return
 
-    (doc, md='') ->
+    (doc, md='', initialPosition, inWindow) ->
       return if !md and !doc
 
       # this is so update isn't called if the content is completely different.
@@ -88,16 +89,33 @@ module.exports =
           editor = @editor = new Editor md, if @template.bootstrapped then @$content else null
           @$content.prepend editor.$root
       else
-        if html = @html
-          updateSrc html, md
+        if editor = @html
+          updateSrc editor, md
         else
-          html = @html = new Html md, (if @template.bootstrapped then @$content else null), depth: 1
-          @$content.prepend html.$root
+          editor = @html = new Html md, (if @template.bootstrapped then @$content else null), depth: 1
+          @$content.prepend editor.$root
+
+      if initialPosition and inWindow
+        @router.setAfterPushArg 'setScroll', false # don't set the scroll position
+        {startOffset, endOffset, carat} = initialPosition
+        if startOffset? and endOffset? and carat?
+          # select that range in the current editor
+          sel = $.selection editor.offsetToPos(startOffset), editor.offsetToPos(endOffset)
+          @moveCarat carat, sel
+
+        @initialPosition.set null
 
       return
   ]
 
-  moveCarat: (oldCarat, newCarat) ->
+  moveCarat: (oldCarat, sel) ->
+    return unless oldCarat and newCarat = $.selection.coords(sel)
+
+    $scrollParent = @$scrollParent ||= @$root.scrollParent()
+    $scrollParent.scrollTop(Math.round($scrollParent.scrollTop() + newCarat.top - oldCarat.top))
+
+    newCarat = $.selection.coords(sel)
+
     # offset = @$root.offset()
 
     # TOP_DISPLACE = -8
@@ -146,12 +164,7 @@ module.exports =
 
     if sel and isFinite(start) and isFinite(end)
       sel = $.selection editor.offsetToPos(start), editor.offsetToPos(end)
-
-      if oldCarat and newCarat = $.selection.coords(sel)
-        $scrollParent = @$scrollParent ||= @$root.scrollParent()
-        $scrollParent.scrollTop(Math.round($scrollParent.scrollTop() + newCarat.top - oldCarat.top))
-        @moveCarat(oldCarat,$.selection.coords(sel))
-
+      @moveCarat oldCarat, sel
     true
 
   switchToHtml: ->
@@ -176,12 +189,7 @@ module.exports =
 
     if sel and isFinite(start) and isFinite(end)
       sel = $.selection html.offsetToPos(start), html.offsetToPos(end)
-
-      if oldCarat and newCarat = $.selection.coords(sel)
-        $scrollParent = @$scrollParent ||= @$root.scrollParent()
-        $scrollParent.scrollTop(Math.round($scrollParent.scrollTop() + newCarat.top - oldCarat.top))
-        @moveCarat(oldCarat,$.selection.coords(sel))
-
+      @moveCarat oldCarat, sel
     true
 
   switchModes: ->

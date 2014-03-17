@@ -8,6 +8,7 @@ module.exports =
     'doc': (id) -> @Model['docs'].read id
     'title': -> @doc.get('title')
     'editable': -> @doc.get()?.editable()
+    'initialPosition'
   ]
 
   $main: -> @controllers['main']
@@ -25,6 +26,7 @@ module.exports =
     main = @controllers['main'] = new @View['md/article'] this, 'main',
       doc: @doc
       editable: @editable
+      initialPosition: @initialPosition
 
     field = @controllers['field'] = new @View['search/field'] this, 'field'
     @controllers['top'] = new @View['docs/sidebar_top'] this, 'sidebarTop',

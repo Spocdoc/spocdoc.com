@@ -48,8 +48,10 @@ module.exports =
       if @_scrollBot isnt scrollBot
         scrollHeight = $scrolling.height()
         minHeight = 100 + scrollHeight + scrollBot
-        while (fullHeight = $scrolling[0].scrollHeight) < minHeight
+        fullHeight = $scrolling[0].scrollHeight
+        while fullHeight < minHeight
           @addBlock block = @calendar.makeBlock()
+          break unless fullHeight = $scrolling[0].scrollHeight # to avoid infinite loop if the scrollHeight is coming in as 0
 
         @_scrollBot = scrollBot
         $scrolling.scrollTop fullHeight - scrollBot

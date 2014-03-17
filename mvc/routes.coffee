@@ -21,8 +21,10 @@ module.exports =
 
     return
 
-  afterPush: ->
-    @scrollTop.set 0
+  afterPush: (options) ->
+    unless options and options.setScroll is false
+      @scrollTop.set 0
+    return
 
   list: (add) ->
     add '?:menu'
@@ -59,7 +61,6 @@ module.exports =
       unless @ace.onServer or @_scrollTop is scrollTop = @scrollTop.value or 0
         Outlet.atEnd setScroll
       return
-
 
     @map
       contentScroll: '/$scrollTop'
