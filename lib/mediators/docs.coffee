@@ -1,3 +1,4 @@
+Reject = require 'ace_mvc/lib/error/reject'
 
 module.exports = (Base) ->
   class Handler extends Base
@@ -9,38 +10,16 @@ module.exports = (Base) ->
       super
 
     update: (id, version, ops, cb) ->
-      cb.validate = (from, ops, to, next) =>
-        return unless @_requireEditor from, ops, to, next
-
-        if !to.editors or !to.editors.length
-          return next new Error("Documents must have at least one editor.")
-        
+      super id, version, ops, cb, (original, ops, doc, next) =>
+        return next new Reject 'NOEDIT' unless @session.isEditor original
+        if !doc.editors or !doc.editors.length
+          return next new Reject 'NOEDITORS'
         next()
-
-      super
 
     delete: (id, cb) ->
-      cb.validate = (from, ops, to, next) =>
-        return unless @_requireEditor from, ops, to, next
+      super id, cb, (doc, next) =>
+        return next new Reject 'NOEDIT' unless @session.isEditor doc
         next()
 
-      super
-
     distinct: (query, key, cb) -> super
-
-
-    _requireEditor: (from, ops, to, next) ->
-      isEditor = false
-
-      if @session and (userId = @session.usersPriv?._id) and editors = from.editors
-        userId = '' + userId
-        for editor in editors when ''+editor is userId
-          isEditor = true
-          break
-
-      unless isEditor
-        next new Error("Only editors can change this document.")
-        return false
-
-      true
 

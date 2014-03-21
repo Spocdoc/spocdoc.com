@@ -173,6 +173,7 @@ $form-field-borders
     @extend $nofocus
 
 $message
+  @extend $sansserif
   font-size 0.9em
   line-height 1.2em
   padding 0.3em 1em 0.3em 2.2em
@@ -180,6 +181,8 @@ $message
   white-space normal
 
 $message-content
+  min-height 1em
+
   &:before
     content '\f045'
     font-family spocdicons

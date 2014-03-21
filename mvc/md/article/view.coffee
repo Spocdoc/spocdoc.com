@@ -83,16 +83,7 @@ module.exports =
           words.push part.value
         words = null unless words.length
 
-      if @mode is MODE_TEXT
-        if editor = @editor
-          updateSrc editor, md
-        else
-          editor = @editor = new Editor md, if @ace.booting and @template.bootstrapped and !words then @$content else null
-      else
-        if editor = @html
-          updateSrc editor, md
-        else
-          editor = @html = new Html md, (if @ace.booting and @template.bootstrapped and !words then @$content else null), depth: 1
+      editor = @updateEditor md, words
 
       if words
         @scrollTop 0
@@ -127,6 +118,19 @@ module.exports =
           @initialPosition.set null
       return
   ]
+
+  updateEditor: (md, words) ->
+    if @mode is MODE_TEXT
+      if editor = @editor
+        updateSrc editor, md
+      else
+        editor = @editor = new Editor md, if @ace.booting and @template.bootstrapped and !words then @$content else null
+    else
+      if editor = @html
+        updateSrc editor, md
+      else
+        editor = @html = new Html md, (if @ace.booting and @template.bootstrapped and !words then @$content else null), depth: 1
+    editor
 
   moveCarat: (oldCarat, sel) ->
     return unless oldCarat and newCarat = $.selection.coords(sel)
@@ -173,10 +177,7 @@ module.exports =
 
     md = @md.value || ''
 
-    if editor = @editor
-      editor.update md
-    else
-      editor = @editor = new Editor md
+    editor = @updateEditor md
 
     html?.$root.detach()
     @$content.prepend editor.$root
@@ -198,10 +199,7 @@ module.exports =
 
     md = @md.value || ''
 
-    if html = @html
-      html.update md
-    else
-      html = @html = new Html md, null, depth: 1
+    html = @updateEditor md
 
     editor?.$root.detach()
     @$content.prepend html.$root
@@ -235,10 +233,10 @@ module.exports =
       @md.set text
 
       if sel and isFinite(start) and isFinite(end)
-        # TODO: figure out if it's necessary to change the selection -- the
-        # cursor may already be in the right place. moving the cursor causes
-        # the spell checker to run
-        $.selection editor.offsetToPos(start), editor.offsetToPos(end)
+        newSel = $.selection()
+        unless editor.posToOffset(sel.start) is start and editor.posToOffset(sel.end) is end
+          console.log "MOVING CURSOR"
+          $.selection editor.offsetToPos(start), editor.offsetToPos(end)
 
     return
 

@@ -44,6 +44,11 @@ Outline.prototype['update'] = Outline::update
 Outline.prototype['posToOffset'] = Outline::posToOffset
 Outline.prototype['offsetToPos'] = Outline::offsetToPos
 
+utils = require '../lib/utils'
+utils['splitLengths'] = utils.splitLengths
+utils['checkEmail'] = utils.checkEmail
+utils['defaultArr'] = utils.defaultArr
+
 strdiff = require 'diff-fork/lib/types/string'
 strdiff['equalRanges'] = strdiff.equalRanges
 

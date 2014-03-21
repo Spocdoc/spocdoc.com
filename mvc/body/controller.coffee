@@ -17,8 +17,7 @@ module.exports =
   $showDocs: -> @lastDoc
 
   $tab: -> @page
-  $content: (page) ->
-    if page then @getController page else @controllers['landing'] ||= new @View['body/landing'] this, 'landing', deputy: @view
+  $content: (page) -> @getController page
 
   showPage: (page) ->
     @view.toggleMenu 'on', false
@@ -39,7 +38,9 @@ module.exports =
 
   getController: (which) ->
     switch which
-      when 'inviteMe', 'youreInvited', 'missingEmail'
+      when 'landing', ''
+        @controllers['landing'] ||= new @View['body/landing'] this, 'landing', deputy: @view
+      when 'inviteMe', 'youreInvited', 'missingEmail', 'hello'
         controller = @controllers['inviteMe'] ||= new @View['dialog'] this, "inviteMe",
           small: true
 
@@ -50,6 +51,9 @@ module.exports =
           when 'youreInvited'
             controller.title.set 'We\'ll invite you!'
             controller.content.set @controllers['youreInvitedContent'] ||= new @View['body/invite_me/youre_invited'] this, 'youreInvitedContent', deputy: @view
+          when 'hello'
+            controller.title.set 'Hello!'
+            controller.content.set @controllers['helloContent'] ||= new @View['body/invite_me/hello'] this, 'helloContent', deputy: @view
           when 'missingEmail'
             controller.title.set 'No email'
             controller.content.set content = @controllers['missingEmailContent'] ||= new @View['body/invite_me/missing_email'] this, 'missingEmailContent', deputy: @view

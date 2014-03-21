@@ -1,56 +1,100 @@
-fs = require 'fs'
+mediator = require 'ace_mvc/mediator'
 path = require 'path'
-OJSON = require 'ojson'
-callback = require 'ace_mvc/lib/db/callback'
+async = require 'async'
 
-handlerFns = {}
-for file in fs.readdirSync mediators = path.resolve __dirname, '../lib/mediators'
-  handlerFns[path.basename file, path.extname file] = require "#{mediators}/#{file}"
+class Session
+  constructor: (@mediator) ->
+    @oldSessIds = []
 
-defaultReject = (clazz, method) ->
-  clazz.prototype[method] = (coll, args...) ->
-    return handler[method](args...) if (handler = @handlers[coll])?.constructor.prototype.hasOwnProperty(method)
-    args[args.length-1].reject 'unhandled'
+  isEditor: (doc) ->
+    return false unless (editors = doc.editors) and userId = @userId
+    for editor in editors when ''+editor is userId
+      return true
+    false
 
-proxySuper = (proto, baseMethod, method) ->
-  proto[method] = ->
-    (args = Array.apply(null,arguments)).unshift @coll
-    baseMethod.apply this, args
+  isUser: (id) ->
+    id = id.oid if id.oid
+    (userId = @userId) and id and userId is ''+id
 
-module.exports = (MediatorBase) ->
+  setUser: (id) ->
+    if id.oid
+      id = id.oid
+    else if id._id
+      id = id._id
 
-  class Handler extends MediatorBase
-    constructor: (db, sock, @coll, @session, @handlers) -> super
+    @userId = ''+id
 
-    for method in ['create','read','update','delete','run','distinct']
-      proxySuper @prototype, MediatorBase.prototype[method], method
+  set: (id) ->
+    if id.oid
+      id = id.oid
+    else if id._id
+      id = id._id
 
-  handlerClasses = {}
-  handlerClasses[coll] = fn(Handler) for coll, fn of handlerFns
+    @oldSessIds[old] = 1 if old = @sessId
+    @sessId = ''+id
+    return
 
-  class Mediator extends MediatorBase
+  isSession: (id) -> @sessId is ''+id
 
-    constructor: ->
-      super
+  isOldSession: (id) -> !!@oldSessIds[id]
 
-      @session = {}
-      @handlers = {}
-      @handlers[coll] = new clazz @db, @sock, coll, @session, @handlers for coll, clazz of handlerClasses
+  isAnySession: (id) -> @isSession(id) or @isOldSession(id)
 
-    cookies: (cookies, cb) ->
-      reply = {}
-      wait = 1
-      done = -> cb.ok reply
+  read: (cb) ->
+    return cb new Reject "NOSESS" unless id = @sessId
+    @mediator._read 'sessions', id, cb
 
-      for coll, handler of @handlers when handler.cookies
-        ++wait
-        do (coll) =>
-          handler.cookies cookies, new callback.Cookies =>
-            reply[coll] = OJSON.toOJSON Array.apply null, arguments if arguments.length
-            done() unless --wait
-      done() unless --wait
+  readUser: (cb) ->
+    return cb new Reject "NOUSER" unless userId = @userId
+    @mediator._read 'users', userId, cb
 
-      return
+  readUserPriv: (cb) ->
+    return cb new Reject "NOUSER" unless userId = @userId
+    @mediator._read 'users_priv', userId, cb
 
-    defaultReject this, method for method in ['create','read','update','delete','run','distinct']
+  # reads clientCreate on the user documents if set, then calls cb
+  sendUserDocs: (user, userPriv, cb) ->
+    ARGS = 3
+    if (len = arguments.length) < ARGS
+      cb = arguments[len-1]
+      arguments[len-1] = null
+
+    # both user and userPriv are optional. distinguish with priv field
+    if !userPriv? and user
+      unless user.priv
+        userPriv = user
+        user = null
+
+    return cb new Reject 'NOUSER' unless id = @userId
+
+    # no-op if we're already subscribed
+    if @mediator.subscribed('users', id) and @mediator.subscribed('users_priv',id)
+      return cb()
+
+    async.waterfall [
+      (next) =>
+        return next(null, user) if user
+        @mediator._read 'users', id, next
+
+      (user_, next) =>
+        user = user_
+        return next null, userPriv if userPriv
+        @mediator._read 'users_priv', id, next
+
+      (userPriv_, next) =>
+        userPriv = userPriv_
+        
+        unless @mediator.subscribed 'users', id
+          @mediator.clientCreate 'users', user
+
+        unless @mediator.subscribed 'users_priv', id
+          @mediator.clientCreate 'users_priv', userPriv
+
+        next()
+
+    ], cb
+
+
+module.exports = mediator path.resolve(__dirname, '../lib/mediators'), Session
+
 

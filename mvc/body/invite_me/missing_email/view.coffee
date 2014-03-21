@@ -13,7 +13,7 @@ module.exports =
   ]
 
   $emailError: 'text'
-  $email: 'text'
+  $email: 'val'
 
   outletMethods: [
     (inWindow) ->
@@ -48,9 +48,8 @@ module.exports =
       delete @inviting
 
       if err
-        switch err
-          when "DUP_EMAIL"
-            break
+        switch err.code
+          when "DUP_EMAIL" then break
           else
             @oauthError.set "Oops! There was an internal error. We're looking into it. Please try again later."
             return

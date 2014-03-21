@@ -61,13 +61,12 @@ module.exports =
       return
 
     @inviting = true
-    @session.get().invite {email: email}, (err, user) =>
+    @session.get().invite {email: email}, (err) =>
       delete @inviting
 
       if err
-        switch err
-          when "DUP_EMAIL"
-            break
+        switch err.code
+          when "DUP_EMAIL" then break
           else
             @oauthError.set "Oops! There was an internal error. We're looking into it. Please try again later."
             return
@@ -96,17 +95,16 @@ module.exports =
       else
         @$oauth.removeClass 'has-error'
         @inviting = true
-        @session.get().invite info, (err, user) =>
+        @session.get().invite info, (err) =>
           delete @inviting
 
           if err
-            switch err
-              when "NO_EMAIL"
+            switch err.code
+              when "DUPEMAIL" then break
+              when "NOEMAIL"
                 @info = info
                 @depute 'toggleDialog', 'missingEmail', true
                 return
-              when "DUP_EMAIL"
-                break
               else
                 @oauthError.set "Oops! There was an internal error. We're looking into it. Please try again later."
                 return

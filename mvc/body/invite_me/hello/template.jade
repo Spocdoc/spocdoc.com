@@ -1,0 +1,25 @@
+p We need some basic information before we can get started.
+
+form.form#helloForm
+  .with-labels
+    label.input-group#nameGroup.has-error
+      span.label Name
+      input(type='text', spellcheck="false")#name
+      p.error#nameError This username is taken.
+    .space: div
+    label.input-group#usernameGroup
+      span.label Username
+      input(type='text', spellcheck="false")#username
+      p.error#usernameError
+    .space: div
+    label.input-group#passwordGroup
+      span.label Password
+      input(type='password', spellcheck="false")#password
+      p.error#passwordError
+    .space: div
+  div.submit-div#submitDiv
+    p.error#submitError
+    button(type="submit").submit#submit.has-spinner
+      span Let's go!
+    #submitSpinner.spinner(title="Waiting for the server..."): != spinner
+

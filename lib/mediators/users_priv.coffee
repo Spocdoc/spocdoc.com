@@ -1,7 +1,7 @@
 async = require 'async'
 debug = global.debug "ace:app:users_priv"
 diff = require 'diff-fork'
-
+Reject = require 'ace_mvc/lib/error/reject'
 
 IMMUTABLE_FIELDS = [
   '_id'
@@ -10,48 +10,15 @@ IMMUTABLE_FIELDS = [
   'password'
 ]
 
-FILLER_TEXT = [
-  """
-  Edit me!
-
-  Hey @spocdoc, I just created a doc!
-
-  #example
-  """
-  """
-  Title: Example doc
-
-  #example
-  
-  Edit me! Did you know you can add titles, too?
-  """
-]
-
 module.exports = (Base) ->
   class Handler extends Base
     read: (id, version, query, limit, sort, cb) ->
-      return unless @handlers.sessions._checkUser id, cb
+      return cb new Reject 'BADUSER' unless @session.isUser id
       super
 
     update: (id, version, ops, cb) ->
-      return unless @handlers.sessions._checkUser id, cb
-
-      cb.validate = (from, ops, to, next) =>
-        if ops
-          for op in ops
-            if op.k in IMMUTABLE_FIELDS
-              return next new Error("Can't change those fields directly")
+      return cb new Reject 'BADUSER' unless @session.isUser id
+      super id, version, ops, cb, (original, ops, doc, next) =>
+        (return next new Reject 'NOEDIT') for op in ops when op.k in IMMUTABLE_FIELDS if ops
         next()
-
-        # if !to.draftFiller?
-        #   @_chooseDraftFiller (err, filler) ->
-        #     moreOps = diff to, filler, path: ['draftFiller']
-        #     to.draftFiller = filler
-        #     next null, moreOps
-        # else
-        #   next()
-      super
-
-    _chooseDraftFiller: (cb) ->
-      cb null, FILLER_TEXT[Math.floor Math.random() * FILLER_TEXT.length]
 

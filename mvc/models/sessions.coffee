@@ -40,31 +40,32 @@ module.exports =
         @create()
 
   readOrCreate: ->
-    @run 'readOrCreate', (code, doc) ->
-      if code is 'd'
-        @serverCreate OJSON.fromOJSON(doc)
-      else if code is 'r'
+    @run 'readOrCreate', (err, doc) =>
+      if err?
         @serverDelete()
-        @error.set doc || "can't read"
+        @error.set "Can't read"
+      else if doc
+        @serverCreate doc
       return
 
-  invite: (details, cb) ->
-    @run 'invite', details, (code) =>
-      if ok = code is 'o'
-        @Model.reread()
-        @get('user').set user = @Model['users'].read arguments[1]
-        cb null, user
-      else
-        cb (code is 'r' && arguments[1]) || "Error logging in"
+  validateInvite: (invitedId, inviteToken, cb) ->
+    @run 'validateInvite', {id: invitedId, token: inviteToken}, (err) =>
+      return cb err if err?
+      @get('user').set user = @Model['users'].read invitedId
+      cb null, user
 
-  login: (username, password, cb) ->
-    @run 'login', {username, password}, (code) =>
-      if ok = code is 'o'
-        @Model.reread()
-        @get('user').set user = @Model['users'].read arguments[1]
-        cb null, user
-      else
-        cb (code is 'r' && arguments[1]) || "Error logging in"
+  acceptInvite: (args, cb) ->
+    @run 'acceptInvite', args, cb
+
+  invite: (details, cb) ->
+    @run 'invite', details, cb
+
+  login: (details, cb) ->
+    @run 'login', details, (err, id) =>
+      return cb err if err?
+      @Model.reread()
+      @get('user').set user = @Model['users'].read arguments[1]
+      cb null, user
 
   logout: (cb) ->
     @cookies.unset('session')

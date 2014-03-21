@@ -1,38 +1,23 @@
-regexEmail = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/
+_ = require 'lodash-fork'
+crypto = require 'crypto'
 
-module.exports =
-  'defaultArr': (defaultTabs, orderedTabs) ->
-    allTabs = {}
-    (allTabs[tab] = 1 for tab in defaultTabs) if defaultTabs
-    tabs = []
-    if orderedTabs
-      for tab in orderedTabs when allTabs[tab]
-        delete allTabs[tab]
-        tabs.push tab
-    tabs.push tab for tab of allTabs
-    tabs
-    
-  'splitLengths': (arr, nRows) ->
-    len = arr.length
-    times = nRows - len
+hash = (str) -> crypto.createHash('sha1').update(str).digest("hex")
+secret = 'X,.1$$K$Z,G%rT3&PG-v?Jg#i7#...P$_ZD_D#E.'
 
-    while --times >= 0
-      longest = 0
-      i = 0
-      j = -1
-      while ++j < len
-        if (k = arr[j]) >= longest
-          longest = k
-          i = j
+module.exports = obj = require './browser'
 
-      break if longest is 1
+_.extend obj,
+  checksum: checksum = (str) -> hash "#{str}#{secret}"
 
-      rhs = (longest / 2)|0
-      lhs = longest - rhs
-      arr.splice(i, 1, lhs, rhs)
-      ++len
+  validateCookie: validateCookie =  (cookie) -> cookie[1] is checksum cookie[0]
+  validateDocCookie: (id, cookie) -> validateCookie cookie && id.toString() is cookie[0]
+  makeCookie: (id) ->
+    sessId = id.toString()
+    clientChecksum = checksum sessId
+    [sessId, clientChecksum]
 
-    arr
+  randomPassword: ->
+    length = 24
+    crypto.createHash('sha1').update(crypto.randomBytes(length)).digest('hex').substr(0,length)
 
-  'checkEmail': (email) -> !!regexEmail.test(email)
-    
+

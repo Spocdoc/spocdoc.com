@@ -28,6 +28,8 @@
  [] evidently you can't get the boundingClientRect of whitespace nodes that don't render. Furthermore, if your cursor is within a non-rendering whitespace node, it will go to the wrong start point (try putting the cursor at the end of a blockquote)
  [] the word search produces erroneous word and sentence matches. e.g., search for gertrude in the hamlet doc
  [] split the editor text search by double newline so the results don't display entire sections
+ [] the invite hello screen should use the prefUsername if it's available 
+ [] if there's an error creating a document, ace will go into an infinite loop repeatedly trying to create if there's a client-side update pending
 
 # improvements
 

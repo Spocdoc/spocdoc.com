@@ -10,8 +10,9 @@ toSlug = (name) ->
 module.exports =
   start: ->
     @Model['sessions'].initSession this
-    @ace.loggedIn = new Outlet (->
-      @session.get('user')?.get()?.present), this, true
+    @globals.user = new Outlet (->@session.get('user')), this, true
+    @globals.userPriv = new Outlet (->@globals.user.get('priv')), this, true
+    @ace.loggedIn = new Outlet (->@globals.user.get('active')), this, true
 
     unless @ace.onServer
       $window = $ global
@@ -33,7 +34,7 @@ module.exports =
     add '?ssb=:searchShowSidebar'
     add '#s=:scrollTop'
 
-    add '/', page: ''
+    add 'landing', '/', '?:iid&:it', page: ''
     add 'about', '/about', '?:q', page: 'about'
     add '/explore', page: 'explore'
     add '/search', page: 'search'
@@ -63,7 +64,9 @@ module.exports =
       return
 
     @map
-      contentScroll: '/$scrollTop'
+      landing:
+        iid: '/landing/$invitedId'
+        it: '/landing/$inviteToken'
       page: '/page'
       menu: '/$menu'
       dialog: '/$dialog'

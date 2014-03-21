@@ -192,6 +192,85 @@ input
       input
         border-color ERROR_COLOR !important
 
+  .with-labels
+    display table
+    position: relative;
+    border-collapse: separate;
+    margin 0.4em auto 0
+
+    .space
+      display table-row
+      div
+        display table-cell
+        height 5px
+
+    .input-group
+      display table-row
+
+      .label
+        @extend $sansserif
+        font-size 0.9em
+        font-weight 300
+        display: table-cell;
+        white-space: nowrap;
+        vertical-align: middle;
+        padding 0.5em 1em
+        line-height 1em
+        color BLACK_COLOR
+        text-align right
+        background #ccc
+        border-radius 4px 0 0 4px
+        letter-spacing 1px
+
+        &:hover
+          cursor pointer
+
+      input
+        display table-cell
+        border-left 0
+        border-radius 0 4px 4px 0
+
+      &:hover
+        .label
+          background hsl(0,0,50%)
+          color white
+        input
+          border-color hsl(0,0,50%)
+
+      &.selected
+        .label
+          background LINK_COLOR
+          color white
+        input
+          border-color LINK_COLOR
+
+
+      &.has-error
+        .error
+          position absolute
+          left 0
+          right 0
+          white-space no-wrap
+          overflow hidden
+          text-overflow ellipsis
+
+        .label
+          background RED_COLOR
+          color white
+          border-radius 4px 0 0 0
+
+        input
+          border-color RED_COLOR
+          border-radius 0 4px 0 0
+
+        & +.space
+          height 2em
+
+
+
+
+            
+
 .progress-meter
   clear: left;
   margin: 12px 10px 4px;
