@@ -32,6 +32,7 @@ form.form#emailForm
     input(type='email', spellcheck="false", placeholder="Email")#email
     p.error#emailError
   div.submit-div#submitDiv
+    p.error#submitError
     button(type="submit").submit#submit.has-spinner
       span Invite me!
     #submitSpinner.spinner(title="Waiting for the server..."): != spinner

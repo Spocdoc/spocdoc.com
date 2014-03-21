@@ -66,6 +66,7 @@ module.exports = (Base) ->
         when 'invite' then @invite args, cb
         when 'validateInvite' then @validateInvite args.id, args.token, cb
         when 'acceptInvite' then @acceptInvite args, cb
+        when 'logIn' then @logIn args, cb
         else super
       return
 
@@ -184,5 +185,57 @@ module.exports = (Base) ->
 
       ], cb
 
+    logInUsername: (username, password, cb) ->
+      user = userPriv = null
 
+      async.waterfall [
+        (next) =>
+          @_read 'users', null, null, {username}, (err, user_) =>
+            if err?
+              next new Reject 'USERNAME'
+            else
+              next err, user_
+
+        (user_, next) =>
+          user_ = user_[0] if Array.isArray user_
+          console.log "SEE USER:",user_
+          user = user_
+          @_read 'users_priv', user._id, next
+
+        (userPriv_, next) =>
+          userPriv = userPriv_
+          if userPriv.password isnt utils.checksum password
+            return next new Reject 'PASSWORD'
+          next()
+
+      ], (err) => cb err, user, userPriv
+
+
+    logInOAuth: (details, user, userPriv, cb) ->
+      if (len = arguments.length) < 4
+        cb = arguments[len-1]
+        arguments[len-1] = null
+
+
+
+    logIn: (details, cb) ->
+      if username = details.username
+        debug "Logging in via password: #{username}..."
+        @logInUsername username, details.password, (err, user, userPriv) =>
+          if err?
+            if !userPriv or userPriv.oauth
+              @logInOauth details, user, userPriv, (err) =>
+                return cb err if err?
+                @session.setUser user
+                @session.sendUserDocs user, userPriv, => cb null, ''+user._id
+            else
+              cb err
+          else
+            @session.setUser user
+            @session.sendUserDocs user, userPriv, => cb null, ''+user._id
+      else
+        @logInOauth details, (err, user, userPriv) =>
+          return cb err if err?
+          @session.setUser user
+          @session.sendUserDocs user, userPriv, => cb null, ''+user._id
 

@@ -5,9 +5,9 @@ module.exports =
     'mixins/editable val': [ 'username', 'name', 'password' ]
 
   inlets: [
-    'nameError'
-    'usernameError'
-    'passwordError'
+    'nameError': (name) ->
+    'usernameError': (username) ->
+    'passwordError': (password) ->
     'submitError'
   ]
 
@@ -29,9 +29,9 @@ module.exports =
   outletMethods: [
     (inWindow) -> @$name.focus() if inWindow
 
-    (name) -> @nameError.set undefined
-    (username) -> @usernameError.set undefined
-    (password) -> @passwordError.set undefined
+    # (name) -> @nameError.set undefined
+    # (username) -> @usernameError.set undefined
+    # (password) -> @passwordError.set undefined
 
     (nameError) -> @$nameGroup.toggleClass 'has-error', !!nameError
     (usernameError) -> @$usernameGroup.toggleClass 'has-error', !!usernameError
@@ -68,6 +68,7 @@ module.exports =
 
     if @requirePassword.get()
       if password.length < MIN_PASSWORD_LENGTH
+        @$password.select()
         return @passwordError.set "Password must have at least #{MIN_PASSWORD_LENGTH} characters."
 
     @session.get()?.acceptInvite {id, name, username, password}, (err) =>

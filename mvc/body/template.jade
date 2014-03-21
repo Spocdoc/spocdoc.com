@@ -37,16 +37,16 @@ include ../utils
                   li: a Tumblr
                   li.menu-divider: hr
                 form.form
-                  label.input-group
+                  label.input-group#usernameGroup
                     input(type='text', spellcheck="false", placeholder="Username or email")#username
                     p.error#usernameError
-                  label.input-group
+                  label.input-group#passwordGroup
                     input(type="password", placeholder="Password")#password
                     p.error#passwordError
                   div.submit-div#submitDiv
                     button(type="submit").submit#submit.has-spinner
                       span Log In
-                    #submitSpinner.spinner(title="Waiting for the server...")
+                    #submitSpinner.spinner(title="Waiting for the server..."): != spinner
 
 
             //.menu-outer.hidden

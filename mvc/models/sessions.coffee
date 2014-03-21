@@ -60,14 +60,14 @@ module.exports =
   invite: (details, cb) ->
     @run 'invite', details, cb
 
-  login: (details, cb) ->
-    @run 'login', details, (err, id) =>
+  logIn: (details, cb) ->
+    @run 'logIn', details, (err, id) =>
       return cb err if err?
-      @Model.reread()
       @get('user').set user = @Model['users'].read arguments[1]
+      @Model.reread()
       cb null, user
 
-  logout: (cb) ->
+  logOut: (cb) ->
     @cookies.unset('session')
     @session.set @constructor.create {}
     @Model.reread()

@@ -8,16 +8,25 @@ tabs = [
 ]
 
 module.exports =
+  mixins:
+    'mixins/editable val': [ 'username', 'password' ]
+
   outlets: [
     'menu'
     'dialog'
     'content'
     'tab'
     'showDocs'
+
   ]
 
   internal: [
     'dialogView'
+    'usernameError': (username) ->
+    'passwordError': (password) ->
+    'submitError'
+    'username'
+    'password'
   ]
 
   $content: 'view'
@@ -42,6 +51,32 @@ module.exports =
   # footer links
   $footAbout: link: ['depute','showPage','about']
   $footBlog: link: ['depute','showPage','blog']
+
+  # log in
+  $submit: link: ['submitLogin']
+  $usernameError: 'text'
+  $passwordError: 'text'
+  submitLogin: ->
+    username = @username.get()
+    password = @password.get()
+    @submitError.set ''
+    @$submitDiv.addClass 'in-progress'
+
+    @session.get().logIn {username, password}, (err, user) =>
+      @$submitDiv.removeClass 'in-progress'
+
+      if err?
+        switch err.code
+          when 'USERNAME'
+            @usernameError.set "We couldn't find this username or email."
+            @$username.select()
+          when 'PASSWORD'
+            @passwordError.set "This password didn't match."
+            @$password.select()
+          else
+            @submitError.set "Oops! There was an internal error. We're looking into it. Please try again later."
+        return
+      @toggleMenu 'login', false
   
   toggleMenu: (which, toggleOn) ->
     menu = @menu.get() || ''
@@ -72,6 +107,10 @@ module.exports =
     return
 
   outletMethods: [
+    (usernameError) -> @$usernameGroup.toggleClass 'has-error', !!usernameError
+    (passwordError) -> @$passwordGroup.toggleClass 'has-error', !!passwordError
+    (usernameError, username, passwordError, password) -> @$submit.toggleClass 'can-submit', !!(username and !usernameError and password and !passwordError)
+
     (menu) ->
       @$root.attr 'data-menu',(menu||'')
 

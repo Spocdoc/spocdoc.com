@@ -1,6 +1,7 @@
 mediator = require 'ace_mvc/mediator'
 path = require 'path'
 async = require 'async'
+Reject = require 'ace_mvc/lib/error/reject'
 
 class Session
   constructor: (@mediator) ->
