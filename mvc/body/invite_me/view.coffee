@@ -16,6 +16,7 @@ module.exports =
   inlets: [
     'emailError'
     'oauthError'
+    'submitError'
   ]
 
   outlets: [
@@ -24,6 +25,7 @@ module.exports =
 
   $emailError: 'text'
   $oauthError: 'text'
+  $submitError: 'text'
 
   $evernote: link: ['startOauth', 'evernote']
   $twitter: link: ['startOauth', 'twitter']
@@ -39,6 +41,7 @@ module.exports =
         @$email.focus()
       return
 
+    (submitError) -> @$submitDiv.toggleClass 'has-error', !!submitError
     (oauthError) ->
       @$oauth.toggleClass 'has-error', !!oauthError
       return
@@ -54,6 +57,7 @@ module.exports =
   submitEmail: ->
     return if @emailError.value or @inviting
     email = @email.value
+    @submitError.set ''
 
     unless utils.checkEmail email
       @$submit.removeClass 'can-submit'
@@ -68,7 +72,7 @@ module.exports =
         switch err.code
           when "DUP_EMAIL" then break
           else
-            @oauthError.set "Oops! There was an internal error. We're looking into it. Please try again later."
+            @submitError.set "Oops! There was an internal error. We're looking into it. Please try again later."
             return
 
       @depute 'toggleDialog', 'youreInvited', true
@@ -85,18 +89,19 @@ module.exports =
     @$oauth.removeClass 'has-error'
 
     oauth.startOauth service, (err, info) =>
-      $li.removeClass 'in-progress'
 
       debug "oauth got err,info",err,info
 
       if err? or !info
         @$oauth.addClass 'has-error'
         @oauthError.set "Connecting with #{service} failed. Try another service, or try email."
+        $li.removeClass 'in-progress'
       else
         @$oauth.removeClass 'has-error'
         @inviting = true
         @session.get().invite info, (err) =>
           delete @inviting
+          $li.removeClass 'in-progress'
 
           if err
             switch err.code

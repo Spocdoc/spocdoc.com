@@ -1,3 +1,5 @@
+oauth = require 'connect_oauth'
+
 tabs = [
   'about'
   'blog'
@@ -27,6 +29,7 @@ module.exports =
     'submitError'
     'username'
     'password'
+    'oauthError'
   ]
 
   $content: 'view'
@@ -56,6 +59,7 @@ module.exports =
   $submit: link: ['submitLogin']
   $usernameError: 'text'
   $passwordError: 'text'
+  $submitError: 'text'
   submitLogin: ->
     username = @username.get()
     password = @password.get()
@@ -68,16 +72,30 @@ module.exports =
       if err?
         switch err.code
           when 'USERNAME'
-            @usernameError.set "We couldn't find this username or email."
+            @usernameError.set "We couldn't find this username."
+            @$username.select()
+          when 'EMAIL'
+            @usernameError.set "We couldn't find this email."
             @$username.select()
           when 'PASSWORD'
             @passwordError.set "This password didn't match."
             @$password.select()
+          when 'NOTACTIVE'
+            @submitError.set "Your invitation hasn't been activated yet."
           else
             @submitError.set "Oops! There was an internal error. We're looking into it. Please try again later."
         return
       @toggleMenu 'login', false
   
+
+  # oauth
+  $evernote: link: ['startOauth', 'evernote']
+  $twitter: link: ['startOauth', 'twitter']
+  $github: link: ['startOauth', 'github']
+  $linkedin: link: ['startOauth', 'linkedin']
+  $tumblr: link: ['startOauth', 'tumblr']
+  $oauthError: 'text'
+
   toggleMenu: (which, toggleOn) ->
     menu = @menu.get() || ''
     if menu is menuNew = menu.replace ///(?:^|\s+)#{which}(?:$|\s+)///g, ' '
@@ -109,7 +127,10 @@ module.exports =
   outletMethods: [
     (usernameError) -> @$usernameGroup.toggleClass 'has-error', !!usernameError
     (passwordError) -> @$passwordGroup.toggleClass 'has-error', !!passwordError
+    (submitError) -> @$submitDiv.toggleClass 'has-error', !!submitError
     (usernameError, username, passwordError, password) -> @$submit.toggleClass 'can-submit', !!(username and !usernameError and password and !passwordError)
+
+    (oauthError) -> @$oauth.toggleClass 'has-error', !!oauthError
 
     (menu) ->
       @$root.attr 'data-menu',(menu||'')
@@ -137,3 +158,38 @@ module.exports =
 
   ]
 
+  startOauth: (service) ->
+    return if @inviting
+
+    $li = @$[service].parent()
+    $li.addClass 'in-progress'
+
+    @$oauth.removeClass 'has-error'
+
+    oauth.startOauth service, (err, info) =>
+      debug "oauth got err,info",err,info
+
+      if err? or !info
+        @$oauth.addClass 'has-error'
+        @oauthError.set "Connecting with #{service} failed. Try again later."
+        $li.removeClass 'in-progress'
+      else
+        @$oauth.removeClass 'has-error'
+        @inviting = true
+        @session.get().logIn info, (err) =>
+          $li.removeClass 'in-progress'
+          delete @inviting
+
+          if err?
+            switch err.code
+              when "NOTACTIVE"
+                @oauthError.set "Your invitation hasn't been activated yet."
+              when "NOTFOUND"
+                @oauthError.set "We don't have an account with you through #{service}. Maybe you used a different one?"
+              else
+                @oauthError.set "Oops! There was an internal error. We're looking into it. Please try again later."
+            return
+
+          @toggleMenu 'login', false
+
+      return

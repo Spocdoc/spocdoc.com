@@ -14,22 +14,13 @@ class Session
     false
 
   isUser: (id) ->
+    id = id._id if id._id
     id = id.oid if id.oid
     (userId = @userId) and id and userId is ''+id
 
-  setUser: (id) ->
-    if id.oid
-      id = id.oid
-    else if id._id
-      id = id._id
-
-    @userId = ''+id
-
   set: (id) ->
-    if id.oid
-      id = id.oid
-    else if id._id
-      id = id._id
+    id = id._id if id._id
+    id = id.oid if id.oid
 
     @oldSessIds[old] = 1 if old = @sessId
     @sessId = ''+id
@@ -60,7 +51,7 @@ class Session
       cb err, userPriv
 
   # reads clientCreate on the user documents if set, then calls cb
-  sendUserDocs: (user, userPriv, cb) ->
+  setUser: (user, userPriv, cb) ->
     ARGS = 3
     if (len = arguments.length) < ARGS
       cb = arguments[len-1]
@@ -72,7 +63,20 @@ class Session
         userPriv = user
         user = null
 
-    return cb new Reject 'NOUSER' unless id = @userId
+    # could pass an id, rather than a user document
+    unless user
+      if userPriv
+        id = userPriv._id
+      else
+        return cb new Reject 'NOUSER' unless id = @userId
+    else
+      if user._id
+        id = user._id
+      else
+        id = user; user = null
+        id = id.oid if id.oid
+
+    @userId = id = ''+id
 
     # no-op if we're already subscribed
     if @mediator.subscribed('users', id) and @mediator.subscribed('users_priv',id)

@@ -21,8 +21,10 @@ module.exports = (Base) ->
       async.waterfall [
         (next) => @_read 'sessions', sessId, next
         (session, next) =>
-          @session.setUser user if user = session.user
-          next null
+          if user = session.user
+            @session.setUser user, (err, user, userPriv) => next null
+          else
+            next()
       ], cb
 
     create: (doc, cb) ->
@@ -118,14 +120,15 @@ module.exports = (Base) ->
             email: details.email
             created: new Date()
             invite: utils.randomPassword()
+            oauthId: id
 
           if details.username
             userPriv.prefUsername = details.username
 
           if details.provider
-            userPriv.oauth =
-              provider: details.provider
-              id: details.id
+            userPriv.oauthProvider = details.provider
+            userPriv.oauthId = details.id
+            userPriv.oauthTokens =
               access: details.access
               secret: details.secret
               refresh: details.refresh
@@ -155,8 +158,7 @@ module.exports = (Base) ->
 
         (userPriv, next) =>
           return next new Reject "INVALID" if userPriv.invite isnt token
-          @session.setUser userPriv
-          @session.sendUserDocs userPriv, cb
+          @session.setUser userPriv, cb
 
       ], cb
 
@@ -169,7 +171,7 @@ module.exports = (Base) ->
           @session.readUserPriv next
 
         (userPriv, next) =>
-          unless userPriv.oauth # then require password
+          unless userPriv.oauthProvider # then require password
             return next new Reject "PASSWORD" unless (password = args.password) and password = utils.checksum password
 
             # set the password
@@ -185,6 +187,39 @@ module.exports = (Base) ->
 
       ], cb
 
+    logInEmail: (email, password, cb) ->
+      user = userPriv = null
+
+      async.waterfall [
+        (next) =>
+          @_read 'users_priv', null, null, {email}, (err, userPriv_) =>
+            if err? or !userPriv_
+              next new Reject 'EMAIL'
+            else
+              next err, userPriv_
+
+        (userPriv_, next) =>
+          userPriv_ = userPriv_[0] if Array.isArray userPriv_
+          userPriv = userPriv_
+
+          # first verify the account has been activated
+          @_read 'users', userPriv._id, next
+
+        (user_, next) =>
+          unless user = user_
+            return next new Reject 'NOUSER'
+
+          unless user.active
+            return next new Reject 'NOTACTIVE'
+
+          if !userPriv or (userPriv.password isnt utils.checksum password)
+            return next new Reject 'PASSWORD'
+
+          next()
+
+      ], (err) => cb err, null, userPriv
+
+
     logInUsername: (username, password, cb) ->
       user = userPriv = null
 
@@ -198,8 +233,11 @@ module.exports = (Base) ->
 
         (user_, next) =>
           user_ = user_[0] if Array.isArray user_
-          console.log "SEE USER:",user_
           user = user_
+
+          unless user.active
+            return next new Reject 'NOTACTIVE'
+
           @_read 'users_priv', user._id, next
 
         (userPriv_, next) =>
@@ -211,31 +249,50 @@ module.exports = (Base) ->
       ], (err) => cb err, user, userPriv
 
 
-    logInOAuth: (details, user, userPriv, cb) ->
+    logInOAuth: (details, user, userPriv, err, cb) ->
       if (len = arguments.length) < 4
         cb = arguments[len-1]
         arguments[len-1] = null
 
+      unless (oauthProvider = details.provider) and (oauthId = details.id)
+        return cb err or new Reject 'OAUTH'
 
+      user = userPriv = null
+
+      async.waterfall [
+        (next) =>
+          @_read 'users_priv', null, null, {oauthProvider, oauthId}, next
+        (userPriv_, next) =>
+          unless (userPriv = if Array.isArray(userPriv_) then userPriv_[0] else userPriv_)
+            return next err or new Reject 'NOTFOUND'
+          oauth.verifyId details, next
+        (next) =>
+          @_read 'users', userPriv._id, null, next
+        (user_, next) =>
+          unless user = user_
+            return next err or new Reject 'NOUSER'
+          unless user.active
+            return next new Reject 'NOTACTIVE'
+          next()
+      ], (err) =>
+        console.log "OAUTH ERROR:",err
+        cb err, user, userPriv
 
     logIn: (details, cb) ->
-      if username = details.username
-        debug "Logging in via password: #{username}..."
-        @logInUsername username, details.password, (err, user, userPriv) =>
-          if err?
-            if !userPriv or userPriv.oauth
-              @logInOauth details, user, userPriv, (err) =>
-                return cb err if err?
-                @session.setUser user
-                @session.sendUserDocs user, userPriv, => cb null, ''+user._id
-            else
-              cb err
+      async.waterfall [
+        (next) =>
+          if (username = details.username) and (!details.provider or details.password)
+            fn = if ~username.indexOf('@') then @logInEmail else @logInUsername
+            debug "Logging in username/email: #{username}..."
+            fn.call this, username, details.password, (err, user, userPriv) =>
+              if err? and (!userPriv or userPriv.oauthProvider)
+                return @logInOAuth details, user, userPriv, err, next
+              next err, user, userPriv
           else
-            @session.setUser user
-            @session.sendUserDocs user, userPriv, => cb null, ''+user._id
-      else
-        @logInOauth details, (err, user, userPriv) =>
+            @logInOAuth details, next
+        (user, userPriv, next) =>
+          @session.setUser user, userPriv, (err, user, userPriv) => next err
+        ], (err) =>
           return cb err if err?
-          @session.setUser user
-          @session.sendUserDocs user, userPriv, => cb null, ''+user._id
+          cb null, @session.userId
 

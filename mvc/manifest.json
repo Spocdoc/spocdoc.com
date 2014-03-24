@@ -263,13 +263,13 @@
                         "search/page/view.coffee",
                         "search/results/doc/view.coffee",
                         "search/controller.coffee",
-                        "docs/controller.coffee",
-                        "body/controller.coffee", "routes.coffee",
+                        "docs/controller.coffee", "routes.coffee",
                         "body/invite_me/missing_email/view.coffee",
-                        "body/landing/view.coffee",
                         "body/invite_me/hello/view.coffee",
+                        "body/controller.coffee",
+                        "body/landing/view.coffee",
                         "body/invite_me/view.coffee",
-                        "body/view.coffee", "models/sessions.coffee"
+                        "models/sessions.coffee", "body/view.coffee"
                     ],
                     "generated": "bundle/debug [-ie<=8 -ios debug].js"
                 },
@@ -420,13 +420,13 @@
                         "search/page/view.coffee",
                         "search/results/doc/view.coffee",
                         "search/controller.coffee",
-                        "docs/controller.coffee",
-                        "body/controller.coffee", "routes.coffee",
+                        "docs/controller.coffee", "routes.coffee",
                         "body/invite_me/missing_email/view.coffee",
-                        "body/landing/view.coffee",
                         "body/invite_me/hello/view.coffee",
+                        "body/controller.coffee",
+                        "body/landing/view.coffee",
                         "body/invite_me/view.coffee",
-                        "body/view.coffee", "models/sessions.coffee"
+                        "models/sessions.coffee", "body/view.coffee"
                     ],
                     "generated": "bundle/debug [-ie<=8 debug ios].js"
                 }

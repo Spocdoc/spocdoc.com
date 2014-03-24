@@ -29,13 +29,25 @@ include ../utils
                 .heading
                   a#logInBack.back: span back
                   h3 Log In
-                ul
-                  li: a Evernote
-                  li: a Twitter
-                  li: a Github
-                  li: a LinkedIn
-                  li: a Tumblr
-                  li.menu-divider: hr
+                #oauth
+                  ul
+                    li
+                      a.has-spinner#evernote.evernote(target="_blank") Evernote
+                      .spinner(title="Waiting for other window..."): != spinner
+                    li
+                      a.has-spinner#twitter.twitter(target="_blank") Twitter
+                      .spinner(title="Waiting for other window..."): != spinner
+                    li
+                      a.has-spinner#github.github(target="_blank") Github
+                      .spinner(title="Waiting for other window..."): != spinner
+                    li
+                      a.has-spinner#linkedin.linkedin(target="_blank") LinkedIn
+                      .spinner(title="Waiting for other window..."): != spinner
+                    li
+                      a.has-spinner#tumblr.tumblr(target="_blank") Tumblr
+                      .spinner(title="Waiting for other window..."): != spinner
+                  p.error#oauthError
+                ul: li.menu-divider: hr
                 form.form
                   label.input-group#usernameGroup
                     input(type='text', spellcheck="false", placeholder="Username or email")#username
@@ -44,6 +56,7 @@ include ../utils
                     input(type="password", placeholder="Password")#password
                     p.error#passwordError
                   div.submit-div#submitDiv
+                    p.error#submitError
                     button(type="submit").submit#submit.has-spinner
                       span Log In
                     #submitSpinner.spinner(title="Waiting for the server..."): != spinner
