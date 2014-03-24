@@ -29,4 +29,9 @@ searches:
 
     db.docs.find({tags:{$all:['furniture']}}).explain()
 
+# Mac startup
+
+    lc start local.mongodb
+
+ - mkdir and change permissions on </var/run/redis>
 

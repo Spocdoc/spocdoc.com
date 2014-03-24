@@ -32,9 +32,13 @@ class Session
 
   isAnySession: (id) -> @isSession(id) or @isOldSession(id)
 
-  read: (cb) ->
+  read: (version, cb) ->
+    if (len = arguments.length) < 2
+      cb = arguments[len-1]
+      arguments[len-1] = null
+
     return cb new Reject "NOSESS" unless id = @sessId
-    @mediator._read 'sessions', id, (err, session) =>
+    @mediator._read 'sessions', id, version, (err, session) =>
       return cb new Reject 'NOSESS' if err? or !session
       cb err, session
 
@@ -57,26 +61,32 @@ class Session
       cb = arguments[len-1]
       arguments[len-1] = null
 
-    # both user and userPriv are optional. distinguish with priv field
-    if !userPriv? and user
-      unless user.priv
-        userPriv = user
-        user = null
-
-    # could pass an id, rather than a user document
-    unless user
-      if userPriv
+    if userPriv
+      if userPriv._id # it's a document
         id = userPriv._id
       else
-        return cb new Reject 'NOUSER' unless id = @userId
-    else
-      if user._id
+        if userPriv.oid # it's a reference
+          id = userPriv.oid
+        else # it's an id
+          id = userPriv
+        userPriv = null
+    if user
+      if user._id # it's a document
         id = user._id
+        unless user.priv # it's userPriv
+          userPriv = user
+          user = null
       else
-        id = user; user = null
-        id = id.oid if id.oid
+        if user.oid # it's a reference
+          id = user.oid
+        else # it's an id
+          id = user
+        user = null
 
-    @userId = id = ''+id
+    unless id
+      return cb new Reject 'NOUSER' unless id = @userId
+    else
+      @userId = id = ''+id
 
     # no-op if we're already subscribed
     if @mediator.subscribed('users', id) and @mediator.subscribed('users_priv',id)

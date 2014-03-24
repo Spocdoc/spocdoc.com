@@ -9,6 +9,8 @@ makeClient = (oauthDetails) ->
 
 
 module.exports =
+  name: -> 'Tumblr'
+
   getUser: (oauthDetails, cb) ->
     makeClient(oauthDetails).userInfo (err, user) ->
       return cb err if err?

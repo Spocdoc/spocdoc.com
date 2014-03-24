@@ -8,6 +8,8 @@ makeTwit = (oauthDetails) ->
     access_token_secret: oauthDetails.secret
 
 module.exports =
+  name: -> 'Twitter'
+
   getUser: (oauthDetails, cb) ->
     makeTwit(oauthDetails).get "users/show",
       user_id: oauthDetails.id

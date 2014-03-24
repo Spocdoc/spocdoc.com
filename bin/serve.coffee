@@ -1,5 +1,4 @@
-#!/usr/bin/env coffee
-#--nodejs --debug-brk
+#!/usr/bin/env coffee#--nodejs --debug-brk
 
 connect = require 'connect'
 express = require 'express'

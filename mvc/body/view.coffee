@@ -1,4 +1,5 @@
 oauth = require 'connect_oauth'
+oauthLib = require '../../lib/oauth'
 
 tabs = [
   'about'
@@ -64,6 +65,7 @@ module.exports =
     username = @username.get()
     password = @password.get()
     @submitError.set ''
+    @oauthError.set ''
     @$submitDiv.addClass 'in-progress'
 
     @session.get().logIn {username, password}, (err, user) =>
@@ -74,16 +76,25 @@ module.exports =
           when 'USERNAME'
             @usernameError.set "We couldn't find this username."
             @$username.select()
+            return
           when 'EMAIL'
             @usernameError.set "We couldn't find this email."
             @$username.select()
+            return
           when 'PASSWORD'
             @passwordError.set "This password didn't match."
             @$password.select()
+            return
           when 'NOTACTIVE'
             @submitError.set "Your invitation hasn't been activated yet."
-          else
-            @submitError.set "Oops! There was an internal error. We're looking into it. Please try again later."
+            return
+          when 'USEOAUTH'
+            if name = oauthLib.name err.msg
+              @username.set ''
+              @password.set ''
+              @submitError.set "Log in using #{name} (above) instead."
+              return
+        @submitError.set "Oops! There was an internal error. We're looking into it. Please try again later."
         return
       @toggleMenu 'login', false
   
@@ -164,7 +175,8 @@ module.exports =
     $li = @$[service].parent()
     $li.addClass 'in-progress'
 
-    @$oauth.removeClass 'has-error'
+    @oauthError.set ''
+    @submitError.set ''
 
     oauth.startOauth service, (err, info) =>
       debug "oauth got err,info",err,info

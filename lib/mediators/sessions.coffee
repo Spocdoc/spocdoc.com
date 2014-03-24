@@ -20,6 +20,7 @@ module.exports = (Base) ->
 
       async.waterfall [
         (next) => @_read 'sessions', sessId, next
+
         (session, next) =>
           if user = session.user
             @session.setUser user, (err, user, userPriv) => next null
@@ -84,6 +85,7 @@ module.exports = (Base) ->
 
       @_create 'sessions', doc, (err) =>
         if err?
+          return cb err unless @session.isAnySession id
           @_read 'sessions', id, version, cb
         else
           cb null, doc
@@ -255,7 +257,26 @@ module.exports = (Base) ->
         arguments[len-1] = null
 
       unless (oauthProvider = details.provider) and (oauthId = details.id)
-        return cb err or new Reject 'OAUTH'
+        # missing oauth details. they may have tried logging in with user/pass when setup with oauth...
+        return async.waterfall [
+          (next) =>
+            if userPriv
+              next null, userPriv
+            else if user
+              @_read 'users_priv', user._id, next
+            else
+              return next null, null
+
+          (userPriv_, next) =>
+            unless userPriv = userPriv_
+              return next err or new Reject 'NOUSER'
+
+            if provider = userPriv.oauthProvider
+              return next new Reject('USEOAUTH',provider)
+
+            next new Reject 'OAUTH'
+
+        ], (err) => cb err, user, userPriv
 
       user = userPriv = null
 
@@ -274,9 +295,7 @@ module.exports = (Base) ->
           unless user.active
             return next new Reject 'NOTACTIVE'
           next()
-      ], (err) =>
-        console.log "OAUTH ERROR:",err
-        cb err, user, userPriv
+      ], (err) => cb err, user, userPriv
 
     logIn: (details, cb) ->
       async.waterfall [

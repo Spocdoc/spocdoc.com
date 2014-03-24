@@ -13,6 +13,8 @@ apiCall = (oauthDetails, pathname, cb) ->
   return
 
 module.exports =
+  name: -> 'GitHub'
+
   getUser: (oauthDetails, cb) ->
     async.parallel
       email: (next) ->

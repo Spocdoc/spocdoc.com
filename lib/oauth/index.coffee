@@ -29,9 +29,15 @@ for method in ['getUser', 'verifyId']
   obj[method] = (oauthDetails, cb) ->
     if provider = getProvider(oauthDetails)
       try
-        provider[method] oauthDetails, cb
+        ret = provider[method] oauthDetails, cb
       catch _error
-        cb _error
+        if cb
+          cb _error
+        else
+          return false
     else
-      cb new Error("invalid provider")
-    return
+      if cb
+        cb new Error("invalid provider")
+      else
+        return false
+    return ret

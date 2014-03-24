@@ -11,6 +11,8 @@ getUser = (oauthDetails, cb) ->
   return
 
 module.exports =
+  name: -> 'Evernote'
+
   getUser: (oauthDetails, cb) ->
     getUser oauthDetails, (err, user) ->
       return cb err if err?

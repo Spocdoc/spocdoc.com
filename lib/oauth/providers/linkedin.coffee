@@ -11,6 +11,8 @@ apiUrl = (oauthDetails, pathname) ->
       format: 'json'
 
 module.exports =
+  name: -> 'LinkedIn'
+
   getUser: (oauthDetails, cb) ->
     request.get apiUrl(oauthDetails, 'v1/people/~:(email-address,formatted-name)'), (err, res, user) ->
       try
