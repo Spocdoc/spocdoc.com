@@ -43,15 +43,21 @@ class Session
 
   read: (cb) ->
     return cb new Reject "NOSESS" unless id = @sessId
-    @mediator._read 'sessions', id, cb
+    @mediator._read 'sessions', id, (err, session) =>
+      return cb new Reject 'NOSESS' if err? or !session
+      cb err, session
 
   readUser: (cb) ->
     return cb new Reject "NOUSER" unless userId = @userId
-    @mediator._read 'users', userId, cb
+    @mediator._read 'users', userId, (err, user) =>
+      return cb new Reject 'NOUSER' if err? or !user
+      cb err, user
 
   readUserPriv: (cb) ->
     return cb new Reject "NOUSER" unless userId = @userId
-    @mediator._read 'users_priv', userId, cb
+    @mediator._read 'users_priv', userId, (err, userPriv) =>
+      return cb new Reject 'NOUSER' if err? or !userPriv
+      cb err, userPriv
 
   # reads clientCreate on the user documents if set, then calls cb
   sendUserDocs: (user, userPriv, cb) ->
@@ -84,6 +90,9 @@ class Session
 
       (userPriv_, next) =>
         userPriv = userPriv_
+
+        unless user and userPriv
+          return next new Reject 'NOUSER'
         
         unless @mediator.subscribed 'users', id
           @mediator.clientCreate 'users', user

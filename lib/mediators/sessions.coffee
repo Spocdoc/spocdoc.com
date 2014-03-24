@@ -191,7 +191,7 @@ module.exports = (Base) ->
       async.waterfall [
         (next) =>
           @_read 'users', null, null, {username}, (err, user_) =>
-            if err?
+            if err? or !user_
               next new Reject 'USERNAME'
             else
               next err, user_
@@ -204,7 +204,7 @@ module.exports = (Base) ->
 
         (userPriv_, next) =>
           userPriv = userPriv_
-          if userPriv.password isnt utils.checksum password
+          if !userPriv or userPriv.password isnt utils.checksum password
             return next new Reject 'PASSWORD'
           next()
 

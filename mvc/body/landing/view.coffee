@@ -35,7 +35,7 @@ module.exports =
 
       @validateAgain = false
 
-      if user.get('active').get() is 2 # then already active
+      if user.get('active').get() # then already active
         @depute 'showPage', ''
       else
         @depute 'toggleDialog', 'hello', true
