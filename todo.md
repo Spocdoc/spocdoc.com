@@ -31,6 +31,11 @@
  [] the invite hello screen should use the prefUsername if it's available 
  [] if there's an error creating a document, ace will go into an infinite loop repeatedly trying to create if there's a client-side update pending
 
+## optimization
+
+ [] the new insertPlaceholders algo in marked-fork never uses block update()... so it'll wind up regenerating the entire top-level section (or the whole document if it's in a single section)
+ [] the fixDoms routine could reduce the number of dom appendChild and insertBefore calls by generating all the html at once and calling `$.parseHTML` and calling `setDoms`
+
 # improvements
 
  [] make the sidebar dots less obtrusive -- e.g., move them up to the top as you scroll down so they're not right at the reading level

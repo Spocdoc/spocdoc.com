@@ -34,24 +34,8 @@ KEY_NON_MUTATING = [
   KEY_PGDN
 ]
 
-
 MODE_TEXT = 0
 MODE_HTML = 1
-
-updateSrc = (editor, md) ->
-  return if editor.src is md
-
-  if sel = $.selection()
-    start = editor.posToOffset sel.start
-    end = editor.posToOffset sel.end
-
-  eqRanges = editor.update md
-
-  if sel and isFinite(start) and isFinite(end)
-    $.selection editor.offsetToPos(eqRanges.updateOffset(start)), editor.offsetToPos(eqRanges.updateOffset(end))
-
-  return
-
 
 module.exports =
   outlets: [
@@ -64,14 +48,11 @@ module.exports =
   ]
 
   outletMethods: [
-    (doc) ->
-      @switchToHtml()
-      return
+    (doc) -> @switchModes MODE_HTML
 
     (editable) ->
-      unless editable
-        @switchToHtml()
-      @html?.$content.prop('contenteditable',!!editable)
+      @switchModes MODE_HTML unless editable
+      @html.$content.prop 'contenteditable',!!editable
       return
 
     (doc, md='', initialPosition, inWindow, spec) ->
@@ -83,9 +64,11 @@ module.exports =
           words.push part.value
         words = null unless words.length
 
-      editor = @updateEditor md, words
+      editor = @getEditor words
 
       if words
+        editor.update md
+
         @scrollTop 0
 
         if @emptySearch
@@ -101,36 +84,37 @@ module.exports =
           html += if @mode is MODE_TEXT then "</pre>" else "</div>"
           @$searchContent.html html
       else
+
         unless @emptySearch
-          @scrollTop 0
+          @scrollTop 0 if inWindow and !initialPosition
           @$searchContent.empty()
           @$content.prepend editor.$root
           @emptySearch = true
 
-        if initialPosition and inWindow
-          @router.setAfterPushArg 'setScroll', false # don't set the scroll position
-          {startOffset, endOffset, carat} = initialPosition
-          if startOffset? and endOffset? and carat?
-            # select that range in the current editor
-            sel = $.selection editor.offsetToPos(startOffset), editor.offsetToPos(endOffset)
-            @moveCarat carat, sel
+        if initialPosition
+          editor.update md
 
-          @initialPosition.set null
+          if inWindow
+            @router.setAfterPushArg 'setScroll', false # don't set the scroll position
+            {startOffset, endOffset, carat} = initialPosition
+            if startOffset? and endOffset? and carat?
+              # select that range in the current editor
+              sel = $.selection editor.offsetToPos(startOffset), editor.offsetToPos(endOffset)
+              @moveCarat carat, sel
+
+            @initialPosition.set null
+        else
+          if sel = $.selection()
+            start = editor.posToOffset sel.start
+            end = editor.posToOffset sel.end
+
+          eqRanges = editor.update md
+
+          if sel and isFinite(start) and isFinite(end)
+            $.selection editor.offsetToPos(eqRanges.updateOffset(start)), editor.offsetToPos(eqRanges.updateOffset(end))
+
       return
   ]
-
-  updateEditor: (md, words) ->
-    if @mode is MODE_TEXT
-      if editor = @editor
-        updateSrc editor, md
-      else
-        editor = @editor = new Editor md, if @ace.booting and @template.bootstrapped and !words then @$content else null
-    else
-      if editor = @html
-        updateSrc editor, md
-      else
-        editor = @html = new Html md, (if @ace.booting and @template.bootstrapped and !words then @$content else null), depth: 1
-    editor
 
   moveCarat: (oldCarat, sel) ->
     return unless oldCarat and newCarat = $.selection.coords(sel)
@@ -140,16 +124,8 @@ module.exports =
 
     newCarat = $.selection.coords(sel)
 
-    # offset = @$root.offset()
-
-    # TOP_DISPLACE = -8
-    # LEFT_DISPLACE = -4
-
-    TOP_DISPLACE = 0
-    LEFT_DISPLACE = 0
-
-    leftEnd = newLeft = newCarat.left + LEFT_DISPLACE
-    oldLeft = oldCarat.left + LEFT_DISPLACE
+    leftEnd = newLeft = newCarat.left
+    oldLeft = oldCarat.left
 
     if newLeft < oldLeft
       leftStart = newLeft
@@ -164,79 +140,51 @@ module.exports =
     $caratSpot.removeClass('starting').css('left',leftEnd + "px").css('width',0)
     return
 
-  switchToText: ->
-    return true if @mode is MODE_TEXT
+  switchModes: (mode) ->
+    return true if @mode is mode
+    return false if @mode is MODE_HTML and !@editable.value
 
-    return false unless @editable.value
-    @mode = MODE_TEXT
+    oldEditor = @getEditor()
+    @mode = +!@mode
+    newEditor = @getEditor()
 
-    if (html = @html) and sel = $.selection()
-      start = html.posToOffset sel.start
-      end = html.posToOffset sel.end
+    if sel = $.selection()
+      start = oldEditor.posToOffset sel.start
+      end = oldEditor.posToOffset sel.end
       oldCarat = $.selection.coords(sel)
 
-    md = @md.value || ''
-
-    editor = @updateEditor md
-
-    html?.$root.detach()
-    @$content.prepend editor.$root
-    editor.$root.focus()
+    newEditor.update @md.value
+    oldEditor.$root.detach()
+    @$content.prepend newEditor.$root
+    newEditor.$root.focus()
 
     if sel and isFinite(start) and isFinite(end)
-      sel = $.selection editor.offsetToPos(start), editor.offsetToPos(end)
+      sel = $.selection newEditor.offsetToPos(start), newEditor.offsetToPos(end)
       @moveCarat oldCarat, sel
+
     true
-
-  switchToHtml: ->
-    return true if @mode is MODE_HTML
-    @mode = MODE_HTML
-
-    if (editor = @editor) and sel = $.selection()
-      start = editor.posToOffset sel.start
-      end = editor.posToOffset sel.end
-      oldCarat = $.selection.coords(sel)
-
-    md = @md.value || ''
-
-    html = @updateEditor md
-
-    editor?.$root.detach()
-    @$content.prepend html.$root
-    html.$root.focus()
-
-    if sel and isFinite(start) and isFinite(end)
-      sel = $.selection html.offsetToPos(start), html.offsetToPos(end)
-      @moveCarat oldCarat, sel
-    true
-
-  switchModes: ->
-    if @mode is MODE_HTML
-      @switchToText()
-    else
-      @switchToHtml()
 
   handleInput: ->
-    if editor = @editor
-      node = editor.$content[0]
-      text = node.textContent ? node.innerText ? ''
-      src = editor.src
+    return unless @mode is MODE_TEXT
 
-      return if src is text
+    editor = @getEditor()
+    root = editor.$content[0]
+    text = root.textContent ? root.innerText ? ''
+    src = editor.src
 
-      if sel = $.selection()
-        start = editor.posToOffset sel.start, true
-        end = editor.posToOffset sel.end, true
+    return if src is text
 
-      editor.update text, true
+    if sel = $.selection()
+      start = editor.posToOffset sel.start, true
+      end = editor.posToOffset sel.end, true
 
-      @md.set text
+    editor.update text, true
+    @md.set text
 
-      if sel and isFinite(start) and isFinite(end)
-        newSel = $.selection()
-        unless editor.posToOffset(sel.start) is start and editor.posToOffset(sel.end) is end
-          console.log "MOVING CURSOR"
-          $.selection editor.offsetToPos(start), editor.offsetToPos(end)
+    if sel and isFinite(start) and isFinite(end)
+      start = editor.offsetToPos(start)
+      end = editor.offsetToPos(end)
+      $.selection start, end unless $.selection.equal({start,end},$.selection())
 
     return
 
@@ -264,6 +212,13 @@ module.exports =
     else
       $scrollParent.scrollTop()
     return
+
+  getEditor: (words) ->
+    switch @mode
+      when MODE_HTML
+        @html ||= new Html @md.value, (if @ace.booting and @template.bootstrapped and !words then @$content else null), depth: 1
+      else
+        @editor ||= new Editor @md.value, if @ace.booting and @template.bootstrapped and !words then @$content else null
 
   constructor: ->
     @html = @editor = null
@@ -298,7 +253,7 @@ module.exports =
         return false
 
       if @mode is MODE_HTML
-        return false unless @switchToText()
+        return false unless @switchModes()
 
       switch event.keyCode
         when KEY_ENTER
@@ -326,7 +281,7 @@ module.exports =
     @$searchContent.on 'click', =>
       return if @emptySearch
       return unless sel = $.selection()
-      return unless editor = (if @mode is MODE_HTML then @html else @editor)
+      editor = @getEditor()
       return unless isFinite(startOffset = editor.posToOffset(sel.start)) and isFinite(endOffset = editor.posToOffset(sel.end))
       carat = $.selection.coords(sel)
       @search.set ''
@@ -342,30 +297,11 @@ module.exports =
         @lastEsc = 0
         return false
 
-      @handleInput()
-
       if @mode is MODE_HTML
         event.preventDefault()
         return false
-      else
-        if event.keyCode is KEY_ESC
-          @switchToHtml()
-          event.preventDefault()
-          return false
+
+      @handleInput()
 
       return
 
-    # unless @ace.onServer
-    #   $('body').on 'focus', '*', (event) =>
-    #     if target = event.target
-    #       unless @$root.contains target
-    #         @switchToHtml()
-    #     return
-
-
-    # @$content.on 'blur', '.editor', =>
-    #   if @mode is MODE_TEXT
-    #     text = @editor.src
-    #     @md.set text
-    #     @switchToHtml()
-    #   return
