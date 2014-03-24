@@ -50,13 +50,11 @@ module.exports =
   outletMethods: [
     (doc) -> @switchModes MODE_HTML
 
-    (editable) ->
-      @switchModes MODE_HTML unless editable
-      @html.$content.prop 'contenteditable',!!editable
-      return
-
-    (doc, md='', initialPosition, inWindow, spec) ->
+    (doc, md='', initialPosition, inWindow, spec, editable) ->
       return if !md and !doc
+
+      if !editable
+        @switchModes MODE_HTML
 
       if spec and spec.length
         words = []
@@ -112,6 +110,9 @@ module.exports =
 
           if sel and isFinite(start) and isFinite(end)
             $.selection editor.offsetToPos(eqRanges.updateOffset(start)), editor.offsetToPos(eqRanges.updateOffset(end))
+
+        if @mode is MODE_HTML
+          editor.$content.prop 'contenteditable',!!editable
 
       return
   ]
