@@ -90,6 +90,8 @@ module.exports =
           editor.update md
 
           if inWindow
+            editor.$content.focus()
+
             @router.setAfterPushArg 'setScroll', false # don't set the scroll position
             {startOffset, endOffset, carat} = initialPosition
             if startOffset? and endOffset? and carat?
@@ -98,8 +100,6 @@ module.exports =
               @moveCarat carat, sel
 
             @initialPosition.set null
-
-            editor.$content.focus()
         else
           if sel = $.selection()
             start = editor.posToOffset sel.start
