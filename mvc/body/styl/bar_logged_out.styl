@@ -18,17 +18,40 @@ hideMenu()
     & > .dropdown-menu
       display block !important
 
-    .login-menu
-      .menu-button-overlay
-        display block !important
+  .logged-out
+    .main-menu
+      .login-menu
+        .menu-button-overlay
+          display block !important
 
-  [data-menu~="login"]
+  .logged-in
+    .main-menu
+      .user-menu
+        .menu-button-overlay
+          display block !important
+
+  .menu-button-overlay:hover
+    background none !important
+    & + *
+      color LINK_COLOR !important
+
+
+  [data-menu~="login"].logged-out
     .main-menu
       .login-menu
         & > .dropdown-caret-right,
         & > .dropdown-menu-right
           display block
       .log-in
+        color LINK_COLOR !important
+
+  [data-menu~="user"].logged-in
+    .main-menu
+      .user-menu
+        & > .dropdown-caret-right,
+        & > .dropdown-menu-right
+          display block
+      .user-name
         color LINK_COLOR !important
 
   .login-menu
@@ -65,27 +88,41 @@ hideMenu()
     & > li.menu-divider
       display none
 
-    .invite-me
-      display inline-block !important
-      margin-bottom -2px !important
-      font-size 1em   !important
+  .logged-out
+    .right-div
+      .invite-me
+        display inline-block !important
+        margin-bottom -2px !important
+        font-size 1em   !important
 
-    .log-in
-      display inline-block !important
-      font-weight 300 !important
-      font-size 1em !important
-      padding 0 !important
+      .log-in
+        display inline-block !important
+        font-weight 300 !important
+        font-size 1em !important
+        padding 0 !important
 
-      span
-        display none
+        span
+          display none
 
-    .log-in, .menu-button-overlay
-      background none !important
-      color BLACK_COLOR !important
-
-      &:hover
+      .log-in
         background none !important
-        color LINK_COLOR !important
+
+        &:hover
+          background none !important
+          color LINK_COLOR !important
+
+  .logged-in
+    .right-div
+      .user-name
+        display inline-block !important
+        padding 0 !important
+
+      .user-name
+        background none !important
+
+        &:hover
+          background none !important
+          color LINK_COLOR !important
 
   .right-div-min
     display none
@@ -118,11 +155,6 @@ hideMenu()
             border-bottom 3px solid LINK_COLOR
             margin-bottom -2px
 
-  .main-tabs
-    .blog, .about
-      display inline
-
-
 shortenRight()
   .right-div
     .log-in
@@ -145,11 +177,31 @@ shortenRight()
     .connect, .search
       display none
 
+  .right-div
+    .user-menu
+      display none !important
+    .login-menu
+      display block
+
+
+.logged-in
+  .main-tabs
+    .blog
+      display none
+    .search, .about
+      display block
+
+  .right-div
+    .login-menu
+      display none !important
+    .user-menu
+      display block
+
 @media MT10
   hideMenu()
   .invite-me
     margin-right 0!important
-      
+
 @media MWWS
   .main-menu
     & > .dropdown-menu
@@ -157,10 +209,11 @@ shortenRight()
         padding-right 20px
         padding-left 20px
 
-  .right-div
-    .log-in
-      span
-        display inline
-    .invite-me
-      margin-right 0.5em !important
+  .logged-out
+    .right-div
+      .log-in
+        span
+          display inline
+      .invite-me
+        margin-right 0.5em !important
 

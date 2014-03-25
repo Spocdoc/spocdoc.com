@@ -73,8 +73,7 @@ app.get '/favicon.ico', (req,res,next) -> res.end favicon
 
 app.use ace server, manifest,
   # cookies:
-    # domain: '192.168.1.107'
-    # secure: false
+  #   secure: (argv.protocol is 'https')
   mongodb:
     host: '/tmp/mongodb-27017.sock'
     # host: 'ip-10-73-182-71.ec2.internal'

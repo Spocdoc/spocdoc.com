@@ -20,7 +20,6 @@ module.exports =
     'content'
     'tab'
     'showDocs'
-
   ]
 
   internal: [
@@ -31,17 +30,24 @@ module.exports =
     'username'
     'password'
     'oauthError'
+    'loggedIn': -> @ace.loggedIn
+    'name': -> @user.get('name')
   ]
 
   $content: 'view'
   $menuButton: linkdown: ['toggleMenu', 'on']
   $menuButtonOverlay: linkdown: ['toggleMenu', 'on']
+  $userMenu: linkup: ['toggleMenu', 'user']
+  $userMenuOverlay: linkup: ['toggleMenu', 'user']
+  $nameBack: linkdown: ['toggleMenu','user']
   $logIn: linkup: ['toggleMenu', 'login']
   $logInOverlay: linkup: ['toggleMenu', 'login']
   $logInBack: linkdown: ['toggleMenu','login']
   $inviteMe1: linkdown: ['toggleDialog','inviteMe']
   $inviteMe2: linkdown: ['toggleDialog','inviteMe']
   $dialog: view: 'dialogView'
+  $name: 'text'
+  $nameHeading: 'text': 'name'
 
   $about: link: ['depute','showPage','about']
   $blog: link: ['depute','showPage','blog']
@@ -96,6 +102,8 @@ module.exports =
               return
         @submitError.set "Oops! There was an internal error. We're looking into it. Please try again later."
         return
+
+      @password.set ''
       @toggleMenu 'login', false
   
 
@@ -106,6 +114,10 @@ module.exports =
   $linkedin: link: ['startOauth', 'linkedin']
   $tumblr: link: ['startOauth', 'tumblr']
   $oauthError: 'text'
+
+  # log out 
+  $logOut: link: ['logOut']
+  logOut: -> @session.get()?.logOut (err) => @toggleMenu 'user', false
 
   toggleMenu: (which, toggleOn) ->
     menu = @menu.get() || ''
@@ -141,6 +153,11 @@ module.exports =
     (submitError) -> @$submitDiv.toggleClass 'has-error', !!submitError
     (usernameError, username, passwordError, password) -> @$submit.toggleClass 'can-submit', !!(username and !usernameError and password and !passwordError)
 
+    (loggedIn) ->
+      @$root.toggleClass 'logged-out', !loggedIn
+      @$root.toggleClass 'logged-in', !!loggedIn
+      return
+
     (oauthError) -> @$oauth.toggleClass 'has-error', !!oauthError
 
     (menu) ->
@@ -150,11 +167,15 @@ module.exports =
       @dialogView.set dialog = if dialog then @depute('getController',dialog) else null
       blur = !!dialog
 
-      $('body').toggleClass 'no-scroll', blur
-
       @$bar.toggleClass 'blurred', blur
       @$content.toggleClass 'blurred', blur
       @$footer.toggleClass 'blurred', blur
+
+    # separated for server render
+    (dialog, inWindow) ->
+      if inWindow
+        @$root.closest('body').toggleClass 'no-scroll', !!dialog
+      return
 
     (tab) ->
       for t in tabs

@@ -24,6 +24,7 @@ module.exports =
           lastSession = session
         unless cookie?[0] in [undefined, lastCookie]
           @cookies.set 'session', cookie
+          @Model.reread() # now the session has been established on the server's end. can re-read
           lastCookie = cookie[0]
           oldSession.delete() for oldSession in oldSessions
           oldSessions.length = 0
@@ -68,7 +69,9 @@ module.exports =
       cb null, user
 
   logOut: (cb) ->
+    @get('user').set null
     @cookies.unset('session')
     @session.set @constructor.create {}
-    @Model.reread()
+    # @Model.reread() # do this only after the server has seen the new session (so it has the new perms)
+    cb()
 

@@ -230,12 +230,11 @@
                         "../../marked-fork/outline/heading.coffee",
                         "../../marked-fork/outline/classify.coffee",
                         "../../marked-fork/outline/index.coffee",
-                        "constants.coffee",
                         "../../marked-fork/snips/index.coffee",
                         "../lib/utils/browser.coffee", "index.coffee",
                         "../lib/oauth/browser.coffee",
-                        "views/slides.coffee", "views/test.coffee",
-                        "models/docs.coffee",
+                        "constants.coffee", "views/slides.coffee",
+                        "views/test.coffee", "models/docs.coffee",
                         "views/sidebar_split.coffee",
                         "views/tabs.coffee",
                         "docs/sidebar_tabs/media/view.coffee",
@@ -269,9 +268,8 @@
                         "body/invite_me/hello/view.coffee",
                         "body/controller.coffee",
                         "body/landing/view.coffee",
-                        "models/sessions.coffee",
                         "body/invite_me/view.coffee",
-                        "body/view.coffee"
+                        "body/view.coffee", "models/sessions.coffee"
                     ],
                     "generated": "bundle/debug [-ie<=8 -ios debug].js"
                 },
@@ -389,12 +387,11 @@
                         "../../marked-fork/outline/heading.coffee",
                         "../../marked-fork/outline/classify.coffee",
                         "../../marked-fork/outline/index.coffee",
-                        "constants.coffee",
                         "../../marked-fork/snips/index.coffee",
                         "../lib/utils/browser.coffee", "index.coffee",
                         "../lib/oauth/browser.coffee",
-                        "views/slides.coffee", "views/test.coffee",
-                        "models/docs.coffee",
+                        "constants.coffee", "views/slides.coffee",
+                        "views/test.coffee", "models/docs.coffee",
                         "views/sidebar_split.coffee",
                         "views/tabs.coffee",
                         "docs/sidebar_tabs/media/view.coffee",
@@ -428,9 +425,8 @@
                         "body/invite_me/hello/view.coffee",
                         "body/controller.coffee",
                         "body/landing/view.coffee",
-                        "models/sessions.coffee",
                         "body/invite_me/view.coffee",
-                        "body/view.coffee"
+                        "body/view.coffee", "models/sessions.coffee"
                     ],
                     "generated": "bundle/debug [-ie<=8 debug ios].js"
                 }

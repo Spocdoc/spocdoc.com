@@ -30,11 +30,13 @@
  [] split the editor text search by double newline so the results don't display entire sections
  [] the invite hello screen should use the prefUsername if it's available 
  [] if there's an error creating a document, ace will go into an infinite loop repeatedly trying to create if there's a client-side update pending
+ [] sessions are never cleared from the database and there's no way to know which ones are old or out of use...
 
 ## optimization
 
  [] the new insertPlaceholders algo in marked-fork never uses block update()... so it'll wind up regenerating the entire top-level section (or the whole document if it's in a single section)
  [] the fixDoms routine could reduce the number of dom appendChild and insertBefore calls by generating all the html at once and calling `$.parseHTML` and calling `setDoms`
+ [] when the client boots, it rereads everything including the queries at once. this is a problem for the queries: if the server processes the query re-read first, it'll preemptively send a create with the full source of the matching documents because it doesn't know the client has them yet (hasn't seen the re-read). see ![](img/2014-03-25-03.png). solution is to finish doing all the model re-reads before doing queries
 
 # improvements
 

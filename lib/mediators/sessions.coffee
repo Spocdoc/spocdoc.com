@@ -17,6 +17,7 @@ module.exports = (Base) ->
       return cb() unless (cookie = cookies.session) and utils.validateCookie cookie
 
       @session.set sessId = cookie[0]
+      debug "setting session to #{sessId}"
 
       async.waterfall [
         (next) => @_read 'sessions', sessId, next
@@ -53,8 +54,17 @@ module.exports = (Base) ->
 
     # can only read previous or current session
     read: (id, version, query, limit, sort, cb) ->
-      return cb new Reject "NOSESSION" unless @session.isAnySession id
-      super
+      return cb new Reject 'NOQUERY' unless id
+
+      if Array.isArray id
+        super id, version, query, limit, sort, cb, (query, next) =>
+          arr = []; i = 0
+          arr[i++] = id for id in query._id.$in when @session.isAnySession id
+          query._id.$in = arr
+          next null, query
+      else
+        return cb new Reject "NOSESSION" unless @session.isAnySession id
+        super
 
     # can only delete *previous* sessions
     delete: (id, cb) ->

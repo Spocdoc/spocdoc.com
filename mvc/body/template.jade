@@ -14,17 +14,17 @@ include ../utils
           ul.main-tabs
             li: a.about#about(title="About"): span About
             li: a.blog#blog(title="Blog"): span Blog
-            li: a.hidden.explore#explore(title="Explore"): span Explore
-            li: a.connect#connect(title="Connect"): span Connect
-            li: a.hidden.docs.has-menu-sep#docs(title="Docs"): span Docs
             li: a.search#search(title="Search"): span Search
+            li: a.hidden.explore#explore(title="Explore"): span Explore
+            li: a.hidden.connect#connect(title="Connect"): span Connect
+            li: a.hidden.docs.has-menu-sep#docs(title="Docs"): span Docs
 
           ul.right-div
             li: a#inviteMe1.invite-me: span Invite me!
             li.menu-divider: hr
             li.menu-outer.login-menu
-              a#logIn.log-in.has-menu: span Log In
               a#logInOverlay.menu-button-overlay
+              a#logIn.log-in.has-menu: span Log In
               +menu-right
                 .heading
                   a#logInBack.back: span back
@@ -61,10 +61,13 @@ include ../utils
                       span Log In
                     #submitSpinner.spinner(title="Waiting for the server..."): != spinner
 
-
-            //.menu-outer.hidden
-              a Mike Robertson
+            li.menu-outer.user-menu
+              a#userMenuOverlay.menu-button-overlay
+              a#userMenu.user-name.has-menu: span#name
               +menu-right
+                .heading
+                  a#nameBack.back: span back
+                  h3#nameHeading
                 ul
                   li: a Tags
                   li: a Import
@@ -72,7 +75,7 @@ include ../utils
                   li.menu-divider: hr
                   li: a Help
                   li.menu-divider: hr
-                  li: a Log Out
+                  li: a#logOut Log Out
 
       .right-div.right-div-min
         a#inviteMe2.invite-me: span Invite me!

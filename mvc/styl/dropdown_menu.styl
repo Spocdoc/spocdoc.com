@@ -22,6 +22,15 @@
   hr
     display none
 
+.has-menu
+  &:after
+    content '\f02d'
+    margin-left 0.2em
+    font-family spocdicons
+    margin-top 0.125em
+    position absolute
+    right 20px
+
 .dropdown-menu, .dropdown-menu-right
   position absolute
   z-index 900
@@ -73,6 +82,9 @@
         &:active
           background darken(LINK_COLOR,20%)
           border-color darken(LINK_COLOR,20%) !important
+
+        &.has-menu
+          padding-right 37px
 
 .dropdown-menu-right
   float none

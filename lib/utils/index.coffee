@@ -9,7 +9,7 @@ module.exports = obj = require './browser'
 _.extend obj,
   checksum: checksum = (str) -> hash "#{str}#{secret}"
 
-  validateCookie: validateCookie =  (cookie) -> cookie[1] is checksum cookie[0]
+  validateCookie: validateCookie = (cookie) -> cookie[1] is checksum cookie[0]
   validateDocCookie: (id, cookie) -> validateCookie cookie && id.toString() is cookie[0]
   makeCookie: (id) ->
     sessId = id.toString()

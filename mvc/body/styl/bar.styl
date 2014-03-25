@@ -1,3 +1,5 @@
+@import '../../utils'
+
 .bar
   height unit(LOGGED_OUT_HEIGHT,em)
   position absolute
@@ -53,6 +55,14 @@
     left -2px !important
     padding 1.6em 1.2em 0 2px !important
 
+  .user-menu .menu-button-overlay
+    display none
+    position absolute !important
+    bottom 0
+    top auto !important
+    left -2px !important
+    padding 1.6em 1.2em 0 2px !important
+
 
 [data-menu~="on"]
   .main-menu
@@ -101,41 +111,37 @@
   &, &:link, &:visited
     color BLACK_COLOR
 
-[data-menu~='login'] .main-menu .log-in, .log-in:hover
-  text-decoration none
-  color LINK_COLOR
+.user-name
+  cursor pointer
+  &, &:link, &:visited
+    color BLACK_COLOR
 
-.has-menu
-  &:after
-    content '\f02d'
-    margin-left 0.2em
-    font-family spocdicons
-    margin-top 0.125em
-    position absolute
-    right 20px
-
-.main-tabs
-  .blog, .about
-    display none
+// [data-menu~='login'].logged-out .main-menu .log-in, .log-in:hover
+//   text-decoration none
+//   color LINK_COLOR !important
+// 
+// [data-menu~='user'].logged-in .main-menu .user-name, .user-name:hover
+//   text-decoration none
+//   color LINK_COLOR !important
 
 .dropdown-menu li > a.invite-me, .invite-me
   @extend $button-green
 
 .main-menu
   .right-div
+    text-align left
     .invite-me
       display none
+
+.right-div
+  .invite-me
+    margin-right 0
+    margin-bottom 2px
 
 .right-div-min
   position absolute
   right 0
   bottom 0
-
-.right-div
-  text-align left
-  .invite-me
-    margin-right 0
-    margin-bottom 2px
 
 .main-menu
   .menu-toggle
@@ -155,7 +161,7 @@
   height 40px
   margin auto
 
-.login-menu
+.login-menu, .user-menu
   & > .dropdown-caret-right,
   & > .dropdown-menu-right,
   .heading
@@ -169,8 +175,9 @@ T10 = LOGGED_OUT_FULL_SMALL
 MWWS = MEDIA_WITH_SIDEBAR
 MT10 = "not screen and (min-width: " + (T10) + "em)"
 
+// phone mode
 @media MT10
-  [data-menu~='login']
+  [data-menu~='login'].logged-out, [data-menu~='user'].logged-in
     .main-menu
       .main-tabs
         display none
@@ -179,8 +186,8 @@ MT10 = "not screen and (min-width: " + (T10) + "em)"
         & > .menu-divider 
           display none
 
-        .login-menu
-          .log-in
+        .login-menu, .user-menu
+          .log-in, .user-name
             display none
 
           & > .dropdown-menu-right
