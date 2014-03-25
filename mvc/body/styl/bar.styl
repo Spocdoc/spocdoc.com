@@ -138,10 +138,29 @@
     margin-right 0
     margin-bottom 2px
 
+  .user-name
+    img
+      width: 2em
+      height 2em
+      padding 0
+      margin 1px 1em -0.6em 1px
+      border-radius: 50%
+      border 1px solid BLACK_COLOR
+
 .right-div-min
   position absolute
-  right 0
   bottom 0
+  right 0
+
+.logged-in
+  .right-div-min
+    .invite-me
+      display none
+
+.logged-out
+  .right-div-min
+    .plus
+      display none
 
 .main-menu
   .menu-toggle
@@ -167,6 +186,27 @@
   .heading
     display none
 
+.bar-content
+  .plus
+    display block
+    padding 2px 1em
+
+    &, &:link, &:visited
+      color BLACK_COLOR
+
+    &:hover, &:active, &.active
+      text-decoration none
+      color LINK_COLOR
+
+    &:before
+      content: '\f035';
+      font-family spocdicons
+      font-size 1.4em
+
+    span
+      display none
+      *display inline
+
 WWS = WIDTH_WITH_SIDEBAR
 WOS = WIDTH_WITHOUT_SIDEBAR
 T1 = LOGGED_OUT_FULL
@@ -177,6 +217,7 @@ MT10 = "not screen and (min-width: " + (T10) + "em)"
 
 // phone mode
 @media MT10
+  // with menu shown
   [data-menu~='login'].logged-out, [data-menu~='user'].logged-in
     .main-menu
       .main-tabs

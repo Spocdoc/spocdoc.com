@@ -6,7 +6,6 @@ include ../utils
       .bar-border
       .logo-container
         h1.logo-h1: a#logo.logo(title="Spocdoc"): span Spocdoc
-      a#plus.plus(title="Create").hidden: span Create
 
       .menu-outer.main-menu#mainMenu
         +menu-button('menuButton')
@@ -63,7 +62,9 @@ include ../utils
 
             li.menu-outer.user-menu
               a#userMenuOverlay.menu-button-overlay
-              a#userMenu.user-name.has-menu: span#name
+              a#userMenu.user-name.has-menu
+                img#userImg(src=transparentGif)
+                span#name
               +menu-right
                 .heading
                   a#nameBack.back: span back
@@ -77,8 +78,9 @@ include ../utils
                   li.menu-divider: hr
                   li: a#logOut Log Out
 
-      .right-div.right-div-min
+      .right-div-min
         a#inviteMe2.invite-me: span Invite me!
+        a#plus.plus(title="Create"): span Create
             
 hr.no-css
 .centering

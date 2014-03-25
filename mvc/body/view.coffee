@@ -121,6 +121,7 @@ module.exports =
 
   toggleMenu: (which, toggleOn) ->
     menu = @menu.get() || ''
+
     if menu is menuNew = menu.replace ///(?:^|\s+)#{which}(?:$|\s+)///g, ' '
       # currently off
       return if toggleOn? and !toggleOn
@@ -161,7 +162,13 @@ module.exports =
     (oauthError) -> @$oauth.toggleClass 'has-error', !!oauthError
 
     (menu) ->
-      @$root.attr 'data-menu',(menu||'')
+      menu ||= ''
+
+      @$root.attr 'data-menu',menu
+
+      if !$.mobile and /\blogin\b/.test menu
+        @$username.select()
+      return
 
     (dialog) ->
       @dialogView.set dialog = if dialog then @depute('getController',dialog) else null

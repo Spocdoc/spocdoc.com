@@ -1,3 +1,5 @@
+@import '../../utils'
+
 WWS = WIDTH_WITH_SIDEBAR
 WOS = WIDTH_WITHOUT_SIDEBAR
 T1 = LOGGED_OUT_FULL
@@ -74,6 +76,12 @@ hideMenu()
       content '\f025'
       position static
 
+  .logged-in
+    .user-name:after
+      position absolute
+      right 0
+      bottom 0
+
   .right-div
     position absolute
     bottom 0
@@ -100,12 +108,11 @@ hideMenu()
         font-weight 300 !important
         font-size 1em !important
         padding 0 !important
+        background none !important
 
         span
           display none
 
-      .log-in
-        background none !important
 
         &:hover
           background none !important
@@ -116,16 +123,23 @@ hideMenu()
       .user-name
         display inline-block !important
         padding 0 !important
-
-      .user-name
         background none !important
+
+        span
+          display none
 
         &:hover
           background none !important
           color LINK_COLOR !important
 
-  .right-div-min
-    display none
+  .logged-out
+    .right-div-min
+      display none
+
+  .logged-in
+    .right-div-min
+      right auto
+      left unit(LOGO_WIDTH,em)
 
   .main-menu
     position absolute
@@ -155,6 +169,12 @@ hideMenu()
             border-bottom 3px solid LINK_COLOR
             margin-bottom -2px
 
+  .logged-in
+    .main-menu
+      & > .dropdown-menu
+        text-align right
+        margin-right unit(RIGHT_WIDTH_SMALL, em)
+
 shortenRight()
   .right-div
     .log-in
@@ -168,7 +188,6 @@ shortenRight()
     .main-tabs li > a
       padding-right 13px
       padding-left 13px
-  
 
 .logged-out
   .main-tabs
@@ -183,7 +202,6 @@ shortenRight()
     .login-menu
       display block
 
-
 .logged-in
   .main-tabs
     .blog
@@ -197,11 +215,14 @@ shortenRight()
     .user-menu
       display block
 
+// small right width
 @media MT10
   hideMenu()
+
   .invite-me
     margin-right 0!important
-
+  
+// full right with sidebar
 @media MWWS
   .main-menu
     & > .dropdown-menu
@@ -216,4 +237,21 @@ shortenRight()
           display inline
       .invite-me
         margin-right 0.5em !important
+
+  .logged-in
+    .main-menu
+      & > .dropdown-menu
+        margin-right unit(RIGHT_WIDTH,em)
+    .right-div
+      .user-name
+        img
+          margin-right 5px
+        span
+          display inline-block
+          padding-right 1.1em
+          overflow hidden
+          text-overflow ellipsis
+          max-width unit(RIGHT_WIDTH - 2 - 1.1, em)
+          line-height 1em
+
 
