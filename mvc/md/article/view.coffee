@@ -53,9 +53,6 @@ module.exports =
     (doc, md='', initialPosition, inWindow, spec, editable) ->
       return if !md and !doc
 
-      if !editable
-        @switchModes MODE_HTML
-
       if spec and spec.length
         words = []
         for part in spec when part.type is 'text' # TODO skip tags and meta
@@ -101,6 +98,8 @@ module.exports =
               @moveCarat carat, sel
 
             @initialPosition.set null
+
+            editor.$content.focus()
         else
           if sel = $.selection()
             start = editor.posToOffset sel.start
@@ -110,9 +109,6 @@ module.exports =
 
           if sel and isFinite(start) and isFinite(end)
             $.selection editor.offsetToPos(eqRanges.updateOffset(start)), editor.offsetToPos(eqRanges.updateOffset(end))
-
-        if @mode is MODE_HTML
-          editor.$content.prop 'contenteditable',!!editable
 
       return
   ]
@@ -142,8 +138,7 @@ module.exports =
     return
 
   switchModes: (mode) ->
-    return true if @mode is mode
-    return false if @mode is MODE_HTML and !@editable.value
+    return if @mode is mode
 
     oldEditor = @getEditor()
     @mode = +!@mode
@@ -163,7 +158,7 @@ module.exports =
       sel = $.selection newEditor.offsetToPos(start), newEditor.offsetToPos(end)
       @moveCarat oldCarat, sel
 
-    true
+    return
 
   handleInput: ->
     return unless @mode is MODE_TEXT
@@ -217,9 +212,15 @@ module.exports =
   getEditor: (words) ->
     switch @mode
       when MODE_HTML
-        @html ||= new Html @md.value, (if @ace.booting and @template.bootstrapped and !words then @$content else null), depth: 1
+        unless editor = @html
+          editor = @html = new Html @md.value, (if @ace.booting and @template.bootstrapped and !words then @$content else null), depth: 1
+          editor.$content.attr 'tabindex', '-1'
       else
-        @editor ||= new Editor @md.value, if @ace.booting and @template.bootstrapped and !words then @$content else null
+        unless editor = @editor
+          editor = @editor = new Editor @md.value, if @ace.booting and @template.bootstrapped and !words then @$content else null
+          editor.$content.attr 'tabindex', '-1'
+    editor.$content.prop 'contenteditable', !!@editable.value
+    editor
 
   constructor: ->
     @html = @editor = null
@@ -233,18 +234,11 @@ module.exports =
 
     @lastEsc = 0
 
-    @$content.on 'input', =>
-      if @mode is MODE_HTML
-        event.preventDefault()
-        event.stopPropagation()
-        return false
-      # don't use input -- it introduces a perceptible rendering lag between pressing the key and its appearance on the screen
-      # else
-      #   @handleInput()
-      return
+    # don't use input for handleInput -- it introduces a perceptible rendering
+    # lag between pressing the key and its appearance on the screen
+    @$content.on 'input', (event) => return false if @mode is MODE_HTML or !@editable.value
 
     @$content.on 'keydown', (event) =>
-      return unless @editable.value
       return if event.keyCode in KEY_NON_MUTATING or event.keyCode is KEY_F and (event.ctrlKey or event.metaKey)
 
       if event.keyCode is KEY_ESC
@@ -253,8 +247,9 @@ module.exports =
           @lastEsc = Date.now()
         return false
 
-      if @mode is MODE_HTML
-        return false unless @switchModes()
+      @switchModes() unless @mode is MODE_TEXT
+
+      return unless @editable.value
 
       switch event.keyCode
         when KEY_ENTER
@@ -268,13 +263,11 @@ module.exports =
             else
               end = $.addText(start, '\n', true).end
             $.selection end
-          event.preventDefault()
           return false
         when KEY_TAB
           start = $.selection()?.start
           $.selection.delete()
           $.selection $.addText(start, '\t', true).end if start
-          event.preventDefault()
           return false
 
       return
@@ -290,19 +283,16 @@ module.exports =
       return
 
     @$content.on 'mouseup keyup', (event) =>
-      return unless @editable.value
-
       if event.keyCode is KEY_ESC
         if Date.now() > @lastEsc + TOGGLE_LAG_MILLIS
           @switchModes()
         @lastEsc = 0
         return false
 
-      if @mode is MODE_HTML
-        event.preventDefault()
-        return false
+      return false if @mode is MODE_HTML
 
-      @handleInput()
+      if @editable.value
+        @handleInput()
 
       return
 
