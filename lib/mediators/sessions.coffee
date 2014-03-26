@@ -129,13 +129,13 @@ module.exports = (Base) ->
           userPriv =
             _id: id
             _v: 1
-            email: details.email
+            email: details.email &&= (''+details.email).toLowerCase()
             created: new Date()
             invite: utils.randomPassword()
             oauthId: id
 
           if details.username
-            userPriv.prefUsername = details.username
+            userPriv.prefUsername = (''+details.username).toLowerCase()
 
           if details.provider
             userPriv.oauthProvider = details.provider
@@ -176,7 +176,8 @@ module.exports = (Base) ->
 
     acceptInvite: (args, cb) ->
       return cb new Reject 'NOUER' unless @session.isUser(id = args.id) and (username = args.username)
-      name = args.name or ''
+      name = ''+(args.name or '')
+      username = (''+username).toLowerCase()
 
       async.waterfall [
         (next) =>
@@ -201,6 +202,7 @@ module.exports = (Base) ->
 
     logInEmail: (email, password, cb) ->
       user = userPriv = null
+      email = (''+email).toLowerCase()
 
       async.waterfall [
         (next) =>
@@ -234,6 +236,7 @@ module.exports = (Base) ->
 
     logInUsername: (username, password, cb) ->
       user = userPriv = null
+      username = (''+username).toLowerCase()
 
       async.waterfall [
         (next) =>
