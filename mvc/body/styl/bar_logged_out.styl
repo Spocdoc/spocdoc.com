@@ -37,6 +37,9 @@ hideMenu()
     & + *
       color LINK_COLOR !important
 
+      img
+        border-color LINK_COLOR
+
 
   [data-menu~="login"].logged-out
     .main-menu
@@ -55,6 +58,8 @@ hideMenu()
           display block
       .user-name
         color LINK_COLOR !important
+        img
+          border-color LINK_COLOR
 
   .login-menu
     & > .dropdown-caret-right
@@ -64,6 +69,11 @@ hideMenu()
 
     & > .dropdown-menu-right
       right -22px
+
+  .right-div
+    .user-menu
+      img
+        display inline !important
 
   .logo-container
     display inline-block
