@@ -30,7 +30,7 @@ module.exports =
     return unless docId
     @lastDoc.set docId
     (controller = @getController('docs')).id.set docId
-    if startOffset? and endOffset? and carat?
+    if startOffset? and endOffset?
       controller.initialPosition.set {startOffset, endOffset, carat}
     controller.controllers.field.search.set ''
     @showPage 'docs'
@@ -46,7 +46,7 @@ module.exports =
 
         switch which
           when 'inviteMe'
-            controller.title.set 'Invite Me!'
+            controller.title.set 'Sign up'
             controller.content.set @controllers['inviteMeContent'] ||= new @View['body/invite_me'] this, 'inviteMeContent', deputy: @view
           when 'youreInvited'
             controller.title.set 'We\'ll invite you!'

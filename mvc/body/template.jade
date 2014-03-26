@@ -19,7 +19,7 @@ include ../utils
             li: a.hidden.docs.has-menu-sep#docs(title="Docs"): span Docs
 
           ul.right-div
-            li: a#inviteMe1.invite-me: span Invite me!
+            li: a#inviteMe1.invite-me: span Sign up
             li.menu-divider: hr
             li.menu-outer.login-menu
               a#logInOverlay.menu-button-overlay
@@ -47,7 +47,7 @@ include ../utils
                       .spinner(title="Waiting for other window..."): != spinner
                   p.error#oauthError
                 ul: li.menu-divider: hr
-                form.form
+                form.form(novalidate='true')
                   label.input-group#usernameGroup
                     input(type='email', spellcheck="false", placeholder="Username or email")#username
                     p.error#usernameError
@@ -79,8 +79,12 @@ include ../utils
                   li: a#logOut Log Out
 
       .right-div-min
-        a#inviteMe2.invite-me: span Invite me!
-        a#plus.plus(title="Create"): span Create
+        a#inviteMe2.invite-me: span Sign up
+        .menu-outer.plus-menu
+          a#plusOverlay.menu-button-overlay
+          a#plus.plus(title="Create"): span Create
+          +menu-no-list
+            #plusContent
             
 hr.no-css
 .centering

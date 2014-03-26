@@ -17,6 +17,8 @@ $serif
 $article-text
   @extend $serif
 
+  user-select text
+
   .inline-highlighted
     background YELLOW_COLOR
 
@@ -107,6 +109,8 @@ $scrolling-x
   overflow-y hidden
 
 $placeholder-editable
+  user-select text
+
   &.empty:before
     content: attr(data-placeholder);
     width: 0;

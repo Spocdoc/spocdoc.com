@@ -1,0 +1,178 @@
+@import '../../utils'
+
+WWS = WIDTH_WITH_SIDEBAR
+WOS = WIDTH_WITHOUT_SIDEBAR
+T1 = LOGGED_OUT_FULL
+T10 = LOGGED_OUT_FULL_SMALL
+
+MWWS = MEDIA_WITH_SIDEBAR
+MT10 = "not screen and (min-width: " + (T10) + "em)"
+
+BUTTON_HEIGHT = 2.2
+BUTTON_MARGIN = 0.4
+
+.body-plus
+  .plus-buttons
+    display block
+    text-align right
+    white-space nowrap
+    height unit(BUTTON_HEIGHT, em)
+    line-height unit(BUTTON_HEIGHT, em)
+
+    li
+      display inline-block
+      height 100%
+
+
+      a
+        display inline-block
+        padding 0 unit(PADDING_SIDES_SMALL, em)
+
+        &, &:link, &:visited, &:active
+          color BLACK_COLOR
+
+        &:hover
+          color LINK_COLOR
+          text-decoration none
+
+        &.done
+          font-weight bold
+          letter-spacing 1px
+
+        &.cancel
+          color RED_COLOR
+          margin-right 0.5em
+          font-size 0.9em
+
+      &:first-child
+        padding-left 0
+
+      &:last-child
+        a
+          padding-right 0
+
+  .plus-content
+    margin-bottom unit(BUTTON_MARGIN, em)
+
+    & > .margin
+      height 0
+      margin-bottom unit(BUTTON_HEIGHT + BUTTON_MARGIN,em)
+      margin-top unit(- BUTTON_HEIGHT, em)
+
+    .html
+      font-size 1em !important
+
+    .footer
+      display none
+
+
+
+
+
+// BUTTON_HEIGHT = 2.2
+// BUTTON_PADDING = 0.4
+// MENU_BORDER_COLOR = hsl(0,0%,86%)
+// TOP_HEIGHT = 0.6
+// ERROR_HEIGHT = 1.6
+// ERROR_MARGIN = 0.5
+// 
+// BUTTON_REDUX = 0.9
+// 
+// .body-plus
+//   position relative
+//   max-width unit(LARGE_FONT * (MIN_TEXT_WIDTH + MAX_TEXT_WIDTH)/2 + 2 * PADDING_SIDES_SMALL, em)
+// 
+//   .plus-error-container
+//     height unit(ERROR_HEIGHT,em)
+//     overflow hidden
+//     display none
+//     padding 0
+//     margin 0 
+//     margin-bottom unit(ERROR_MARGIN, em)
+// 
+//   .plus-error-message
+//     @extend $error-message
+//     @extend $sansserif
+//     position relative
+//     z-index 21
+//     text-align right
+//     margin 0
+//     white-space nowrap
+//     overflow hidden
+//     text-overflow ellipsis
+// 
+//   .plus-buttons
+//     position relative
+//     z-index 21
+//     height unit(BUTTON_HEIGHT, em)
+//     line-height unit(BUTTON_HEIGHT, em)
+// 
+//     border-bottom-right-radius 0
+//     border-bottom-left-radius 0
+//     box-shadow none
+//     border-bottom none
+//     margin 0
+//     padding 0
+//     box-sizing border-box
+// 
+//     display block
+//     list-style none
+// 
+//     text-align right
+//     width 100%
+// 
+//     li
+//       @extend $inline-block
+//       margin 0
+//       padding 0
+//       position relative
+// 
+//       &:first-child
+//         text-align left
+//       &:last-child
+//         text-align right
+// 
+//       a
+//         @extend $inline-block
+//         height 100%
+//         padding 0 0.6em
+// 
+//         &, &:link, &:visited, &:active
+//           color BLACK_COLOR
+// 
+//         &:hover
+//           color LINK_COLOR
+//           text-decoration none
+// 
+//         &.done
+//           font-weight bold
+//           letter-spacing 1px
+// 
+//         &.cancel
+//           color RED_COLOR
+//           margin-right 0.5em
+//           font-size 0.9em
+// 
+//   &.with-error
+//     .plus-error-container
+//       display block
+// 
+//     .plus-content-margin
+//       margin-bottom unit(BUTTON_HEIGHT + ERROR_HEIGHT + ERROR_MARGIN,em)
+//       margin-top unit(- BUTTON_HEIGHT - ERROR_HEIGHT - ERROR_MARGIN, em)
+// 
+//     .plus-content
+//       top unit(- BUTTON_HEIGHT - ERROR_HEIGHT - ERROR_MARGIN, em)
+//       border-top unit(BUTTON_HEIGHT + ERROR_HEIGHT + ERROR_MARGIN,em) solid transparent
+// 
+//   @media MEDIA_REMOVE_SIDEBAR
+//     &
+//       max-width unit(1 * (MIN_TEXT_WIDTH + MAX_TEXT_WIDTH)/2 + 2 * PADDING_SIDES_SMALL, em)
+// 
+//     .plus-buttons
+//       font-size unit(BUTTON_REDUX, em)
+// 
+//     .plus-content
+//       top unit(- BUTTON_HEIGHT * BUTTON_REDUX, em)
+//       border-top unit(BUTTON_HEIGHT * BUTTON_REDUX,em) solid transparent
+// 

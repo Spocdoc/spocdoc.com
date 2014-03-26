@@ -5,6 +5,13 @@ mixin menu
   .dropdown-menu.with-list
     block
 
+mixin menu-no-list
+  .dropdown-caret
+    span.caret-outer
+    span.caret-inner
+  .dropdown-menu
+    block
+
 mixin menu-to-left
   .dropdown-caret.to-left
     span.caret-outer
@@ -26,6 +33,13 @@ mixin menu-center
   .dropdown-menu.with-list
     block
 
+mixin menu-center-no-list
+  .dropdown-caret-center
+    span.caret-outer
+    span.caret-inner
+  .dropdown-menu
+    block
+
 mixin menu-right
   .dropdown-caret-right
     span.caret-outer
@@ -34,11 +48,11 @@ mixin menu-right
     block
 
 mixin menu-button(id)
+  a.menu-button-overlay(id=id+'Overlay')
   a.btn.menu-button(id=id)
     span.icon-bar
     span.icon-bar
     span.icon-bar
-  a.menu-button-overlay(id=id+'Overlay')
 
 mixin vert-dots(id)
   a.vert-dots(id=id)

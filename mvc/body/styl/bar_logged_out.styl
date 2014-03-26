@@ -8,6 +8,18 @@ T10 = LOGGED_OUT_FULL_SMALL
 MWWS = MEDIA_WITH_SIDEBAR
 MT10 = MEDIA_NO_PHONE_MODE //"only screen and (min-width: " + (T10) + "em)"
 
+.body .bar .menu-button-overlay:hover
+  background none !important
+  & + *
+    color LINK_COLOR !important
+
+    img
+      border-color LINK_COLOR
+
+    .icon-bar
+      background LINK_COLOR
+
+
 hideMenu()
   .main-menu
     & > .menu-button,
@@ -32,14 +44,6 @@ hideMenu()
         .menu-button-overlay
           display block !important
 
-  .menu-button-overlay:hover
-    background none !important
-    & + *
-      color LINK_COLOR !important
-
-      img
-        border-color LINK_COLOR
-
 
   [data-menu~="login"].logged-out
     .main-menu
@@ -57,7 +61,7 @@ hideMenu()
         & > .dropdown-menu-right
           display block
       .user-name
-        color LINK_COLOR !important
+        color LINK_COLOR
         img
           border-color LINK_COLOR
 
@@ -140,7 +144,10 @@ hideMenu()
 
         &:hover
           background none !important
-          color LINK_COLOR !important
+          color LINK_COLOR
+
+          img
+            border-color LINK_COLOR
 
   .logged-out
     .right-div-min
@@ -148,8 +155,8 @@ hideMenu()
 
   .logged-in
     .right-div-min
-      right auto
-      left unit(LOGO_WIDTH,em)
+      text-align left
+      padding-left unit(LOGO_WIDTH, em)
 
   .main-menu
     position absolute

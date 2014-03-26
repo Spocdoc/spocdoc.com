@@ -24,17 +24,17 @@
   border-bottom unit(BOTTOM_BORDER, px) solid BOTTOM_COLOR
 
 .logo-container 
-  text-align center
-  width 100%
+  // text-align center
+  // width 100%
   position absolute
-  z-index 0
+  z-index 1
   left 0
   bottom 0
 
 .main-menu
   position absolute
   z-index 1
-  left 1em
+  left 0
   bottom 3px
 
   & > .dropdown-caret-center,
@@ -47,21 +47,18 @@
     padding unit(1 + PADDING_SIDES_SMALL, em)
     padding-bottom 3px
 
-  .login-menu .menu-button-overlay
-    display none
-    position absolute !important
-    bottom 0
-    top auto !important
-    left -2px !important
-    padding 1.6em 1.2em 0 2px !important
+.main-menu .login-menu .menu-button-overlay,
+.main-menu .user-menu .menu-button-overlay
+  display none
 
-  .user-menu .menu-button-overlay
-    display none
-    position absolute !important
-    bottom 0
-    top auto !important
-    left -2px !important
-    padding 1.6em 1.2em 0 2px !important
+.main-menu .login-menu .menu-button-overlay,
+.main-menu .user-menu .menu-button-overlay,
+.plus-menu .menu-button-overlay
+  position absolute !important
+  bottom 0
+  top auto !important
+  left -2px !important
+  padding 1.6em 1.2em 0 2px !important
 
 
 [data-menu~="on"]
@@ -73,6 +70,35 @@
     .menu-button
       .icon-bar
         background LINK_COLOR
+
+[data-menu~="plus"].logged-in
+  .right-div-min
+    .plus-menu
+      & > .dropdown-caret,
+      & > .dropdown-menu
+        display block
+    .plus
+      color LINK_COLOR !important
+
+  .main-menu
+    & > .dropdown-caret-center,
+    & > .dropdown-menu
+      display none
+
+    .menu-button
+      .icon-bar
+        background black
+
+    .user-menu
+      & > .dropdown-caret-right,
+      & > .dropdown-menu-right
+        display none !important
+
+    .user-name
+      color BLACK_COLOR !important
+      img
+        border-color BLACK_COLOR !important
+
 
 .logo-h1
   margin 0
@@ -104,6 +130,7 @@
       font-family spocdicons
       content: '\f020'
       font-size 2em
+      font-weight normal
 
 .log-in
   cursor pointer
@@ -152,15 +179,22 @@
   position absolute
   bottom 0
   right 0
+  left 0
+  text-align right
+
+  .invite-me
+    margin 0 0 2px !important
 
 .logged-in
   .right-div-min
     .invite-me
       display none
+    .plus-menu
+      display inline-block
 
 .logged-out
   .right-div-min
-    .plus
+    .plus-menu
       display none
 
 .main-menu
@@ -187,9 +221,35 @@
   .heading
     display none
 
+.plus-menu
+  width 100%
+
+  & > .plus
+    display inline-block
+
+  & > .dropdown-caret,
+  & > .dropdown-menu
+    display none
+
+  & > .menu-button-overlay
+    width 2em
+
+  & > .dropdown-menu
+    text-align left
+    // min-width 20em
+    max-width 36em
+    left unit(- LOGO_WIDTH, em)
+    padding-left 1em
+    padding-right 1em
+
+
 .bar-content
+  .plus-menu
+    & > .dropdown-menu
+      padding-left 1em
+      padding-right 1em
   .plus
-    display block
+    display inline-block
     padding 2px 1em
 
     &, &:link, &:visited
@@ -218,6 +278,23 @@ MT10 = "not screen and (min-width: " + (T10) + "em)"
 
 // phone mode
 @media MT10
+  .logo-container
+    left unit(- LOGO_WIDTH_REAL / 2, em)
+    margin-left 50%
+
+  .plus-menu
+    & > .menu-button-overlay
+      left auto !important
+      right 0
+    & > .dropdown-caret
+      left auto
+      right 18px
+    & > .dropdown-menu
+      left auto
+      right 0
+      padding-left unit(PADDING_SIDES_SMALL, em)
+      padding-right unit(PADDING_SIDES_SMALL, em)
+
   // with menu shown
   [data-menu~='login'].logged-out, [data-menu~='user'].logged-in
     .main-menu

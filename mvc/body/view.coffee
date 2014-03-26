@@ -20,6 +20,9 @@ module.exports =
     'content'
     'tab'
     'showDocs'
+    'plusContent': (loggedIn) ->
+        @controllers['plus'] ||= new @View['body/plus'] this, 'plus'
+
   ]
 
   internal: [
@@ -48,6 +51,10 @@ module.exports =
   $dialog: view: 'dialogView'
   $name: 'text'
   $nameHeading: 'text': 'name'
+
+  $plusContent: 'view'
+  $plusOverlay: linkup: ['toggleMenu', 'plus']
+  $plus: linkup: ['toggleMenu', 'plus']
 
   $about: link: ['depute','showPage','about']
   $blog: link: ['depute','showPage','blog']
@@ -104,6 +111,8 @@ module.exports =
         return
 
       @password.set ''
+      @$username.blur()
+      @$password.blur()
       @toggleMenu 'login', false
   
 
@@ -166,7 +175,10 @@ module.exports =
 
       @$root.attr 'data-menu',menu
 
-      if !$.mobile and /\blogin\b/.test menu
+      if @loggedIn.value and ///(?:^|\s)plus(?:$|\s)///.test menu
+        if editor = @controllers['plus']?.controllers['article']?.getEditor()
+          $.selection editor.offsetToPos(0), editor.offsetToPos(0)
+      else if !$.mobile and ///(?:^|\s)login(?:$|\s)///.test menu
         @$username.select()
       return
 

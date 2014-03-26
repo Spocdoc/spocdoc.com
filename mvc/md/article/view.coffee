@@ -51,7 +51,7 @@ module.exports =
     (doc) -> @switchModes MODE_HTML
 
     (doc, md='', initialPosition, inWindow, spec, editable) ->
-      return if !md and !doc
+      return if !md and !doc and !inWindow
 
       if spec and spec.length
         words = []
@@ -94,16 +94,16 @@ module.exports =
 
             @router.setAfterPushArg 'setScroll', false # don't set the scroll position
             {startOffset, endOffset, carat} = initialPosition
-            if startOffset? and endOffset? and carat?
+            if startOffset? and endOffset?
               # select that range in the current editor
               sel = $.selection editor.offsetToPos(startOffset), editor.offsetToPos(endOffset)
-              @moveCarat carat, sel
+              @moveCarat carat, sel if carat
 
             @initialPosition.set null
         else
           if sel = $.selection()
-            start = editor.posToOffset sel.start
-            end = editor.posToOffset sel.end
+            start = editor.posToOffset sel.start, false, @$root[0]
+            end = editor.posToOffset sel.end, false, @$root[0]
 
           eqRanges = editor.update md
 
@@ -145,8 +145,8 @@ module.exports =
     newEditor = @getEditor()
 
     if sel = $.selection()
-      start = oldEditor.posToOffset sel.start
-      end = oldEditor.posToOffset sel.end
+      start = oldEditor.posToOffset sel.start, false, @$root[0]
+      end = oldEditor.posToOffset sel.end, false, @$root[0]
       oldCarat = $.selection.coords(sel)
 
     newEditor.update @md.value
@@ -171,8 +171,8 @@ module.exports =
     return if src is text
 
     if sel = $.selection()
-      start = editor.posToOffset sel.start, true
-      end = editor.posToOffset sel.end, true
+      start = editor.posToOffset sel.start, true, @$root[0]
+      end = editor.posToOffset sel.end, true, @$root[0]
 
     editor.update text, true
     @md.set text
@@ -276,7 +276,7 @@ module.exports =
       return if @emptySearch
       return unless sel = $.selection()
       editor = @getEditor()
-      return unless isFinite(startOffset = editor.posToOffset(sel.start)) and isFinite(endOffset = editor.posToOffset(sel.end))
+      return unless isFinite(startOffset = editor.posToOffset(sel.start, false, @$root[0])) and isFinite(endOffset = editor.posToOffset(sel.end, false, @$root[0]))
       carat = $.selection.coords(sel)
       @search.set ''
       @initialPosition.set {startOffset, endOffset, carat}

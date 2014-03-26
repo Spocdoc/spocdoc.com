@@ -1,5 +1,11 @@
 @import '../utils'
 
+[data-menu~="plus"].logged-in > .centering > .content
+  opacity 0.5
+.desktop [data-menu~="plus"].logged-in > .centering > .content
+  -webkit-filter blur(5px)
+
+
 .body > .centering
   & > .content 
     margin-top unit(LOGGED_OUT_HEIGHT + 2,em)

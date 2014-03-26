@@ -5,6 +5,12 @@ Outlet = require 'outlet'
 _ = require 'lodash-fork'
 
 module.exports =
+  draftDone: (cb) ->
+    @run 'draftDone', (err, docId) =>
+      unless err?
+        @get('draft').set ''
+      cb err, docId
+
   getDisplayTags: (tags) ->
     @tagListDep.get()
     @tagMapDep.get()
