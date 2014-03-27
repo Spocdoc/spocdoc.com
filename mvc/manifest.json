@@ -238,10 +238,10 @@
                         "../../marked-fork/outline/index.coffee",
                         "../lib/oauth/browser.coffee",
                         "constants.coffee",
-                        "../lib/utils/browser.coffee",
                         "../../marked-fork/snips/index.coffee",
-                        "index.coffee", "views/slides.coffee",
-                        "views/test.coffee", "models/docs.coffee",
+                        "../lib/utils/browser.coffee", "index.coffee",
+                        "views/slides.coffee", "views/test.coffee",
+                        "models/docs.coffee",
                         "views/sidebar_split.coffee",
                         "views/tabs.coffee",
                         "docs/sidebar_tabs/media/view.coffee",
@@ -268,7 +268,6 @@
                         "md/outline/view.coffee",
                         "calendar/view.coffee",
                         "search/page/view.coffee",
-                        "search/results/doc/view.coffee",
                         "search/controller.coffee", "routes.coffee",
                         "body/invite_me/missing_email/view.coffee",
                         "body/invite_me/hello/view.coffee",
@@ -277,7 +276,8 @@
                         "docs/controller.coffee",
                         "models/sessions.coffee", "body/view.coffee",
                         "body/plus/view.coffee",
-                        "body/controller.coffee"
+                        "body/controller.coffee",
+                        "search/results/doc/view.coffee"
                     ],
                     "generated": "bundle/debug [-ie<=8 -ios debug].js"
                 },
@@ -400,10 +400,10 @@
                         "../../marked-fork/outline/index.coffee",
                         "../lib/oauth/browser.coffee",
                         "constants.coffee",
-                        "../lib/utils/browser.coffee",
                         "../../marked-fork/snips/index.coffee",
-                        "index.coffee", "views/slides.coffee",
-                        "views/test.coffee", "models/docs.coffee",
+                        "../lib/utils/browser.coffee", "index.coffee",
+                        "views/slides.coffee", "views/test.coffee",
+                        "models/docs.coffee",
                         "views/sidebar_split.coffee",
                         "views/tabs.coffee",
                         "docs/sidebar_tabs/media/view.coffee",
@@ -430,7 +430,6 @@
                         "md/outline/view.coffee",
                         "calendar/view.coffee",
                         "search/page/view.coffee",
-                        "search/results/doc/view.coffee",
                         "search/controller.coffee", "routes.coffee",
                         "body/invite_me/missing_email/view.coffee",
                         "body/invite_me/hello/view.coffee",
@@ -439,7 +438,8 @@
                         "docs/controller.coffee",
                         "models/sessions.coffee", "body/view.coffee",
                         "body/plus/view.coffee",
-                        "body/controller.coffee"
+                        "body/controller.coffee",
+                        "search/results/doc/view.coffee"
                     ],
                     "generated": "bundle/debug [-ie<=8 debug ios].js"
                 }

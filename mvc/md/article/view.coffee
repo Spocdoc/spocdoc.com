@@ -4,6 +4,7 @@ constants = require '../../constants'
 strdiff = require 'diff-fork/lib/types/string'
 debugError = global.debug 'ace:error'
 debug = global.debug 'app:article_md'
+tagUtils = require '../../../lib/tags'
 
 TOGGLE_LAG_MILLIS = 300
 
@@ -41,6 +42,8 @@ module.exports =
   outlets: [
     'doc'
     'md': -> @doc.get('text')
+    'wordCount': -> @doc.get('words')
+    'tags': -> @doc.get('tags')
     'editable'
     'initialPosition' # startOffset, endOffset, carat when rendering a document
     'search'
@@ -110,6 +113,7 @@ module.exports =
           if sel and isFinite(start) and isFinite(end)
             $.selection editor.offsetToPos(eqRanges.updateOffset(start)), editor.offsetToPos(eqRanges.updateOffset(end))
 
+
       return
   ]
 
@@ -177,6 +181,12 @@ module.exports =
     editor.update text, true
     @md.set text
 
+    # update metadata
+    (html = @getEditor null, MODE_HTML).update text
+    meta = html.meta
+    @wordCount.set meta['words']
+    @tags.set tagUtils['forIndexing'] Object.keys(meta['tags'])
+
     if sel and isFinite(start) and isFinite(end)
       start = editor.offsetToPos(start)
       end = editor.offsetToPos(end)
@@ -209,8 +219,8 @@ module.exports =
       $scrollParent.scrollTop()
     return
 
-  getEditor: (words) ->
-    switch @mode
+  getEditor: (words, mode=@mode) ->
+    switch mode
       when MODE_HTML
         unless editor = @html
           editor = @html = new Html @md.value, (if @ace.booting and @template.bootstrapped and !words then @$content else null), depth: 1
