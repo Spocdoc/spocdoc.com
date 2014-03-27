@@ -1,6 +1,7 @@
 regexEmail = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/
 tagUtils = require '../tags'
 dates = require 'dates-fork'
+Html = require 'marked-fork/html'
 
 module.exports =
   defaultArr: (defaultTabs, orderedTabs) ->
@@ -38,15 +39,23 @@ module.exports =
 
   checkEmail: (email) -> !!regexEmail.test(email)
 
-  # TODO. meta (including for date), title, words, tags
   makeDoc: (src) ->
-    date = created = modified = new Date()
-    date = dates.dateToNumber(date)
+    html = new Html src
+    meta = html.meta
+    custom = html.custom
+
+    created = modified = new Date()
+    date = dates.dateToNumber(created)
+    tags = tagUtils['forIndexing'] Object.keys(meta['tags'])
 
     return {
       'text': src
-      'tags': []
-      'date': date
+      'tags': tags
+      'date': date # creation date as a number
       'modified': modified
+      'created': created
+      'words': meta['words']
+      'title': meta['title']
+      'custom': custom
     }
 
