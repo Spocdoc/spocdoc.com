@@ -1,7 +1,7 @@
 {
     "options": {
         "_": [],
-        "assetServerRoot": "//127.0.0.1:8081",
+        "assetServerRoot": "//127.0.0.1:1339/static",
         "framework": "ace_mvc",
         "bundler": "bundle-fork",
         "fileCacheFor": ["styl"],
