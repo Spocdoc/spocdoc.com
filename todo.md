@@ -32,6 +32,7 @@
  [] if there's an error creating a document, ace will go into an infinite loop repeatedly trying to create if there's a client-side update pending
  [] sessions are never cleared from the database and there's no way to know which ones are old or out of use...
  [] after an invite has been accepted, it should log you in immediately
+ [] fix the cheerio data and attributes problem (allow use of `data()` function, but also set the attributes)
 
 ## optimization
 

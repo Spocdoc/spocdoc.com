@@ -137,7 +137,8 @@ module.exports =
       orderedTabs: orderedTabs
     view.rowStartsIndex = index
 
-    view.$root.data('index',index).data('name',name) if @ace.onServer
+    if @ace.onServer
+      view.$root.attr('data-index',index).attr('data-name',name)
 
     view.orderedTabs.addOutflow outflow = new Outlet =>
       if ~(rsi = view.rowStartsIndex) and (rowStarts = @rowStarts.value) and (ot = view.orderedTabs.value) and rowStarts[rsi] isnt start = ot[0]
