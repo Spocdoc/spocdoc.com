@@ -9,6 +9,7 @@ path = require 'path'
 connectOauth = require 'connect_oauth'
 manifestArgs = if 0 <= tmp = process.argv.indexOf('--manifest') then process.argv.splice(tmp).slice(1) else []
 optimist = require 'optimist'
+staticFiles = require './static_files'
 
 argv = optimist
   .default({
@@ -54,6 +55,8 @@ connectOauth app,
   protocol: argv.protocol
   host: argv.host
   port: argv.port
+
+app.use staticFiles path.resolve __dirname, '../public'
 
 app.configure 'development', ->
   app.use connect.logger 'dev'

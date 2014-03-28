@@ -37,12 +37,14 @@ module.exports =
     add 'landing', '/', '?:iid&:it', page: ''
     add 'about', '/about', '?:q', page: 'about'
     add '/explore', page: 'explore'
-    add '/search', page: 'search'
     add '/connect', page: 'connect'
     add '/contact_us', page: 'contactUs'
 
     add 'search', '/blog/:number', '?:q', '#ds1=:dateScrollTop&ds2=:dateScrollBottom&ds3=:dateScrollBot', page: 'blog'
     add 'search', '/blog', '?:q', '#ds1=:dateScrollTop&ds2=:dateScrollBottom&ds3=:dateScrollBot', page: 'blog'
+
+    add 'search', '/search/:number', '?:q', '#ds1=:dateScrollTop&ds2=:dateScrollBottom&ds3=:dateScrollBot', page: 'search'
+    add 'search', '/search', '?:q', '#ds1=:dateScrollTop&ds2=:dateScrollBottom&ds3=:dateScrollBot', page: 'search'
 
     add 'docs', '/docs/:title?/:id', '?:q', page: 'docs'
 

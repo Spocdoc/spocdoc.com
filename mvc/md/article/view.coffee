@@ -44,6 +44,8 @@ module.exports =
     'md': -> @doc.get('text')
     'wordCount': -> @doc.get('words')
     'tags': -> @doc.get('tags')
+    'title': -> @doc.get('title')
+    'custom': -> @doc.get('custom')
     'editable'
     'initialPosition' # startOffset, endOffset, carat when rendering a document
     'search'
@@ -164,6 +166,15 @@ module.exports =
 
     return
 
+  updateMeta: (text) ->
+    (html = @getEditor null, MODE_HTML).update text
+    meta = html.meta
+    @wordCount.set meta['words']
+    @tags.set tagUtils['forIndexing'] Object.keys(meta['tags'])
+    @title.set html.custom['title']
+    @custom.set html.custom
+    return
+
   handleInput: ->
     return unless @mode is MODE_TEXT
 
@@ -180,12 +191,7 @@ module.exports =
 
     editor.update text, true
     @md.set text
-
-    # update metadata
-    (html = @getEditor null, MODE_HTML).update text
-    meta = html.meta
-    @wordCount.set meta['words']
-    @tags.set tagUtils['forIndexing'] Object.keys(meta['tags'])
+    @updateMeta text
 
     if sel and isFinite(start) and isFinite(end)
       start = editor.offsetToPos(start)
@@ -236,11 +242,12 @@ module.exports =
     @html = @editor = null
     @mode = MODE_HTML
 
-    # TODO: one approach to clicking editable links
-    # @$content.attr 'contenteditable', true
-    # @$content.on 'mousedown', 'a', =>
-    #   @$content.removeAttr 'contenteditable'
-    #   return
+    # these enable links
+    @$root.on 'mousedown', 'a', (event) =>
+      ($a = $(event.target)).prop 'contenteditable', false
+    @$root.on 'click', 'a', (event) =>
+      ($a = $(event.target)).removeAttr 'contenteditable'
+
 
     @lastEsc = 0
 
