@@ -46,6 +46,8 @@ module.exports =
     'tags': -> @doc.get('tags')
     'title': -> @doc.get('title')
     'custom': -> @doc.get('custom')
+    'modified': -> @doc.get('modified')
+    'tldr': -> @doc.get('tldr')
     'editable'
     'initialPosition' # startOffset, endOffset, carat when rendering a document
     'search'
@@ -171,8 +173,10 @@ module.exports =
     meta = html.meta
     @wordCount.set meta['words']
     @tags.set tagUtils['forIndexing'] Object.keys(meta['tags'])
-    @title.set html.custom['title']
+    @title.set meta['title']
     @custom.set html.custom
+    @modified.set new Date()
+    @tldr.set meta['tldr']
     return
 
   handleInput: ->

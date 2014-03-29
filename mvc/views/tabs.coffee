@@ -1,5 +1,5 @@
 utils = require '../../lib/utils'
-typeToClass = require 'manifest_mvc/type_to_class'
+typeToClass = require('lodash-fork').makeCssClass
 debug = global.debug 'app:tabs'
 
 dragTarget = null

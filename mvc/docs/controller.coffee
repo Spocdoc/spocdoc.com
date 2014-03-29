@@ -1,4 +1,4 @@
-typeToClass = require 'manifest_mvc/type_to_class'
+typeToClass = require('lodash-fork').makeCssClass
 
 module.exports =
   view: 'with_sidebar'

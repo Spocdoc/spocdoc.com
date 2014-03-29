@@ -1,7 +1,7 @@
 _ = require 'lodash-fork'
 utils = require '../../lib/utils'
 Outlet = require 'outlet'
-typeToClass = require 'manifest_mvc/type_to_class'
+typeToClass = _.makeCssClass
 MIN_ROW_HEIGHT = 260
 MAX_ROWS = 6
 

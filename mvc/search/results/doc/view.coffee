@@ -1,6 +1,7 @@
 debugError = global.debug 'ace:error'
 dates = require 'dates-fork'
 Snips = require 'marked-fork/snips'
+Inline = require 'marked-fork/html/inline'
 
 showDocLink = -> ['depute','showDoc',@model.get()?.id]
 
@@ -15,21 +16,15 @@ module.exports =
   ]
 
   internal: [
-    'title'
-    'tags'
+    'title': -> @model.get('title')
+    'tags': -> @model.get()?.tags()
     'authors' # TODO
-    'date'
-    'modified'
-    'length'
+    'date': -> @model.get('date')
+    'modified': -> @model.get('modified')
+    'length': -> @model.get('words')
   ]
 
   $title: link: showDocLink
-
-  title: -> @model.get('title')
-  tags: -> @model.get()?.tags()
-  date: -> @model.get('date')
-  modified: -> @model.get('modified')
-  length: -> @model.get('words')
 
   outletMethods: [
     (words, text) ->
@@ -41,9 +36,13 @@ module.exports =
       @$content.html html
       return
 
-    (title) ->
+    (title, words) ->
       @$titleH1.toggleClass 'empty', !title
-      @$title.text title || ''
+      title ||= ''
+      inline = new Inline title
+      html = inline.highlight words if words
+      html ||= inline.html()
+      @$title.html html
       return
 
     (tags, specTags) ->
