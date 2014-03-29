@@ -13,7 +13,10 @@ class Session
       return true
     false
 
+  toId: (id) -> ''+(id._id or id.oid or id or '')
+
   isUser: (id) ->
+    return false unless id
     id = id._id if id._id
     id = id.oid if id.oid
     (userId = @userId) and id and userId is ''+id

@@ -49,6 +49,7 @@ utils['splitLengths'] = utils.splitLengths
 utils['checkEmail'] = utils.checkEmail
 utils['defaultArr'] = utils.defaultArr
 utils['makeDoc'] = utils.makeDoc
+utils['makePublic'] = utils.makePublic
 
 strdiff = require 'diff-fork/lib/types/string'
 strdiff['equalRanges'] = strdiff.equalRanges

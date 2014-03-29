@@ -5,6 +5,7 @@ strdiff = require 'diff-fork/lib/types/string'
 debugError = global.debug 'ace:error'
 debug = global.debug 'app:article_md'
 tagUtils = require '../../../lib/tags'
+utils = require '../../../lib/utils'
 
 TOGGLE_LAG_MILLIS = 300
 
@@ -48,6 +49,7 @@ module.exports =
     'custom': -> @doc.get('custom')
     'modified': -> @doc.get('modified')
     'tldr': -> @doc.get('tldr')
+    'public': -> @doc.get('public')
     'editable'
     'initialPosition' # startOffset, endOffset, carat when rendering a document
     'search'
@@ -177,6 +179,7 @@ module.exports =
     @custom.set html.custom
     @modified.set new Date()
     @tldr.set meta['tldr']
+    @public.set utils.makePublic meta
     return
 
   handleInput: ->

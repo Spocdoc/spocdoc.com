@@ -19,6 +19,7 @@
     e.g., add a gradient to make it less flat and more i0S 6 button-like. see <http://demo.hongkiat.com/css3-glossy-effect/>
 
  [] when navigating with the outline, highlight the destination header briefly (or do some animation so you can see if it it can't be scrolled to the top)
+ [] figure out what to show when the document is invisible (e.g., you're logged out and it's not public)
 
 # implementation
 

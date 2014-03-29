@@ -64,8 +64,11 @@ module.exports =
   logIn: (details, cb) ->
     @run 'logIn', details, (err, id) =>
       return cb err if err?
-      @get('user').set user = @Model['users'].read arguments[1]
-      @Model.reread()
+
+      @cookies.unset('session')
+      @session.set @constructor.create user: user = @Model['users'].read id
+      # @get('user').set user = @Model['users'].read arguments[1]
+      # @Model.reread()
       cb null, user
 
   logOut: (cb) ->

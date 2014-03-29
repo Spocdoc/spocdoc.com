@@ -26,16 +26,19 @@ module.exports = (Base) ->
           if user = session.user
             @session.setUser user, (err, user, userPriv) => next null
           else
+            @session.userId = null
             next()
       ], cb
 
     create: (doc, cb) ->
-      return cb new Reject "INVALID" if doc.user or doc.cookie
+      if doc.cookie or ((user = doc.user) and !@session.isUser user)
+        return cb new Reject "INVALID"
 
       @_create 'sessions', doc, (err) =>
         return cb err if err?
 
         @session.set sessId = ''+doc._id
+        @session.userId = ''+(if user then user._id or user.oid or user else '')
 
         cookie = utils.makeCookie sessId
         ops = diff doc, cookie, path: ['cookie']
@@ -45,9 +48,9 @@ module.exports = (Base) ->
           cb null, doc._v, ops
 
     update: (id, version, ops, cb) ->
-      return cb new Reject "NOSESSION" unless @session.isSession id
+      return cb new Reject "NOSESSION" unless @session.isAnySession id
       super id, version, ops, cb, (from, ops, to, next) =>
-        if to.user and !@session.isUser(to.user)
+        if to.user and @session.toId(to.user) isnt @session.toId(from.user)
           next new Reject "NOUSER"
         else
           next()

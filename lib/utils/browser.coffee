@@ -4,6 +4,13 @@ dates = require 'dates-fork'
 Html = require 'marked-fork/html'
 
 module.exports =
+  falsy: falsy = (str) ->
+    str = (''+str).toLowerCase().trim()
+    for prefix in ['no','f','0']
+      if str.lastIndexOf(prefix,0) is 0
+        return true
+    false
+
   defaultArr: (defaultTabs, orderedTabs) ->
     allTabs = {}
     (allTabs[tab] = 1 for tab in defaultTabs) if defaultTabs
@@ -39,6 +46,17 @@ module.exports =
 
   checkEmail: (email) -> !!regexEmail.test(email)
 
+  makePublic: makePublic = (meta) ->
+    isPublic = false
+
+    if meta.hasOwnProperty('public') and !falsy(meta['public'])
+      isPublic = true
+
+    if meta.hasOwnProperty('private')
+      isPublic = falsy(meta['private'])
+
+    isPublic
+
   makeDoc: (src) ->
     html = new Html src
     meta = html.meta
@@ -55,7 +73,7 @@ module.exports =
       'modified': modified
       'created': created
       'words': meta['words']
-      'title': meta['title']
+      'title': meta['title'] or ''
       'custom': custom
+      'public': makePublic meta
     }
-

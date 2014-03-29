@@ -104,6 +104,12 @@ module.exports =
         # tags: $all: @queryTags
         0
 
+    @Model['docs'].on 'reread', =>
+      query.refresh()
+      tagsQuery.refresh()
+      dateQuery.refresh()
+      return
+
     @subTags.set tagsQuery.distinct 'tags'
     @allDates.set dateQuery.distinct 'date'
     return
