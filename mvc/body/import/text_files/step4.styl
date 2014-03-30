@@ -1,0 +1,40 @@
+@import '../../../utils.styl'
+
+.body-import-text_files
+  .step4
+    display none
+    &.must-display
+      @extend $inline-block
+
+.with-js
+  .body-import-text_files
+    .step4
+      @extend $inline-block
+
+      h2
+        margin-left 0
+
+      .step4-done
+        text-align center
+        padding-top 2em
+        display block
+        clear both
+
+        p
+          margin 0 0 1em 0
+          padding 0
+
+          &:after
+            content: '\f044';
+            font-family: spocdicons;
+            color: #67aa24;
+            padding-left: 0.3em;
+
+      .step4-count
+        border-top: 1px solid #ccc;
+        margin-top: 0.3em;
+        line-height: 2em;
+
+    .step4-file-list-div
+      margin 2em auto 0
+      max-width 30em

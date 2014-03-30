@@ -28,6 +28,9 @@ $article-text
   .meta-tldr
     margin 0 1em 3em 2em
 
+  pre
+    overflow auto
+
   h1
     font-weight bold
     font-size 1.5em
@@ -73,7 +76,7 @@ $fixed
   font-size: 0.9em
   line-height: 1.5em
   tab-size: 4
-  white-space: pre-wrap
+  white-space: pre
 
 $inline-block
   display inline-block
@@ -87,7 +90,7 @@ $strong-shadow
 $centering
   margin 0 auto
   max-width unit(MAX_TEXT_WIDTH + SIDEBAR_WIDTH + MAX_SIDEBAR_PADDING, em)
-  padding 0 unit(PADDING_SIDES, em)
+  padding 0 unit(PADDING_SIDES_CENTERING, em)
   box-sizing border-box
   width 100%
 

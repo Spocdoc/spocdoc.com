@@ -40,6 +40,12 @@ module.exports =
     switch which
       when 'landing', ''
         @controllers['landing'] ||= new @View['body/landing'] this, 'landing', deputy: @view
+
+      when 'import'
+        controller = @controllers[which] ||= new @View['dialog'] this, which,
+          title: 'Import'
+          content: @controllers['importContent'] ||= new @Controller['body/import'] this, 'importContent', deputy: @view
+
       when 'inviteMe', 'youreInvited', 'missingEmail', 'hello'
         controller = @controllers['inviteMe'] ||= new @View['dialog'] this, "inviteMe",
           small: true

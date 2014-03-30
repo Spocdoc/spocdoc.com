@@ -1,0 +1,134 @@
+@import '../../../utils.styl'
+
+.body-import-text_files
+  *[contenteditable='true']
+    @extend $form-field-borders
+    padding unit(PADDING_SIDES_SMALL, em)
+    color BLACK_COLOR
+
+  &
+    width 100%
+
+    .back
+      display none
+
+    .header
+      margin-left unit(PADDING_SIDES_SMALL - PADDING_SIDES, em)
+
+    h2
+      margin 0.6em 0 1.5em 1em
+      font-size 1.5em
+      font-weight normal
+      position relative
+
+      &:before
+        content attr(data-step)
+        position absolute
+        left -1em
+
+    h3
+      font-weight normal
+      font-size 1.2em
+      margin-top 2em
+
+    .article
+      padding unit(PADDING_SIDES_SMALL, em) unit(PADDING_SIDES, em)
+
+    .next-div, .submit-div
+      text-align center
+      padding-top 2em
+      clear both
+      margin-bottom 1em
+
+    .next-div
+      display none
+
+    .next
+      background none
+      border none
+      font-size 1em
+      padding 0
+      margin 0
+      outline 0
+
+      span
+        display none
+
+      &:hover
+        cursor default
+
+      &:before
+        content '\f026'
+        font-family spocdicons
+        font-size 1.6em
+        line-height 1.6em
+        color #ccc
+
+      &.enabled
+        &:hover
+          cursor pointer
+        &:before
+          color LINK_COLOR
+
+
+
+.with-js
+  .body-import-text_files
+    height 100%
+    overflow hidden
+
+    form
+      width 100%
+      height 100%
+      overflow visible
+      display block
+      position relative
+      // ease 'left'
+      white-space nowrap
+
+    .header
+      position relative
+
+    .back
+      position absolute
+      font-size 1.5em
+      padding-left 2px
+      display block
+
+      & + h2
+        margin-left 2.8em
+
+      &, &:link, &:visited
+        color hsl(0,0%,75%)
+
+      &:hover
+        text-decoration none
+        color LINK_COLOR
+
+      &:before
+        content '\f048'
+        font-family spocdicons
+
+      span
+        display none
+
+    .article
+      width 100%
+      height 100%
+      @extend $inline-block
+      overflow auto
+      box-sizing border-box
+      vertical-align top
+      white-space normal
+
+    .next-div
+      display block
+
+    .last-submit
+      display none
+
+
+@import './step1.styl'
+@import './step2.styl'
+@import './step3.styl'
+@import './step4.styl'

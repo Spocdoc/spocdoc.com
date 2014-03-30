@@ -52,6 +52,8 @@ module.exports =
   $name: 'text'
   $nameHeading: 'text': 'name'
 
+  $import: linkup: ['toggleDialogMenu','import', true, 'user', false]
+
   $plusContent: 'view'
   $plusOverlay: linkup: ['toggleMenu', 'plus']
   $plus: linkup: ['toggleMenu', 'plus']
@@ -140,6 +142,11 @@ module.exports =
       menu = if menuNew is ' ' then '' else menuNew
 
     @menu.set menu
+    return
+
+  toggleDialogMenu: (dialog, toggleDialog, menu, toggleMenu) ->
+    @toggleDialog dialog, toggleDialog
+    @toggleMenu menu, toggleMenu
     return
 
   toggleDialog: (which, toggleOn) ->

@@ -123,9 +123,21 @@
 // forms
 // --------
 
-input
+input[type="text"], input[type="email"], input[type="password"]
   -webkit-appearance none
   border-radius 0
+
+  @extend $form-field-borders-box
+  background none
+  color BLACK_COLOR
+  margin 0
+
+  box-sizing border-box
+
+  font-size 1em
+
+  padding 0.2em 0.5em
+  line-height 1.6em
 
 .form
   .submit-div
@@ -173,18 +185,7 @@ input
     display block
 
     input
-      @extend $form-field-borders-box
-      background none
-      color BLACK_COLOR
-      margin 0
-
       width 100%
-      box-sizing border-box
-
-      font-size 1em
-
-      padding 0.2em 0.5em
-      line-height 1.6em
 
     .error
       border-top-left-radius 0
@@ -354,6 +355,11 @@ body
   @extend $sansserif
   margin 0
   padding 0
+
+// bug fix forced word wrapping in contenteditable pre
+// see https://bugs.webkit.org/show_bug.cgi?id=35935
+pre
+  word-wrap normal
 
 a
   text-decoration none

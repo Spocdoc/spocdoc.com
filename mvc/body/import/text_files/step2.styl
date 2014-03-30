@@ -1,0 +1,43 @@
+@import '../../../utils.styl'
+
+.body-import-text_files
+  .step2
+    label
+      display block
+      line-height 2em
+      font-size unit(LARGE_FONT,em)
+
+      &:hover
+        cursor pointer
+
+    pre
+      @extend $sansserif
+
+    input
+      margin-right 1em
+
+    .choices
+      margin-left 1em
+
+    .example-div, .interp-div
+      display none
+      margin 0 2em 0 1em
+
+    .step2-test
+      max-height 15em
+      min-height 1em
+      overflow auto
+      padding unit(PADDING_SIDES_SMALL,em)
+      color BLACK_COLOR
+
+      hr
+        border: none;
+        border-bottom: 1px dashed #333;
+        height: 0;
+        margin 1em unit(- PADDING_SIDES_SMALL/2, em)
+
+.with-js
+  .body-import-text_files
+    .step2
+      .example-div, .interp-div
+        display block

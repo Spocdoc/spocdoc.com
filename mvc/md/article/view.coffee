@@ -70,6 +70,11 @@ module.exports =
 
       editor = @getEditor words
 
+      docId = '' + (doc?.id)
+      differentDoc = @oldDocId isnt docId
+      @oldDocId = docId
+      editor.update '' if differentDoc
+
       if words
         editor.update md
 

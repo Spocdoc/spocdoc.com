@@ -2,6 +2,15 @@ regexEmail = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/
 tagUtils = require '../tags'
 dates = require 'dates-fork'
 Html = require 'marked-fork/html'
+ObjectID = require('mongo-fork').ObjectID
+
+getObjectID = (id) ->
+  return id if id instanceof ObjectID
+  if id._id
+    id = id._id
+  else if id._oid
+    id = id._oid
+  new ObjectID ''+id
 
 module.exports =
   falsy: falsy = (str) ->
@@ -57,14 +66,22 @@ module.exports =
 
     isPublic
 
-  makeDoc: (src) ->
+  makeDoc: (src, editors_, otherMeta=0) ->
     html = new Html src
     meta = html.meta
     custom = html.custom
 
-    created = modified = new Date()
+    modified = new Date()
+    created = otherMeta['date'] or modified
     date = dates.dateToNumber(created)
     tags = tagUtils['forIndexing'] Object.keys(meta['tags'])
+
+    editors = []
+    if Array.isArray editors_
+      for editor, i in editors_
+        editors[i] = getObjectID editor
+    else
+      editors[0] = getObjectID editors_
 
     return {
       'text': src
@@ -73,7 +90,8 @@ module.exports =
       'modified': modified
       'created': created
       'words': meta['words']
-      'title': meta['title'] or ''
+      'title': otherMeta['title'] or meta['title'] or ''
       'custom': custom
       'public': makePublic meta
+      'editors': editors
     }

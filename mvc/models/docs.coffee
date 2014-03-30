@@ -1,6 +1,6 @@
 _ = require 'lodash-fork'
-dates = require 'dates-fork'
 Outlet = require 'outlet'
+utils = require '../../lib/utils'
 
 module.exports =
   tags: ->
@@ -24,32 +24,11 @@ module.exports =
     ), null, true
 
   static:
-    build: (globals, text, meta=0) ->
-      # TODO
-      return
-      # desc = new Desc text
-
-      # if priv = globals.session.get('user').get('priv')?.get()
-      #   priv.addTags desc.tags
-
-      # tags = tagUtils.forIndexing desc.tags
-
-      # if date = meta.date
-      #   created = modified = meta.date
-      # else
-      #   date = created = modified = new Date()
-
-      # date = dates.dateToNumber(date)
-
-      # @create
-      #   text: text
-      #   tags: tags
-      #   tagOffsets: desc.tagOffsets
-      #   created: created
-      #   modified: created
-      #   date: date
-      #   title: desc.meta.title || ''
-      #   words: desc.wordCount
+    build: (ctx, src, meta=0) ->
+      doc = utils.makeDoc(src, ctx.user.get(), meta)
+      if priv = ctx.userPriv.get()
+        priv.addTags doc['tags']
+      @create doc
 
   linkHtml: (target) ->
     # TODO

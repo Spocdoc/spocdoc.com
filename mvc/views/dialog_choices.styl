@@ -1,0 +1,68 @@
+@import '../utils.styl'
+
+.dialog_choices
+  height 100%
+
+  h2
+    padding 0
+    margin 0
+    font-size 1.1em
+    color gray
+    text-align left
+    line-height 3em
+    letter-spacing 1px
+    font-weight normal
+    padding-left unit(PADDING_SIDES_SMALL, em)
+
+  .choices-container
+    user-select none
+
+  .choices
+    list-style none
+    padding 0
+    margin 0
+
+    li
+      position relative
+
+      a
+        @extend $IE-TRANSPARENT
+        display block
+        line-height 3.3em
+        // padding-left unit(1.8 + 0.3, em)
+
+        text-overflow ellipsis
+        white-space nowrap
+        width 100%
+        box-sizing border-box
+        overflow hidden
+        border-left 3px solid transparent
+
+        padding-left unit(PADDING_SIDES_SMALL, em)
+
+        &, &:link, &:visited
+          color BLACK_COLOR
+
+        &:hover
+          color LINK_COLOR
+          text-decoration none
+          ease 'color'
+
+      &.selected
+        a
+          border-left-color LINK_COLOR
+
+          &:hover
+            color BLACK_COLOR
+            ease 'color'
+
+
+  &.empty-header
+    h2
+      display none
+
+    .choices
+      padding-top unit(PADDING_SIDES_SMALL, em)
+
+
+@import './dialog_choices_media.styl'

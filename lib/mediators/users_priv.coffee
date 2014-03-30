@@ -50,10 +50,9 @@ module.exports = (Base) ->
 
           draft = userPriv.draft or ''
 
-          _.extend doc = utils.makeDoc(draft),
+          _.extend doc = utils.makeDoc(draft, userPriv._id, null),
             _id: docId = new ObjectID()
             _v: 1
-            editors: [ userPriv._id ]
 
           @_create 'docs', doc, next
 

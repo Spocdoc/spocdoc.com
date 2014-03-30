@@ -1,0 +1,46 @@
+@import '../utils.styl'
+
+LEFT_WIDTH = 9
+LEFT_HEIGHT_MIN = 2.5
+
+.twoup
+  width 100%
+  height 100%
+  overflow hidden
+
+  .twoup-container
+    width 100%
+    height 100%
+
+  .twoup-lhs
+    width unit(LEFT_WIDTH, em)
+    height 100%
+    overflow-y auto
+    overflow-x hidden
+    position relative
+    z-index 1
+
+  .twoup-rhs
+    margin-left unit(LEFT_WIDTH, em)
+    height 100%
+    overflow auto
+
+  .twoup-bottom
+    position relative
+    top -100%
+
+  @media MEDIA_REMOVE_SIDEBAR
+    .twoup-bottom
+      @extend $IE-TRANSPARENT
+      box-sizing border-box
+      border-top unit(LEFT_HEIGHT_MIN, em) solid transparent
+      *border-top-color #bada55
+
+    .twoup-lhs
+      overflow visible
+      height unit(LEFT_HEIGHT_MIN, em)
+      width 100%
+
+    .twoup-rhs
+      margin-left 0
+

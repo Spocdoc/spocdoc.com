@@ -13,7 +13,12 @@ module.exports =
     (doc, md='') ->
       return if !md and !doc
 
+      docId = '' + (doc?.id)
+      differentDoc = @oldDocId isnt docId
+      @oldDocId = docId
+
       if outline = @outline
+        outline.update '' if differentDoc
         outline.update md
       else
         outline = @outline = new Outline md, (if @template.bootstrapped then @$root else null)
