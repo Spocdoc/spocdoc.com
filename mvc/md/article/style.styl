@@ -53,6 +53,11 @@
     .root
       @extend $nofocus
 
+    .editor
+      @extend $editor-text
+      white-space pre-wrap
+      word-break break-word
+
   .carat-spot
     width 0
     height 2px
@@ -67,12 +72,6 @@
 
   a:hover
     cursor: pointer
-
-  pre
-    @extend $fixed
-    user-select text
-    padding: 0
-    margin: 0
 
   .md-editor-heading
     font-weight: bold

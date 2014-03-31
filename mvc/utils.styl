@@ -14,6 +14,21 @@ $serif
   font-family: Georgia, 'Times New Roman', Times, serif
   line-height 1.6em
 
+$fixed
+  font-family: Menlo, Monoco, Andale Mono, Courier, monospace
+  font-size: 0.9em
+  line-height: 1.5em
+  tab-size: 4
+  white-space: pre
+
+$inline-block
+  display inline-block
+  *display inline
+  *zoom 1
+
+$editor-text
+  @extend $fixed
+
 $article-text
   @extend $serif
 
@@ -29,7 +44,20 @@ $article-text
     margin 0 1em 3em 2em
 
   pre
+    white-space: pre
     overflow auto
+
+  pre, code
+    // @extend $fixed // STYLUS BUG, see <https://github.com/LearnBoost/stylus/issues/1304>
+    font-family: Menlo, Monoco, Andale Mono, Courier, monospace
+    font-size: 0.9em
+    line-height: 1.5em
+    tab-size: 4
+    // END BUG
+
+    user-select text
+    padding: 0
+    margin: 0
 
   h1
     font-weight bold
@@ -71,17 +99,11 @@ $article-text
   @media MEDIA_WITH_SIDEBAR
     font-size 1.125em
 
-$fixed
-  font-family: Menlo, Monoco, Andale Mono, Courier, monospace
-  font-size: 0.9em
-  line-height: 1.5em
-  tab-size: 4
-  white-space: pre
+    pre, code
+      font-size 0.8em
 
-$inline-block
-  display inline-block
-  *display inline
-  *zoom 1
+.article-text
+  @extend $article-text
 
 $strong-shadow
   box-shadow 0 3px 11px hsla(0, 0%, 0%, 0.5) !important

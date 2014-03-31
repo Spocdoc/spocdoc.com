@@ -13,7 +13,9 @@ class Session
       return true
     false
 
-  toId: (id) -> ''+(id._id or id.oid or id or '')
+  toId: (id) ->
+    return '' unless id
+    ''+(id._id or id.oid or id or '')
 
   isUser: (id) ->
     return false unless id

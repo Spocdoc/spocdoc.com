@@ -290,14 +290,11 @@
                         "views/dialog.coffee", "calendar/view.coffee",
                         "search/page/view.coffee",
                         "body/invite_me/missing_email/view.coffee",
-                        "body/invite_me/hello/view.coffee",
-                        "body/landing/view.coffee",
                         "body/invite_me/view.coffee",
                         "body/plus/view.coffee", "routes.coffee",
                         "docs/controller.coffee",
                         "views/tab_rows.coffee", "views/tabs.coffee",
                         "search/results/doc/view.coffee",
-                        "models/sessions.coffee",
                         "search/controller.coffee",
                         "body/controller.coffee",
                         "views/twoup.coffee",
@@ -307,7 +304,10 @@
                         "body/import/controller.coffee",
                         "views/dialog_choices.coffee",
                         "body/import/text_files/view.coffee",
-                        "body/view.coffee", "md/outline/view.coffee"
+                        "body/view.coffee", "md/outline/view.coffee",
+                        "body/invite_me/hello/view.coffee",
+                        "body/landing/view.coffee",
+                        "models/sessions.coffee"
                     ],
                     "generated": "bundle/debug [-ie<=8 -ios debug].js"
                 },
@@ -465,14 +465,11 @@
                         "views/dialog.coffee", "calendar/view.coffee",
                         "search/page/view.coffee",
                         "body/invite_me/missing_email/view.coffee",
-                        "body/invite_me/hello/view.coffee",
-                        "body/landing/view.coffee",
                         "body/invite_me/view.coffee",
                         "body/plus/view.coffee", "routes.coffee",
                         "docs/controller.coffee",
                         "views/tab_rows.coffee", "views/tabs.coffee",
                         "search/results/doc/view.coffee",
-                        "models/sessions.coffee",
                         "search/controller.coffee",
                         "body/controller.coffee",
                         "views/twoup.coffee",
@@ -482,7 +479,10 @@
                         "body/import/controller.coffee",
                         "views/dialog_choices.coffee",
                         "body/import/text_files/view.coffee",
-                        "body/view.coffee", "md/outline/view.coffee"
+                        "body/view.coffee", "md/outline/view.coffee",
+                        "body/invite_me/hello/view.coffee",
+                        "body/landing/view.coffee",
+                        "models/sessions.coffee"
                     ],
                     "generated": "bundle/debug [-ie<=8 debug ios].js"
                 }

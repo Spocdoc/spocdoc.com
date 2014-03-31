@@ -73,7 +73,9 @@ module.exports =
       docId = '' + (doc?.id)
       differentDoc = @oldDocId isnt docId
       @oldDocId = docId
-      editor.update '' if differentDoc
+      if differentDoc
+        editor.update ''
+        @getEditor(!@mode).update '' # clear *both* editors when the document changes
 
       if words
         editor.update md

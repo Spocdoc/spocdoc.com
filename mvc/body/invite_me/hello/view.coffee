@@ -15,7 +15,7 @@ module.exports =
     'username'
     'name'
     'password'
-    'requirePassword': -> !@userPriv.get('oauth')?.get()
+    'requirePassword': -> !@userPriv.get('oauthTokens')?.get()
   ]
 
   $usernameError: 'text'

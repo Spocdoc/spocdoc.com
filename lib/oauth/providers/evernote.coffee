@@ -2,7 +2,9 @@ Evernote = require('evernote').Evernote
 
 getUser = (oauthDetails, cb) ->
   token = oauthDetails.access
-  client = new Evernote.Client token: token
+  client = new Evernote.Client
+    token: token
+    sandbox: false
   userStore = client.getUserStore()
   userStore.getUser token, (err, user) ->
     return cb err if err?
