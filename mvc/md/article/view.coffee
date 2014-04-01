@@ -247,7 +247,7 @@ module.exports =
           editor.$content.attr 'tabindex', '-1'
       else
         unless editor = @editor
-          editor = @editor = new Editor @md.value, if @ace.booting and @template.bootstrapped and !words then @$content else null
+          editor = @editor = new Editor @md.value
           editor.$content.attr 'tabindex', '-1'
     editor.$content.prop 'contenteditable', !!@editable.value
     editor
