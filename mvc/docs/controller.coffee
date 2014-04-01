@@ -23,7 +23,8 @@ module.exports =
   freeCell: (tab) ->
 
   constructor: ->
-    field = @controllers['field'] = new @View['search/field'] this, 'field'
+    field = @controllers['field'] = new @View['search/field'] this, 'field',
+      name: 'Search within'
 
     main = @controllers['main'] = new @View['md/article'] this, 'main',
       doc: @doc

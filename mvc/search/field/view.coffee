@@ -32,6 +32,8 @@ updateSelOffset = (offset, lenToPart, origSrc, newSrc) ->
 
 module.exports =
   outlets: [
+    'name'
+
     'search'
     'spec': (search) ->
       return @spec.value if search is @lastText
@@ -142,6 +144,11 @@ module.exports =
     true
 
   outletMethods: [
+    (name) ->
+      if name and name = ''+name
+        @$search.attr 'data-placeholder', ''+name
+      return
+
     (dateStart, dateEnd) ->
       if dateStart is false or dateEnd is false
         # want to remove the date

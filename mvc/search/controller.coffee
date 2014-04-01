@@ -115,7 +115,8 @@ module.exports =
     return
 
   constructor: ->
-    field = @controllers['field'] = new @View['search/field'] this, 'field'
+    field = @controllers['field'] = new @View['search/field'] this, 'field',
+      name: 'Search documents'
 
     @controllers['results'] = new @Controller['search/results'] this, 'results',
       query: @query
