@@ -225,7 +225,7 @@ module.exports = class Calendar
     date = @firstSunday
     @['dateStart'] = d = (id = (year*100+month)*100)+date
 
-    days = if today - d < 100 then today%100 else @days
+    days = if today - d < 50 then today%100 else @days
     weeks = (days - @firstSunday + 7)/7|0
 
     color = @color
