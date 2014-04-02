@@ -31,6 +31,9 @@ Html.prototype['posToOffset'] = Html::posToOffset
 Html.prototype['offsetToPos'] = Html::offsetToPos
 Html.prototype['update'] = Html::update
 
+Inline = require 'marked-fork/html/inline'
+Inline.prototype['highlight'] = Inline::highlight
+
 Editor = require 'marked-fork/editor'
 Editor.prototype['posToOffset'] = Editor::posToOffset
 Editor.prototype['offsetToPos'] = Editor::offsetToPos
