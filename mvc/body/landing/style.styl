@@ -40,6 +40,32 @@
 
   .headliner
     margin-bottom 4em
+    position relative
+    height 1024px
+
+    .down-arrow-container
+      text-align: center;
+      position: absolute;
+      bottom: 33%;
+      left: 0;
+      width: 100%;
+
+    .down-arrow
+      display none
+      font-size 3em
+      cursor pointer
+
+      &, &:link, &:visited
+        color LIGHT_GRAY
+
+      &:after
+        content: '\f054'
+        font-family: spocdicons
+
+      &:hover, &:active
+        color LINK_COLOR
+        text-decoration none
+
 
   .marketing-section-what
     position relative

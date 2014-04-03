@@ -1,4 +1,4 @@
-.headliner
+.headliner#headliner
   h1.tagline
     | Unleash 
     em Your Content.
@@ -8,6 +8,25 @@
 
   p.promo
     | Collaborate, Share and Find faster than ever before.
+
+  //-form.form.signup-div#emailForm
+    label.input-group#emailGroup
+      input(type='email', spellcheck="false", placeholder="Email")#email
+      p.error#emailError
+
+    //-div.submit-div#submitDiv
+      p.error#submitError
+      button(type="submit").submit#submit.has-spinner
+        span Invite me!
+      #submitSpinner.spinner(title="Waiting for the server..."): != spinner
+
+  .down-arrow-container
+    a.down-arrow#downArrow
+
+
+    
+
+
 
 
 .marketing-section-what

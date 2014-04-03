@@ -1,21 +1,19 @@
 @import '../../utils'
 
 .bar
-  height unit(LOGGED_OUT_HEIGHT,em)
+  height unit(LOGGED_OUT_HEIGHT + BAR_PADDING_BOTTOM,em)
   position absolute
   top 0
   left 0
   width 100%
+  background hsla(0,0%,100%,96%)
 
   .centering
     height 100%
 
-.bar-content
-  position relative
-  height 100%
 
 .desktop
-  .bar-content
+  .bar > .centering
     opacity 0.5
     easeSlow('opacity')
 
@@ -24,13 +22,17 @@
       easeSlow('opacity')
 
   [data-menu]:not([data-menu=""])
-    .bar-content
+    .bar > .centering
       opacity 1
+
+.bar-content
+  position relative
+  height 100%
 
 .bar-border
   width 100%
   position absolute
-  bottom 0
+  bottom unit(BAR_PADDING_BOTTOM, em)
   z-index -1
   left unit(- PADDING_SIDES_SMALL, em)
   padding 0 unit(PADDING_SIDES_SMALL, em)
@@ -42,13 +44,14 @@
   position absolute
   z-index 1
   left 0
-  bottom 0
+  bottom unit(BAR_PADDING_BOTTOM, em)
 
 .main-menu
   position absolute
   z-index 1
   left 0
-  bottom 3px
+  // bottom 3px
+  bottom unit(BAR_PADDING_BOTTOM, em)
 
   & > .dropdown-caret-center,
   & > .dropdown-menu
@@ -190,7 +193,7 @@
 
 .right-div-min
   position absolute
-  bottom 0
+  bottom unit(BAR_PADDING_BOTTOM, em)
   right 0
   left 0
   text-align right

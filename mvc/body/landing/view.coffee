@@ -1,3 +1,6 @@
+constants = require '../../constants'
+SCROLL_PADDING = 0
+
 module.exports =
   outlets: [
     'invitedId'
@@ -7,13 +10,32 @@ module.exports =
   # $inviteMe3: link: ['depute','toggleDialog','inviteMe']
   # $findOutMore: link: ['depute','showPage','about']
 
+  $downArrow: link: ['scrollFold']
+
   outletMethods: [
     (invitedId, inviteToken) ->
       if invitedId and inviteToken
         @validateInvite()
         return
       return
+
+    (inWindow) ->
+      if inWindow and !@ace.onServer
+        # set the headliner to take up the entire above-the-fold
+        $window = $(global)
+        @$headliner.height $window.height() - @$headliner.offset().top
+        @$downArrow.css 'display', 'block'
+      return
+
   ]
+
+  scrollFold: ->
+    top = @$headliner.offset().top + @$headliner.height()
+    $scrollParent = @$scrollParent ||= @$root.scrollParent()
+    $scrollParent.animate
+      scrollTop: $scrollParent.scrollTop() + top - SCROLL_PADDING
+      constants.scrollMillis
+
 
   validateInvite: ->
     if @validating
@@ -41,3 +63,13 @@ module.exports =
         @depute 'toggleDialog', 'hello', true
       return
     return
+
+  constructor: ->
+    unless @ace.onServer
+      $window = $(global)
+      $window.on 'resize', =>
+        if @inWindow.value
+          @$headliner.height $window.height() - @$headliner.offset().top
+        return
+
+
