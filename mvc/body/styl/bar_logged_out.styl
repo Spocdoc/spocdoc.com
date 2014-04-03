@@ -182,9 +182,14 @@ hideMenu()
           padding 4px 15px 2px
           margin-bottom 1px
 
-          &.selected, &:hover
-            border-bottom 3px solid LINK_COLOR
-            margin-bottom -2px
+          &:hover, &:active
+            color LINK_COLOR
+            background none
+
+          &.selected
+            background none
+            color BLACK_COLOR
+            font-weight bold
 
   .logged-in
     .main-menu
@@ -254,6 +259,12 @@ shortenRight()
           display inline
       .invite-me
         margin-right 0.5em !important
+
+  .logged-out.landing
+    .right-div
+      .log-in
+        span
+          display none
 
   .logged-in
     .main-menu

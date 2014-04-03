@@ -4,8 +4,8 @@ module.exports =
     'inviteToken'
   ]
 
-  $inviteMe3: link: ['depute','toggleDialog','inviteMe']
-  $findOutMore: link: ['depute','showPage','about']
+  # $inviteMe3: link: ['depute','toggleDialog','inviteMe']
+  # $findOutMore: link: ['depute','showPage','about']
 
   outletMethods: [
     (invitedId, inviteToken) ->

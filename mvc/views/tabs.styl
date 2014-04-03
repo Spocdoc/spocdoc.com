@@ -12,6 +12,7 @@
       height 100%
       box-sizing border-box
       padding 0.5em
+      border-top 1px solid LIGHT_GRAY
 
   .tab-list
     margin: 0;
@@ -50,8 +51,9 @@
       &.selected
         a
           color BLACK_COLOR
+          font-weight bold
           ease 'color'
-          border-bottom-color LINK_COLOR
+          // border-bottom-color LINK_COLOR
 
           &:hover, &:active
             cursor move
@@ -74,7 +76,7 @@
         box-sizing border-box
         color BLACK_COLOR
         ease 'color'
-        border-bottom 2px solid transparent
+        // border-bottom 2px solid transparent
 
         &:hover, &:active
           text-decoration none

@@ -8,16 +8,20 @@
     position relative
 
     margin 0 -0.6em
-    margin-bottom 1em
+    margin-bottom 3em
 
-    border-radius 5px
+    border-radius 3px
+    box-shadow 0 1px 1px 0 hsla(0, 0%, 0%, 0.18)
+    border 1px solid hsl(0, 0%, 88%)
+    border-bottom 0
 
     .header
       // Fix for :hover in IE8
       background url('data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7')
+      border-bottom 1px solid hsl(0, 0%, 88%)
 
-    &:hover
-      background hsl(0, 0%, 96%)
+    // &:hover
+    //   background hsl(0, 0%, 96%)
 
     &.no-bg
       &:hover
@@ -47,9 +51,10 @@
     line-height 1.4em
     position relative
     @extend $sansserif
+    font-size 0.9em
 
     h1
-      font-size: 1em
+      font-size: 1.2em
       margin 0
       padding 0
       letter-spacing 1px
@@ -94,10 +99,10 @@
     // @extend $serif
     @extend $nofocus
     // line-height 1.6em
-    padding unit(PADDING_SIDES_SMALL,em)
-    margin 0.4em unit(PADDING_SIDES_SMALL,em) 2em unit(PADDING_SIDES_SMALL, em)
-    border 1px solid #ddd
-    border-radius 5px
+    // padding unit(PADDING_SIDES_SMALL,em)
+    margin 0.4em unit(PADDING_SIDES_SMALL,em) 0 unit(PADDING_SIDES_SMALL, em)
+    // border 1px solid #ddd
+    // border-radius 5px
     overflow hidden
     max-height 32em
     background white
@@ -111,27 +116,32 @@
 
   .section-wrapper
 
-    &:after
-      @extend $IE-TRANSPARENT
-      font-family Helvetica, Arial, sans-serif
-      content '\00b7  \00b7  \00b7'
-      position absolute
-      left 0
-      width 100%
-      display block
-      text-align center
-      font-size 2em
-      line-height 1em
-      margin-top -1em
-      border-top 1px solid transparent
-      color DARK_GRAY
+    // &:after
+    //   @extend $IE-TRANSPARENT
+    //   font-family Helvetica, Arial, sans-serif
+    //   content '\00b7  \00b7  \00b7'
+    //   position absolute
+    //   left 0
+    //   width 100%
+    //   display block
+    //   text-align center
+    //   font-size 2em
+    //   line-height 1em
+    //   margin-top -1em
+    //   border-top 1px solid transparent
+    //   color DARK_GRAY
+
+    border-bottom 1px solid
 
     &:last-child
-      .section
-        margin-bottom 1em
+      border-bottom 0
 
-      &:after
-        content ''
+    // &:last-child
+    //   .section
+    //     margin-bottom 1em
+
+    //   &:after
+    //     content ''
 
   .tags
     li

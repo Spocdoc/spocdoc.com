@@ -8,7 +8,7 @@ $IE-TRANSPARENT
 
 $sansserif
   font-family: 'Helvetica Neue', Helvetica, arial, freesans, clean, sans-serif
-  font-weight 300
+  // font-weight 300
 
 $serif
   font-family: Georgia, 'Times New Roman', Times, serif
@@ -72,6 +72,7 @@ $article-text
     font-weight bold
     font-size 1.5em
     margin-bottom 1.5em
+    text-align center
 
   h2
     font-weight 300
@@ -162,7 +163,8 @@ $placeholder-editable
     height 0
     float: left;
     white-space: nowrap;
-    color: #b3b3b3;
+    // color: #b3b3b3;
+    color BLACK_COLOR
     font-weight 300
 
 $focusShadow
@@ -212,7 +214,11 @@ $form-field-borders
   border-bottom-width 1px
   border-bottom-color LINK_COLOR
 
+  &.empty
+    border-color transparent !important
+
   &:hover
+    border-color LINK_COLOR
     // border-color #ddd
     // border-top-color lighten(LINK_COLOR, 20%)
     // border-bottom-color LINK_COLOR

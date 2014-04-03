@@ -294,7 +294,6 @@
                         "body/plus/view.coffee", "routes.coffee",
                         "views/tab_rows.coffee", "views/tabs.coffee",
                         "search/results/doc/view.coffee",
-                        "body/controller.coffee",
                         "views/twoup.coffee",
                         "body/import/drop_box/view.coffee",
                         "body/import/evernote/view.coffee",
@@ -302,12 +301,13 @@
                         "body/import/controller.coffee",
                         "views/dialog_choices.coffee",
                         "body/import/text_files/view.coffee",
-                        "body/view.coffee", "md/outline/view.coffee",
+                        "md/outline/view.coffee",
                         "body/landing/view.coffee",
                         "models/sessions.coffee",
                         "body/invite_me/hello/view.coffee",
-                        "search/controller.coffee",
-                        "docs/controller.coffee"
+                        "docs/controller.coffee", "body/view.coffee",
+                        "body/controller.coffee",
+                        "search/controller.coffee"
                     ],
                     "generated": "bundle/debug [-ie<=8 -ios debug].js"
                 },
@@ -469,7 +469,6 @@
                         "body/plus/view.coffee", "routes.coffee",
                         "views/tab_rows.coffee", "views/tabs.coffee",
                         "search/results/doc/view.coffee",
-                        "body/controller.coffee",
                         "views/twoup.coffee",
                         "body/import/drop_box/view.coffee",
                         "body/import/evernote/view.coffee",
@@ -477,12 +476,13 @@
                         "body/import/controller.coffee",
                         "views/dialog_choices.coffee",
                         "body/import/text_files/view.coffee",
-                        "body/view.coffee", "md/outline/view.coffee",
+                        "md/outline/view.coffee",
                         "body/landing/view.coffee",
                         "models/sessions.coffee",
                         "body/invite_me/hello/view.coffee",
-                        "search/controller.coffee",
-                        "docs/controller.coffee"
+                        "docs/controller.coffee", "body/view.coffee",
+                        "body/controller.coffee",
+                        "search/controller.coffee"
                     ],
                     "generated": "bundle/debug [-ie<=8 debug ios].js"
                 }

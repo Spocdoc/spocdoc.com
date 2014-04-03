@@ -15,6 +15,7 @@ module.exports =
     'mixins/editable val': [ 'username', 'password' ]
 
   outlets: [
+    'landing'
     'menu'
     'dialog'
     'content'
@@ -165,6 +166,9 @@ module.exports =
     return
 
   outletMethods: [
+    (landing) ->
+      @$root.toggleClass 'landing', !!landing
+
     (usernameError) -> @$usernameGroup.toggleClass 'has-error', !!usernameError
     (passwordError) -> @$passwordGroup.toggleClass 'has-error', !!passwordError
     (submitError) -> @$submitDiv.toggleClass 'has-error', !!submitError

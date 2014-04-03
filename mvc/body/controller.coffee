@@ -18,6 +18,7 @@ module.exports =
 
   $tab: -> @page
   $content: (page) -> @getController page
+  $landing: (page) -> !!(page in ['landing',''])
 
   showPage: (page) ->
     @view.toggleMenu 'on', false
