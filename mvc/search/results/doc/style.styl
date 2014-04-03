@@ -1,5 +1,58 @@
 @import '../../../utils'
 
+
+.search-results
+  .section
+    // @extend $serif
+    @extend $nofocus
+    // line-height 1.6em
+    // padding unit(PADDING_SIDES_SMALL,em)
+    margin 0.4em unit(PADDING_SIDES_SMALL,em) 0 unit(PADDING_SIDES_SMALL, em)
+    // border 1px solid #ddd
+    // border-radius 5px
+    overflow hidden
+    max-height 32em
+    background white
+    cursor text
+
+    .match-sentence
+      background YELLOW_COLOR
+
+    .match-word
+      font-weight bold
+
+  .section-wrapper
+
+    // &:after
+    //   @extend $IE-TRANSPARENT
+    //   font-family Helvetica, Arial, sans-serif
+    //   content '\00b7  \00b7  \00b7'
+    //   position absolute
+    //   left 0
+    //   width 100%
+    //   display block
+    //   text-align center
+    //   font-size 2em
+    //   line-height 1em
+    //   margin-top -1em
+    //   border-top 1px solid transparent
+    //   color DARK_GRAY
+
+    border-bottom 1px solid
+
+    &:last-child
+      border-bottom 0
+
+    // &:last-child
+    //   .section
+    //     margin-bottom 1em
+
+    //   &:after
+    //     content ''
+
+
+
+
 .search-results-doc
 
   .article
@@ -94,54 +147,6 @@
 
     .empty
       display none
-
-  .section
-    // @extend $serif
-    @extend $nofocus
-    // line-height 1.6em
-    // padding unit(PADDING_SIDES_SMALL,em)
-    margin 0.4em unit(PADDING_SIDES_SMALL,em) 0 unit(PADDING_SIDES_SMALL, em)
-    // border 1px solid #ddd
-    // border-radius 5px
-    overflow hidden
-    max-height 32em
-    background white
-    cursor text
-
-    .match-sentence
-      background YELLOW_COLOR
-
-    .match-word
-      font-weight bold
-
-  .section-wrapper
-
-    // &:after
-    //   @extend $IE-TRANSPARENT
-    //   font-family Helvetica, Arial, sans-serif
-    //   content '\00b7  \00b7  \00b7'
-    //   position absolute
-    //   left 0
-    //   width 100%
-    //   display block
-    //   text-align center
-    //   font-size 2em
-    //   line-height 1em
-    //   margin-top -1em
-    //   border-top 1px solid transparent
-    //   color DARK_GRAY
-
-    border-bottom 1px solid
-
-    &:last-child
-      border-bottom 0
-
-    // &:last-child
-    //   .section
-    //     margin-bottom 1em
-
-    //   &:after
-    //     content ''
 
   .tags
     li
