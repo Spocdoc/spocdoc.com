@@ -30,7 +30,7 @@ module.exports =
     (words, text) ->
       html = ''
       for snip in (@snips = new Snips text, words, depth: 1).snips
-        html += """<div class="section-wrapper"><div class="section">"""
+        html += """<div class="section-wrapper"><div class="section"><div class="margin-eater"></div>"""
         html += snip
         html += """</div></div>"""
       @$content.html html

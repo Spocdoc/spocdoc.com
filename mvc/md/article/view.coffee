@@ -89,7 +89,7 @@ module.exports =
         unless @ace.booting and @template.bootstrapped
           html = if @mode is MODE_TEXT then "<pre class='root search-results editor'>" else "<div class='root search-results html'>"
           for snip in editor.search(words)
-            html += """<div class="section-wrapper"><div class="section">"""
+            html += """<div class="section-wrapper"><div class="section"><div class="margin-eater"></div>"""
             html += snip
             html += """</div></div>"""
           html += if @mode is MODE_TEXT then "</pre>" else "</div>"
