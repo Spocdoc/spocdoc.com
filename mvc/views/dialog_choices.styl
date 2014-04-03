@@ -36,7 +36,9 @@
         width 100%
         box-sizing border-box
         overflow hidden
-        border-left 3px solid transparent
+
+        // border-left 3px solid transparent
+        padding-left 3px
 
         padding-left unit(PADDING_SIDES_SMALL, em)
 
@@ -50,7 +52,8 @@
 
       &.selected
         a
-          border-left-color LINK_COLOR
+          // border-left-color LINK_COLOR
+          font-weight bold
 
           &:hover
             color BLACK_COLOR
