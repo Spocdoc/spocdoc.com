@@ -18,7 +18,7 @@ module.exports = (config) ->
     return
 
   config.constructor.unshift ->
-    @$cssSlides.on 'click', '.content > .heading > h1', (event) =>
+    @$cssSlides.on 'click', '.content > .section > h1', (event) =>
       @prevSlide()
       false
 
