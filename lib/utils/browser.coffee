@@ -67,14 +67,22 @@ module.exports =
     isPublic
 
   makeDoc: (src, editors_, otherMeta=0) ->
-    # TODO if otherMeta has tags, add a tag block to the top of the document
     html = new Html src
+
+    if otherMeta
+      if title = otherMeta['title']
+        html.addMeta 'title', title
+      if tags = otherMeta['tags']
+        html.addTags tags
+
     meta = html.meta
     custom = html.custom
 
     modified = new Date()
     created = otherMeta['date'] or modified
     date = dates.dateToNumber(created)
+
+    title = meta['title'] or ''
     tags = tagUtils['forIndexing'] Object.keys(meta['tags'])
 
     editors = []
@@ -85,13 +93,13 @@ module.exports =
       editors[0] = getObjectID editors_
 
     return {
-      'text': src
+      'text': html.src
       'tags': tags
       'date': date # creation date as a number
       'modified': modified
       'created': created
       'words': meta['words']
-      'title': otherMeta['title'] or meta['title'] or ''
+      'title': title
       'custom': custom
       'public': makePublic meta
       'editors': editors

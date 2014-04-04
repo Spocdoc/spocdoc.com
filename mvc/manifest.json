@@ -310,12 +310,12 @@
                         "body/landing/view.coffee",
                         "search/results/doc/view.coffee",
                         "views/progress_meter.coffee",
-                        "views/import_list.coffee",
                         "body/import/controller.coffee",
                         "body/invite_me/view.coffee",
                         "models/sessions.coffee",
                         "mixins/css_slides/view.coffee",
                         "body/import/files/view.coffee",
+                        "views/import_list.coffee",
                         "body/import/evernote/view.coffee"
                     ],
                     "generated": "bundle/debug [-ie<=8 -ios debug].js"
@@ -485,12 +485,12 @@
                         "body/landing/view.coffee",
                         "search/results/doc/view.coffee",
                         "views/progress_meter.coffee",
-                        "views/import_list.coffee",
                         "body/import/controller.coffee",
                         "body/invite_me/view.coffee",
                         "models/sessions.coffee",
                         "mixins/css_slides/view.coffee",
                         "body/import/files/view.coffee",
+                        "views/import_list.coffee",
                         "body/import/evernote/view.coffee"
                     ],
                     "generated": "bundle/debug [-ie<=8 debug ios].js"
