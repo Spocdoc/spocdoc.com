@@ -32,6 +32,7 @@ module.exports =
     add '?:dialog'
     add '?dsb=:docsShowSidebar'
     add '?ssb=:searchShowSidebar'
+    add '?is=:importSource'
     add '#s=:scrollTop'
 
     add 'landing', '/', '?:iid&:it', page: ''
@@ -72,6 +73,7 @@ module.exports =
       page: '/page'
       menu: '/$menu'
       dialog: '/$dialog'
+      importSource: '/importContent/choices/$selected'
       docsShowSidebar: '/docs/$showSidebar'
       searchShowSidebar: '/search/$showSidebar'
       about:
@@ -85,6 +87,7 @@ module.exports =
       docs:
         q: '/docs/field/$search'
         id: '/docs/id'
+
         
         # resource: ['/docs/doc','docs','title']
 

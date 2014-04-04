@@ -49,7 +49,7 @@ module.exports =
     i = -1; e = list.length
 
     handle = (err) =>
-      progress.set (if e is 0 then 1 else i/(e-1))
+      progress.set (if e is 0 then 1 else (i+1)/e)
       note = list[i]
       noteList.add (note.title or "note #{note.guid}"), !err
       importNote()

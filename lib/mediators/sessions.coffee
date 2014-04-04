@@ -130,14 +130,14 @@ module.exports = (Base) ->
           [guid] = args
 
           async.waterfall [
-            (next) => evernote.md guid, next
+            (next) => evernote.md guid, tags: true, next
             (src, note, next) =>
               return cb err if err?
 
-              # TODO TAGS
               meta =
                 title: note.title
                 date: new Date note.created
+                tags: note.tags
 
               _.extend doc = utils.makeDoc(src, userId, meta),
                 _id: docId = new ObjectID()

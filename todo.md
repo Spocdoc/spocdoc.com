@@ -57,6 +57,7 @@
  [] add control-L to scroll to center the cursor vertically in editor
  [] get smartypants to work with replacements that aren't character-to-character
  [] the text updating algorithm can be very slow in large documents, presumably because it has to classify the whole document
+ [] evernote import should support their hierarchical tags
 
 # Mobile
 
