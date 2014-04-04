@@ -1,1 +1,23 @@
-p Evernote support is on the way!
+.css-slides#cssSlides
+  .content#content
+    .section
+      h1 Evernote import
+      .oauth-container#oauth
+        a.has-spinner#evernote.evernote(target="_blank") Connect to Evernote
+        .spinner(title="Waiting for other window..."): != spinner
+        p.error#oauthError
+
+    .section
+      h1 Choose notebook
+      .content
+        p All notes in the chosen notebook will be imported.
+
+        ul.notebook-list#notebookList
+
+    .section
+      h1 Importing...
+      .content#importing
+        #progress
+        #noteList
+        p.error#importError
+        #done.done!=spinner

@@ -22,9 +22,9 @@ module.exports =
     @$fileList.append """<li#{if succeeded? then " data-success=\"#{+!!succeeded}\""}>#{inner}</li>"""
 
     if succeeded? and !succeeded
-      @failures.set @failures.get()||0 + 1
+      @failures.set (@failures.get()||0) + 1
     else
-      @successes.set @successes.get()||0 + 1
+      @successes.set (@successes.get()||0) + 1
     return
 
   clear: ->

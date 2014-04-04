@@ -1,6 +1,6 @@
 BUTTON_BACKGROUND = #eaeaea
 BUTTON_GREEN_BACKGROUND = LIGHT_GREEN
-
+BUTTON_BLUE_BACKGROUND = lighten(LINK_COLOR,20%)
 
 $button
   @extend $inline-block
@@ -43,7 +43,17 @@ $button
 $button-blue
   @extend $button
   color white !important
-  background lighten(LINK_COLOR, 20%)
+  background BUTTON_BLUE_BACKGROUND
+
+  border 0
+
+  box-shadow 0px 3px 0px darken(BUTTON_BLUE_BACKGROUND, 20%)
+
+  &:hover
+    background lighten(BUTTON_BLUE_BACKGROUND,10%)
+
+  &:active
+    background darken(BUTTON_BLUE_BACKGROUND,20%)
 
 $button-green
   @extend $button
@@ -59,7 +69,7 @@ $button-green
   border 0
 
   &:hover
-    background darken(BUTTON_GREEN_BACKGROUND,10%)
+    background lighten(BUTTON_GREEN_BACKGROUND,10%)
 
   &:active
     background darken(BUTTON_GREEN_BACKGROUND,20%)

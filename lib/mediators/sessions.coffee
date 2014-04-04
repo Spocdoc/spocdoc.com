@@ -7,6 +7,8 @@ Reject = require 'ace_mvc/lib/error/reject'
 async = require 'async'
 OJSON = require 'ojson'
 oauth = require '../oauth'
+Evernote = require 'evernote-fork'
+_ = require 'lodash-fork'
 
 debug = global.debug "ace:app:sessions"
 debugError = global.debug "error"
@@ -83,10 +85,72 @@ module.exports = (Base) ->
         when 'validateInvite' then @validateInvite args.id, args.token, cb
         when 'acceptInvite' then @acceptInvite args, cb
         when 'logIn' then @logIn args, cb
+        when 'oauthService' then @oauthService args.details, args.fn, args.args, cb
         else super
       return
 
 # -------------------------------------------------
+
+    oauthService: (details, fn, args, cb) ->
+      unless details?.provider is 'evernote'
+        return cb new Reject 'NOSERVICE'
+      return cb new Reject 'NOUSER' unless userId = @session.userId
+
+      evernote = new Evernote details
+
+      switch fn
+        when 'listNotebooks'
+          evernote.notebooks (err, list) =>
+            return cb err if err?
+            notebooks = []
+
+            for notebook,i in list
+              notebooks[i] = {
+                name: notebook.name
+                guid: notebook.guid
+              }
+
+            cb null, notebooks
+
+        when 'listNotes'
+          [guid] = args
+          evernote.notes guid, (err, list) =>
+            return cb err if err?
+            notes = []
+
+            for note, i in list
+              notes[i] = {
+                title: note.title
+                guid: note.guid
+              }
+
+            cb null, notes
+
+        when 'importNote'
+          [guid] = args
+
+          async.waterfall [
+            (next) => evernote.md guid, next
+            (src, note, next) =>
+              return cb err if err?
+
+              # TODO TAGS
+              meta =
+                title: note.title
+                date: new Date note.created
+
+              _.extend doc = utils.makeDoc(src, userId, meta),
+                _id: docId = new ObjectID()
+                _v: 1
+
+              @_create 'docs', doc, next
+          ], cb
+
+        else
+          return cb new Reject 'UNKNOWN'
+
+      return
+
 
     readOrCreate: (id, version, cb) ->
       debug "readOrCreate with id [",id,"] version [",version,"]"

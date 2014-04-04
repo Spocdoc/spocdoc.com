@@ -19,7 +19,6 @@ module.exports =
       defaultSelected: 'files'
       choices: [
         "Files"
-        "Files Old"
         "Evernote"
         # "Drop Box"
         # "Google Drive"

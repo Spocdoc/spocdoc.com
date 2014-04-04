@@ -30,3 +30,4 @@ module.exports =
         cb new Error("bad user")
       else
         cb null
+

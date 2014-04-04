@@ -51,7 +51,9 @@
         "with_sidebar": "views/with_sidebar.jade"
     },
     "styles": {
+        "body/import/evernote": "body/import/evernote/style.styl",
         "body/import/files": "body/import/files/style.styl",
+        "body/import": "body/import/style.styl",
         "body/invite_me/hello": "body/invite_me/hello/style.styl",
         "body/invite_me/missing_email": "body/invite_me/missing_email/style.styl",
         "body/invite_me": "body/invite_me/style.styl",
@@ -294,12 +296,10 @@
                         "views/dialog.coffee", "calendar/view.coffee",
                         "search/page/view.coffee",
                         "body/invite_me/missing_email/view.coffee",
-                        "body/invite_me/view.coffee",
                         "body/plus/view.coffee", "routes.coffee",
                         "views/tab_rows.coffee", "views/tabs.coffee",
                         "views/twoup.coffee",
                         "body/import/drop_box/view.coffee",
-                        "body/import/evernote/view.coffee",
                         "body/import/google_drive/view.coffee",
                         "views/dialog_choices.coffee",
                         "body/invite_me/hello/view.coffee",
@@ -309,12 +309,14 @@
                         "md/outline/view.coffee",
                         "body/landing/view.coffee",
                         "search/results/doc/view.coffee",
-                        "body/import/controller.coffee",
-                        "mixins/css_slides/view.coffee",
                         "views/progress_meter.coffee",
                         "views/import_list.coffee",
+                        "body/import/controller.coffee",
+                        "body/invite_me/view.coffee",
+                        "models/sessions.coffee",
+                        "mixins/css_slides/view.coffee",
                         "body/import/files/view.coffee",
-                        "models/sessions.coffee"
+                        "body/import/evernote/view.coffee"
                     ],
                     "generated": "bundle/debug [-ie<=8 -ios debug].js"
                 },
@@ -469,12 +471,10 @@
                         "views/dialog.coffee", "calendar/view.coffee",
                         "search/page/view.coffee",
                         "body/invite_me/missing_email/view.coffee",
-                        "body/invite_me/view.coffee",
                         "body/plus/view.coffee", "routes.coffee",
                         "views/tab_rows.coffee", "views/tabs.coffee",
                         "views/twoup.coffee",
                         "body/import/drop_box/view.coffee",
-                        "body/import/evernote/view.coffee",
                         "body/import/google_drive/view.coffee",
                         "views/dialog_choices.coffee",
                         "body/invite_me/hello/view.coffee",
@@ -484,19 +484,23 @@
                         "md/outline/view.coffee",
                         "body/landing/view.coffee",
                         "search/results/doc/view.coffee",
-                        "body/import/controller.coffee",
-                        "mixins/css_slides/view.coffee",
                         "views/progress_meter.coffee",
                         "views/import_list.coffee",
+                        "body/import/controller.coffee",
+                        "body/invite_me/view.coffee",
+                        "models/sessions.coffee",
+                        "mixins/css_slides/view.coffee",
                         "body/import/files/view.coffee",
-                        "models/sessions.coffee"
+                        "body/import/evernote/view.coffee"
                     ],
                     "generated": "bundle/debug [-ie<=8 debug ios].js"
                 }
             },
             "css": {
                 "": {
-                    "sources": ["body/import/files/style.styl",
+                    "sources": ["body/import/evernote/style.styl",
+                        "body/import/files/style.styl",
+                        "body/import/style.styl",
                         "body/invite_me/hello/style.styl",
                         "body/invite_me/missing_email/style.styl",
                         "body/invite_me/style.styl",

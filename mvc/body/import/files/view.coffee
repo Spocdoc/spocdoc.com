@@ -11,7 +11,6 @@ module.exports =
 
   $fileList: view: -> @controllers['fileList'] ||= new @View['import_list'] this, 'fileListView', name: 'file(s)'
   $noteList: view: -> @controllers['noteList'] ||= new @View['import_list'] this, 'noteListView', name: 'note(s)'
-
   $progress: view: -> @controllers['progress'] ||= new @View['progress_meter'] this, 'progress'
   $cssSlides: link: ['startImporting']
 
@@ -42,7 +41,7 @@ module.exports =
   ]
 
   importAgain: ->
-    @prevSlide()
+    @goToSlide()
     @fileList.set []
     if @ace.onServer
       @$fileChooser[0].files = null

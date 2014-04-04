@@ -67,6 +67,7 @@ module.exports =
     isPublic
 
   makeDoc: (src, editors_, otherMeta=0) ->
+    # TODO if otherMeta has tags, add a tag block to the top of the document
     html = new Html src
     meta = html.meta
     custom = html.custom

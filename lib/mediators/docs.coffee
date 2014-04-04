@@ -70,8 +70,7 @@ module.exports = (Base) ->
 
       @_create 'docs', doc, (err) =>
         # TODO return some way of linking to the new doc
-        # cb err, name
-        cb new Reject("foo"), name
+        cb err, name
 
 
     queryVisible: (query) ->

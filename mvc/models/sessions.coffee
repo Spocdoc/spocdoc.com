@@ -64,6 +64,9 @@ module.exports =
   invite: (details, cb) ->
     @run 'invite', details, cb
 
+  oauthService: (details, fn, args..., cb) ->
+    @run 'oauthService', {details, fn, args}, cb
+
   logIn: (details, cb) ->
     @run 'logIn', details, (err, id) =>
       return cb err if err?

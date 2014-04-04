@@ -12,6 +12,11 @@ module.exports = (config) ->
     @$content.css 'left', "#{-slide * 100}%"
     return
 
+  config.goToSlide = (n=0) ->
+    slide = n
+    @$content.css 'left', "#{-slide * 100}%"
+    return
+
   config.constructor.unshift ->
     @$cssSlides.on 'click', '.content > .heading > h1', (event) =>
       @prevSlide()
