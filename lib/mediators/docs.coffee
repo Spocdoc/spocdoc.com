@@ -1,6 +1,9 @@
 ObjectID = require('mongo-fork').ObjectID
 Reject = require 'ace_mvc/lib/error/reject'
 debug = global.debug 'app:mediators:docs'
+utils = require '../utils'
+path = require 'path'
+_ = require 'lodash-fork'
 
 module.exports = (Base) ->
   class Handler extends Base
@@ -43,8 +46,33 @@ module.exports = (Base) ->
       super query, key, cb, (query, next) =>
         next null, @queryVisible query
 
+    run: (id, version, cmd, args, cb) ->
+      switch cmd
+        when 'import' then @import args.src, args.name, args.options, cb
+        else super
+      return
+
 
 # ===========================================
+
+    import: (src, name, options, cb) ->
+      return cb new Reject 'NOUSER' unless userId = @session.userId
+
+      meta = {}
+
+      if options.nameIsTitle
+        meta['title'] = title if title = path.basename name, path.extname name
+
+      # TODO assume the src is text
+      _.extend doc = utils.makeDoc(src, userId, meta),
+        _id: docId = new ObjectID()
+        _v: 1
+
+      @_create 'docs', doc, (err) =>
+        # TODO return some way of linking to the new doc
+        # cb err, name
+        cb new Reject("foo"), name
+
 
     queryVisible: (query) ->
       if userId = @session.userId
@@ -62,6 +90,5 @@ module.exports = (Base) ->
         query.$or =$or
 
       query
-
 
 

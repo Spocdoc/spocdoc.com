@@ -1,0 +1,35 @@
+form.form.css-slides#cssSlides
+  .content#content
+    .section.step1#step1
+      h1 Choose your files
+      .content
+        p#step1Instructions Drag them here, or use the file chooser:
+        input(type="file",multiple="")#fileChooser.file
+
+        #fileList(style="display:none")
+
+        label
+          input(type="checkbox",name="nameIsTitle")#nameIsTitle
+          span Use the file names as titles.
+
+        .submit-div
+          button(type="submit").submit#step1Next
+            span Next
+
+      div.dztext-height
+        div.dztext-outer
+          div.dztext-middle
+            .dztext
+              p#dropMessage.drop-message
+
+      #dropZone.drop-zone
+
+    .section
+      h1.no-back Importing docs...
+      .content
+        #progress
+
+        #noteList
+
+        #done.done!=spinner
+

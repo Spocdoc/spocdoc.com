@@ -3,7 +3,7 @@ module.exports =
 
   internal: [
     rhs: (selected) ->
-      selected ||= 'text_files'
+      selected ||= 'files'
       @controllers[selected] ||= new @View["body/import/#{selected}"] this, selected
   ]
 
@@ -16,12 +16,13 @@ module.exports =
       header: 'Source'
       description:
         """Choose the source from which you'd like to import documents."""
-      defaultSelected: 'text_files'
+      defaultSelected: 'files'
       choices: [
-        "Text Files"
+        "Files"
+        "Files Old"
+        "Evernote"
         # "Drop Box"
         # "Google Drive"
-        "Evernote"
       ]
 
     @selected = @lhs.selected

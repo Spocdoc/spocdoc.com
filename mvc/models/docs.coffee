@@ -30,6 +30,9 @@ module.exports =
         priv.addTags doc['tags']
       @create doc
 
+    import: (src, name, options, cb) ->
+      @run 'import', {src, name, options}, cb
+
   linkHtml: (target) ->
     # TODO
     content = @get('text').get().substr(0,20)

@@ -21,9 +21,4 @@ module.exports = (manifest) ->
 
   transparentGif: 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7'
 
-  progress:
-    """
-    <div class="progress-meter"><div class="progress-meter-bar"></div></div>
-    """
-
 

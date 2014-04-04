@@ -1,0 +1,43 @@
+@import '../utils'
+
+.import_list
+  margin 2em auto 0
+  max-width 15em
+
+  .file-list
+    list-style-type none
+    text-align: left;
+    max-height: 15em;
+    overflow: auto;
+    margin 0
+    padding 0.6em
+
+    line-height 1.5em
+    font-size 0.9em
+
+    li
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
+
+      &:before
+        font-family spocdicons
+        display inline-block
+
+      &[data-success="1"]
+        &:before
+          color GREEN_COLOR
+          content '\f044'
+          width 1.5em
+
+      &[data-success="0"]
+        &:before
+          color RED_COLOR
+          content '\f051'
+          width 1.5em
+
+
+  .file-count
+    border-top: 1px solid #ccc;
+    margin-top: 0.3em;
+    line-height: 2em;

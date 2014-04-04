@@ -1,0 +1,143 @@
+@import '../../../utils'
+
+.body-import-files
+  height 100%
+
+  h1
+    font-size 1.5em
+    font-weight normal
+
+  .submit-div
+    padding-top 2em
+    margin-bottom 1em
+
+  .section
+    box-sizing border-box
+    border 2px solid transparent
+    padding unit(PADDING_SIDES / 2, em)
+
+    & > .content
+      text-align center
+
+    label
+      display block
+      margin-top 2em
+      span
+        margin-left 0.5em
+
+  .file-list-div
+    margin 2em auto 0
+    max-width 15em
+
+    .file-list
+      list-style-type none
+      text-align: left;
+      max-height: 15em;
+      overflow: auto;
+      margin 0
+      padding 0.6em
+
+      line-height 1.5em
+      font-size 0.9em
+
+      li
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+
+    .file-count
+      border-top: 1px solid #ccc;
+      margin-top: 0.3em;
+      line-height: 2em;
+
+  .file
+    border 1px solid #ccc
+    padding 0.3em
+    @extend $nofocus
+
+    &:hover
+      cursor pointer
+
+
+  .done
+    text-align center
+    padding-top 2em
+    display block
+    clear both
+
+    p
+      margin 0 0 1em 0
+      padding 0
+
+      &:before
+        content: '\f044';
+        font-family: spocdicons;
+        color: #67aa24;
+        display inline-block
+        width 1.5em
+
+  .dztext-height
+    position absolute
+    height 1px
+    top -1px
+    background white
+    opacity 0
+
+  .dztext-outer
+    width 100%
+    display table
+    height 100%
+    padding 0
+    margin 0
+
+    *top 0
+    *display inline-block
+
+  .dztext-middle
+    padding 0
+    vertical-align middle
+    display table-cell
+    margin 0
+    *display inline-block
+    *top 50%
+    *position relative
+
+  .dztext
+    background-color #fff
+    text-align center
+    *display inline-block
+    *top -50%
+    *position relative
+
+
+  .step1.dragenter
+    border-color LINK_COLOR
+    easeSlow 'border-color' 
+
+    .drop-zone
+      position absolute
+      top 0 
+      bottom 0
+      left 0
+      right 0
+      z-index 1
+      cursor default
+
+    .drop-message
+      &:before
+        font-family spocdicons
+        content '\f03a'
+        display block
+        font-size 2em
+        margin-bottom 0.2em
+        color #4183c4
+
+    .dztext-height
+      height auto
+      top 2px
+      bottom 2px
+      left 2px
+      right 2px
+      opacity 1
+      easeSlow 'opacity' 
+
