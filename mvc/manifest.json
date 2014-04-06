@@ -296,7 +296,7 @@
                         "views/dialog.coffee", "calendar/view.coffee",
                         "search/page/view.coffee",
                         "body/invite_me/missing_email/view.coffee",
-                        "body/plus/view.coffee", "routes.coffee",
+                        "body/plus/view.coffee",
                         "views/tab_rows.coffee", "views/tabs.coffee",
                         "views/twoup.coffee",
                         "body/import/drop_box/view.coffee",
@@ -313,10 +313,11 @@
                         "body/import/controller.coffee",
                         "body/invite_me/view.coffee",
                         "models/sessions.coffee",
-                        "mixins/css_slides/view.coffee",
                         "body/import/files/view.coffee",
                         "views/import_list.coffee",
-                        "body/import/evernote/view.coffee"
+                        "body/import/evernote/view.coffee",
+                        "routes.coffee",
+                        "mixins/css_slides/view.coffee"
                     ],
                     "generated": "bundle/debug [-ie<=8 -ios debug].js"
                 },
@@ -471,7 +472,7 @@
                         "views/dialog.coffee", "calendar/view.coffee",
                         "search/page/view.coffee",
                         "body/invite_me/missing_email/view.coffee",
-                        "body/plus/view.coffee", "routes.coffee",
+                        "body/plus/view.coffee",
                         "views/tab_rows.coffee", "views/tabs.coffee",
                         "views/twoup.coffee",
                         "body/import/drop_box/view.coffee",
@@ -488,10 +489,11 @@
                         "body/import/controller.coffee",
                         "body/invite_me/view.coffee",
                         "models/sessions.coffee",
-                        "mixins/css_slides/view.coffee",
                         "body/import/files/view.coffee",
                         "views/import_list.coffee",
-                        "body/import/evernote/view.coffee"
+                        "body/import/evernote/view.coffee",
+                        "routes.coffee",
+                        "mixins/css_slides/view.coffee"
                     ],
                     "generated": "bundle/debug [-ie<=8 debug ios].js"
                 }
