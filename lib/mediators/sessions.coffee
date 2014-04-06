@@ -105,13 +105,19 @@ module.exports = (Base) ->
     imgUpload: (id, extension, b64, cb) ->
       return cb new Reject 'NOUSER' unless userId = @session.userId
       return cb new Reject "BADID" unless regexId.test(id=''+id) and regexExtension.test extension=''+extension
-      filePath = path.resolve @manifest.private.assetRoot, "uploads/#{id}.#{extension}"
-      debug "img upload to #{filePath}"
-      try
-        buffer = new Buffer b64, "base64"
-        fs.writeFile filePath, buffer, cb
-      catch _error
-        return cb new Reject "BADB64"
+      dir = path.resolve @manifest.private.assetRoot, "uploads/"
+
+      async.waterfall [
+        (next) => _.mkdirp dir, next
+        (next) =>
+          try
+            filePath = path.resolve dir, "#{id}.#{extension}"
+            buffer = new Buffer b64, "base64"
+            fs.writeFile filePath, buffer, next
+          catch _error
+            next new Reject "BADB64"
+      ], cb
+
 
     oauthService: (details, fn, args, cb) ->
       unless details?.provider is 'evernote'
