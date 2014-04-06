@@ -103,8 +103,10 @@ module.exports = (Base) ->
       fs.exists filePath, (exists) => cb null, !!exists
 
     imgUpload: (id, extension, b64, cb) ->
+      return cb new Reject 'NOUSER' unless userId = @session.userId
       return cb new Reject "BADID" unless regexId.test(id=''+id) and regexExtension.test extension=''+extension
       filePath = path.resolve @manifest.private.assetRoot, "uploads/#{id}.#{extension}"
+      debug "img upload to #{filePath}"
       try
         buffer = new Buffer b64, "base64"
         fs.writeFile filePath, buffer, cb
