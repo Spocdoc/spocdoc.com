@@ -7,9 +7,6 @@ debug = global.debug 'app:article_md'
 tagUtils = require '../../../lib/tags'
 utils = require '../../../lib/utils'
 _ = require 'lodash-fork'
-defaultImgPrinter = require 'marked-fork/lib/img_printer'
-regexRelUrl = /^(?:[^/]|\/[^/])/
-regexIdUrl = /^[0-9a-f]{24}.[a-zA-Z]*$/
 hash = require 'hash-fork'
 
 TOGGLE_LAG_MILLIS = 300
@@ -45,6 +42,8 @@ MODE_TEXT = 0
 MODE_HTML = 1
 
 module.exports =
+  mixins: 'mixins/img_printer'
+
   outlets: [
     'doc'
     'md': -> @doc.get('text')
@@ -251,16 +250,9 @@ module.exports =
     switch mode
       when MODE_HTML
         unless editor = @html
-          assetServerRoot = @ace.manifest.assetServerRoot
           editor = @html = new Html @md.value, (if @ace.booting and @template.bootstrapped and !words then @$content else null),
             depth: 1
-            imgPrinter: (href, node) =>
-              return deputed if deputed = @depute('imgPrinter', href, node)
-              if regexRelUrl.test href
-                href = href.replace(/^\/+/,'')
-                # TODO asset versioning...
-                href = assetServerRoot + "/1/uploads/" + href
-              defaultImgPrinter href, node
+            imgPrinter: @imgPrinter
 
           editor.$content.attr 'tabindex', '-1'
       else

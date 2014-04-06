@@ -6,6 +6,8 @@ Inline = require 'marked-fork/html/inline'
 showDocLink = -> ['depute','showDoc',@model.get()?.id]
 
 module.exports =
+  mixins: 'mixins/img_printer'
+
   inlets: [
     'model'
     'words'
@@ -26,10 +28,11 @@ module.exports =
 
   $title: link: showDocLink
 
+
   outletMethods: [
     (words, text) ->
       html = ''
-      for snip in (@snips = new Snips text, words, depth: 1).snips
+      for snip in (@snips = new Snips text, words, depth: 1, imgPrinter: @imgPrinter).snips
         html += """<div class="section-wrapper"><div class="section"><div class="margin-eater"></div>"""
         html += snip
         html += """</div></div>"""
