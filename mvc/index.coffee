@@ -71,6 +71,8 @@ _['stringToDateRange'] = _.stringToDateRange
 _['dateRangeToString'] = _.dateRangeToString
 _['nocaseCmp'] = _.nocaseCmp
 _['makeCssClass'] = _.makeCssClass
+_['imgMime'] = _.imgMime
+_['uint8ToB64'] = _.uint8ToB64
 
 # this is to adjust styling before the page has loaded (so safari doesn't animate the page load)
 $(global.document).ready(-> $('body').removeClass 'preload') if global.document

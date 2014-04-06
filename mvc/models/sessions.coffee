@@ -61,8 +61,10 @@ module.exports =
   acceptInvite: (args, cb) ->
     @run 'acceptInvite', args, cb
 
-  invite: (details, cb) ->
-    @run 'invite', details, cb
+  invite: (details, cb) -> @run 'invite', details, cb
+
+  imgExists: (id, extension, cb) -> @run 'imgExists', {id, extension}, cb
+  imgUpload: (id, extension, b64, cb) -> @run 'imgUpload', {id, extension, b64}, cb
 
   oauthService: (details, fn, args..., cb) ->
     @run 'oauthService', {details, fn, args}, cb

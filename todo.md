@@ -35,6 +35,12 @@
  [] after an invite has been accepted, it should log you in immediately
  [] fix the cheerio data and attributes problem (allow use of `data()` function, but also set the attributes)
  [] the dates are foobar. e.g., "yesterday-thur" when both dates are yesterday
+ [] image upload:
+      - handle text updates or cursor moves during async file read op...
+      - show errors on image read or bad drop type
+      - add progress meter while uploading to the server
+ [] image placement
+    should only allow images to be inserted at reasonable offsets (e.g., not in the metadata)
 
 ## optimization
 

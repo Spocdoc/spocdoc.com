@@ -9,6 +9,10 @@ OJSON = require 'ojson'
 oauth = require '../oauth'
 Evernote = require 'evernote-fork'
 _ = require 'lodash-fork'
+path = require 'path'
+regexId = /^[0-9a-f]{24}$/
+regexExtension = /^[a-zA-Z]+$/
+fs = require 'fs'
 
 debug = global.debug "ace:app:sessions"
 debugError = global.debug "error"
@@ -86,10 +90,26 @@ module.exports = (Base) ->
         when 'acceptInvite' then @acceptInvite args, cb
         when 'logIn' then @logIn args, cb
         when 'oauthService' then @oauthService args.details, args.fn, args.args, cb
+        when 'imgExists' then @imgExists args.id, args.extension, cb
+        when 'imgUpload' then @imgUpload args.id, args.extension, args.b64, cb
         else super
       return
 
 # -------------------------------------------------
+
+    imgExists: (id, extension, cb) ->
+      return cb new Reject "BADID" unless regexId.test(id=''+id) and regexExtension.test extension=''+extension
+      filePath = path.resolve @manifest.private.assetRoot, "uploads/#{id}.#{extension}"
+      fs.exists filePath, (exists) => cb null, !!exists
+
+    imgUpload: (id, extension, b64, cb) ->
+      return cb new Reject "BADID" unless regexId.test(id=''+id) and regexExtension.test extension=''+extension
+      filePath = path.resolve @manifest.private.assetRoot, "uploads/#{id}.#{extension}"
+      try
+        buffer = new Buffer b64, "base64"
+        fs.writeFile filePath, buffer, cb
+      catch _error
+        return cb new Reject "BADB64"
 
     oauthService: (details, fn, args, cb) ->
       unless details?.provider is 'evernote'

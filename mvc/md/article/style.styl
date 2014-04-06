@@ -46,6 +46,13 @@
 
   .content
     position relative
+    padding 4px
+    margin -6px
+    border 2px solid transparent
+
+    &.dragenter
+      border-color LINK_COLOR
+      easeSlow 'border-color' 
 
     .html
       @extend $article-text

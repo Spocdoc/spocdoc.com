@@ -6,6 +6,11 @@ debugError = global.debug 'ace:error'
 debug = global.debug 'app:article_md'
 tagUtils = require '../../../lib/tags'
 utils = require '../../../lib/utils'
+_ = require 'lodash-fork'
+defaultImgPrinter = require 'marked-fork/lib/img_printer'
+regexRelUrl = /^(?:[^/]|\/[^/])/
+regexIdUrl = /^[0-9a-f]{24}.[a-zA-Z]*$/
+hash = require 'hash-fork'
 
 TOGGLE_LAG_MILLIS = 300
 
@@ -154,24 +159,27 @@ module.exports =
     $caratSpot.removeClass('starting').css('left',leftEnd + "px").css('width',0)
     return
 
-  switchModes: (mode) ->
-    return if @mode is mode
-
-    oldEditor = @getEditor()
-    @mode = +!@mode
-    newEditor = @getEditor()
+  switchModes: (mode, start, end=start) ->
+    if @mode is mode
+      return unless start
+      oldEditor = newEditor = @getEditor()
+    else
+      oldEditor = @getEditor()
+      @mode = +!@mode
+      newEditor = @getEditor()
 
     if sel = $.selection()
-      start = oldEditor.posToOffset sel.start, false, @$root[0]
-      end = oldEditor.posToOffset sel.end, false, @$root[0]
+      start ?= oldEditor.posToOffset sel.start, false, @$root[0]
+      end ?= oldEditor.posToOffset sel.end, false, @$root[0]
       oldCarat = $.selection.coords(sel)
 
     newEditor.update @md.value
-    oldEditor.$root.detach()
-    @$content.prepend newEditor.$root
-    newEditor.$root.focus()
+    unless newEditor is oldEditor
+      oldEditor.$root.detach()
+      @$content.prepend newEditor.$root
+      newEditor.$root.focus()
 
-    if sel and isFinite(start) and isFinite(end)
+    if isFinite(start) and isFinite(end)
       sel = $.selection newEditor.offsetToPos(start), newEditor.offsetToPos(end)
       @moveCarat oldCarat, sel
 
@@ -243,7 +251,17 @@ module.exports =
     switch mode
       when MODE_HTML
         unless editor = @html
-          editor = @html = new Html @md.value, (if @ace.booting and @template.bootstrapped and !words then @$content else null), depth: 1
+          assetServerRoot = @ace.manifest.assetServerRoot
+          editor = @html = new Html @md.value, (if @ace.booting and @template.bootstrapped and !words then @$content else null),
+            depth: 1
+            imgPrinter: (href, node) =>
+              return deputed if deputed = @depute('imgPrinter', href, node)
+              if regexRelUrl.test href
+                href = href.replace(/^\/+/,'')
+                # TODO asset versioning...
+                href = assetServerRoot + "/1/uploads/" + href
+              defaultImgPrinter href, node
+
           editor.$content.attr 'tabindex', '-1'
       else
         unless editor = @editor
@@ -251,6 +269,29 @@ module.exports =
           editor.$content.attr 'tabindex', '-1'
     editor.$content.prop 'contenteditable', !!@editable.value
     editor
+
+  # TODO handle text updates or cursor moves during async file read op...
+  # TODO show errors on image read or bad drop type
+  insertImage: (file, offset) ->
+    fileReader = new $.FileReader()
+    fileReader.onload = (event) =>
+      sha = hash b64 = _.uint8ToB64 new Uint8Array event.target.result
+      id = sha.substr(0,24)
+      extension = (''+file.name).replace(/^.*\./,'')
+
+      @depute 'uploadImage', id, b64, extension
+
+      html = @getEditor null, MODE_HTML
+      # TODO hardcoded offset for ![
+      offset = 2 + html.addImage("#{id}.#{extension}", offset)
+      @md.set html.src
+
+      # this also updates the editor src
+      @switchModes MODE_TEXT, offset
+      return
+
+    fileReader.readAsArrayBuffer file
+    return
 
   constructor: ->
     @html = @editor = null
@@ -261,7 +302,6 @@ module.exports =
       ($a = $(event.target)).prop 'contenteditable', false
     @$root.on 'click', 'a', (event) =>
       ($a = $(event.target)).removeAttr 'contenteditable'
-
 
     @lastEsc = 0
 
@@ -326,4 +366,49 @@ module.exports =
         @handleInput()
 
       return
+
+
+    if $.hasDragDrop() and Uint8Array
+      @$content.dnd().on
+        'dndenter': (dnd, event) =>
+          @$content.addClass 'dragenter'
+          event.stopPropagation()
+          return
+
+        'dndleave': (dnd, event) =>
+          @$content.removeClass 'dragenter'
+          return
+
+        # 'dragover': (event) =>
+        #   return false unless okDrag
+
+        'drop': (event) =>
+          @$content.removeClass 'dragenter'
+
+          return false unless dataTransfer = event.originalEvent.dataTransfer
+
+          # only allow 1 file at a time
+          return false unless dataTransfer.files?.length is 1
+
+          # only allow images
+          file = dataTransfer.files[0]
+          name = file.name
+          ext = name.replace(/^.*\./,'')
+          return false unless mime = _.imgMime ext
+
+          insertOffset = 0
+
+          # select the drop point
+          if range = $.selection event.originalEvent
+            start =
+              'container': range.startContainer
+              'offset': range.startOffset
+            insertOffset = @getEditor().posToOffset start, false, @$root[0]
+
+          @insertImage file, insertOffset
+
+          # @addFiles fileList if fileList = event.originalEvent?.dataTransfer?.files
+          # @$step1Instructions.text "Drag them here."
+          # @$fileChooser.css 'display', 'none'
+          false
 

@@ -1,6 +1,7 @@
 node_modules
 package.yml
 public/bundle/debug*
+public/uploads
 test
 .*.css
 archive
