@@ -82,7 +82,7 @@ module.exports =
             else
               controller.id.value
         controller
-      when 'search','blog'
+      when 'search','blog','updates'
         @controllers['search'] ||= new @Controller['search'] this, 'search'
       when 'contactUs'
         @controllers['contactUs'] ||= new @View['contact_us'] this, 'contactUs'
