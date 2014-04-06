@@ -30,6 +30,9 @@ Html = require 'marked-fork/html'
 Html.prototype['posToOffset'] = Html::posToOffset
 Html.prototype['offsetToPos'] = Html::offsetToPos
 Html.prototype['update'] = Html::update
+Html.prototype['addImage'] = Html::addImage
+Html.prototype['addTags'] = Html::addTags
+Html.prototype['addMeta'] = Html::addMeta
 
 Inline = require 'marked-fork/html/inline'
 Inline.prototype['highlight'] = Inline::highlight
