@@ -56,7 +56,9 @@ connectOauth app,
   host: argv.host
   port: argv.port
 
-app.use staticFiles path.resolve __dirname, '../public'
+manifest = new Manifest '../mvc', manifestArgs
+
+app.use staticFiles manifest.private.assetRoot, manifest.private.uploadsRoot
 
 app.configure 'development', ->
   app.use connect.logger 'dev'
@@ -68,8 +70,6 @@ app.configure 'production', ->
   app.use connect.logger stream: fs.createWriteStream('./logs/access.log', flags: 'a')
 
 debugger
-
-manifest = new Manifest '../mvc', manifestArgs
 
 favicon = fs.readFileSync path.resolve __dirname, '../public/img/favicon.ico'
 app.get '/favicon.ico', (req,res,next) -> res.end favicon

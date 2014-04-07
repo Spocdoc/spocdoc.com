@@ -6,11 +6,11 @@ module.exports = (config) ->
   config.imgPrinter = (href, node) ->
     return deputed if deputed = @depute('imgPrinter', href, node)
 
-    assetServerRoot = @ace.manifest.assetServerRoot
+    uploadsServerRoot = @ace.manifest.uploadsServerRoot
     if regexRelUrl.test href
       href = href.replace(/^\/+/,'')
       # TODO asset versioning...
-      href = assetServerRoot + "/1/uploads/" + href
+      href = uploadsServerRoot + "/1/" + href
     defaultImgPrinter href, node
 
   config.constructor.unshift ->

@@ -2,11 +2,13 @@
     "options": {
         "_": [],
         "assetServerRoot": "/static",
+        "uploadsServerRoot": "/uploads",
         "framework": "ace_mvc",
         "bundler": "bundle-fork",
         "fileCacheFor": ["styl"],
         "hashAssets": true,
         "assetRoot": "../public",
+        "uploadsRoot": "../public/uploads",
         "templateGlobals": "template_globals.coffee",
         "disableClientJS": false
     },
