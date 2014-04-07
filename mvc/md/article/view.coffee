@@ -120,7 +120,7 @@ module.exports =
               @moveCarat carat, sel if carat
 
             @initialPosition.set null
-        else
+        else unless editor.src is md
           if sel = $.selection()
             start = editor.posToOffset sel.start, false, @$root[0]
             end = editor.posToOffset sel.end, false, @$root[0]
@@ -128,8 +128,10 @@ module.exports =
           eqRanges = editor.update md
 
           if sel and isFinite(start) and isFinite(end)
-            $.selection editor.offsetToPos(eqRanges.updateOffset(start)), editor.offsetToPos(eqRanges.updateOffset(end))
-
+            start = editor.offsetToPos(eqRanges.updateOffset(start))
+            end = editor.offsetToPos(eqRanges.updateOffset(end))
+            unless $.selection.equal {start,end}, sel
+              $.selection editor.offsetToPos(eqRanges.updateOffset(start)), editor.offsetToPos(eqRanges.updateOffset(end))
 
       return
   ]
