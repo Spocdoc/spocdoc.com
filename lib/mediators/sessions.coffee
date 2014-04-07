@@ -109,7 +109,7 @@ module.exports = (Base) ->
 
       async.waterfall [
         (next) => _.mkdirp dir, next
-        (dir, next) =>
+        (dir_, next) =>
           try
             filePath = path.resolve dir, "#{id}.#{extension}"
             buffer = new Buffer b64, "base64"
