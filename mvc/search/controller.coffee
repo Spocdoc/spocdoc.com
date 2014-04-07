@@ -17,6 +17,7 @@ module.exports =
     'query'
     'allDates'
     'subTags'
+    'spec'
   ]
 
   $main: -> new @View['search/page'] this, 'main',
@@ -48,6 +49,7 @@ module.exports =
     queryTags = []
     queryDateStart = null
     queryDateEnd = null
+    @spec.set spec # delayed so the snips search isn't char by char
 
     for part in spec
       switch part.type
@@ -120,7 +122,7 @@ module.exports =
 
     @controllers['results'] = new @Controller['search/results'] this, 'results',
       query: @query
-      spec: field.spec
+      spec: @spec
       dateStart: field.dateStart
       dateEnd: field.dateEnd
       specTags: field.specTags

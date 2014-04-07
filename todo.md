@@ -41,6 +41,7 @@
       - add progress meter while uploading to the server
  [] image placement
     should only allow images to be inserted at reasonable offsets (e.g., not in the metadata)
+ [] clicking an image in the search results should go to that image. currently it just goes to the top of the article
 
 ## optimization
 

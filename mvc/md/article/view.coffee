@@ -103,7 +103,7 @@ module.exports =
         unless @emptySearch
           @scrollTop 0 if inWindow and !initialPosition
           @$searchContent.empty()
-          @$content.prepend editor.$root
+          @$content.append editor.$root
           @emptySearch = true
 
         if initialPosition
