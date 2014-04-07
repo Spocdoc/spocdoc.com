@@ -322,12 +322,12 @@
                         "body/import/evernote/view.coffee",
                         "mixins/css_slides/view.coffee",
                         "body/controller.coffee", "routes.coffee",
-                        "body/import/files/view.coffee",
-                        "models/sessions.coffee",
                         "search/results/doc/view.coffee",
                         "mixins/img_printer/view.coffee",
                         "docs/controller.coffee",
-                        "search/controller.coffee"
+                        "search/controller.coffee",
+                        "body/import/files/view.coffee",
+                        "models/sessions.coffee"
                     ],
                     "generated": "bundle/debug [-ie<=8 -ios debug].js"
                 },
@@ -505,12 +505,12 @@
                         "body/import/evernote/view.coffee",
                         "mixins/css_slides/view.coffee",
                         "body/controller.coffee", "routes.coffee",
-                        "body/import/files/view.coffee",
-                        "models/sessions.coffee",
                         "search/results/doc/view.coffee",
                         "mixins/img_printer/view.coffee",
                         "docs/controller.coffee",
-                        "search/controller.coffee"
+                        "search/controller.coffee",
+                        "body/import/files/view.coffee",
+                        "models/sessions.coffee"
                     ],
                     "generated": "bundle/debug [-ie<=8 debug ios].js"
                 }

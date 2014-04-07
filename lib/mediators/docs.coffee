@@ -4,6 +4,7 @@ debug = global.debug 'app:mediators:docs'
 utils = require '../utils'
 path = require 'path'
 _ = require 'lodash-fork'
+async = require 'async'
 
 module.exports = (Base) ->
   class Handler extends Base
@@ -55,22 +56,41 @@ module.exports = (Base) ->
 
 # ===========================================
 
-    import: (src, name, options, cb) ->
+    import: (b64, name, options, cb) ->
       return cb new Reject 'NOUSER' unless userId = @session.userId
 
-      meta = {}
+      try
+        buffer = new Buffer b64, "base64"
+      catch _error
+        return cb new Reject "BAD64"
 
-      if options.nameIsTitle
-        meta['title'] = title if title = path.basename name, path.extname name
+      async.waterfall [
+        (next) =>
+          _.fileType buffer, next
 
-      # TODO assume the src is text
-      _.extend doc = utils.makeDoc(src, userId, meta),
-        _id: docId = new ObjectID()
-        _v: 1
+        (type, next) =>
+          unless type is 'txt'
+            return next new Reject 'BADFILE'
 
-      @_create 'docs', doc, (err) =>
-        # TODO return some way of linking to the new doc
-        cb err, name
+          try
+            src = buffer.toString 'utf-8'
+          catch _error
+            return next new Reject 'BAD64'
+
+          meta = {}
+
+          if options.nameIsTitle
+            meta['title'] = title if title = path.basename name, path.extname name
+
+          # TODO assume the src is text
+          _.extend doc = utils.makeDoc(src, userId, meta),
+            _id: docId = new ObjectID()
+            _v: 1
+
+          @_create 'docs', doc, (err) =>
+            # TODO return some way of linking to the new doc
+            next err, name
+      ], cb
 
 
     queryVisible: (query) ->

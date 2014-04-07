@@ -19,7 +19,7 @@ module.exports =
         href = ''
 
     inner = """<a href="#{href}">#{inner}</a>""" if href
-    @$fileList.append """<li#{if succeeded? then " data-success=\"#{+!!succeeded}\""}>#{inner}</li>"""
+    @$fileList.append """<li#{if succeeded? then " data-success=\"#{+!!succeeded}\"" else ''}>#{inner}</li>"""
 
     if succeeded? and !succeeded
       @failures.set (@failures.get()||0) + 1

@@ -20,7 +20,10 @@ module.exports =
     (fileList) ->
       if fileList
         @$fileList.css 'display', 'block'
-        @controllers['fileList'].add file.name for file in fileList
+        controller = @controllers['fileList']
+        current = controller.successes.get() || 0
+        for file,i in fileList when i >= current
+          controller.add file.name
       else
         @$fileList.css 'display', 'none'
 
@@ -88,14 +91,16 @@ module.exports =
 
       nextFile = (event) =>
         if event
-          @Model['docs'].import event.target.result, file.name, options, (err, name) =>
-            noteList.add name, !err
+          b64 = _.uint8ToB64 new Uint8Array event.target.result
+          do (fileName = file.name) =>
+            @Model['docs'].import b64, fileName, options, (err, name) =>
+              noteList.add (name or fileName), !err
 
         progress.set (i+1)/len
 
         return done() if ++i is len
         file = fileList[i]
-        fileReader.readAsText file # TODO this will have to be an ArrayBuffer instead...
+        fileReader.readAsArrayBuffer file
         return
 
       fileReader.onload = nextFile
