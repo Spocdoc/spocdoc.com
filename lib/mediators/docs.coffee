@@ -1,10 +1,13 @@
 ObjectID = require('mongo-fork').ObjectID
 Reject = require 'ace_mvc/lib/error/reject'
 debug = global.debug 'app:mediators:docs'
+debugError = global.debug 'error'
 utils = require '../utils'
 path = require 'path'
 _ = require 'lodash-fork'
 async = require 'async'
+markedInline = require 'marked-fork/lib/inline'
+fs = require 'fs'
 
 module.exports = (Base) ->
   class Handler extends Base
@@ -56,6 +59,67 @@ module.exports = (Base) ->
 
 # ===========================================
 
+    parseImages: (html, cb) ->
+      out = ''
+      src = html.src
+      start = 0
+
+      images = []
+
+      html.visit (node, visitor) =>
+        if node.type is 'link' and node['img']
+          pre = node.pre || 0
+
+          startOffset = visitor.offset() - pre
+          endOffset = visitor.offset(node.src.length - pre)
+
+          href = node.href
+          if (data = _.dataUri.parse href) and (id = utils.imgId(data['b64'])) and (extension = _.imgExtension(data['mime']))
+            try
+              imgSrc = new Buffer data['b64'], 'base64'
+              href = "#{id}.#{extension}"
+              images.push
+                name: href
+                src: imgSrc
+            catch _error
+              href = 'missing.png'
+          else
+            href = "missing.png"
+
+          if cap = markedInline.link.exec node.src
+            if title = node.title
+              title = _.quote title
+            else
+              title = ''
+            newSrc = """![#{cap[1]}](#{href}#{title})"""
+          else # ?!
+            return
+
+          out += src.substring(start, startOffset) + newSrc
+          start = endOffset
+          return
+
+        return
+
+      out += src.substr(start)
+
+      uploadsRoot = @manifest.private.uploadsRoot
+
+      uploadImage = (obj, next) =>
+        {src,name} = obj
+        filePath = path.resolve uploadsRoot, name
+        fs.writeFile filePath, src, next
+
+      if images.length
+        _.mkdirp uploadsRoot, =>
+          async.each images, uploadImage, (err) =>
+            if err?
+              debugError "Error with image upload: ",err
+            cb null, out
+      else
+        cb null, out
+
+
     import: (b64, name, options, cb) ->
       return cb new Reject 'NOUSER' unless userId = @session.userId
 
@@ -65,6 +129,7 @@ module.exports = (Base) ->
         return cb new Reject "BAD64"
 
       src = ''
+      doc = html = null
 
       async.waterfall [
         (next) =>
@@ -79,23 +144,28 @@ module.exports = (Base) ->
           catch _error
             return next new Reject 'BAD64'
 
-          replaceImages src, next
-
-        (src, next) =>
           meta = {}
 
           if options.nameIsTitle
             meta['title'] = title if title = path.basename name, path.extname name
 
-          # TODO assume the src is text
-          _.extend doc = utils.makeDoc(src, userId, meta),
+          html = utils.makeHtml src, userId, meta
+          _.extend doc = utils.makeDoc(html, userId, meta),
             _id: docId = new ObjectID()
             _v: 1
+
+          @parseImages html, next
+
+        (src, next) =>
+          doc['text'] = src
 
           @_create 'docs', doc, (err) =>
             # TODO return some way of linking to the new doc
             next err, name
-      ], cb
+      ], (err) =>
+        if err?
+          debugError "ERROR importing: ",err
+        cb.apply null, arguments
 
 
     queryVisible: (query) ->

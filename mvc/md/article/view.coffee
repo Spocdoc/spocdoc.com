@@ -7,7 +7,6 @@ debug = global.debug 'app:article_md'
 tagUtils = require '../../../lib/tags'
 utils = require '../../../lib/utils'
 _ = require 'lodash-fork'
-hash = require 'hash-fork'
 
 TOGGLE_LAG_MILLIS = 300
 
@@ -269,8 +268,7 @@ module.exports =
   insertImage: (file, offset) ->
     fileReader = new $.FileReader()
     fileReader.onload = (event) =>
-      sha = hash b64 = _.uint8ToB64 new Uint8Array event.target.result
-      id = sha.substr(0,24)
+      id = utils.imgId b64 = _.uint8ToB64 new Uint8Array event.target.result
       extension = (''+file.name).replace(/^.*\./,'')
 
       @depute 'uploadImage', id, b64, extension

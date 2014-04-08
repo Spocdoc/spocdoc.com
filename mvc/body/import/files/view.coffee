@@ -92,11 +92,10 @@ module.exports =
       nextFile = (event) =>
         if event
           b64 = _.uint8ToB64 new Uint8Array event.target.result
-          do (fileName = file.name) =>
+          do (fileName = file.name, i) =>
             @Model['docs'].import b64, fileName, options, (err, name) =>
+              progress.set (i+1)/len
               noteList.add (name or fileName), !err
-
-        progress.set (i+1)/len
 
         return done() if ++i is len
         file = fileList[i]

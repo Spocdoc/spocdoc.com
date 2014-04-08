@@ -1,6 +1,7 @@
 regexEmail = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/
 tagUtils = require '../tags'
 dates = require 'dates-fork'
+hash = require 'hash-fork'
 Html = require 'marked-fork/html'
 ObjectID = require('mongo-fork').ObjectID
 
@@ -66,7 +67,7 @@ module.exports =
 
     isPublic
 
-  makeDoc: (src, editors_, otherMeta=0) ->
+  makeHtml: makeHtml = (src, editors_, otherMeta=0) ->
     html = new Html src
 
     if otherMeta
@@ -74,6 +75,17 @@ module.exports =
         html.addMeta 'title', title
       if tags = otherMeta['tags']
         html.addTags tags
+
+    # TODO add editors as meta
+    html
+
+  imgId: (b64) -> hash(b64).substr(0,24)
+
+  makeDoc: (src, editors_, otherMeta=0) ->
+    if src instanceof Html
+      html = src
+    else
+      html = makeHtml src, editors_, otherMeta
 
     meta = html.meta
     custom = html.custom

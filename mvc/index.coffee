@@ -56,6 +56,8 @@ utils['checkEmail'] = utils.checkEmail
 utils['defaultArr'] = utils.defaultArr
 utils['makeDoc'] = utils.makeDoc
 utils['makePublic'] = utils.makePublic
+utils['makeHtml'] = utils.makeHtml
+utils['imgId'] = utils.imgId
 
 strdiff = require 'diff-fork/lib/types/string'
 strdiff['equalRanges'] = strdiff.equalRanges
@@ -76,6 +78,9 @@ _['nocaseCmp'] = _.nocaseCmp
 _['makeCssClass'] = _.makeCssClass
 _['imgMime'] = _.imgMime
 _['uint8ToB64'] = _.uint8ToB64
+_['dataUri'] = _.dataUri
+_['dataUri']['format'] = _.dataUri.format
+_['dataUri']['parse'] = _.dataUri.parse
 
 # this is to adjust styling before the page has loaded (so safari doesn't animate the page load)
 $(global.document).ready(-> $('body').removeClass 'preload') if global.document

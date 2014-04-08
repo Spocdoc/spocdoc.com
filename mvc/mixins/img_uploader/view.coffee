@@ -20,7 +20,7 @@ module.exports = (config) ->
 
   config.imgPrinter = (href, node) ->
     if img = @imgUploads[id = href.replace(/\..*$/, '')]
-      href = "data:#{img.mime};base64,#{img.b64}"
+      href = _.dataUri.format img.mime, img.b64
       defaultImgPrinter href, node
 
   config.constructor.unshift ->
