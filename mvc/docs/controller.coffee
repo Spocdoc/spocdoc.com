@@ -4,6 +4,8 @@ defaultImgPrinter = require 'marked-fork/lib/img_printer'
 _ = require 'lodash-fork'
 
 module.exports =
+  mixins: 'mixins/img_uploader'
+
   view: 'with_sidebar'
 
   outlets: [
@@ -24,27 +26,6 @@ module.exports =
     tabClass = typeToClass tab
     @controllers[tabClass] ||= new @View["docs/sidebar_tabs/#{tabClass}"] this, "#{tabClass}_content"
   freeCell: (tab) ->
-
-  uploadImage: (id, b64, extension) ->
-    return unless mime = _.imgMime extension
-
-    @imgUploads[id] = {mime, b64}
-
-    session = @session.get()
-
-    # TODO error handling
-    session.imgExists id, extension, (err, exists) ->
-      if err?
-        return
-      if !exists
-        session.imgUpload id, extension, b64, (err) ->
-
-    return
-
-  imgPrinter: (href, node) ->
-    if img = @imgUploads[id = href.replace(/\..*$/, '')]
-      href = "data:#{img.mime};base64,#{img.b64}"
-      defaultImgPrinter href, node
 
   constructor: ->
     @imgUploads = {}

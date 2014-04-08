@@ -118,6 +118,7 @@
         "mixins/editable text": "mixins/editable text/view.coffee",
         "mixins/editable val": "mixins/editable val/view.coffee",
         "mixins/img_printer": "mixins/img_printer/view.coffee",
+        "mixins/img_uploader": "mixins/img_uploader/view.coffee",
         "search/field/menu": "search/field/menu/view.coffee",
         "search/field": "search/field/view.coffee",
         "search/page": "search/page/view.coffee",
@@ -327,7 +328,8 @@
                         "search/controller.coffee",
                         "models/sessions.coffee",
                         "views/import_list.coffee",
-                        "body/import/files/view.coffee"
+                        "body/import/files/view.coffee",
+                        "mixins/img_uploader/view.coffee"
                     ],
                     "generated": "bundle/debug [-ie<=8 -ios debug].js"
                 },
@@ -510,7 +512,8 @@
                         "search/controller.coffee",
                         "models/sessions.coffee",
                         "views/import_list.coffee",
-                        "body/import/files/view.coffee"
+                        "body/import/files/view.coffee",
+                        "mixins/img_uploader/view.coffee"
                     ],
                     "generated": "bundle/debug [-ie<=8 debug ios].js"
                 }

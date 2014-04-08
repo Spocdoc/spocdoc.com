@@ -1,6 +1,8 @@
 Conflict = require 'ace_mvc/lib/error/conflict'
 
 module.exports =
+  mixins: 'mixins/img_uploader'
+
   internal: [
     'error'
   ]

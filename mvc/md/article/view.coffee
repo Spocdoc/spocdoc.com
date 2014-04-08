@@ -365,19 +365,19 @@ module.exports =
     if $.hasDragDrop() and Uint8Array
       @$content.dnd().on
         'dndenter': (dnd, event) =>
-          @$content.addClass 'dragenter'
+          @$dropZone.addClass 'dragenter'
           event.stopPropagation()
           return
 
         'dndleave': (dnd, event) =>
-          @$content.removeClass 'dragenter'
+          @$dropZone.removeClass 'dragenter'
           return
 
         # 'dragover': (event) =>
         #   return false unless okDrag
 
         'drop': (event) =>
-          @$content.removeClass 'dragenter'
+          @$dropZone.removeClass 'dragenter'
 
           return false unless dataTransfer = event.originalEvent.dataTransfer
 
