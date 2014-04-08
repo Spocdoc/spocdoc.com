@@ -15,13 +15,16 @@ argv = optimist
   .default({
     p: 1337
     h: '127.0.0.1'
+    l: ''
     P: 'https'
   })
   .alias('p','port')
   .alias('h','host')
+  .alias('l','listen')
   .alias('P','protocol')
   .boolean('manifest')
   .describe('manifest', 'followed by a series of manifest options')
+  .describe('listen', 'the IP address on which to listen')
   .argv
 
 if argv.help
@@ -88,6 +91,10 @@ app.use ace server, manifest,
     options:
       retry_max_delay: 30*1000
 
-server.listen port = argv.port, ->
-  console.log "listening on #{port}, pid #{process.pid}..."
+if argv.listen
+  server.listen port = argv.port, argv.listen, ->
+    console.log "listening on #{argv.listen}:#{port}, pid #{process.pid}..."
+else
+  server.listen port = argv.port, ->
+    console.log "listening on #{port}, pid #{process.pid}..."
 

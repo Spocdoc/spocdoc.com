@@ -64,6 +64,8 @@ module.exports = (Base) ->
       catch _error
         return cb new Reject "BAD64"
 
+      src = ''
+
       async.waterfall [
         (next) =>
           _.fileType buffer, next
@@ -77,6 +79,9 @@ module.exports = (Base) ->
           catch _error
             return next new Reject 'BAD64'
 
+          replaceImages src, next
+
+        (src, next) =>
           meta = {}
 
           if options.nameIsTitle
