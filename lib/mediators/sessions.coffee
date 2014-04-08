@@ -166,9 +166,12 @@ module.exports = (Base) ->
                 date: new Date note.created
                 tags: note.tags
 
-              _.extend doc = utils.makeDoc(src, userId, meta),
-                _id: docId = new ObjectID()
-                _v: 1
+              try
+                _.extend doc = utils.makeDoc(src, userId, meta),
+                  _id: docId = new ObjectID()
+                  _v: 1
+              catch _error
+                return next _error
 
               @_create 'docs', doc, next
           ], cb

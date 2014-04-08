@@ -133,10 +133,10 @@ module.exports = (Base) ->
 
       async.waterfall [
         (next) =>
-          _.fileType buffer, next
+          _.isText buffer, next
 
-        (type, next) =>
-          unless type is 'txt'
+        (isText, next) =>
+          unless isText
             return next new Reject 'BADFILE'
 
           try
@@ -149,10 +149,13 @@ module.exports = (Base) ->
           if options.nameIsTitle
             meta['title'] = title if title = path.basename name, path.extname name
 
-          html = utils.makeHtml src, userId, meta
-          _.extend doc = utils.makeDoc(html, userId, meta),
-            _id: docId = new ObjectID()
-            _v: 1
+          try
+            html = utils.makeHtml src, userId, meta
+            _.extend doc = utils.makeDoc(html, userId, meta),
+              _id: docId = new ObjectID()
+              _v: 1
+          catch _error
+            return next _error
 
           @parseImages html, next
 

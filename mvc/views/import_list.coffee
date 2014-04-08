@@ -37,7 +37,7 @@ module.exports =
     (failures, successes, name="item(s)") ->
       return if @ace.booting and @template.bootstrapped
       text = """#{successes||0} #{name}"""
-      text += ", #{failures} error" if failures ||= 0
+      text += ", #{failures} error(s)" if failures ||= 0
       @$fileCount.text text
       return
 

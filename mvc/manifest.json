@@ -327,12 +327,12 @@
                         "mixins/img_printer/view.coffee",
                         "search/controller.coffee",
                         "models/sessions.coffee",
-                        "views/import_list.coffee",
-                        "body/import/files/view.coffee",
                         "body/controller.coffee",
                         "body/plus/view.coffee",
                         "docs/controller.coffee",
-                        "mixins/img_uploader/view.coffee"
+                        "mixins/img_uploader/view.coffee",
+                        "body/import/files/view.coffee",
+                        "views/import_list.coffee"
                     ],
                     "generated": "bundle/debug [-ie<=8 -ios debug].js"
                 },
@@ -514,12 +514,12 @@
                         "mixins/img_printer/view.coffee",
                         "search/controller.coffee",
                         "models/sessions.coffee",
-                        "views/import_list.coffee",
-                        "body/import/files/view.coffee",
                         "body/controller.coffee",
                         "body/plus/view.coffee",
                         "docs/controller.coffee",
-                        "mixins/img_uploader/view.coffee"
+                        "mixins/img_uploader/view.coffee",
+                        "body/import/files/view.coffee",
+                        "views/import_list.coffee"
                     ],
                     "generated": "bundle/debug [-ie<=8 debug ios].js"
                 }

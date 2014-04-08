@@ -96,8 +96,10 @@ module.exports =
             @Model['docs'].import b64, fileName, options, (err, name) =>
               progress.set (i+1)/len
               noteList.add (name or fileName), !err
+              done() if i+1 is len
+              return
 
-        return done() if ++i is len
+        return if ++i is len
         file = fileList[i]
         fileReader.readAsArrayBuffer file
         return

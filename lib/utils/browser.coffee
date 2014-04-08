@@ -91,7 +91,12 @@ module.exports =
     custom = html.custom
 
     modified = new Date()
-    created = otherMeta['date'] or modified
+    if date = otherMeta['date'] or meta['date']
+      unless date instanceof Date
+        date = new Date date
+        date = undefined if isNaN date.getTime()
+
+    created = date or modified
     date = dates.dateToNumber(created)
 
     title = meta['title'] or ''

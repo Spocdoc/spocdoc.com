@@ -20,6 +20,7 @@
 
  [] when navigating with the outline, highlight the destination header briefly (or do some animation so you can see if it it can't be scrolled to the top)
  [] figure out what to show when the document is invisible (e.g., you're logged out and it's not public)
+ [] stop scrolling the calendar back at the earliest result (i.e., the range shown should only be blocks containing results until today)
 
 # implementation
 
