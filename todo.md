@@ -45,6 +45,7 @@
     should only allow images to be inserted at reasonable offsets (e.g., not in the metadata)
  [] clicking an image in the search results should go to that image. currently it just goes to the top of the article
  [] in search, `public:` should be parsed as a metadata search, not as text...
+ [] mixins should be named separately -- `mixin.coffee` so they can be used by both views and controllers...
 
 ## optimization
 

@@ -28,8 +28,6 @@ module.exports =
   freeCell: (tab) ->
 
   constructor: ->
-    @imgUploads = {}
-
     field = @controllers['field'] = new @View['search/field'] this, 'field',
       name: 'Search within'
 
