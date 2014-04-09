@@ -21,6 +21,7 @@
  [] when navigating with the outline, highlight the destination header briefly (or do some animation so you can see if it it can't be scrolled to the top)
  [] figure out what to show when the document is invisible (e.g., you're logged out and it's not public)
  [] stop scrolling the calendar back at the earliest result (i.e., the range shown should only be blocks containing results until today)
+ [] make the tags part of the content (the way you'd see keywords in an academic article)
 
 # implementation
 
@@ -43,6 +44,7 @@
  [] image placement
     should only allow images to be inserted at reasonable offsets (e.g., not in the metadata)
  [] clicking an image in the search results should go to that image. currently it just goes to the top of the article
+ [] in search, `public:` should be parsed as a metadata search, not as text...
 
 ## optimization
 
@@ -77,4 +79,24 @@
 # Browser bugs
 
  [] scrollIntoView with a fixed position element scrolls the document and the fixed position layer
+
+# server bugs
+
+ [] figure out origin of this error:
+
+        Wed, 09 Apr 2014 01:42:49 GMT error Error: Can't set headers after they are sent.
+         Error: Can't set headers after they are sent.
+          at ServerResponse.OutgoingMessage.setHeader (http.js:691:11)
+          at ServerResponse.res.setHeader (/home/mikerobe/Server/node/app_deployment/2014-04-08-1397006709/node_modules/connect/lib/patch.js:63:22)
+          at Cookies.module.exports.Cookies.set (/home/mikerobe/Server/node/app_deployment/2014-04-08-1397006709/node_modules/cookies-fork/index.coffee:11:12)
+          at Context.cookieUpdater (/home/mikerobe/Server/node/app_deployment/2014-04-08-1397006709/mvc/models/sessions.coffee:26:20)
+          at Outlet.module.exports.Outlet._runFunc (/home/mikerobe/Server/node/app_deployment/2014-04-08-1397006709/node_modules/outlet/index.coffee:327:11)
+          at Outlet.module.exports.Outlet._runSource (/home/mikerobe/Server/node/app_deployment/2014-04-08-1397006709/node_modules/outlet/index.coffee:288:16)
+          at Function.module.exports.Outlet.closeBlock (/home/mikerobe/Server/node/app_deployment/2014-04-08-1397006709/node_modules/outlet/index.coffee:45:7)
+          at /home/mikerobe/Server/node/app_deployment/2014-04-08-1397006709/node_modules/ace_mvc/lib/socket/emulator.coffee:55:18
+          at /home/mikerobe/Server/node/app_deployment/2014-04-08-1397006709/lib/mediators/sessions.coffee:54:11
+          at /home/mikerobe/Server/node/app_deployment/2014-04-08-1397006709/node_modules/ace_mvc/lib/db/index.coffee:255:11
+          at fn (/home/mikerobe/Server/node/app_deployment/2014-04-08-1397006709/node_modules/async/lib/async.js:626:34)
+          at Object._onImmediate (/home/mikerobe/Server/node/app_deployment/2014-04-08-1397006709/node_modules/async/lib/async.js:542:34)
+          at processImmediate [as _immediateCallback] (timers.js:330:15)
 

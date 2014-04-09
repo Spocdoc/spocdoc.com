@@ -119,6 +119,26 @@ module.exports = (Base) ->
       else
         cb null, out
 
+    importSrc: (src, editors, meta, cb) ->
+      doc = null
+      html = null
+
+      async.waterfall [
+        (next) =>
+          try
+            html = utils.makeHtml src, editors, meta
+            _.extend doc = utils.makeDoc(html, editors, meta),
+              _id: docId = new ObjectID()
+              _v: 1
+            @parseImages html, next
+          catch _error
+            next _error
+
+        (src, next) =>
+          doc['text'] = src
+
+          @_create 'docs', doc, next
+      ], cb
 
     import: (b64, name, options, cb) ->
       return cb new Reject 'NOUSER' unless userId = @session.userId
@@ -149,26 +169,11 @@ module.exports = (Base) ->
           if options.nameIsTitle
             meta['title'] = title if title = path.basename name, path.extname name
 
-          try
-            html = utils.makeHtml src, userId, meta
-            _.extend doc = utils.makeDoc(html, userId, meta),
-              _id: docId = new ObjectID()
-              _v: 1
-          catch _error
-            return next _error
-
-          @parseImages html, next
-
-        (src, next) =>
-          doc['text'] = src
-
-          @_create 'docs', doc, (err) =>
-            # TODO return some way of linking to the new doc
-            next err, name
+          @importSrc src, userId, meta, next
       ], (err) =>
         if err?
           debugError "ERROR importing: ",err
-        cb.apply null, arguments
+        cb err, name
 
 
     queryVisible: (query) ->

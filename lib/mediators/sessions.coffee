@@ -157,7 +157,7 @@ module.exports = (Base) ->
           [guid] = args
 
           async.waterfall [
-            (next) => evernote.md guid, tags: true, next
+            (next) => evernote.md guid, tags: true, images: true, next
             (src, note, next) =>
               return cb err if err?
 
@@ -166,14 +166,7 @@ module.exports = (Base) ->
                 date: new Date note.created
                 tags: note.tags
 
-              try
-                _.extend doc = utils.makeDoc(src, userId, meta),
-                  _id: docId = new ObjectID()
-                  _v: 1
-              catch _error
-                return next _error
-
-              @_create 'docs', doc, next
+              @handlers['docs'].importSrc src, userId, meta, next
           ], cb
 
         else
