@@ -66,34 +66,42 @@ module.exports = (Base) ->
 
       images = []
 
+      getHref = (data) ->
+        try
+          if (id = utils.imgId(data['b64'])) and (extension = _.imgExtension(data['mime']))
+            imgSrc = new Buffer data['b64'], 'base64'
+            href = "#{id}.#{extension}"
+            images.push
+              name: href
+              src: imgSrc
+        catch _error
+        href or "missing.png"
+
       html.visit (node, visitor) =>
-        if node.type is 'link' and node['img']
+        if (node.type is 'link' and node['img']) or def = node.type is 'def'
           pre = node.pre || 0
 
           startOffset = visitor.offset() - pre
           endOffset = visitor.offset(node.src.length - pre)
 
-          href = node.href
-          if (data = _.dataUri.parse href) and (id = utils.imgId(data['b64'])) and (extension = _.imgExtension(data['mime']))
-            try
-              imgSrc = new Buffer data['b64'], 'base64'
-              href = "#{id}.#{extension}"
-              images.push
-                name: href
-                src: imgSrc
-            catch _error
-              href = 'missing.png'
-          else
-            href = "missing.png"
+          return unless data = _.dataUri.parse(if def then node.spec.href else node.href)
+          href = getHref(data)
 
-          if cap = markedInline.link.exec node.src
-            if title = node.title
-              title = _.quote title
-            else
-              title = ''
-            newSrc = """![#{cap[1]}](#{href}#{title})"""
-          else # ?!
-            return
+          if def
+            leadingSpace = /^\s*/.exec(node.src)[0]
+            trailingSpace = /\s*$/.exec(node.src)[0]
+            if title = node.spec.title or ''
+              title = " (#{title})"
+            newSrc = """#{leadingSpace}[#{node.spec.name}]: #{href}#{title}#{trailingSpace}"""
+          else
+            if cap = markedInline.link.exec node.src
+              if title = node.title
+                title = _.quote title
+              else
+                title = ''
+              newSrc = """![#{cap[1]}](#{href}#{title})"""
+            else # ?!
+              return
 
           out += src.substring(start, startOffset) + newSrc
           start = endOffset

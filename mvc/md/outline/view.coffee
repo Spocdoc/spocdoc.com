@@ -18,7 +18,7 @@ module.exports =
       @oldDocId = docId
 
       if outline = @outline
-        outline.update '' if differentDoc
+        outline.update '' if differentDoc and !(@ace.booting and @template.bootstrapped)
         outline.update md
       else
         outline = @outline = new Outline md, (if @template.bootstrapped then @$root else null)

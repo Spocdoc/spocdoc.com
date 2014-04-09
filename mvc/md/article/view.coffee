@@ -76,7 +76,7 @@ module.exports =
       docId = '' + (doc?.id)
       differentDoc = @oldDocId isnt docId
       @oldDocId = docId
-      if differentDoc
+      if differentDoc and !(@ace.booting and @template.bootstrapped)
         editor.update ''
         @getEditor(null, +!@mode).update '' # clear *both* editors when the document changes
 
