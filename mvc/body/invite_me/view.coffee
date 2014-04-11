@@ -2,13 +2,6 @@ oauth = require 'connect_oauth'
 debug = global.debug 'app:oauth'
 utils = require '../../../lib/utils'
 
-serviceNames =
-  evernote: 'Evernote'
-  twitter: 'Twitter'
-  github: 'GitHub'
-  linkedin: 'LinkedIn'
-  tumblr: 'Tumblr'
-
 module.exports =
   mixins:
     'mixins/editable val': [ 'email' ]
@@ -27,11 +20,12 @@ module.exports =
   $oauthError: 'text'
   $submitError: 'text'
 
-  $evernote: link: ['startOauth', 'evernote']
-  $twitter: link: ['startOauth', 'twitter']
-  $github: link: ['startOauth', 'github']
-  $linkedin: link: ['startOauth', 'linkedin']
-  $tumblr: link: ['startOauth', 'tumblr']
+  $google: link: ['startOauth', 'google']
+  # $evernote: link: ['startOauth', 'evernote']
+  # $twitter: link: ['startOauth', 'twitter']
+  # $github: link: ['startOauth', 'github']
+  # $linkedin: link: ['startOauth', 'linkedin']
+  # $tumblr: link: ['startOauth', 'tumblr']
 
   $emailForm: link: ['submitEmail']
 

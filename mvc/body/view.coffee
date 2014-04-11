@@ -120,11 +120,12 @@ module.exports =
   
 
   # oauth
-  $evernote: link: ['startOauth', 'evernote']
-  $twitter: link: ['startOauth', 'twitter']
-  $github: link: ['startOauth', 'github']
-  $linkedin: link: ['startOauth', 'linkedin']
-  $tumblr: link: ['startOauth', 'tumblr']
+  $google: link: ['startOauth', 'google']
+  # $evernote: link: ['startOauth', 'evernote']
+  # $twitter: link: ['startOauth', 'twitter']
+  # $github: link: ['startOauth', 'github']
+  # $linkedin: link: ['startOauth', 'linkedin']
+  # $tumblr: link: ['startOauth', 'tumblr']
   $oauthError: 'text'
 
   # log out 

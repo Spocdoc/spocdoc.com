@@ -31,20 +31,24 @@ include ../utils
                 #oauth
                   ul
                     li
-                      a.has-spinner#evernote.evernote(target="_blank") Evernote
+                      a.has-spinner#google.google(target="_blank") Log in with Google
                       .spinner(title="Waiting for other window..."): != spinner
-                    li
-                      a.has-spinner#twitter.twitter(target="_blank") Twitter
-                      .spinner(title="Waiting for other window..."): != spinner
-                    li
-                      a.has-spinner#github.github(target="_blank") Github
-                      .spinner(title="Waiting for other window..."): != spinner
-                    li
-                      a.has-spinner#linkedin.linkedin(target="_blank") LinkedIn
-                      .spinner(title="Waiting for other window..."): != spinner
-                    li
-                      a.has-spinner#tumblr.tumblr(target="_blank") Tumblr
-                      .spinner(title="Waiting for other window..."): != spinner
+                    //-
+                      li
+                        a.has-spinner#evernote.evernote(target="_blank") Evernote
+                        .spinner(title="Waiting for other window..."): != spinner
+                      li
+                        a.has-spinner#twitter.twitter(target="_blank") Twitter
+                        .spinner(title="Waiting for other window..."): != spinner
+                      li
+                        a.has-spinner#github.github(target="_blank") Github
+                        .spinner(title="Waiting for other window..."): != spinner
+                      li
+                        a.has-spinner#linkedin.linkedin(target="_blank") LinkedIn
+                        .spinner(title="Waiting for other window..."): != spinner
+                      li
+                        a.has-spinner#tumblr.tumblr(target="_blank") Tumblr
+                        .spinner(title="Waiting for other window..."): != spinner
                   p.error#oauthError
                 ul: li.menu-divider: hr
                 form.form(novalidate='true')

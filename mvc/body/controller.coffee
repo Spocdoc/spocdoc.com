@@ -57,7 +57,7 @@ module.exports =
             controller.title.set 'Sign up'
             controller.content.set @controllers['inviteMeContent'] ||= new @View['body/invite_me'] this, 'inviteMeContent', deputy: @view
           when 'youreInvited'
-            controller.title.set 'We\'ll invite you!'
+            controller.title.set ''
             controller.content.set @controllers['youreInvitedContent'] ||= new @View['body/invite_me/youre_invited'] this, 'youreInvitedContent', deputy: @view
           when 'hello'
             controller.title.set 'Hello!'

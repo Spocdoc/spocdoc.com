@@ -1,23 +1,27 @@
-p Spocdoc is currently in limited release, so is invitation-based. Use a service below or just enter your email.
+p Synopsi is in limited release. Request an invitation and we'll send you one when a spot opens up!
 
 #oauth
 
   ul.oauth-list
     li
-      a.has-spinner#evernote.evernote(target="_blank") Evernote
+      a.has-spinner#google.google(target="_blank") Sign up with Google
       .spinner(title="Waiting for other window..."): != spinner
-    li
-      a.has-spinner#twitter.twitter(target="_blank") Twitter
-      .spinner(title="Waiting for other window..."): != spinner
-    li
-      a.has-spinner#github.github(target="_blank") Github
-      .spinner(title="Waiting for other window..."): != spinner
-    li
-      a.has-spinner#linkedin.linkedin(target="_blank") LinkedIn
-      .spinner(title="Waiting for other window..."): != spinner
-    li
-      a.has-spinner#tumblr.tumblr(target="_blank") Tumblr
-      .spinner(title="Waiting for other window..."): != spinner
+    //-
+      li
+        a.has-spinner#evernote.evernote(target="_blank") Evernote
+        .spinner(title="Waiting for other window..."): != spinner
+      li
+        a.has-spinner#twitter.twitter(target="_blank") Twitter
+        .spinner(title="Waiting for other window..."): != spinner
+      li
+        a.has-spinner#github.github(target="_blank") Github
+        .spinner(title="Waiting for other window..."): != spinner
+      li
+        a.has-spinner#linkedin.linkedin(target="_blank") LinkedIn
+        .spinner(title="Waiting for other window..."): != spinner
+      li
+        a.has-spinner#tumblr.tumblr(target="_blank") Tumblr
+        .spinner(title="Waiting for other window..."): != spinner
 
   p.error#oauthError
 

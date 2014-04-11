@@ -214,7 +214,9 @@ module.exports = (Base) ->
             _v: 1
             username: " #{id}" # prefix with space so it's otherwise an invalid user
             priv: new DBRef 'users_priv', id
+            picture: details.picture or null
             active: 0
+            name: details.name or null
 
           userPriv =
             _id: id

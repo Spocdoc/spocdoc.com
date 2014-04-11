@@ -48,8 +48,8 @@ module.exports =
   verifyId: (oauthDetails, cb) ->
     apiCall oauthDetails, "user", (err, res, body) ->
       try
-        return next err if err?
-        return next new Error("empty user") unless body
+        return cb err if err?
+        return cb new Error("empty user") unless body
 
         body = JSON.parse body
 
