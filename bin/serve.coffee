@@ -40,8 +40,8 @@ readCertificateChain = ->
     return 1 if a < b
     0
 
-key = fs.readFileSync path.resolve __dirname, '../resources/ssl.key'
-cert = fs.readFileSync path.resolve __dirname, '../resources/ssl.crt'
+key = fs.readFileSync path.resolve __dirname, '../resources/synopsi/ssl.key'
+cert = fs.readFileSync path.resolve __dirname, '../resources/synopsi/ssl.crt'
 ca = readCertificateChain()
 
 app = express()

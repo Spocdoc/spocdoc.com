@@ -117,8 +117,6 @@
         "mixins/editable line": "mixins/editable line/view.coffee",
         "mixins/editable text": "mixins/editable text/view.coffee",
         "mixins/editable val": "mixins/editable val/view.coffee",
-        "mixins/img_printer": "mixins/img_printer/view.coffee",
-        "mixins/img_uploader": "mixins/img_uploader/view.coffee",
         "search/field/menu": "search/field/menu/view.coffee",
         "search/field": "search/field/view.coffee",
         "search/page": "search/page/view.coffee",
@@ -143,8 +141,6 @@
         "body": "body/controller.coffee",
         "body/import": "body/import/controller.coffee",
         "docs": "docs/controller.coffee",
-        "mixins/img_printer": "mixins/img_printer/controller.coffee",
-        "mixins/img_uploader": "mixins/img_uploader/controller.coffee",
         "search": "search/controller.coffee",
         "search/results": "search/results/controller.coffee",
         "search/sidebar_tabs/tags": "search/sidebar_tabs/tags/controller.coffee"
@@ -334,11 +330,9 @@
                         "body/import/files/view.coffee",
                         "views/import_list.coffee",
                         "md/outline/view.coffee",
-                        "mixins/img_printer/view.coffee",
+                        "mixins/img_printer/mixin.coffee",
                         "docs/controller.coffee",
-                        "mixins/img_uploader/view.coffee",
-                        "mixins/img_printer/controller.coffee",
-                        "mixins/img_uploader/controller.coffee"
+                        "mixins/img_uploader/mixin.coffee"
                     ],
                     "generated": "bundle/debug [-ie<=8 -ios debug].js"
                 },
@@ -525,11 +519,9 @@
                         "body/import/files/view.coffee",
                         "views/import_list.coffee",
                         "md/outline/view.coffee",
-                        "mixins/img_printer/view.coffee",
+                        "mixins/img_printer/mixin.coffee",
                         "docs/controller.coffee",
-                        "mixins/img_uploader/view.coffee",
-                        "mixins/img_printer/controller.coffee",
-                        "mixins/img_uploader/controller.coffee"
+                        "mixins/img_uploader/mixin.coffee"
                     ],
                     "generated": "bundle/debug [-ie<=8 debug ios].js"
                 }
@@ -1133,5 +1125,9 @@
             }
         }
     },
-    "index": "index"
+    "index": "index",
+    "mixins": {
+        "mixins/img_printer": "mixins/img_printer/mixin.coffee",
+        "mixins/img_uploader": "mixins/img_uploader/mixin.coffee"
+    }
 }

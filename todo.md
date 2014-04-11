@@ -22,6 +22,7 @@
  [] figure out what to show when the document is invisible (e.g., you're logged out and it's not public)
  [] stop scrolling the calendar back at the earliest result (i.e., the range shown should only be blocks containing results until today)
  [] make the tags part of the content (the way you'd see keywords in an academic article)
+ [] clicking compose on the homepage is a problem with long documents: the menu is fixed position
 
 # implementation
 

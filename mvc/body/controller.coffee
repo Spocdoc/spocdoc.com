@@ -3,6 +3,7 @@ DOC_ABOUT = '6507bdb347de85cf373121da'
 module.exports =
   outlets: [
     'page'
+    'searchFrozen': -> !(@page.get() in ['search','blog','updates'])
   ]
 
   internal: [
@@ -83,7 +84,7 @@ module.exports =
               controller.id.value
         controller
       when 'search','blog','updates'
-        @controllers['search'] ||= new @Controller['search'] this, 'search'
+        @controllers['search'] ||= new @Controller['search'] this, 'search', frozen: @searchFrozen
       when 'contactUs'
         @controllers['contactUs'] ||= new @View['contact_us'] this, 'contactUs'
       else

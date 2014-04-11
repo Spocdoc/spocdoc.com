@@ -379,14 +379,11 @@ module.exports =
 
           return false unless dataTransfer = event.originalEvent.dataTransfer
 
-          # only allow 1 file at a time
-          return false unless dataTransfer.files?.length is 1
-
-          # only allow images
-          file = dataTransfer.files[0]
-          name = file.name
-          ext = name.replace(/^.*\./,'')
-          return false unless mime = _.imgMime ext
+          # grab all the dropped images
+          images = []
+          for file in dataTransfer.files when _.imgMime file.name.replace(/^.*\./,'')
+            images.push file
+          return false unless images[0]
 
           insertOffset = 0
 
@@ -397,7 +394,8 @@ module.exports =
               'offset': range.startOffset
             insertOffset = @getEditor().posToOffset start, false, @$root[0]
 
-          @insertImage file, insertOffset
+          for image in images.reverse()
+            @insertImage image, insertOffset
 
           # @addFiles fileList if fileList = event.originalEvent?.dataTransfer?.files
           # @$step1Instructions.text "Drag them here."

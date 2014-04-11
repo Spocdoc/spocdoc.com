@@ -5,8 +5,8 @@ module.exports =
   view: 'with_sidebar'
 
   outlets: [
-    'doc'
     'number'
+    'frozen'
   ]
 
   internal: [
@@ -118,7 +118,7 @@ module.exports =
 
   constructor: ->
     field = @controllers['field'] = new @View['search/field'] this, 'field',
-      name: 'type to search documents'
+      name: 'Type to search'
 
     @controllers['results'] = new @Controller['search/results'] this, 'results',
       query: @query
@@ -126,6 +126,7 @@ module.exports =
       dateStart: field.dateStart
       dateEnd: field.dateEnd
       specTags: field.specTags
+      frozen: @frozen
 
     @controllers['Dates'] = new @View["search/sidebar_tabs/dates"] this, "datesContent",
       nonEmpty: @allDates

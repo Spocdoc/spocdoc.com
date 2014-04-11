@@ -5,5 +5,5 @@ module.exports =
 
   outletMethods: [
     (fraction) ->
-      @$meter.css 'width', "#{100*fraction}%"
+      @$meter.css 'width', "#{Math.ceil(100*fraction)}%"
   ]

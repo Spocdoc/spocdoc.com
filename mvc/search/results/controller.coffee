@@ -9,11 +9,16 @@ module.exports =
     'specTags'
     'dateStart'
     'dateEnd'
+    'frozen'
   ]
 
   words: (spec) -> part.value for part in spec or [] when part.type is 'text'
 
-  $hashes: -> ''+hash for hash in @query.get().results.get()
+  $hashes: ->
+    if @frozen.get()
+      []
+    else
+      ''+hash for hash in @query.get().results.get()
 
   getCell: (hash, index) ->
     cell = @cells[hash] ||= new @View['search/results/doc'] this, hash
