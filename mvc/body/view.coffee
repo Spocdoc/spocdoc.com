@@ -2,7 +2,6 @@ oauth = require 'connect_oauth'
 oauthLib = require '../../lib/oauth'
 
 tabs = [
-  'about'
   'blog'
   'explore'
   'connect'
@@ -59,7 +58,6 @@ module.exports =
   $plusOverlay: linkup: ['toggleMenu', 'plus']
   $plus: linkup: ['toggleMenu', 'plus']
 
-  $about: link: ['depute','showPage','about']
   $blog: link: ['depute','showPage','blog']
   $explore: link: ['depute','showPage','explore']
   $connect: link: ['depute','showPage','connect']
@@ -69,7 +67,6 @@ module.exports =
   $contactUs: link: ['depute','showPage','contactUs']
 
   # footer links
-  $footAbout: link: ['depute','showPage','about']
   $footBlog: link: ['depute','showPage','blog']
 
   # log in
@@ -257,3 +254,4 @@ module.exports =
           @toggleMenu 'login', false
 
       return
+

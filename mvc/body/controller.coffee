@@ -1,5 +1,3 @@
-DOC_ABOUT = '6507bdb347de85cf373121da'
-
 module.exports =
   outlets: [
     'page'
@@ -75,14 +73,14 @@ module.exports =
         unless controller.id.value
           controller.id.set @lastDoc.value
         controller
-      when 'about'
-        controller = @controllers['static'] ||= new @Controller['docs'] this, 'static', id: =>
-          switch @page.get()
-            when 'about'
-              DOC_ABOUT
-            else
-              controller.id.value
-        controller
+      # when 'about'
+      #   controller = @controllers['static'] ||= new @Controller['docs'] this, 'static', id: =>
+      #     switch @page.get()
+      #       when 'about'
+      #         DOC_ABOUT
+      #       else
+      #         controller.id.value
+      #   controller
       when 'search','blog','updates'
         @controllers['search'] ||= new @Controller['search'] this, 'search', frozen: @searchFrozen
       when 'contactUs'

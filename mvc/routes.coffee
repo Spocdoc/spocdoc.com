@@ -36,7 +36,7 @@ module.exports =
     add '#s=:scrollTop'
 
     add 'landing', '/', '?:iid&:it', page: ''
-    add 'about', '/about', '?:q', page: 'about'
+    # add 'about', '/about', '?:q', page: 'about'
     add '/explore', page: 'explore'
     add '/connect', page: 'connect'
     add '/contact_us', page: 'contactUs'
@@ -76,8 +76,8 @@ module.exports =
       importSource: '/importContent/choices/$selected'
       docsShowSidebar: '/docs/$showSidebar'
       searchShowSidebar: '/search/$showSidebar'
-      about:
-        q: '/static/field/$search'
+      # about:
+      #   q: '/static/field/$search'
       search:
         q: '/search/field/$search'
         number: '/search/number'

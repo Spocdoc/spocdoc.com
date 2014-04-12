@@ -31,6 +31,20 @@ module.exports =
         tabs.push tab
     tabs.push tab for tab of allTabs
     tabs
+
+  localUrl: (href) ->
+    return unless href
+    if href isnt mod = href.replace(/^https?:\/\//, '')
+      href = mod
+      if href isnt mod = href.replace(/^[^/]*(?:synop.si|spocdoc.com)[\/]*/, '')
+        return "/#{mod}"
+      else
+        return
+    if href.charAt(0) is '/'
+      return if href.charAt(1) is '/'
+      href
+    else
+      "/#{href}"
     
   splitLengths: (arr, nRows) ->
     len = arr.length
@@ -120,4 +134,5 @@ module.exports =
       'custom': custom
       'public': makePublic meta
       'editors': editors
+      'css': meta['css'] or ''
     }

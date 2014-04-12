@@ -11,8 +11,6 @@ module.exports =
   outlets: [
     'id'
     'doc': (id) -> @Model['docs'].read id
-    'title': -> @doc.get('title')
-    'editable': -> @doc.get()?.editable()
     'initialPosition'
   ]
 
@@ -33,14 +31,13 @@ module.exports =
 
     main = @controllers['main'] = new @View['md/article'] this, 'main',
       doc: @doc
-      editable: @editable
       initialPosition: @initialPosition
       search: field.search
       spec: field.spec
 
     @controllers['top'] = new @View['docs/sidebar_top'] this, 'sidebarTop',
       search: field
-      editable: @editable
+      editable: main.editable
 
     @controllers['outline'] = new @View['md/outline'] this, 'outline_content',
       doc: @doc

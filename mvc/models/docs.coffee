@@ -33,6 +33,8 @@ module.exports =
     import: (src, name, options, cb) ->
       @run 'import', {src, name, options}, cb
 
+  getCss: (id, cb) -> @run 'getCss', {id}, cb
+
   linkHtml: (target) ->
     # TODO
     content = @get('text').get().substr(0,20)

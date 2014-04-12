@@ -49,18 +49,64 @@ module.exports =
     'wordCount': -> @doc.get('words')
     'tags': -> @doc.get('tags')
     'title': -> @doc.get('title')
+    'css': -> @doc.get('css')
+    'code': -> @doc.get('code')
     'custom': -> @doc.get('custom')
     'modified': -> @doc.get('modified')
     'tldr': -> @doc.get('tldr')
     'public': -> @doc.get('public')
-    'editable'
+    'editable': -> @doc.get()?.editable()
     'initialPosition' # startOffset, endOffset, carat when rendering a document
     'search'
     'spec'
+
+    'styleDoc': (css) ->
+      if (local = utils.localUrl css) and cap = /\/docs\/(?:.*\/)?([0-9a-f]{24})/.exec local
+        @Model['docs'].read cap[1]
+      else
+        @styleLink.set css
+        null
+
+    'styleText': -> @styleDoc.get('text')
+    'styleLink'
   ]
 
   outletMethods: [
     (doc) -> @switchModes MODE_HTML
+
+    (styleLink) ->
+      html = ''
+      if styleLink
+        try
+          html = """<link href="#{_.unsafeHtmlEscape styleLink}" rel="stylesheet" type="text/css"/>"""
+        catch _error
+
+      @$styleLink[0].innerHTML = html
+      return
+
+    (styleText) ->
+      return if @parsingCss
+      unless styleText and (styleDoc = @styleDoc.get())
+        @$style[0].innerHTML = ''
+        return
+
+      id = @$content.attr 'id'
+
+      getCss = (styleText) =>
+        @parsingCss = true
+
+        styleDoc.getCss id, (err, css) =>
+          unless err?
+            @$style[0].innerHTML = css
+
+          if styleText isnt @styleText.value
+            getCss @styleText.value
+          else
+            @parsingCss = false
+
+          return
+      getCss styleText
+      return
 
     (doc, md='', initialPosition, inWindow, spec, editable) ->
       return if !md and !doc and !inWindow
@@ -194,6 +240,8 @@ module.exports =
     @custom.set html.custom
     @modified.set new Date()
     @tldr.set meta['tldr']
+    @css.set meta['css']
+    @code.set meta['code']
     @public.set utils.makePublic meta
     return
 
@@ -294,6 +342,8 @@ module.exports =
       ($a = $(event.target)).prop 'contenteditable', false
     @$root.on 'click', 'a', (event) =>
       ($a = $(event.target)).removeAttr 'contenteditable'
+      if (href = $a.attr 'href') and (local = utils.localUrl(href)) and @router.route local
+        return false
 
     @lastEsc = 0
 

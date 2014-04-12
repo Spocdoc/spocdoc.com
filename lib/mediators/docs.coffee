@@ -1,5 +1,6 @@
 ObjectID = require('mongo-fork').ObjectID
 Reject = require 'ace_mvc/lib/error/reject'
+Html = require 'marked-fork/html'
 debug = global.debug 'app:mediators:docs'
 debugError = global.debug 'error'
 utils = require '../utils'
@@ -8,6 +9,19 @@ _ = require 'lodash-fork'
 async = require 'async'
 markedInline = require 'marked-fork/lib/inline'
 fs = require 'fs'
+css = require 'css'
+stylus = require 'stylus'
+nib = require 'nib'
+
+getCode = (html) ->
+  code = ''
+
+  html.visit (node, visitor) =>
+    if node.type is 'code'
+      code += node.spec.blockText
+    return
+
+  code
 
 module.exports = (Base) ->
   class Handler extends Base
@@ -53,11 +67,54 @@ module.exports = (Base) ->
     run: (id, version, cmd, args, cb) ->
       switch cmd
         when 'import' then @import args.src, args.name, args.options, cb
+        when 'getCss' then @getCss id, args.id, cb
         else super
       return
 
 
 # ===========================================
+
+    getCss: (id, elemId, cb) ->
+      async.waterfall [
+        (next) =>
+          @_read 'docs', id, next
+
+        (doc, next) =>
+          return next new Reject "NODOC" unless doc
+          try
+            html = new Html doc.text
+            format = html.meta.code or 'css'
+            debugError "FORMAT",format
+            debugError "CODE:[#{getCode(html)}]"
+
+            switch format
+              when 'css'
+                next null, getCode(html)
+              when 'stylus'
+                stylus(getCode(html))
+                  .use(nib()).import('nib')
+                  .render next
+              else
+                next new Reject 'BADFORMAT'
+
+          catch _error
+            return next _error
+
+        (code, next) =>
+          debugError "SEE CSS CODE[#{code}]"
+          try
+            obj = css.parse code
+            for rule in obj.stylesheet.rules
+              rule.selectors = ("##{elemId} " + s for s in rule.selectors)
+            code = css.stringify obj
+            next null, code
+          catch _error
+            return next _error
+
+      ], (err, code) =>
+        if err?
+          debugError "Error getting css: ",err
+        cb err, code
 
     parseImages: (html, cb) ->
       out = ''

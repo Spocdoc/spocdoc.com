@@ -58,6 +58,7 @@ utils['makeDoc'] = utils.makeDoc
 utils['makePublic'] = utils.makePublic
 utils['makeHtml'] = utils.makeHtml
 utils['imgId'] = utils.imgId
+utils['localUrl'] = utils.localUrl
 
 strdiff = require 'diff-fork/lib/types/string'
 strdiff['equalRanges'] = strdiff.equalRanges
@@ -82,5 +83,9 @@ _['dataUri'] = _.dataUri
 _['dataUri']['format'] = _.dataUri.format
 _['dataUri']['parse'] = _.dataUri.parse
 
+Router = require 'ace_mvc/lib/router'
+Router.prototype['route'] = Router::route
+
 # this is to adjust styling before the page has loaded (so safari doesn't animate the page load)
 $(global.document).ready(-> $('body').removeClass 'preload') if global.document
+

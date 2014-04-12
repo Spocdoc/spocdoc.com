@@ -11,6 +11,8 @@ module.exports =
   # $findOutMore: link: ['depute','showPage','about']
 
   $downArrow: link: ['scrollFold']
+  $marketing: view: -> new @View['md/article'] this,
+    doc: @Model['docs'].read constants.docAbout
 
   outletMethods: [
     (invitedId, inviteToken) ->
@@ -33,7 +35,7 @@ module.exports =
     top = @$headliner.offset().top + @$headliner.height()
     $scrollParent = @$scrollParent ||= @$root.scrollParent()
     $scrollParent.animate
-      scrollTop: $scrollParent.scrollTop() + top - SCROLL_PADDING
+      scrollTop: top - SCROLL_PADDING
       constants.scrollMillis
 
 

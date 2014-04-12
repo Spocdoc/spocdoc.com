@@ -53,6 +53,7 @@
  [] the new insertPlaceholders algo in marked-fork never uses block update()... so it'll wind up regenerating the entire top-level section (or the whole document if it's in a single section)
  [] the fixDoms routine could reduce the number of dom appendChild and insertBefore calls by generating all the html at once and calling `$.parseHTML` and calling `setDoms`
  [] when the client boots, it rereads everything including the queries at once. this is a problem for the queries: if the server processes the query re-read first, it'll preemptively send a create with the full source of the matching documents because it doesn't know the client has them yet (hasn't seen the re-read). see ![](img/2014-03-25-03.png). solution is to finish doing all the model re-reads before doing queries
+ [] the visitor for creating CSS goes through the *entire* html tree (including inlines), which is unnecessary. could have something that tells it not to descend
 
 # improvements
 
