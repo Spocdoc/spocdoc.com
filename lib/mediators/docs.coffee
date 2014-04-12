@@ -84,8 +84,6 @@ module.exports = (Base) ->
           try
             html = new Html doc.text
             format = html.meta.code or 'css'
-            debugError "FORMAT",format
-            debugError "CODE:[#{getCode(html)}]"
 
             switch format
               when 'css'
@@ -101,7 +99,6 @@ module.exports = (Base) ->
             return next _error
 
         (code, next) =>
-          debugError "SEE CSS CODE[#{code}]"
           try
             obj = css.parse code
             for rule in obj.stylesheet.rules
