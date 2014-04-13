@@ -19,6 +19,9 @@ module.exports =
     top: @controllers['top']
     bottom: @controllers['bottom']
 
+  keydown: (event) -> @controllers['main'].keydown event
+  keyup: (event) -> @controllers['main'].keyup event
+
   # for tabs
   getCell: (tab) ->
     tabClass = typeToClass tab

@@ -339,9 +339,9 @@ module.exports =
 
     # these enable links
     @$root.on 'mousedown', 'a', (event) =>
-      ($a = $(event.target)).prop 'contenteditable', false
+      ($a = $(event.currentTarget)).prop 'contenteditable', false
     @$root.on 'click', 'a', (event) =>
-      ($a = $(event.target)).removeAttr 'contenteditable'
+      ($a = $(event.currentTarget)).removeAttr 'contenteditable'
       if (href = $a.attr 'href') and (local = utils.localUrl(href)) and @router.route local
         return false
 
@@ -351,7 +351,7 @@ module.exports =
     # lag between pressing the key and its appearance on the screen
     @$content.on 'input', (event) => return false if @mode is MODE_HTML or !@editable.value
 
-    @$content.on 'keydown', (event) =>
+    @$content.on 'keydown', @keydown = (event) =>
       return if event.keyCode in KEY_NON_MUTATING or event.keyCode is KEY_F and (event.ctrlKey or event.metaKey)
 
       if event.keyCode is KEY_ESC
@@ -395,7 +395,7 @@ module.exports =
       @initialPosition.set {startOffset, endOffset, carat}
       return
 
-    @$content.on 'mouseup keyup', (event) =>
+    @$content.on 'mouseup keyup', @keyup = (event) =>
       if event.keyCode is KEY_ESC
         if Date.now() > @lastEsc + TOGGLE_LAG_MILLIS
           @switchModes()

@@ -202,7 +202,24 @@ module.exports =
     # separated for server render
     (dialog, inWindow) ->
       if inWindow
-        @$root.closest('body').toggleClass 'no-scroll', !!dialog
+        body = ($body = @$root.closest('body'))[0]
+        $body.toggleClass 'no-scroll', !!dialog
+
+        unless @addedEvents
+          @addedEvents = true
+
+          $body.on 'keydown', (event) =>
+            return unless event.target is body
+            if (content = @content.value) and content.keydown
+              content.keydown event
+            return
+
+          $body.on 'keyup', (event) =>
+            return unless event.target is body
+            if (content = @content.value) and content.keyup
+              content.keyup event
+            return
+
       return
 
     (tab) ->
