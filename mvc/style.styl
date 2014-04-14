@@ -37,7 +37,7 @@
     position relative  // to position the spinner
 
     a
-      @extend $button-blue
+      @extend $button-green
       margin 5px
 
 // general headers, article text
@@ -171,13 +171,17 @@ input[type="text"], input[type="email"], input[type="password"]
   .can-submit
     &:hover
       cursor pointer
-      color LINK_COLOR
+      // color LINK_COLOR
+      color lighten(LIGHT_GREEN,10%)
 
   .can-submit
-    color: BLACK_COLOR
+    // color: BLACK_COLOR
+    color LIGHT_GREEN
+    text-shadow 0px 1px 0px GREEN_COLOR
 
   .can-submit:active
-    color darken(LINK_COLOR,20%)
+    // color darken(LINK_COLOR,20%)
+    color darken(LIGHT_GREEN,20%)
 
   .input-group
     // width 11em

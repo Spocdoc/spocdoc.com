@@ -1,5 +1,5 @@
 constants = require '../../constants'
-SCROLL_PADDING = 0
+HEADLINER_MARGIN = 64
 
 module.exports =
   outlets: [
@@ -32,10 +32,10 @@ module.exports =
   ]
 
   scrollFold: ->
-    top = @$headliner.offset().top + @$headliner.height()
+    top = @$headliner.height()
     $scrollParent = @$scrollParent ||= @$root.scrollParent()
     $scrollParent.animate
-      scrollTop: top - SCROLL_PADDING
+      scrollTop: top + HEADLINER_MARGIN
       constants.scrollMillis
 
 
