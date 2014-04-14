@@ -13,7 +13,10 @@ module.exports = (config) ->
       # TODO asset versioning...
       href = uploadsServerRoot + "/1/" + href
     img = defaultImgPrinter href, title, node, inLink
-    """<a target="_blank" href="#{_.unsafeHtmlEscape href}">#{img}</a>"""
+    if inLink
+      img
+    else
+      """<a target="_blank" href="#{_.unsafeHtmlEscape href}">#{img}</a>"""
 
   config.constructor.unshift ->
     orig = @imgPrinter

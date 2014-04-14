@@ -22,7 +22,10 @@ module.exports = (config) ->
     if img = @imgUploads[id = href.replace(/\..*$/, '')]
       href = _.dataUri.format img.mime, img.b64
       img = defaultImgPrinter href, title, node, inLink
-      """<a target="_blank" href="#{_.unsafeHtmlEscape href}">#{img}</a>"""
+      if inLink
+        img
+      else
+        """<a target="_blank" href="#{_.unsafeHtmlEscape href}">#{img}</a>"""
 
   config.constructor.unshift ->
     @imgUploads = {}
