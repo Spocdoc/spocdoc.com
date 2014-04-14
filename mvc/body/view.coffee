@@ -1,5 +1,6 @@
 oauth = require 'connect_oauth'
 oauthLib = require '../../lib/oauth'
+debug = global.debug 'app:oauth'
 
 tabs = [
   'blog'
