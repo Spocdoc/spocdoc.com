@@ -1,5 +1,6 @@
 defaultImgPrinter = require 'marked-fork/lib/img_printer'
 regexRelUrl = /^(?:[^/]|\/[^/])/
+utils = require '../../../lib/utils'
 _ = require 'lodash-fork'
 
 module.exports = (config) ->
@@ -8,10 +9,9 @@ module.exports = (config) ->
     return deputed if deputed = @depute('imgPrinter', href, title, node, inLink)
 
     uploadsServerRoot = @ace.manifest.uploadsServerRoot
-    if regexRelUrl.test href
-      href = href.replace(/^\/+/,'')
+    if local = utils.localUrl href
       # TODO asset versioning...
-      href = uploadsServerRoot + "/1/" + href
+      href = uploadsServerRoot + "/1" + local
     img = defaultImgPrinter href, title, node, inLink
     if inLink
       img

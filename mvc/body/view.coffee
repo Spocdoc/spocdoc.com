@@ -1,6 +1,7 @@
 oauth = require 'connect_oauth'
 oauthLib = require '../../lib/oauth'
 debug = global.debug 'app:oauth'
+utils = require '../../lib/utils'
 
 tabs = [
   'blog'
@@ -36,6 +37,7 @@ module.exports =
     'oauthError'
     'loggedIn': -> @ace.loggedIn
     'name': -> @user.get('name')
+    'userImg': -> @user.get('picture')
   ]
 
   $content: 'view'
@@ -165,6 +167,17 @@ module.exports =
     return
 
   outletMethods: [
+    (userImg) ->
+      if userImg
+        if local = utils.localUrl userImg
+          uploadsServerRoot = @ace.manifest.uploadsServerRoot
+          userImg = uploadsServerRoot + "/1" + local
+        @$userImg.attr 'src', userImg
+      else
+        @$userImg.attr 'src', @templates.transparentGif
+      return
+
+
     (landing) ->
       @$root.toggleClass 'landing', !!landing
 

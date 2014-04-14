@@ -328,10 +328,11 @@
                         "body/invite_me/view.coffee",
                         "body/invite_me/youre_invited/view.coffee",
                         "body/controller.coffee", "routes.coffee",
+                        "docs/controller.coffee",
+                        "body/landing/view.coffee",
                         "mixins/img_printer/mixin.coffee",
                         "mixins/img_uploader/mixin.coffee",
-                        "docs/controller.coffee", "body/view.coffee",
-                        "body/landing/view.coffee"
+                        "body/view.coffee"
                     ],
                     "generated": "bundle/debug [-ie<=8 -ios debug].js"
                 },
@@ -515,10 +516,11 @@
                         "body/invite_me/view.coffee",
                         "body/invite_me/youre_invited/view.coffee",
                         "body/controller.coffee", "routes.coffee",
+                        "docs/controller.coffee",
+                        "body/landing/view.coffee",
                         "mixins/img_printer/mixin.coffee",
                         "mixins/img_uploader/mixin.coffee",
-                        "docs/controller.coffee", "body/view.coffee",
-                        "body/landing/view.coffee"
+                        "body/view.coffee"
                     ],
                     "generated": "bundle/debug [-ie<=8 debug ios].js"
                 }
