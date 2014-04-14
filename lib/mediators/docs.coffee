@@ -35,14 +35,7 @@ module.exports = (Base) ->
           super id, version, query, limit, sort, cb, (query, next) =>
             next null, @queryVisible(query)
         else
-          super id, version, query, limit, sort, cb, (doc, next) =>
-            return next() if doc.public
-
-            if (userId = @session.userId) and editors = doc.editors
-              for editor in editors when ''+editor is userId
-                return next()
-
-            next new Reject 'NOTVISIBLE'
+          super id, version, query, limit, sort, cb, (doc, next) => @canRead doc, next
       else # query
         super id, version, query, limit, sort, cb, (spec, next) =>
           spec.query = @queryVisible spec.query
@@ -74,6 +67,16 @@ module.exports = (Base) ->
 
 # ===========================================
 
+
+    canRead: (doc, next) ->
+      return next() if doc.public
+
+      if (userId = @session.userId) and editors = doc.editors
+        for editor in editors when ''+editor is userId
+          return next()
+
+      next new Reject 'NOTVISIBLE'
+
     getCss: (id, elemId, cb) ->
       async.waterfall [
         (next) =>
@@ -81,6 +84,9 @@ module.exports = (Base) ->
 
         (doc, next) =>
           return next new Reject "NODOC" unless doc
+          @canRead doc, (err) => next err, doc
+
+        (doc, next) =>
           try
             html = new Html doc.text
             format = html.meta.code or 'css'
