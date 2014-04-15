@@ -47,6 +47,10 @@
  [] clicking an image in the search results should go to that image. currently it just goes to the top of the article
  [] in search, `public:` should be parsed as a metadata search, not as text...
  [] mixins should be named separately -- `mixin.coffee` so they can be used by both views and controllers...
+ [] when selecting 'past the end' of an image or video, the position doesn't map to the end of the element in the text
+    [] pressing delete when past the end of an image or video should delete the whole image/video (but it currently deletes the char before start)
+ [] the trailing `#` in tags should be optional
+    currently tag blocks don't parse if you have a no-space tag ending with `#` (e.g., `#meetup/Media#`)
 
 ## optimization
 
