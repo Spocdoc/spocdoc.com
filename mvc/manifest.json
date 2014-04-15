@@ -324,7 +324,6 @@
                         "views/import_list.coffee",
                         "md/outline/view.coffee",
                         "views/progress_meter.coffee",
-                        "search/controller.coffee",
                         "body/invite_me/view.coffee",
                         "body/invite_me/youre_invited/view.coffee",
                         "body/controller.coffee", "routes.coffee",
@@ -332,7 +331,8 @@
                         "body/landing/view.coffee",
                         "mixins/img_printer/mixin.coffee",
                         "mixins/img_uploader/mixin.coffee",
-                        "body/view.coffee"
+                        "body/view.coffee",
+                        "search/controller.coffee"
                     ],
                     "generated": "bundle/debug [-ie<=8 -ios debug].js"
                 },
@@ -512,7 +512,6 @@
                         "views/import_list.coffee",
                         "md/outline/view.coffee",
                         "views/progress_meter.coffee",
-                        "search/controller.coffee",
                         "body/invite_me/view.coffee",
                         "body/invite_me/youre_invited/view.coffee",
                         "body/controller.coffee", "routes.coffee",
@@ -520,7 +519,8 @@
                         "body/landing/view.coffee",
                         "mixins/img_printer/mixin.coffee",
                         "mixins/img_uploader/mixin.coffee",
-                        "body/view.coffee"
+                        "body/view.coffee",
+                        "search/controller.coffee"
                     ],
                     "generated": "bundle/debug [-ie<=8 debug ios].js"
                 }

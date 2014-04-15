@@ -91,9 +91,8 @@ module.exports =
         date: $gte: @queryDateStart, $lte: @queryDateEnd
     }, null, modified: -1
 
-    # text query is ignored -- can't use in distinct call currently
     @tagsQuery = tagsQuery = new @Model['docs'].Query
-        # $text: @queryText
+        $text: @queryText
         # tags: $all: @queryTags
         tags: $allc: @queryTags
         date: $gte: @queryDateStart, $lte: @queryDateEnd
@@ -101,7 +100,7 @@ module.exports =
 
     @dateQuery = dateQuery =
       new @Model['docs'].Query
-        # $text: @queryText
+        $text: @queryText
         tags: $allc: @queryTags
         # tags: $all: @queryTags
         0
