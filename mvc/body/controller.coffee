@@ -1,3 +1,8 @@
+mongo = require 'mongo-fork'
+constants = require '../constants'
+
+synopsiEditor = [new mongo.ObjectID constants.synopsiUser]
+
 module.exports =
   outlets: [
     'page'
@@ -82,7 +87,18 @@ module.exports =
       #         controller.id.value
       #   controller
       when 'search','blog','updates'
-        @controllers['search'] ||= new @Controller['search'] this, 'search', frozen: @searchFrozen
+        @controllers['search'] ||= new @Controller['search'] this, 'search',
+          frozen: @searchFrozen
+          editors: =>
+            switch @page.get()
+              when 'search'
+                try
+                  if user = @user.get()
+                    [new mongo.ObjectID user.id]
+                catch _error
+              else
+                synopsiEditor
+
       when 'contactUs'
         @controllers['contactUs'] ||= new @View['contact_us'] this, 'contactUs'
       else

@@ -7,6 +7,7 @@ module.exports =
   outlets: [
     'number'
     'frozen'
+    'editors'
   ]
 
   internal: [
@@ -89,6 +90,7 @@ module.exports =
         # tags: $all: @queryTags
         tags: $allc: @queryTags
         date: $gte: @queryDateStart, $lte: @queryDateEnd
+        editors: $all: @editors
     }, null, modified: -1
 
     @tagsQuery = tagsQuery = new @Model['docs'].Query
@@ -96,12 +98,14 @@ module.exports =
         # tags: $all: @queryTags
         tags: $allc: @queryTags
         date: $gte: @queryDateStart, $lte: @queryDateEnd
+        editors: $all: @editors
         0
 
     @dateQuery = dateQuery =
       new @Model['docs'].Query
         $text: @queryText
         tags: $allc: @queryTags
+        editors: $all: @editors
         # tags: $all: @queryTags
         0
 

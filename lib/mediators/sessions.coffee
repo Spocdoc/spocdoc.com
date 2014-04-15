@@ -13,6 +13,7 @@ path = require 'path'
 regexId = /^[0-9a-f]{24}$/
 regexExtension = /^[a-zA-Z]+$/
 fs = require 'fs'
+constants = require '../../mvc/constants'
 
 debug = global.debug "ace:app:sessions"
 debugError = global.debug "error"
@@ -289,6 +290,18 @@ module.exports = (Base) ->
           @_update 'users', id, null, [{'o': 1, 'k': 'username', 'v': username},{'o':1,'k':'name','v':name},{'o':1,'k':'active','v': 1}], (err) =>
             return next new Reject 'USERNAME' if err?
             next()
+
+        (next) =>
+          # add the introduction doc
+          @_read 'docs', constants['docIntro'], next
+
+        (doc, next) =>
+          next() unless doc # silent error -- doc should exist
+          doc._id = new ObjectID()
+          doc._v = 1
+          editor = if id instanceof ObjectID then id else new ObjectID(id)
+          doc.editors = [ editor ]
+          @_create 'docs', doc, (err) => next err, (''+doc._id)
 
       ], cb
 

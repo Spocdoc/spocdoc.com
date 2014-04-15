@@ -318,7 +318,6 @@
                         "body/import/controller.coffee",
                         "body/import/evernote/view.coffee",
                         "mixins/css_slides/view.coffee",
-                        "search/results/doc/view.coffee",
                         "models/sessions.coffee",
                         "body/plus/view.coffee",
                         "body/import/files/view.coffee",
@@ -327,13 +326,14 @@
                         "views/progress_meter.coffee",
                         "body/invite_me/view.coffee",
                         "body/invite_me/youre_invited/view.coffee",
-                        "body/controller.coffee", "routes.coffee",
-                        "docs/controller.coffee",
+                        "routes.coffee", "docs/controller.coffee",
                         "body/landing/view.coffee",
                         "mixins/img_printer/mixin.coffee",
                         "mixins/img_uploader/mixin.coffee",
                         "body/view.coffee",
-                        "search/controller.coffee"
+                        "search/controller.coffee",
+                        "search/results/doc/view.coffee",
+                        "body/controller.coffee"
                     ],
                     "generated": "bundle/debug [-ie<=8 -ios debug].js"
                 },
@@ -507,7 +507,6 @@
                         "body/import/controller.coffee",
                         "body/import/evernote/view.coffee",
                         "mixins/css_slides/view.coffee",
-                        "search/results/doc/view.coffee",
                         "models/sessions.coffee",
                         "body/plus/view.coffee",
                         "body/import/files/view.coffee",
@@ -516,13 +515,14 @@
                         "views/progress_meter.coffee",
                         "body/invite_me/view.coffee",
                         "body/invite_me/youre_invited/view.coffee",
-                        "body/controller.coffee", "routes.coffee",
-                        "docs/controller.coffee",
+                        "routes.coffee", "docs/controller.coffee",
                         "body/landing/view.coffee",
                         "mixins/img_printer/mixin.coffee",
                         "mixins/img_uploader/mixin.coffee",
                         "body/view.coffee",
-                        "search/controller.coffee"
+                        "search/controller.coffee",
+                        "search/results/doc/view.coffee",
+                        "body/controller.coffee"
                     ],
                     "generated": "bundle/debug [-ie<=8 debug ios].js"
                 }
