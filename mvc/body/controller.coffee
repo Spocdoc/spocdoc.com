@@ -48,6 +48,8 @@ module.exports =
         return
 
       @validateAgain = false
+      @invitedId.set ''
+      @inviteToken.set ''
 
       unless user.get('active').get()
         @view.toggleDialog 'hello', true

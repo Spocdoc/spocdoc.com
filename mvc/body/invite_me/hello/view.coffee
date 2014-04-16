@@ -12,8 +12,8 @@ module.exports =
   ]
 
   outlets: [
-    'username'
-    'name'
+    'username': -> @userPriv.get('prefUsername')
+    'name': -> @user.get('name')
     'password'
     'requirePassword': -> !@userPriv.get('oauthTokens')?.get()
   ]
@@ -53,9 +53,9 @@ module.exports =
   $helloForm: link: ['submitHello']
 
   submitHello: ->
-    password = @password.get()
-    username = @username.get()
-    name = @name.get()
+    password = @password.get() or ''
+    username = @username.get() or ''
+    name = @name.get() or ''
     id = @user.get()?.id
 
     unless id
@@ -65,13 +65,17 @@ module.exports =
     @submitError.set ''
 
     MIN_PASSWORD_LENGTH = 5
+    MIN_USERNAME_LENGTH = 3
 
     if @requirePassword.get()
       if password.length < MIN_PASSWORD_LENGTH
         @$password.select()
         return @passwordError.set "Password must have at least #{MIN_PASSWORD_LENGTH} characters."
+    if username.length < MIN_USERNAME_LENGTH or !/^[a-zA-Z0-9]*$/.test(username)
+      @$username.select()
+      return @usernameError.set "Username must have at least #{MIN_USERNAME_LENGTH} characters and contain only letters and numbers."
 
-    @session.get()?.acceptInvite {id, name, username, password}, (err) =>
+    @session.get()?.acceptInvite {id, name, username, password}, (err, docId) =>
       if err?
         switch err.code
           when "USERNAME"
@@ -85,6 +89,7 @@ module.exports =
         return
 
       @depute 'toggleDialog', 'hello', false
+      @depute 'showDoc', docId if docId
     return
 
   constructor: ->

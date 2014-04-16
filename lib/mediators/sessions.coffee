@@ -268,9 +268,15 @@ module.exports = (Base) ->
       ], cb
 
     acceptInvite: (args, cb) ->
-      return cb new Reject 'NOUER' unless @session.isUser(id = args.id) and (username = args.username)
+      return cb new Reject 'NOUSER' unless @session.isUser(id = args.id)
       name = ''+(args.name or '')
-      username = (''+username).toLowerCase()
+      username = ''+(args.username or '').toLowerCase()
+
+      MIN_PASSWORD_LENGTH = 5
+      MIN_USERNAME_LENGTH = 3
+
+      if username.length < MIN_USERNAME_LENGTH or !/^[a-zA-Z0-9]*$/.test(username)
+        return cb new Reject 'USERNAME'
 
       async.waterfall [
         (next) =>
@@ -278,16 +284,16 @@ module.exports = (Base) ->
 
         (userPriv, next) =>
           unless userPriv.oauthProvider # then require password
-            return next new Reject "PASSWORD" unless (password = args.password) and password = utils.checksum password
+            return next new Reject "PASSWORD" unless (password = args.password) and password.length >= MIN_USERNAME_LENGTH and password = utils.checksum password
 
             # set the password
-            @_update 'users_priv', userPriv._id, null, [{'o': 1, 'k': 'password', 'v': password}], next
+            @_updateClient 'users_priv', userPriv._id, null, [{'o': 1, 'k': 'password', 'v': password}], next
           else
             next()
 
         (next) =>
           # set the name, username, active
-          @_update 'users', id, null, [{'o': 1, 'k': 'username', 'v': username},{'o':1,'k':'name','v':name},{'o':1,'k':'active','v': 1}], (err) =>
+          @_updateClient 'users', id, null, [{'o': 1, 'k': 'username', 'v': username},{'o':1,'k':'name','v':name},{'o':1,'k':'active','v': 1}], (err) =>
             return next new Reject 'USERNAME' if err?
             next()
 
@@ -301,7 +307,9 @@ module.exports = (Base) ->
           doc._v = 1
           editor = if id instanceof ObjectID then id else new ObjectID(id)
           doc.editors = [ editor ]
-          @_create 'docs', doc, (err) => next err, (''+doc._id)
+          @_create 'docs', doc, (err) =>
+            @clientCreate 'docs', doc
+            next err, (''+doc._id)
 
       ], cb
 

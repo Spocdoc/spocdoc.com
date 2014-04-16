@@ -68,9 +68,8 @@ module.exports =
       return
 
     @map
-      landing:
-        iid: '/landing/$invitedId'
-        it: '/landing/$inviteToken'
+      iid: '/invitedId'
+      it: '/inviteToken'
       page: '/page'
       menu: '/$menu'
       dialog: '/$dialog'

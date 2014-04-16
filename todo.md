@@ -23,6 +23,7 @@
  [] stop scrolling the calendar back at the earliest result (i.e., the range shown should only be blocks containing results until today)
  [] make the tags part of the content (the way you'd see keywords in an academic article)
  [] clicking compose on the homepage is a problem with long documents: the menu is fixed position
+ [] the require password field blinks when you load the page -- it'll appear when the JavaScript loads then disappear after the userPriv is set
 
 # implementation
 
