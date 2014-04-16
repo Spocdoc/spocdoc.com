@@ -34,8 +34,9 @@ module.exports =
     add '?ssb=:searchShowSidebar'
     add '?is=:importSource'
     add '#s=:scrollTop'
+    add '?:iid&:it'
 
-    add 'landing', '/', '?:iid&:it', page: ''
+    add 'landing', '/', page: ''
     # add 'about', '/about', '?:q', page: 'about'
     add '/explore', page: 'explore'
     add '/connect', page: 'connect'

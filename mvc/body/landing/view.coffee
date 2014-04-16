@@ -2,11 +2,6 @@ constants = require '../../constants'
 HEADLINER_MARGIN = 64
 
 module.exports =
-  outlets: [
-    'invitedId'
-    'inviteToken'
-  ]
-
   # $inviteMe3: link: ['depute','toggleDialog','inviteMe']
   # $findOutMore: link: ['depute','showPage','about']
 
@@ -15,12 +10,6 @@ module.exports =
     doc: @Model['docs'].read constants.docAbout
 
   outletMethods: [
-    (invitedId, inviteToken) ->
-      if invitedId and inviteToken
-        @validateInvite()
-        return
-      return
-
     (inWindow) ->
       if inWindow and !@ace.onServer
         # set the headliner to take up the entire above-the-fold
@@ -38,33 +27,6 @@ module.exports =
       scrollTop: top + HEADLINER_MARGIN
       constants.scrollMillis
 
-
-  validateInvite: ->
-    if @validating
-      @validateAgain = true
-      return
-
-    @validating = true
-    @validateAgain = false
-
-    invitedId = @invitedId.value
-    inviteToken = @inviteToken.value
-
-    @session.get()?.validateInvite invitedId, inviteToken, (err, user) =>
-      @validating = false
-
-      if err?
-        @validateInvite() if @validateAgain
-        return
-
-      @validateAgain = false
-
-      if user.get('active').get() # then already active
-        @depute 'showPage', ''
-      else
-        @depute 'toggleDialog', 'hello', true
-      return
-    return
 
   constructor: ->
     unless @ace.onServer

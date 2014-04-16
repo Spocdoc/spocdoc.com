@@ -23,4 +23,7 @@ html(lang="en")
       } else {
         html.className += " desktop";
       }
+      if (/\bMac OS X\b/.test(navigator.userAgent)) {
+        html.className += " apple";
+      }
     }());

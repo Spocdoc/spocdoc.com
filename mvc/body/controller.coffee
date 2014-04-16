@@ -7,6 +7,10 @@ module.exports =
   outlets: [
     'page'
     'searchFrozen': -> !(@page.get() in ['search','blog','updates'])
+
+    # invites
+    'invitedId'
+    'inviteToken'
   ]
 
   internal: [
@@ -16,6 +20,40 @@ module.exports =
       else
         @session.get('lastDoc')
   ]
+
+  outletMethods: [
+    (invitedId, inviteToken) ->
+      if invitedId and inviteToken
+        @validateInvite()
+        return
+      return
+  ]
+
+  validateInvite: ->
+    if @validating
+      @validateAgain = true
+      return
+
+    @validating = true
+    @validateAgain = false
+
+    invitedId = @invitedId.value
+    inviteToken = @inviteToken.value
+
+    @session.get()?.validateInvite invitedId, inviteToken, (err, user) =>
+      @validating = false
+
+      if err?
+        @validateInvite() if @validateAgain
+        return
+
+      @validateAgain = false
+
+      unless user.get('active').get()
+        @view.toggleDialog 'hello', true
+      return
+    return
+
 
   # show docs tab if lastDoc is set...
   $showDocs: -> @lastDoc
