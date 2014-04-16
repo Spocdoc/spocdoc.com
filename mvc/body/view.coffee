@@ -4,6 +4,7 @@ debug = global.debug 'app:oauth'
 utils = require '../../lib/utils'
 
 tabs = [
+  'admin'
   'blog'
   'explore'
   'connect'
@@ -22,6 +23,7 @@ module.exports =
     'content'
     'tab'
     'showDocs'
+    'showAdmin'
     'plusContent': (loggedIn) ->
         @controllers['plus'] ||= new @View['body/plus'] this, 'plus'
 
@@ -63,6 +65,7 @@ module.exports =
 
   $blog: linkdown: ['depute','showPage','blog']
   $explore: linkdown: ['depute','showPage','explore']
+  $admin: linkdown: ['depute','showPage','admin']
   $connect: linkdown: ['depute','showPage','connect']
   $docs: linkdown: ['depute','showPage','docs']
   $search: linkdown: ['depute','showPage','search']
@@ -243,11 +246,12 @@ module.exports =
         @$[t].toggleClass 'selected', !!(t is tab)
 
       # don't show the footer if there's a fixed position element
-      showFooter = !tab or tab is 'contactUs'
+      showFooter = !tab or tab in ['contactUs','admin']
       @$footer.toggleClass 'hidden', !showFooter
       return
 
     (showDocs) -> @$docs.toggleClass 'hidden', !showDocs
+    (showAdmin) -> @$admin.toggleClass 'hidden', !showAdmin
 
   ]
 

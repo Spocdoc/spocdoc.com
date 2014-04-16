@@ -16,6 +16,7 @@
     "mediator": "mediator",
     "layout": "layout.jade",
     "templates": {
+        "admin": "admin/template.jade",
         "body/import/drop_box": "body/import/drop_box/template.jade",
         "body/import/evernote": "body/import/evernote/template.jade",
         "body/import/files": "body/import/files/template.jade",
@@ -53,6 +54,7 @@
         "with_sidebar": "views/with_sidebar.jade"
     },
     "styles": {
+        "admin": "admin/style.styl",
         "body/import/evernote": "body/import/evernote/style.styl",
         "body/import/files": "body/import/files/style.styl",
         "body/import": "body/import/style.styl",
@@ -98,6 +100,7 @@
         "users_priv": "models/users_priv.coffee"
     },
     "views": {
+        "admin": "admin/view.coffee",
         "body/import/drop_box": "body/import/drop_box/view.coffee",
         "body/import/evernote": "body/import/evernote/view.coffee",
         "body/import/files": "body/import/files/view.coffee",
@@ -283,11 +286,10 @@
                         "../../marked-fork/outline/index.coffee",
                         "../lib/oauth/browser.coffee",
                         "calendar/calendar.coffee",
-                        "../lib/utils/browser.coffee",
                         "../../marked-fork/snips/index.coffee",
-                        "index.coffee", "constants.coffee",
-                        "views/slides.coffee", "views/test.coffee",
-                        "models/docs.coffee",
+                        "../lib/utils/browser.coffee", "index.coffee",
+                        "constants.coffee", "views/slides.coffee",
+                        "views/test.coffee", "models/docs.coffee",
                         "views/sidebar_split.coffee",
                         "docs/sidebar_tabs/media/view.coffee",
                         "search/field/menu/view.coffee",
@@ -318,7 +320,6 @@
                         "body/import/controller.coffee",
                         "body/import/evernote/view.coffee",
                         "mixins/css_slides/view.coffee",
-                        "models/sessions.coffee",
                         "body/plus/view.coffee",
                         "body/import/files/view.coffee",
                         "views/import_list.coffee",
@@ -330,12 +331,13 @@
                         "mixins/img_printer/mixin.coffee",
                         "mixins/img_uploader/mixin.coffee",
                         "search/results/doc/view.coffee",
-                        "search/controller.coffee",
                         "body/landing/view.coffee",
-                        "body/view.coffee", "views/dialog.coffee",
-                        "routes.coffee",
+                        "views/dialog.coffee",
                         "body/invite_me/hello/view.coffee",
-                        "body/controller.coffee"
+                        "search/controller.coffee",
+                        "body/controller.coffee", "routes.coffee",
+                        "models/sessions.coffee", "body/view.coffee",
+                        "admin/view.coffee"
                     ],
                     "generated": "bundle/debug [-ie<=8 -ios debug].js"
                 },
@@ -473,11 +475,10 @@
                         "../../marked-fork/outline/index.coffee",
                         "../lib/oauth/browser.coffee",
                         "calendar/calendar.coffee",
-                        "../lib/utils/browser.coffee",
                         "../../marked-fork/snips/index.coffee",
-                        "index.coffee", "constants.coffee",
-                        "views/slides.coffee", "views/test.coffee",
-                        "models/docs.coffee",
+                        "../lib/utils/browser.coffee", "index.coffee",
+                        "constants.coffee", "views/slides.coffee",
+                        "views/test.coffee", "models/docs.coffee",
                         "views/sidebar_split.coffee",
                         "docs/sidebar_tabs/media/view.coffee",
                         "search/field/menu/view.coffee",
@@ -508,7 +509,6 @@
                         "body/import/controller.coffee",
                         "body/import/evernote/view.coffee",
                         "mixins/css_slides/view.coffee",
-                        "models/sessions.coffee",
                         "body/plus/view.coffee",
                         "body/import/files/view.coffee",
                         "views/import_list.coffee",
@@ -520,19 +520,21 @@
                         "mixins/img_printer/mixin.coffee",
                         "mixins/img_uploader/mixin.coffee",
                         "search/results/doc/view.coffee",
-                        "search/controller.coffee",
                         "body/landing/view.coffee",
-                        "body/view.coffee", "views/dialog.coffee",
-                        "routes.coffee",
+                        "views/dialog.coffee",
                         "body/invite_me/hello/view.coffee",
-                        "body/controller.coffee"
+                        "search/controller.coffee",
+                        "body/controller.coffee", "routes.coffee",
+                        "models/sessions.coffee", "body/view.coffee",
+                        "admin/view.coffee"
                     ],
                     "generated": "bundle/debug [-ie<=8 debug ios].js"
                 }
             },
             "css": {
                 "": {
-                    "sources": ["body/import/evernote/style.styl",
+                    "sources": ["admin/style.styl",
+                        "body/import/evernote/style.styl",
                         "body/import/files/style.styl",
                         "body/import/style.styl",
                         "body/invite_me/hello/style.styl",

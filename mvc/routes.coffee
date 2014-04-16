@@ -50,6 +50,8 @@ module.exports =
 
     add 'docs', '/docs/:title?/:id', '?:q', page: 'docs'
 
+    add 'admin', '/admin', page: 'admin'
+
   configure: ->
     slug = @var '/docs/title'
     slug.addOutflow =>

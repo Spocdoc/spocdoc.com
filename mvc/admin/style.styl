@@ -1,0 +1,34 @@
+@import '../utils'
+
+.admin.root
+  .refresh
+    @extend $button
+
+  .pending_users
+    margin-top 2em
+    display table
+    border-collapse collapse
+    border-spacing 0
+
+    tr
+      &.invited
+        background LIGHT_GREEN
+
+        .invite
+          a
+            display none
+
+      &.error-row
+        background ERROR_COLOR
+        color white
+
+      td
+        padding 0.5em
+
+        &.invite
+          padding 0
+
+          a
+            display block
+            padding 0.5em
+

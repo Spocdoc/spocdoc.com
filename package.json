@@ -48,6 +48,8 @@
     "css": "1.x",
     "stylus": "0.42.x",
     "nib": "1.0.1",
-    "entities": "0.3.0"
+    "entities": "0.3.0",
+    "juice": "0.x",
+    "ejs": "1.x"
   }
 }

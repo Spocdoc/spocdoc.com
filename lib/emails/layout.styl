@@ -1,0 +1,26 @@
+@import '../../mvc/utils'
+@import '../../mvc/style'
+
+.content
+  p
+    line-height 1.6em
+
+.email-centering
+  margin 0 auto
+  max-width unit(MAX_TEXT_WIDTH, em)
+  padding 0 unit(PADDING_SIDES_SMALL, em)
+
+.bar
+  height unit(LOGGED_OUT_HEIGHT_PHONE, em)
+
+.bar-border-container
+  margin 0 auto
+  max-width unit(MAX_TEXT_WIDTH + PADDING_SIDES_SMALL, em)
+  // padding 0 unit(PADDING_SIDES_CENTERING - PADDING_SIDES_SMALL, em)
+  height unit(BAR_PADDING_BOTTOM, em)
+
+  .bar-border
+    width 100%
+    border-top unit(BOTTOM_BORDER, px) solid BOTTOM_COLOR
+
+

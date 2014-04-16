@@ -16,7 +16,7 @@ module.exports =
   internal: [
     'lastDoc': ->
       if @ace.loggedIn.get()
-        @session.get('user').get('priv')?.get('lastDoc')
+        @user.get('priv')?.get('lastDoc')
       else
         @session.get('lastDoc')
   ]
@@ -59,6 +59,7 @@ module.exports =
 
   # show docs tab if lastDoc is set...
   $showDocs: -> @lastDoc
+  $showAdmin: -> @user.get()?.id is constants['synopsiUser']
 
   $tab: -> @page
   $content: (page) -> @getController page
@@ -85,6 +86,9 @@ module.exports =
     switch which
       when 'landing', ''
         @controllers['landing'] ||= new @View['body/landing'] this, 'landing', deputy: @view
+
+      when 'admin'
+        @controllers['admin'] ||= new @View['admin'] this, 'admin', deputy: @view
 
       when 'import'
         controller = @controllers[which] ||= new @View['dialog'] this, which,

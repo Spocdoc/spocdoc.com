@@ -4,6 +4,7 @@ mongodb = require 'mongo-fork'
 DBRef = mongodb.DBRef
 ObjectID = mongodb.ObjectID
 Reject = require 'ace_mvc/lib/error/reject'
+Uri = require 'uri-fork'
 async = require 'async'
 OJSON = require 'ojson'
 oauth = require '../oauth'
@@ -14,6 +15,7 @@ regexId = /^[0-9a-f]{24}$/
 regexExtension = /^[a-zA-Z]+$/
 fs = require 'fs'
 constants = require '../../mvc/constants'
+inviteEmail = require '../emails/invite'
 
 debug = global.debug "ace:app:sessions"
 debugError = global.debug "error"
@@ -93,10 +95,86 @@ module.exports = (Base) ->
         when 'oauthService' then @oauthService args.details, args.fn, args.args, cb
         when 'imgExists' then @imgExists args.id, args.extension, cb
         when 'imgUpload' then @imgUpload args.id, args.extension, args.b64, cb
+        when 'admin' then @admin args, cb
         else super
       return
 
 # -------------------------------------------------
+
+    pendingUsers: (cb) ->
+      privs = users = null
+
+      async.waterfall [
+        (next) =>
+          @db.run 'find', 'users', {active: 0}, {name: 1}, next
+
+        (users_, next) =>
+          users = users_
+
+          return cb null, [] unless users and Array.isArray(users) and users[0]
+
+          ids = []
+          ids.push doc._id for doc in users
+
+          # get the email addresses for these users...
+          @db.run 'find', 'users_priv', {_id: {$in: ids}}, {email: 1}, next
+
+        (privs_, next) =>
+          privs = privs_
+
+          return cb null, [] unless privs and Array.isArray(privs) and privs[0]
+
+          emails = {}
+          emails[priv._id] = priv.email for priv in privs
+
+          out = []; i = -1
+          for user in users when email = emails[user._id]
+            out[++i] = {
+              id: ''+user._id
+              name: user.name
+              email: email
+            }
+
+          next null, out
+
+      ], cb
+
+    sendInvite: (userId, cb) ->
+      user = priv = null
+
+      async.waterfall [
+        (next) =>
+          @_read 'users', userId, next
+
+        (user_, next) =>
+          user = user_
+          @_read 'users_priv', userId, next
+
+        (priv_, next) =>
+          priv = priv_
+
+          return cb new Reject 'NOUSER', "can't find user" unless priv and user
+          return cb new Reject 'NOEMAIL', "no email listed" unless email = priv.email
+
+          inviteEmail user, priv, next
+
+        (obj, next) =>
+          @sendmail obj, next
+
+      ], cb
+
+
+    admin: (args, cb) ->
+      return cb new Reject 'NOADMIN' unless @session.isUser constants['synopsiUser']
+      {cmd, args} = args
+
+      switch cmd
+        when 'pendingUsers'
+          @pendingUsers cb
+        when 'invite'
+          @sendInvite.apply this, (args or []).concat cb
+        else
+          return cb new Reject 'BADCMD'
 
     imgExists: (id, extension, cb) ->
       return cb new Reject "BADID" unless regexId.test(id=''+id) and regexExtension.test extension=''+extension

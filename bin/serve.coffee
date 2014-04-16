@@ -10,6 +10,9 @@ connectOauth = require 'connect_oauth'
 manifestArgs = if 0 <= tmp = process.argv.indexOf('--manifest') then process.argv.splice(tmp).slice(1) else []
 optimist = require 'optimist'
 staticFiles = require './static_files'
+nodemailer = require 'nodemailer'
+require 'debug-fork'
+debugEmail = global.debug 'email'
 
 argv = optimist
   .default({
@@ -77,7 +80,7 @@ debugger
 favicon = fs.readFileSync path.resolve __dirname, '../public/img/favicon.ico'
 app.get '/favicon.ico', (req,res,next) -> res.end favicon
 
-app.use ace server, manifest,
+app.use aceInst = ace server, manifest,
   # cookies:
   #   secure: (argv.protocol is 'https')
   mongodb:
@@ -90,6 +93,21 @@ app.use ace server, manifest,
     port: 6379
     options:
       retry_max_delay: 30*1000
+  mediatorGlobals:
+    sendmail: (obj, cb) ->
+      debugEmail "Sending email to [#{obj.to}]"
+      obj.from = "Mike Robertson <mike@synop.si>"
+      unless obj['text']?
+        obj.generateTextFromHTML = true
+      smtp.sendMail obj, cb
+
+smtp = nodemailer.createTransport "SMTP",
+  service: "Gmail"
+  auth:
+    user: "mike@synop.si"
+    pass: "MGJ466a4*"
+
+aceInst.on 'close', -> smtp.close()
 
 if argv.listen
   server.listen port = argv.port, argv.listen, ->

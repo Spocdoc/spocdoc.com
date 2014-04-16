@@ -52,6 +52,11 @@
     [] pressing delete when past the end of an image or video should delete the whole image/video (but it currently deletes the char before start)
  [] the trailing `#` in tags should be optional
     currently tag blocks don't parse if you have a no-space tag ending with `#` (e.g., `#meetup/Media#`)
+ [] simplify the process for adding links with selectors. it's overly complex now (to allow for hrefs so you can apple-click). I'd prefer this:
+
+        $foo: link: 'a': ($target) -> @invite $target.attr('...')
+
+    but because the function isn't named, there's no way to invoke it on the server with an href
 
 ## optimization
 

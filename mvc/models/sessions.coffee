@@ -69,6 +69,9 @@ module.exports =
   oauthService: (details, fn, args..., cb) ->
     @run 'oauthService', {details, fn, args}, cb
 
+  admin: (cmd, args..., cb) ->
+    @run 'admin', {cmd, args}, cb
+
   logIn: (details, cb) ->
     @run 'logIn', details, (err, id) =>
       return cb err if err?
