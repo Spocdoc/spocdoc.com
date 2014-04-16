@@ -1,0 +1,12 @@
+@import '../../utils'
+
+@media MEDIA_WITH_SIDEBAR
+  .search
+    .search-results
+      column-count 2
+      column-gap unit(PADDING_SIDES_SMALL, em)
+
+    &.sidebar-shown
+      .search-results
+        column-count 1
+

@@ -275,11 +275,17 @@ module.exports = (Base) ->
       MIN_PASSWORD_LENGTH = 5
       MIN_USERNAME_LENGTH = 3
 
-      if username.length < MIN_USERNAME_LENGTH or !/^[a-zA-Z0-9]*$/.test(username)
+      if username.length < MIN_USERNAME_LENGTH or !/^[a-z0-9]*$/.test(username)
         return cb new Reject 'USERNAME'
 
       async.waterfall [
         (next) =>
+          @session.readUser next
+
+        (user, next) =>
+          return next new Reject 'NOUSER' unless user
+          return cb() if user.active
+
           @session.readUserPriv next
 
         (userPriv, next) =>

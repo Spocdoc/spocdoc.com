@@ -91,7 +91,7 @@ module.exports =
         tags: $allc: @queryTags
         date: $gte: @queryDateStart, $lte: @queryDateEnd
         editors: $all: @editors
-    }, null, modified: -1
+    }, 10, modified: -1
 
     @tagsQuery = tagsQuery = new @Model['docs'].Query
         $text: @queryText

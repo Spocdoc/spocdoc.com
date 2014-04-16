@@ -78,10 +78,13 @@ CHEVRON_FROM_SIDE = 0
 
 
 @media MEDIA_WITH_SIDEBAR
-  .with_sidebar
-    .main
-      margin-right unit(SIDEBAR_WIDTH + MIN_SIDEBAR_PADDING, em)
+  [data-menu~="login"].logged-out, [data-menu~="user"].logged-in, [data-menu~="plus"].logged-in
+    .with_sidebar
+      .sidebar
+        .vert-dots
+          display none
 
+  .with_sidebar
     .sidebar-container
       width unit(SIDEBAR_WIDTH,em)
       position static
@@ -93,19 +96,24 @@ CHEVRON_FROM_SIDE = 0
       .menu-outer
         width unit(SIDEBAR_WIDTH,em)
         left 0
-        display block !important
+        // display block !important
 
-    .vert-dots
-      display none
+    // .vert-dots
+    //   display none
 
     .dropdown-menu
       border 0
       box-shadow none
       background none
-      padding 1.5em 0 !important
+      padding 3.5em 0 !important
 
     .dropdown-caret
       display none
+
+  .sidebar-shown
+    .main
+      margin-right unit(SIDEBAR_WIDTH + MIN_SIDEBAR_PADDING, em)
+
 
 .sidebar-shown
   .menu-outer
