@@ -217,7 +217,9 @@ module.exports =
     (dialog, inWindow) ->
       if inWindow
         body = ($body = @$root.closest('body'))[0]
-        $body.toggleClass 'no-scroll', !!dialog
+
+        # would prefer to prevent the body from scolling but doing this causes the scrollbar to disappear, so the content shifts
+        # $body.toggleClass 'no-scroll', !!dialog
 
         unless @addedEvents
           @addedEvents = true
