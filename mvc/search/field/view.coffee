@@ -9,6 +9,7 @@ badRange = [null,null]
 
 TEXT_NODE = 3
 
+KEY_ESC = 27
 KEY_TAB = 9
 KEY_DOWN = 40
 KEY_UP = 38
@@ -205,6 +206,10 @@ module.exports =
         event.preventDefault()
         event.stopPropagation()
         return false
+      else if event.keyCode is KEY_ESC
+        @clearSearch()
+        return false
+
 
     @$search.on 'input keyup', (event) =>
       @search.set @$search.text()
