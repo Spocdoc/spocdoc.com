@@ -82,6 +82,9 @@
  [] get smartypants to work with replacements that aren't character-to-character
  [] the text updating algorithm can be very slow in large documents, presumably because it has to classify the whole document
  [] evernote import should support their hierarchical tags
+ [] when doing a search, narrow the outline to show only sections containing matches. then navigate to those parts
+ [] if the title matches, show the head as a block *and continue to search the rest*
+    currently, if the title matches, it just shows the document head
 
 # Mobile
 

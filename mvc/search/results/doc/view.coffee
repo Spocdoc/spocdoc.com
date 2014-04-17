@@ -30,22 +30,22 @@ module.exports =
 
 
   outletMethods: [
-    (words, text) ->
+    (words, text, title) ->
       html = ''
+
+      @$titleH1.toggleClass 'empty', !title
+      title ||= ''
+      inline = new Inline title
+      titleHtml = inline.highlight words if words
+      words = null if titleHtml # TODO temporary workaround: if title matches, show the head, rather than matches within doc
+      titleHtml ||= inline.html()
+      @$title.html titleHtml
+
       for snip in (@snips = new Snips text, words, depth: 1, imgPrinter: @imgPrinter).snips
         html += """<div class="section-wrapper"><div class="section"><div class="margin-eater"></div>"""
         html += snip
         html += """</div></div>"""
       @$content.html html
-      return
-
-    (title, words) ->
-      @$titleH1.toggleClass 'empty', !title
-      title ||= ''
-      inline = new Inline title
-      html = inline.highlight words if words
-      html ||= inline.html()
-      @$title.html html
       return
 
     (tags, specTags) ->
