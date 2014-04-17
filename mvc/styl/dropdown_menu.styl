@@ -1,5 +1,34 @@
 @import '../utils'
 
+// Menu button
+// -----------
+.menu_button
+  border: 1px solid LIGHT_GRAY
+  border-radius: 2px;
+  padding 0.3em 0.6em
+  cursor pointer
+  display inline-block
+
+  &, &:link, &:visited
+    color BLACK_COLOR
+
+  &:hover, &.active
+    text-decoration none
+    background LIGHTER_GRAY
+    color LINK_COLOR
+
+  & ~ .dropdown-menu-right
+    display none
+    right 0
+
+  &.active ~ .dropdown-menu-right
+    display block
+
+  &:after
+    font-family spocdicons
+    content '\f025'
+    margin-left 4px
+
 .menu-outer
   position relative
   display inline-block
@@ -74,7 +103,7 @@
         margin 0
         color BLACK_COLOR
 
-        &:hover//, &:focus // no focus -- causes the element to remain highlighted after clicking
+        &:hover
           text-decoration none
           background LINK_COLOR
           color white
@@ -85,6 +114,17 @@
 
         &.has-menu
           padding-right 37px
+
+  &.small
+    padding-top 5px
+    li
+      & > a
+        &:hover
+          background LIGHTER_GRAY
+          color BLACK_COLOR
+        &:active
+          background LIGHT_GRAY
+          border-color LIGHT_GRAY !important
 
 .dropdown-menu-right
   float none

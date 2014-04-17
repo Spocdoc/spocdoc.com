@@ -24,24 +24,24 @@ CHEVRON_FROM_SIDE = 0
     width 0
     z-index 900
 
-    .menu-outer
+    & > .menu-outer
       height 100%
       width unit(SIDEBAR_WIDTH + 2 * PADDING_SIDES_SMALL,em)
       left -12px
       display none
 
-    .dropdown-caret
-      top unit(SIDEBAR_FROM_BAR_BOTTOM + CHEVRON_FROM_TOP, em)
+      & > .dropdown-caret
+        top unit(SIDEBAR_FROM_BAR_BOTTOM + CHEVRON_FROM_TOP, em)
 
-    .dropdown-menu
-      height 100%
-      position static
-      box-sizing border-box
-      padding-left unit(PADDING_SIDES_SMALL, em)
-      padding-right unit(PADDING_SIDES_SMALL, em)
-
-      & > div
+      & > .dropdown-menu
         height 100%
+        position static
+        box-sizing border-box
+        padding-left unit(PADDING_SIDES_SMALL, em)
+        padding-right unit(PADDING_SIDES_SMALL, em)
+
+        & > div
+          height 100%
 
     .vert-dots
       position absolute
@@ -93,22 +93,19 @@ CHEVRON_FROM_SIDE = 0
       padding unit(LOGGED_OUT_HEIGHT, em) 0
       z-index 0
 
-      .menu-outer
+      & > .menu-outer
         width unit(SIDEBAR_WIDTH,em)
         left 0
         // display block !important
 
-    // .vert-dots
-    //   display none
+        & > .dropdown-menu
+          border 0
+          box-shadow none
+          background none
+          padding 3.5em 0 !important
 
-    .dropdown-menu
-      border 0
-      box-shadow none
-      background none
-      padding 3.5em 0 !important
-
-    .dropdown-caret
-      display none
+        & > .dropdown-caret
+          display none
 
   .sidebar-shown
 
@@ -120,8 +117,9 @@ CHEVRON_FROM_SIDE = 0
 
 
 .sidebar-shown
-  .menu-outer
-    display block !important
+  .sidebar
+    & > .menu-outer
+      display block !important
 
   .vert-dots
     &:link, &:visited, &

@@ -54,7 +54,7 @@ module.exports =
     'custom': -> @doc.get('custom')
     'modified': -> @doc.get('modified')
     'tldr': -> @doc.get('tldr')
-    'public': -> @doc.get('public')
+    'pub': -> @doc.get('public')
     'editable': -> @doc.get()?.editable()
     'initialPosition' # startOffset, endOffset, carat when rendering a document
     'search'
@@ -242,7 +242,7 @@ module.exports =
     @tldr.set meta['tldr']
     @css.set meta['css']
     @code.set meta['code']
-    @public.set utils.makePublic meta
+    @pub.set utils.makePublic meta
     return
 
   handleInput: ->

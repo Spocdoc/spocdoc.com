@@ -72,6 +72,25 @@
     .dot
       background LINK_COLOR
 
+// indicator
+// -------------
+.indicator
+  color hsl(0,0,50%)
+  font-weight 300
+
+  &:before
+    margin-right 0.5em
+    content: '○'
+
+  &.on
+    color GREEN_COLOR
+    font-weight normal
+
+    &:before 
+      // text-shadow 0 0 0.5em hsl(120, 100%, 25%)
+      content '●'
+
+
 // Spinner
 // --------
 .spinner
@@ -278,10 +297,6 @@ input[type="text"], input[type="email"], input[type="password"]
         & +.space
           height 2em
 
-
-
-
-            
 
 .no-css, .hidden
   display none !important

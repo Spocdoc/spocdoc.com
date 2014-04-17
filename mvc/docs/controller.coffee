@@ -22,6 +22,10 @@ module.exports =
   keydown: (event) -> @controllers['main'].keydown event
   keyup: (event) -> @controllers['main'].keyup event
 
+  deleteDoc: ->
+    # TODO should there be a confirm here?
+    @doc.get()?.delete()
+
   # for tabs
   getCell: (tab) ->
     tabClass = typeToClass tab
@@ -41,6 +45,7 @@ module.exports =
     @controllers['top'] = new @View['docs/sidebar_top'] this, 'sidebarTop',
       search: field
       editable: main.editable
+      pub: -> !!main.pub.get() # TODO this had to be a function for it to work on the client... why?
 
     @controllers['outline'] = new @View['md/outline'] this, 'outline_content',
       doc: @doc

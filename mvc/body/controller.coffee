@@ -150,8 +150,8 @@ module.exports =
               else
                 ['blog']
 
-      when 'contactUs'
-        @controllers['contactUs'] ||= new @View['contact_us'] this, 'contactUs'
+      # when 'contactUs'
+      #   @controllers['contactUs'] ||= new @View['contact_us'] this, 'contactUs'
       else
         null
 

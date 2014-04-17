@@ -1,6 +1,8 @@
 @import '../../utils'
 
 .docs-sidebar_top
+  margin-bottom 2em
+
   .search-container
     width 100% !important
     font-size 16px !important // required for ios to prevent zooming
@@ -8,21 +10,27 @@
     .search-field
       margin-bottom 0 !important
 
-  .editable
-    color hsl(0,0,50%)
-    margin 1em 0
-    font-weight 300
+  .indicator
+    margin-bottom 0.5em
 
+  .tools
     &:before
-      margin-right 0.5em
-      content: '○'
+      font-family spocdicons
+      content '\f056'
+      color DARK_GRAY
 
-    &.can-edit
-      color GREEN_COLOR
-      font-weight normal
+    &:hover, &.active
+      &:before
+        color LINK_COLOR
 
-      &:before 
-        text-shadow 0 0 0.5em hsl(120, 100%, 25%)
-        content '●'
+    span
+      display none
 
+  .split
+    .left
+      float left
+    .right
+      float right
 
+  .split-clear
+    clear both

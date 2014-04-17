@@ -24,6 +24,7 @@
  [] make the tags part of the content (the way you'd see keywords in an academic article)
  [] clicking compose on the homepage is a problem with long documents: the menu is fixed position
  [] the require password field blinks when you load the page -- it'll appear when the JavaScript loads then disappear after the userPriv is set
+ [] when the sidebar visibility is toggled, the tabs don't recalculate whether they should be side-by-side or stacked
 
 # implementation
 

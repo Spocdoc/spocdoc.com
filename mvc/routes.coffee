@@ -40,7 +40,6 @@ module.exports =
     # add 'about', '/about', '?:q', page: 'about'
     add '/explore', page: 'explore'
     add '/connect', page: 'connect'
-    add '/contact_us', page: 'contactUs'
 
     add 'search', '/updates/:number', '?:q', '#ds1=:dateScrollTop&ds2=:dateScrollBottom&ds3=:dateScrollBot', page: 'blog'
     add 'search', '/updates', '?:q', '#ds1=:dateScrollTop&ds2=:dateScrollBottom&ds3=:dateScrollBot', page: 'blog'
