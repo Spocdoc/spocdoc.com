@@ -56,6 +56,7 @@ module.exports =
       return
     return
 
+  help: -> @showDoc constants.docHelp
 
   # show docs tab if lastDoc is set...
   $showDocs: -> @lastDoc

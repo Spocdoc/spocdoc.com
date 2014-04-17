@@ -48,12 +48,12 @@ module.exports =
     add 'search', '/search/:number', '?:q', '#ds1=:dateScrollTop&ds2=:dateScrollBottom&ds3=:dateScrollBot', page: 'search'
     add 'search', '/search', '?:q', '#ds1=:dateScrollTop&ds2=:dateScrollBottom&ds3=:dateScrollBot', page: 'search'
 
-    add 'docs', '/docs/:title?/:id', '?:q', page: 'docs'
+    add 'docs', '/doc/:title?/:id', '?:q', page: 'docs'
 
     add 'admin', '/admin', page: 'admin'
 
   configure: ->
-    slug = @var '/docs/title'
+    slug = @var '/docs/main/title'
     slug.addOutflow =>
       @docs['title'].set toSlug slug.value
 

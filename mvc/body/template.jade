@@ -94,24 +94,17 @@ include ../utils
 hr.no-css
 .centering
   #content.content
-
-  #footer.footer
-    .box: ul
-      li: a#footAbout About
-      li: a#footBlog Blog
-      li: a Investors
-    .box: ul
-      li: a Careers
-      li: a APIs
-      li: a Legal
-    .box: ul
-      li: a#contactUs Contact Us
-      li: a Press
-      li
-        .social
-          a.twitter(target='blank',href='http://twitter.com/SpocdocApp')
-    .bottom-box
-      span.copy © Spocdoc LLC · Made in NY
-      //-a.made-in-ny.hidden
+    #footer.body_footer
+      ul
+        li: a#company Company
+        li.social
+          a.mail(href='mailto:mike@synop.si')
+          a.twitter(target='blank',href='https://twitter.com/SynopsiApp')
+          a.facebook(target='blank',href='https://facebook.com/synopsiapp')
+          a.tumblr(target='blank',href='http://synopsi-app.tumblr.com/')
+        li: a#help Help
+      .bottom-box
+        span.copy © Spocdoc LLC · Made in NY
+        //-a.made-in-ny.hidden
 
 #dialog

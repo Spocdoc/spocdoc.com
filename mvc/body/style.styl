@@ -14,31 +14,32 @@
   & > .content 
     margin-top unit(LOGGED_OUT_HEIGHT + 3,em)
 
-  & > .footer
+  .body_footer
     white-space nowrap
-    text-align justify
-    font-size 0.9em
+    text-align center
     padding-top unit(PADDING_SIDES_SMALL, em)
     border-top 1px solid BOTTOM_COLOR
     margin-top 3em
+    border-radius 4px
+
+    & > *
+      font-size 0.9em
 
     @media print
       display none
 
-    .box
-      float left
-      width 33%
-      text-align center
+    & > ul > li
+      display inline-block
+      margin 0 2em
 
-      ul
-        text-align left
-        display inline-block
+    a, a:link, a:visited
+      color LINK_COLOR
 
     .bottom-box
       clear both
       // text-align center
-      padding-top 1em
-      margin-bottom 1em
+      padding 1em 0
+      margin-bottom 2em
 
     .copy
       font-size 0.8em
@@ -48,12 +49,19 @@
       a
         margin-right 0.15em
         cursor pointer
+        border-radius 50%
+        height 2em
+        width 2em
+        display inline-block
 
         &:hover
           text-decoration none
+          background LINK_COLOR
+          color white
 
         &:before
           font-family 'spocdicons'
+          line-height 2em
 
       .twitter:before
         content: '\f030'
@@ -63,6 +71,12 @@
 
       .linkedin:before
         content: '\f032'
+
+      .tumblr:before
+        content: '\f055'
+
+      .mail:before
+        content: '\f052'
 
 @import './styl/bar'
 @import './styl/login'

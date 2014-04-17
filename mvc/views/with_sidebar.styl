@@ -111,6 +111,10 @@ CHEVRON_FROM_SIDE = 0
       display none
 
   .sidebar-shown
+
+    & + .body_footer
+      margin-right unit(SIDEBAR_WIDTH + 2 * PADDING_SIDES_SMALL,em)
+
     .main
       margin-right unit(SIDEBAR_WIDTH + MIN_SIDEBAR_PADDING, em)
 

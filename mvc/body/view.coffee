@@ -2,6 +2,7 @@ oauth = require 'connect_oauth'
 oauthLib = require '../../lib/oauth'
 debug = global.debug 'app:oauth'
 utils = require '../../lib/utils'
+constants = require '../constants'
 
 tabs = [
   'admin'
@@ -42,7 +43,7 @@ module.exports =
     'userImg': -> @user.get('picture')
   ]
 
-  $content: 'view'
+  $content: 'viewPrepend'
   $menuButton: linkdown: ['toggleMenu', 'on']
   $menuButtonOverlay: linkdown: ['toggleMenu', 'on']
   $userMenu: linkup: ['toggleMenu', 'user']
@@ -70,10 +71,10 @@ module.exports =
   $docs: linkdown: ['depute','showPage','docs']
   $search: linkdown: ['depute','showPage','search']
   $logo: linkdown: ['depute','showPage','']
-  $contactUs: linkdown: ['depute','showPage','contactUs']
 
   # footer links
-  $footBlog: link: ['depute','showPage','blog']
+  $company: link: ['depute','showDoc',constants.docCompany]
+  $help: link: ['depute','help']
 
   # log in
   $submit: link: ['submitLogin']
@@ -246,8 +247,8 @@ module.exports =
         @$[t].toggleClass 'selected', !!(t is tab)
 
       # don't show the footer if there's a fixed position element
-      showFooter = !tab or tab in ['contactUs','admin']
-      @$footer.toggleClass 'hidden', !showFooter
+      # showFooter = !tab or tab in ['contactUs','admin']
+      # @$footer.toggleClass 'hidden', !showFooter
       return
 
     (showDocs) -> @$docs.toggleClass 'hidden', !showDocs
