@@ -53,7 +53,7 @@ module.exports =
     add 'admin', '/admin', page: 'admin'
 
   configure: ->
-    slug = @var '/docs/main/title'
+    slug = @var '/docs/main/$title'
     slug.addOutflow =>
       @docs['title'].set toSlug slug.value
 
