@@ -143,6 +143,12 @@ module.exports =
                 catch _error
               else
                 synopsiEditor
+          tags: =>
+            switch @page.get()
+              when 'search'
+                []
+              else
+                ['blog']
 
       when 'contactUs'
         @controllers['contactUs'] ||= new @View['contact_us'] this, 'contactUs'

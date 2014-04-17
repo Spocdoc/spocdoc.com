@@ -78,6 +78,8 @@ module.exports =
           @$date.addClass 'empty'
           return
 
+      return unless date
+
       start = dates.dateToStr date
       end = dates.dateToStr(modified)
 

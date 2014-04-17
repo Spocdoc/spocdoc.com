@@ -8,6 +8,7 @@ module.exports =
     'number'
     'frozen'
     'editors'
+    'tags'
   ]
 
   internal: [
@@ -19,6 +20,9 @@ module.exports =
     'allDates'
     'subTags'
     'spec'
+
+    # tags specified either in tags inlet or in field
+    'filteredTags'
   ]
 
   $main: -> new @View['search/page'] this, 'main',
@@ -45,9 +49,13 @@ module.exports =
       @dateQuery.refresh()
     return
 
+  outletMethods: [
+    (tags) -> @updateQuery @spec.value
+  ]
+
   updateQuery: (spec=[]) ->
     queryText = ''
-    queryTags = []
+    queryTags = (@tags.get() or []).concat()
     queryDateStart = null
     queryDateEnd = null
     @spec.set spec # delayed so the snips search isn't char by char
@@ -123,12 +131,15 @@ module.exports =
     field = @controllers['field'] = new @View['search/field'] this, 'field',
       name: 'Type to search'
 
+    @filteredTags.set =>
+      (field.specTags.get() or []).concat(@tags.get() or [])
+
     @controllers['results'] = new @Controller['search/results'] this, 'results',
       query: @query
       spec: @spec
       dateStart: field.dateStart
       dateEnd: field.dateEnd
-      specTags: field.specTags
+      specTags: @filteredTags #field.specTags
       frozen: @frozen
 
     @controllers['Dates'] = new @View["search/sidebar_tabs/dates"] this, "datesContent",
@@ -138,7 +149,7 @@ module.exports =
 
     @controllers['Tags'] = new @Controller["search/sidebar_tabs/tags"] this, "tagsContent",
       subTags: @subTags
-      specTags: field.specTags
+      specTags: @filteredTags #field.specTags
       
     @controllers['top'] = new @View['search/sidebar_top'] this, 'sidebarTop'
 
