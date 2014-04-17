@@ -1,4 +1,26 @@
 _ = require 'lodash-fork'
+dates = require 'dates-fork'
+
+userInviteDateSort = (a,b) ->
+  ai = a.invited
+  bi = b.invited
+
+  unless ai instanceof Date
+    return -1 if bi instanceof Date
+
+    # neither has a date
+    return (a.email||'').localeCompare(b.email||'')
+
+  else
+    return 1 unless bi instanceof Date
+
+    # both have dates
+    ai = ai.getTime()
+    bi = bi.getTime()
+
+    return -1 if ai < bi
+    return 1 if ai > bi
+    0
 
 module.exports =
   outlets: [
@@ -18,12 +40,18 @@ module.exports =
     html: (users, search) ->
       html = ''
       if users
-        for user in users
-          {id, name, email} = user
+        # sort users by invited date asc
+        for user in users.sort(userInviteDateSort)
+          {id, name, email, invited} = user
 
           id ||= ''
           name ||= ''
           email ||= ''
+
+          if invited instanceof Date
+            invited = dates.dateToStr invited
+          else
+            invited = ''
 
           if search
             continue unless id.indexOf(search) or name.indexOf(search) or email.indexOf(search)
@@ -32,6 +60,7 @@ module.exports =
 
           html += """<tr data-id=#{quoteId}>"""
           html += """<td class="invite"><a href="javascript:void(0)" data-id=#{quoteId}>invite</a></td>"""
+          html += """<td>#{_.unsafeHtmlEscape invited}</td>"""
           html += """<td>#{_.unsafeHtmlEscape email}</td>"""
           html += """<td>#{_.unsafeHtmlEscape name}</td>"""
           html += """</tr>"""
@@ -41,8 +70,11 @@ module.exports =
   invite: (id) ->
     return unless id
     quoteId = _.quote id
+    $row = @$root.find("tr[data-id=#{quoteId}]")
+    $row.addClass 'sending_row'
+
     @session.get()?.admin 'invite', id, (err) =>
-      $row = @$root.find("tr[data-id=#{quoteId}]")
+      $row.removeClass 'sending_row'
 
       if err?
         @error.set err.msg or "Error"

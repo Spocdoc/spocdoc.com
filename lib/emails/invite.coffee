@@ -23,7 +23,7 @@ module.exports = (user, priv, cb) ->
         name: user.name
         email: priv.email
         uri: uri
-        welcome: """You've been invited to join Synopsi, the online blogging, note-taking, and writing platform. Now is your chance to try it out and join the community. It's a super-fast and elegant way of storing and finding your content from anywhere. You'll love it."""
+        welcome: """You've been invited to join Synopsi, the online note-taking, blogging and writing platform. Now is your chance to try it out and join the community. It's a super-fast and elegant way of storing and finding your content from anywhere. You'll love it."""
         button: "Get Started"
         markdown: markdown
 

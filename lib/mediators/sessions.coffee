@@ -117,22 +117,21 @@ module.exports = (Base) ->
           ids.push doc._id for doc in users
 
           # get the email addresses for these users...
-          @db.run 'find', 'users_priv', {_id: {$in: ids}}, {email: 1}, next
+          @db.run 'find', 'users_priv', {_id: {$in: ids}}, {email: 1, invited: 1}, next
 
         (privs_, next) =>
-          privs = privs_
+          return cb null, [] unless privs_ and Array.isArray(privs_) and privs_[0]
 
-          return cb null, [] unless privs and Array.isArray(privs) and privs[0]
-
-          emails = {}
-          emails[priv._id] = priv.email for priv in privs
+          privs = {}
+          privs[priv._id] = priv for priv in privs_
 
           out = []; i = -1
-          for user in users when email = emails[user._id]
+          for user in users when (priv = privs[user._id]) and email = priv.email
             out[++i] = {
               id: ''+user._id
               name: user.name
               email: email
+              invited: priv.invited or null
             }
 
           next null, out
@@ -160,6 +159,9 @@ module.exports = (Base) ->
 
         (obj, next) =>
           @sendmail obj, next
+
+        (next) =>
+          @_updateClient 'users_priv', userId, null, [{'o': 1, 'k': 'invited', 'v': new Date()}], next
 
       ], cb
 

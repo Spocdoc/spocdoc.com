@@ -99,7 +99,7 @@ app.use aceInst = ace server, manifest,
       obj.from = "Mike Robertson <mike@synop.si>"
       unless obj['text']?
         obj.generateTextFromHTML = true
-      smtp.sendMail obj, cb
+      smtp.sendMail obj, (err) -> cb err
 
 smtp = nodemailer.createTransport "SMTP",
   service: "Gmail"
