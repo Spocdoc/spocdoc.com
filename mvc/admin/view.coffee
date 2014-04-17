@@ -89,12 +89,16 @@ module.exports =
     return if @updating
     @updating = true
 
+    @$refreshDiv.addClass 'in-progress'
+
     @session.get()?.admin 'pendingUsers', (err, users) =>
+      @$refreshDiv.removeClass 'in-progress'
+      @updating = false
+
       if err?
         @error.set err.msg or "Error"
         return
       @users.set users
-      @updating = false
 
   constructor: ->
     @refreshPending()

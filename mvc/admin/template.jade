@@ -1,5 +1,7 @@
 h1 Invite users
 p.error#error
-a.refresh#refresh refresh
+#refreshDiv.spinner_block
+  a.has-spinner.refresh#refresh refresh
+  .spinner(title="Waiting for other window..."): != spinner
 table.pending_users#pendingUsers
 
