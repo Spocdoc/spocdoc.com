@@ -1,5 +1,7 @@
 _ = require 'lodash-fork'
 crypto = require 'crypto'
+{ObjectID} = require 'mongo-fork'
+
 
 hash = (str) -> crypto.createHash('sha1').update(str).digest("hex")
 secret = 'X,.1$$K$Z,G%rT3&PG-v?Jg#i7#...P$_ZD_D#E.'
@@ -19,6 +21,24 @@ _.extend obj,
   randomPassword: ->
     length = 24
     crypto.createHash('sha1').update(crypto.randomBytes(length)).digest('hex').substr(0,length)
+
+  # takes existing full doc and converts it into a fork
+  makeFork: (doc, editor) ->
+    doc.fork_id = doc._id
+    doc.fork_v = doc._v
+    doc._v = 1
+    doc._id = new ObjectID()
+
+    try
+      if id = editor
+        id = id._id if id._id
+        id = id.oid if id.oid
+        id = new ObjectId(''+id)
+    catch _error
+
+    doc.editors = [id] if id
+
+    doc
 
 
 

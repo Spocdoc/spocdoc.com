@@ -389,10 +389,8 @@ module.exports = (Base) ->
 
         (doc, next) =>
           next() unless doc # silent error -- doc should exist
-          doc._id = new ObjectID()
-          doc._v = 1
-          editor = if id instanceof ObjectID then id else new ObjectID(id)
-          doc.editors = [ editor ]
+          doc = utils.makeFork doc, id
+
           @_create 'docs', doc, (err) =>
             @clientCreate 'docs', doc
             next err, (''+doc._id)
