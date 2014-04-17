@@ -64,16 +64,13 @@ module.exports =
 
     @submitError.set ''
 
-    MIN_PASSWORD_LENGTH = 5
-    MIN_USERNAME_LENGTH = 3
-
     if @requirePassword.get()
-      if password.length < MIN_PASSWORD_LENGTH
+      unless utils.validPassword password
         @$password.select()
-        return @passwordError.set "Password must have at least #{MIN_PASSWORD_LENGTH} characters."
-    if username.length < MIN_USERNAME_LENGTH or !/^[a-zA-Z0-9]*$/.test(username)
+        return @passwordError.set utils.passwordError
+    unless utils.validUsername username
       @$username.select()
-      return @usernameError.set "Username must have at least #{MIN_USERNAME_LENGTH} characters and contain only letters and numbers."
+      return @usernameError.set utils.usernameError
 
     @session.get()?.acceptInvite {id, name, username, password}, (err, docId) =>
       if err?

@@ -13,6 +13,9 @@ getObjectID = (id) ->
     id = id._oid
   new ObjectID ''+id
 
+MIN_PASSWORD_LENGTH = 5
+MIN_USERNAME_LENGTH = 3
+
 module.exports =
   falsy: falsy = (str) ->
     str = (''+str).toLowerCase().trim()
@@ -20,6 +23,19 @@ module.exports =
       if str.lastIndexOf(prefix,0) is 0
         return true
     false
+
+  validUsername: (username) ->
+    return false unless username
+    username = ''+username
+    username.length >= MIN_USERNAME_LENGTH and /^[a-z0-9]*$/.test(username)
+
+  validPassword: (password) ->
+    return false unless password
+    password = ''+password
+    password.length >= MIN_PASSWORD_LENGTH
+
+  usernameError: "Only letters and numbers, and at least #{MIN_USERNAME_LENGTH}."
+  passwordError: "Password must have at least #{MIN_PASSWORD_LENGTH} characters."
 
   defaultArr: (defaultTabs, orderedTabs) ->
     allTabs = {}

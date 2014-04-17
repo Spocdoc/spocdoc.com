@@ -29,6 +29,11 @@ module.exports =
       return
   ]
 
+  doInvite: (invitedId, inviteToken) ->
+    @invitedId.set invitedId
+    @inviteToken.set inviteToken
+    return
+
   validateInvite: ->
     if @validating
       @validateAgain = true
@@ -134,21 +139,29 @@ module.exports =
       when 'search','blog','updates'
         @controllers['search'] ||= new @Controller['search'] this, 'search',
           frozen: @searchFrozen
-          editors: =>
-            switch @page.get()
-              when 'search'
-                try
-                  if user = @user.get()
-                    [new mongo.ObjectID user.id]
-                catch _error
-              else
-                synopsiEditor
-          tags: =>
-            switch @page.get()
-              when 'search'
-                []
-              else
-                ['blog']
+          editors: do =>
+            lastEditor = null
+            =>
+              switch @page.get()
+                when 'search'
+                  lastEditor = null
+                  try
+                    if user = @user.get()
+                      lastEditor = [new mongo.ObjectID user.id]
+                  catch _error
+                when 'updates','blog'
+                  lastEditor = synopsiEditor
+              lastEditor
+
+          tags: do =>
+            lastTags = null
+            =>
+              switch @page.get()
+                when 'search'
+                  lastTags = []
+                when 'updates','blog'
+                  lastTags = ['blog']
+              lastTags
 
       # when 'contactUs'
       #   @controllers['contactUs'] ||= new @View['contact_us'] this, 'contactUs'

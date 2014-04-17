@@ -59,6 +59,10 @@ utils['makePublic'] = utils.makePublic
 utils['makeHtml'] = utils.makeHtml
 utils['imgId'] = utils.imgId
 utils['localUrl'] = utils.localUrl
+utils['validUsername'] = utils.validUsername
+utils['validPassword'] = utils.validPassword
+utils['usernameError'] = utils.usernameError
+utils['passwordError'] = utils.passwordError
 
 strdiff = require 'diff-fork/lib/types/string'
 strdiff['equalRanges'] = strdiff.equalRanges

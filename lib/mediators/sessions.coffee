@@ -309,6 +309,8 @@ module.exports = (Base) ->
 
           if details.username
             userPriv.prefUsername = (''+details.username).toLowerCase()
+          else if (email = details.email) and utils.validUsername prefUsername = email.replace /@.*$/,''
+            userPriv.prefUsername = prefUsername
 
           if details.provider
             userPriv.oauthProvider = details.provider
@@ -352,10 +354,7 @@ module.exports = (Base) ->
       name = ''+(args.name or '')
       username = ''+(args.username or '').toLowerCase()
 
-      MIN_PASSWORD_LENGTH = 5
-      MIN_USERNAME_LENGTH = 3
-
-      if username.length < MIN_USERNAME_LENGTH or !/^[a-z0-9]*$/.test(username)
+      unless utils.validUsername username
         return cb new Reject 'USERNAME'
 
       async.waterfall [
@@ -370,7 +369,7 @@ module.exports = (Base) ->
 
         (userPriv, next) =>
           unless userPriv.oauthProvider # then require password
-            return next new Reject "PASSWORD" unless (password = args.password) and password.length >= MIN_USERNAME_LENGTH and password = utils.checksum password
+            return next new Reject "PASSWORD" unless (password = args.password) and utils.validPassword(password) and password = utils.checksum password
 
             # set the password
             @_updateClient 'users_priv', userPriv._id, null, [{'o': 1, 'k': 'password', 'v': password}], next
@@ -421,6 +420,8 @@ module.exports = (Base) ->
             return next new Reject 'NOUSER'
 
           unless user.active
+            return next new Reject 'INVITED', [(''+userPriv._id), userPriv.invite] if userPriv.invited
+
             return next new Reject 'NOTACTIVE'
 
           if !userPriv or (userPriv.password isnt utils.checksum password)
@@ -447,13 +448,15 @@ module.exports = (Base) ->
           user_ = user_[0] if Array.isArray user_
           user = user_
 
-          unless user.active
-            return next new Reject 'NOTACTIVE'
-
           @_read 'users_priv', user._id, next
 
         (userPriv_, next) =>
           userPriv = userPriv_
+
+          unless user.active
+            return next new Reject 'INVITED', [(''+userPriv._id), userPriv.invite] if userPriv.invited
+            return next new Reject 'NOTACTIVE'
+
           if !userPriv or userPriv.password isnt utils.checksum password
             return next new Reject 'PASSWORD'
           next()
@@ -503,6 +506,7 @@ module.exports = (Base) ->
           unless user = user_
             return next err or new Reject 'NOUSER'
           unless user.active
+            return next new Reject 'INVITED', [(''+userPriv._id), userPriv.invite] if userPriv.invited
             return next new Reject 'NOTACTIVE'
           next()
       ], (err) => cb err, user, userPriv

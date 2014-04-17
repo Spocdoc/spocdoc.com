@@ -58,6 +58,7 @@
         $foo: link: 'a': ($target) -> @invite $target.attr('...')
 
     but because the function isn't named, there's no way to invoke it on the server with an href
+ [] I'd like a way to refer to the last value within an outlet function, so you could have a function assigned to an outlet and when it runs it can conditionally return whatever the current value is
 
 ## optimization
 

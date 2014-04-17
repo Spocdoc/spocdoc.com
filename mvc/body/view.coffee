@@ -108,14 +108,19 @@ module.exports =
           when 'NOTACTIVE'
             @submitError.set "Your invitation hasn't been activated yet."
             return
+          when 'INVITED'
+            [invitedId, inviteToken] = err.msg
+            @depute 'doInvite', invitedId, inviteToken
+            err = null
           when 'USEOAUTH'
             if name = oauthLib.name err.msg
               @username.set ''
               @password.set ''
               @submitError.set "Log in using #{name} (above) instead."
               return
-        @submitError.set "Oops! There was an internal error. We're looking into it. Please try again later."
-        return
+        if err?
+          @submitError.set "Oops! There was an internal error. We're looking into it. Please try again later."
+          return
 
       @password.set ''
       @$username.blur()
@@ -270,7 +275,7 @@ module.exports =
 
       if err? or !info
         @$oauth.addClass 'has-error'
-        @oauthError.set "Connecting with #{service} failed. Try again later."
+        @oauthError.set "Connecting with #{oauthLib.name service} failed. Try again later."
         $li.removeClass 'in-progress'
       else
         @$oauth.removeClass 'has-error'
@@ -283,11 +288,16 @@ module.exports =
             switch err.code
               when "NOTACTIVE"
                 @oauthError.set "Your invitation hasn't been activated yet."
+              when 'INVITED'
+                [invitedId, inviteToken] = err.msg
+                @depute 'doInvite', invitedId, inviteToken
+                err = null
               when "NOTFOUND"
-                @oauthError.set "We don't have an account with you through #{service}. Maybe you used a different one?"
+                @oauthError.set "We don't have an account with you through #{oauthLib.name service}."
               else
                 @oauthError.set "Oops! There was an internal error. We're looking into it. Please try again later."
-            return
+            if err?
+              return
 
           @toggleMenu 'login', false
 

@@ -29,12 +29,13 @@ _.extend obj,
     doc._v = 1
     doc._id = new ObjectID()
 
-    try
-      if id = editor
-        id = id._id if id._id
-        id = id.oid if id.oid
-        id = new ObjectId(''+id)
-    catch _error
+    if id = editor
+      id = id._id if id._id
+      id = id.oid if id.oid
+      try
+        id = new ObjectID(''+id)
+      catch _error
+        id = null
 
     doc.editors = [id] if id
 
