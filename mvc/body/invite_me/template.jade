@@ -1,8 +1,11 @@
-p Synopsi is in limited release. Request an invitation and we'll send you one when a spot opens up!
+p Synopsi is in limited release. Sign up and we'll send you an invite when a spot opens.
 
 #oauth
 
   ul.oauth-list
+    li
+      a.has-spinner#angellist.angellist(target="_blank") Start now with AngelList
+      .spinner(title="Waiting for other window..."): != spinner
     li
       a.has-spinner#google.google(target="_blank") Sign up with Google
       .spinner(title="Waiting for other window..."): != spinner

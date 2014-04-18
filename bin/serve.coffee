@@ -63,7 +63,7 @@ connectOauth app,
   port: argv.port
   angellist:
     clientId: if argv.h is '127.0.0.1' then 'bbefb8072f1620524b6998ff2b49ce18' else '393af077648885dec9427e5497d145b8'
-    clientSecret: if arg.h is '127.0.0.1' then '218e30a70233c2612a41c51b4b1a77b8' else 'f2dbc2cb26998a612e057f6a96695bab'
+    clientSecret: if argv.h is '127.0.0.1' then '218e30a70233c2612a41c51b4b1a77b8' else 'f2dbc2cb26998a612e057f6a96695bab'
 
 manifest = new Manifest '../mvc', manifestArgs
 

@@ -37,8 +37,15 @@
     position relative  // to position the spinner
 
     a
-      @extend $button-green
       margin 5px
+
+    a:not(.angellist)
+      @extend $button-green
+
+    a.angellist
+      @extend $button
+      position relative
+      top 1px
 
 // general headers, article text
 // -----

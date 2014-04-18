@@ -1,4 +1,5 @@
 oauth = require 'connect_oauth'
+oauthLib = require '../../../lib/oauth'
 debug = global.debug 'app:oauth'
 utils = require '../../../lib/utils'
 
@@ -21,6 +22,7 @@ module.exports =
   $submitError: 'text'
 
   $google: link: ['startOauth', 'google']
+  $angellist: link: ['startOauth', 'angellist']
   # $evernote: link: ['startOauth', 'evernote']
   # $twitter: link: ['startOauth', 'twitter']
   # $github: link: ['startOauth', 'github']
@@ -88,12 +90,12 @@ module.exports =
 
       if err? or !info
         @$oauth.addClass 'has-error'
-        @oauthError.set "Connecting with #{service} failed. Try another service, or try email."
+        @oauthError.set "Connecting with #{oauthLib.name service} failed. Try another service, or try email."
         $li.removeClass 'in-progress'
       else
         @$oauth.removeClass 'has-error'
         @inviting = true
-        @session.get().invite info, (err) =>
+        @session.get().invite info, (err, invitedId, inviteToken) =>
           delete @inviting
           $li.removeClass 'in-progress'
 
@@ -108,7 +110,11 @@ module.exports =
                 @oauthError.set "Oops! There was an internal error. We're looking into it. Please try again later."
                 return
 
-          @depute 'toggleDialog', 'youreInvited', true
+          if invitedId and inviteToken
+            @depute 'toggleDialog', 'inviteMe', false
+            @depute 'doInvite', invitedId, inviteToken
+          else
+            @depute 'toggleDialog', 'youreInvited', true
 
       return
 

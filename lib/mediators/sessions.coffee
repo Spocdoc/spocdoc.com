@@ -273,6 +273,7 @@ module.exports = (Base) ->
 
     invite: (details, cb) ->
       user = userPriv = id = undefined
+      inviteNow = false
 
       async.waterfall [
         (next) =>
@@ -320,6 +321,9 @@ module.exports = (Base) ->
               secret: details.secret
               refresh: details.refresh
 
+            if inviteNow = details.provider is 'angellist'
+              userPriv.invited = new Date()
+
           @session.read next
 
         (session, next) =>
@@ -336,7 +340,14 @@ module.exports = (Base) ->
               next err
             else
               next()
-      ], cb
+      ], (err) =>
+        return cb err if err?
+
+        if inviteNow and userPriv
+          return cb null, (''+userPriv._id), userPriv.invite
+
+        cb null
+
 
     validateInvite: (id, token, cb) ->
       async.waterfall [
