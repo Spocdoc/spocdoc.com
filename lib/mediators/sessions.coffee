@@ -336,7 +336,9 @@ module.exports = (Base) ->
               @_delete 'users', id, ->
               err ||= ''
               # duplicate email -- means the user exists already.  not an error
-              err = null if /\bduplicate key\b/.test(err) and /\busers_priv.\$email\b/.test(err)
+              if /\bduplicate key\b/.test(err) and /\busers_priv.\$email\b/.test(err)
+                err = null
+                inviteNow = false
               next err
             else
               next()

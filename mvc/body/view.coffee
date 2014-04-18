@@ -130,6 +130,7 @@ module.exports =
 
   # oauth
   $google: link: ['startOauth', 'google']
+  $angellist: link: ['startOauth', 'angellist']
   # $evernote: link: ['startOauth', 'evernote']
   # $twitter: link: ['startOauth', 'twitter']
   # $github: link: ['startOauth', 'github']
