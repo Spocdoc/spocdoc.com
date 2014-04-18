@@ -61,7 +61,7 @@ module.exports =
     'spec'
 
     'styleDoc': (css) ->
-      if (local = utils.localUrl css) and cap = /\/docs\/(?:.*\/)?([0-9a-f]{24})/.exec local
+      if (local = utils.localUrl css) and cap = /\/docs?\/(?:.*\/)?([0-9a-f]{24})/.exec local
         @Model['docs'].read cap[1]
       else
         @styleLink.set css
