@@ -26,18 +26,19 @@ getProvider = (oauthDetails) ->
 module.exports = obj = {}
 
 for method in ['getUser', 'verifyId']
-  obj[method] = (oauthDetails, cb) ->
-    if provider = getProvider(oauthDetails)
-      try
-        ret = provider[method] oauthDetails, cb
-      catch _error
+  obj[method] = do (method) ->
+    (oauthDetails, cb) ->
+      if provider = getProvider(oauthDetails)
+        try
+          ret = provider[method] oauthDetails, cb
+        catch _error
+          if cb
+            cb _error
+          else
+            return false
+      else
         if cb
-          cb _error
+          cb new Error("invalid provider")
         else
           return false
-    else
-      if cb
-        cb new Error("invalid provider")
-      else
-        return false
-    return ret
+      return ret

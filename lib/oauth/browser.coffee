@@ -7,5 +7,6 @@ module.exports =
       when 'tumblr' then 'Tumblr'
       when 'github' then 'GitHub'
       when 'google' then 'Google'
+      when 'angellist' then 'AngelList'
       else false
 
