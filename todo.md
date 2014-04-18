@@ -86,6 +86,7 @@
  [] when doing a search, narrow the outline to show only sections containing matches. then navigate to those parts
  [] if the title matches, show the head as a block *and continue to search the rest*
     currently, if the title matches, it just shows the document head
+ [] links to local pages within documents should allow apple-click (set the href and do nothing in the function if key pressed)
 
 # Mobile
 
