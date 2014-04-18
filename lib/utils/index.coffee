@@ -1,6 +1,7 @@
 _ = require 'lodash-fork'
 crypto = require 'crypto'
 {ObjectID} = require 'mongo-fork'
+Html = require 'marked-fork/html'
 
 
 hash = (str) -> crypto.createHash('sha1').update(str).digest("hex")
@@ -29,6 +30,13 @@ _.extend obj,
     doc._v = 1
     doc._id = new ObjectID()
 
+    # ensure the forked document is private
+    if doc.text
+      html = new Html doc.text
+      html.removeMeta 'public'
+      html.removeMeta 'private'
+
+    # ensure only editor has authorship
     if id = editor
       id = id._id if id._id
       id = id.oid if id.oid
@@ -36,7 +44,6 @@ _.extend obj,
         id = new ObjectID(''+id)
       catch _error
         id = null
-
     doc.editors = [id] if id
 
     doc
