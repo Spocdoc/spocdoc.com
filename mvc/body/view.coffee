@@ -64,13 +64,13 @@ module.exports =
   $plusOverlay: linkup: ['toggleMenu', 'plus']
   $plus: linkup: ['toggleMenu', 'plus']
 
-  $blog: linkdown: ['depute','showPage','blog']
-  $explore: linkdown: ['depute','showPage','explore']
-  $admin: linkdown: ['depute','showPage','admin']
-  $connect: linkdown: ['depute','showPage','connect']
-  $docs: linkdown: ['depute','showPage','docs']
-  $search: linkdown: ['depute','showPage','search']
-  $logo: linkdown: ['depute','showPage','']
+  $blog: linkup: ['depute','showPage','blog']
+  $explore: linkup: ['depute','showPage','explore']
+  $admin: linkup: ['depute','showPage','admin']
+  $connect: linkup: ['depute','showPage','connect']
+  $docs: linkup: ['depute','showPage','docs']
+  $search: linkup: ['depute','showPage','search']
+  $logo: linkup: ['depute','showPage','']
 
   # footer links
   $company: link: ['depute','showDoc',constants.docCompany]

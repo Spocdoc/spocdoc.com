@@ -105,15 +105,20 @@
 
         &:hover
           text-decoration none
+
+        &:hover:not(.selected)
           background LINK_COLOR
           color white
 
-        &:active
+        &:active:not(.selected)
           background darken(LINK_COLOR,20%)
           border-color darken(LINK_COLOR,20%) !important
 
         &.has-menu
           padding-right 37px
+
+        &.selected
+          font-weight bold
 
   &.small
     padding-top 5px
