@@ -106,11 +106,11 @@ module.exports =
       else
         ['depute','showDoc',@model.get()?.id]
 
-    @$header.on 'mouseenter', 'li', =>
-      @$article.addClass 'no-bg'
+    # @$header.on 'mouseenter', 'li', =>
+    #   @$article.addClass 'no-bg'
 
-    @$header.on 'mouseleave mousedown', 'li', =>
-      @$article.removeClass 'no-bg'
+    # @$header.on 'mouseleave mousedown', 'li', =>
+    #   @$article.removeClass 'no-bg'
 
     @snips = []
     @snipsInView = 0
