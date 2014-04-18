@@ -155,8 +155,8 @@ module.exports =
 
     @controllers['bottom'] = new @View['tab_rows'] this, 'sidebarTabs',
       defaultTabs: [
-        'Tags'
         'Dates'
+        'Tags'
       ]
       orderedTabs: -> @session.get('user')?.get('priv')?.get('searchTabs')
       rowStarts: -> @session.get('user')?.get('priv')?.get('searchTabStarts')
