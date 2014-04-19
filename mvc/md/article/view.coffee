@@ -185,6 +185,7 @@ module.exports =
     return unless oldCarat and newCarat = $.selection.coords(sel)
 
     $scrollParent = @$scrollParent ||= @$root.scrollParent()
+    $caratSpot = @$caratSpot
     $scrollParent.scrollTop(Math.round($scrollParent.scrollTop() + newCarat.top - oldCarat.top))
 
     newCarat = $.selection.coords(sel)
@@ -342,8 +343,9 @@ module.exports =
       ($a = $(event.currentTarget)).prop 'contenteditable', false
     @$root.on 'click', 'a', (event) =>
       ($a = $(event.currentTarget)).removeAttr 'contenteditable'
-      if (href = $a.attr 'href') and (local = utils.localUrl(href)) and @router.route local
-        return false
+      unless event.altKey or event.metaKey or event.ctrlKey or event.shiftKey
+        if (href = $a.attr 'href') and (local = utils.localUrl(href)) and @router.route local
+          return false
 
     @lastEsc = 0
 

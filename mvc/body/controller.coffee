@@ -101,6 +101,11 @@ module.exports =
           title: 'Import'
           content: @controllers['importContent'] ||= new @Controller['body/import'] this, 'importContent', deputy: @view
 
+      when 'introVideo'
+        controller = @controllers[which] ||= new @View['dialog'] this, which,
+          title: ''
+          content: @controllers['introVideoContent'] ||= new @View['body/landing/intro_video'] this, 'introVideoContent', deputy: @view
+
       when 'inviteMe', 'youreInvited', 'missingEmail', 'hello'
         controller = @controllers['inviteMe'] ||= new @View['dialog'] this, "inviteMe",
           small: true

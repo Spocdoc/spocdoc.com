@@ -25,6 +25,7 @@
  [] clicking compose on the homepage is a problem with long documents: the menu is fixed position
  [] the require password field blinks when you load the page -- it'll appear when the JavaScript loads then disappear after the userPriv is set
  [] when the sidebar visibility is toggled, the tabs don't recalculate whether they should be side-by-side or stacked
+ [] add a command to open the sidebar and highlight the search within in a document
 
 # implementation
 

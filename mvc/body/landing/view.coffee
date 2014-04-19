@@ -6,8 +6,9 @@ module.exports =
   # $findOutMore: link: ['depute','showPage','about']
 
   $downArrow: link: ['scrollFold']
-  $marketing: view: -> new @View['md/article'] this,
+  $marketing: view: -> new @View['md/article'] this, 'marketing',
     doc: @Model['docs'].read constants.docAbout
+  $playVideo: link: ['depute','toggleDialog','introVideo']
 
   outletMethods: [
     (inWindow) ->
