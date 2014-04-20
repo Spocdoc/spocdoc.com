@@ -103,7 +103,7 @@ module.exports =
 
       when 'introVideo'
         controller = @controllers[which] ||= new @View['dialog'] this, which,
-          title: ''
+          title: ' '
           content: @controllers['introVideoContent'] ||= new @View['body/landing/intro_video'] this, 'introVideoContent', deputy: @view
 
       when 'inviteMe', 'youreInvited', 'missingEmail', 'hello'
@@ -115,7 +115,7 @@ module.exports =
             controller.title.set 'Sign up'
             controller.content.set @controllers['inviteMeContent'] ||= new @View['body/invite_me'] this, 'inviteMeContent', deputy: @view
           when 'youreInvited'
-            controller.title.set ''
+            controller.title.set ' '
             controller.content.set @controllers['youreInvitedContent'] ||= new @View['body/invite_me/youre_invited'] this, 'youreInvitedContent', deputy: @view
           when 'hello'
             controller.title.set 'Hello!'

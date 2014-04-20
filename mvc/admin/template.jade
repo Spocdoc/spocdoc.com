@@ -1,7 +1,23 @@
-h1 Invite users
+h1 Admin
 p.error#error
+
 #refreshDiv.spinner_block
   a.has-spinner.refresh#refresh refresh
   .spinner(title="Waiting for other window..."): != spinner
+
+h2 Active users
+p Active user count:  
+  span#numActiveUsers
+p Current max:  
+  span#maxActiveUsersNow
+.form#activesForm
+  label
+    span Max Active Users:  
+    input(type='number', spellcheck="false")#maxActiveUsers
+  div.submit-div#submitDiv
+    button(type="submit").submit#submit.has-spinner: span Submnit
+    #submitSpinner.spinner(title="Waiting for the server..."): != spinner
+
+h2 Invite users
 table.pending_users#pendingUsers
 

@@ -326,17 +326,18 @@
                         "body/invite_me/youre_invited/view.coffee",
                         "mixins/img_printer/mixin.coffee",
                         "mixins/img_uploader/mixin.coffee",
-                        "views/dialog.coffee", "admin/view.coffee",
+                        "views/dialog.coffee",
                         "docs/controller.coffee",
                         "docs/sidebar_top/view.coffee",
-                        "routes.coffee", "models/sessions.coffee",
+                        "routes.coffee",
                         "body/invite_me/hello/view.coffee",
                         "body/invite_me/view.coffee",
                         "search/results/doc/view.coffee",
                         "search/controller.coffee",
-                        "body/landing/view.coffee",
+                        "body/landing/intro_video/view.coffee",
                         "body/view.coffee", "body/controller.coffee",
-                        "body/landing/intro_video/view.coffee"
+                        "body/landing/view.coffee",
+                        "models/sessions.coffee", "admin/view.coffee"
                     ],
                     "generated": "bundle/debug [-ie<=8 -ios debug].js"
                 },
@@ -515,17 +516,18 @@
                         "body/invite_me/youre_invited/view.coffee",
                         "mixins/img_printer/mixin.coffee",
                         "mixins/img_uploader/mixin.coffee",
-                        "views/dialog.coffee", "admin/view.coffee",
+                        "views/dialog.coffee",
                         "docs/controller.coffee",
                         "docs/sidebar_top/view.coffee",
-                        "routes.coffee", "models/sessions.coffee",
+                        "routes.coffee",
                         "body/invite_me/hello/view.coffee",
                         "body/invite_me/view.coffee",
                         "search/results/doc/view.coffee",
                         "search/controller.coffee",
-                        "body/landing/view.coffee",
+                        "body/landing/intro_video/view.coffee",
                         "body/view.coffee", "body/controller.coffee",
-                        "body/landing/intro_video/view.coffee"
+                        "body/landing/view.coffee",
+                        "models/sessions.coffee", "admin/view.coffee"
                     ],
                     "generated": "bundle/debug [-ie<=8 debug ios].js"
                 }

@@ -103,9 +103,15 @@ module.exports = (Base) ->
 
     pendingUsers: (cb) ->
       privs = users = null
+      numActiveUsers = null
 
       async.waterfall [
         (next) =>
+          @db.run 'count', 'users', {active: 1}, next
+
+        (count, next) =>
+          numActiveUsers = count
+
           @db.run 'find', 'users', {active: 0}, {name: 1}, next
 
         (users_, next) =>
@@ -125,16 +131,16 @@ module.exports = (Base) ->
           privs = {}
           privs[priv._id] = priv for priv in privs_
 
-          out = []; i = -1
+          pendingUsers = []; i = -1
           for user in users when (priv = privs[user._id]) and email = priv.email
-            out[++i] = {
+            pendingUsers[++i] = {
               id: ''+user._id
               name: user.name
               email: email
               invited: priv.invited or null
             }
 
-          next null, out
+          next null, {pendingUsers, numActiveUsers}
 
       ], cb
 
@@ -274,9 +280,22 @@ module.exports = (Base) ->
     invite: (details, cb) ->
       user = userPriv = id = undefined
       inviteNow = false
+      numActiveUsers = 0
+      maxActiveUsers = Infinity
 
       async.waterfall [
+        # get the number of active users and the max. invite immediately if below the max
         (next) =>
+          @db.run 'count', 'users', {active: 1}, next
+
+        (count, next) =>
+          numActiveUsers = count
+          @db.run 'findOne', 'users_priv', {_id: new ObjectID(constants['synopsiUser'])}, {maxActiveUsers: 1}, next
+
+        (synopsiUser, next) =>
+          maxActiveUsers = +max if max = synopsiUser?.maxActiveUsers
+          console.log "numactive: ",numActiveUsers,"max active:",maxActiveUsers
+
           # email is required
           unless details.email
             oauth.getUser details, (err, userDetails) ->
@@ -321,7 +340,7 @@ module.exports = (Base) ->
               secret: details.secret
               refresh: details.refresh
 
-            if inviteNow = details.provider is 'angellist'
+            if inviteNow = (details.provider is 'angellist' or numActiveUsers < maxActiveUsers)
               userPriv.invited = new Date()
 
           @session.read next

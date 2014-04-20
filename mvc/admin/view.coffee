@@ -1,5 +1,6 @@
 _ = require 'lodash-fork'
 dates = require 'dates-fork'
+constants = require '../constants'
 
 userInviteDateSort = (a,b) ->
   ai = a.invited
@@ -23,17 +24,29 @@ userInviteDateSort = (a,b) ->
     0
 
 module.exports =
+  mixins: 'mixins/editable val': [ 'maxActiveUsers']
   outlets: [
     'search'
     'error'
     'users'
   ]
 
+  internal: [
+    'synopsiUser': -> @Model['users_priv'].read constants.synopsiUser
+    'maxActiveUsers'
+    'maxActiveUsersNow': -> @synopsiUser.get('maxActiveUsers')
+  ]
+
+
   $error: 'text'
-  $refresh: link: ['refreshPending']
+  $refresh: link: ['refresh']
+  $activesForm: link: ['submitActives']
+  $maxActiveUsersNow: 'text'
 
   outletMethods: [
     (error) -> @$root.toggleClass 'has-error', !!error
+    (maxActiveUsers, maxActiveUsersNow) ->
+      @$submit.toggleClass 'can-submit', (maxActiveUsers isnt maxActiveUsersNow)
   ]
 
   $pendingUsers:
@@ -67,6 +80,11 @@ module.exports =
       html
     link: ['a', ($target) -> ['invite',$target.attr('data-id')]]
 
+  submitActives: ->
+    if synopsiUser = @synopsiUser.get()
+      synopsiUser.get('maxActiveUsers').set @maxActiveUsers.get()
+    return
+
   invite: (id) ->
     return unless id
     quoteId = _.quote id
@@ -85,21 +103,24 @@ module.exports =
       return
       
 
-  refreshPending: ->
+  refresh: ->
     return if @updating
     @updating = true
 
     @$refreshDiv.addClass 'in-progress'
 
-    @session.get()?.admin 'pendingUsers', (err, users) =>
+    @session.get()?.admin 'pendingUsers', (err, info) =>
       @$refreshDiv.removeClass 'in-progress'
       @updating = false
 
       if err?
         @error.set err.msg or "Error"
         return
-      @users.set users
+
+      @users.set info.pendingUsers
+      @$numActiveUsers.text numActiveUsers if (numActiveUsers = info.numActiveUsers)?
+      return
 
   constructor: ->
-    @refreshPending()
+    @refresh()
     return

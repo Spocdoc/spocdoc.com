@@ -26,9 +26,11 @@
  [] the require password field blinks when you load the page -- it'll appear when the JavaScript loads then disappear after the userPriv is set
  [] when the sidebar visibility is toggled, the tabs don't recalculate whether they should be side-by-side or stacked
  [] add a command to open the sidebar and highlight the search within in a document
+ [] when the sidebar is opened, immediately focus on search and update the tabs layout
 
 # implementation
 
+ [] currently Google has no way of seeing all the public documents... they need to be in an index somewhere
  [] dialog has a "small" outlet. this was to make the width of the centering div smaller
  [] when correcting a spelling error in the editor, switching back to HTML mode doesn't show the update until a key is pressed
  [] the blue bar isn't in the right place when switching between editor & html modes if you've scrolled the page
@@ -67,6 +69,7 @@
  [] the fixDoms routine could reduce the number of dom appendChild and insertBefore calls by generating all the html at once and calling `$.parseHTML` and calling `setDoms`
  [] when the client boots, it rereads everything including the queries at once. this is a problem for the queries: if the server processes the query re-read first, it'll preemptively send a create with the full source of the matching documents because it doesn't know the client has them yet (hasn't seen the re-read). see ![](img/2014-03-25-03.png). solution is to finish doing all the model re-reads before doing queries
  [] the visitor for creating CSS goes through the *entire* html tree (including inlines), which is unnecessary. could have something that tells it not to descend
+ [] links in the outline that use defs won't find the def. the outline should reference the defs in the main html document
 
 # improvements
 
@@ -88,6 +91,9 @@
  [] if the title matches, show the head as a block *and continue to search the rest*
     currently, if the title matches, it just shows the document head
  [] links to local pages within documents should allow apple-click (set the href and do nothing in the function if key pressed)
+ [] use for photo blogging (see https://synop.si/doc/Photo-blog-test/5353027139fee3405a9c4567). 
+ [] graphical CSS editor
+ [] make the search results sort by text ranking then by date. text content match should add 0. title and tag matches should add. then sort by date
 
 # Mobile
 
