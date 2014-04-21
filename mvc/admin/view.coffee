@@ -82,7 +82,7 @@ module.exports =
 
   submitActives: ->
     if synopsiUser = @synopsiUser.get()
-      synopsiUser.get('maxActiveUsers').set @maxActiveUsers.get()
+      @maxActiveUsersNow.set @maxActiveUsers.get()
     return
 
   invite: (id) ->

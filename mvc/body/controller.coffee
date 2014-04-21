@@ -45,7 +45,7 @@ module.exports =
     invitedId = @invitedId.value
     inviteToken = @inviteToken.value
 
-    @session.get()?.validateInvite invitedId, inviteToken, (err, user) =>
+    @session.get()?.validateInvite invitedId, inviteToken, (err, user, docId) =>
       @validating = false
 
       if err?
@@ -56,7 +56,9 @@ module.exports =
       @invitedId.set ''
       @inviteToken.set ''
 
-      unless user.get('active').get()
+      if user.get('active').get()
+        @showDoc docId if docId
+      else
         @view.toggleDialog 'hello', true
       return
     return

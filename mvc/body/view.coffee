@@ -142,6 +142,8 @@ module.exports =
   $logOut: link: ['logOut']
   logOut: -> @session.get()?.logOut (err) => @toggleMenu 'user', false
 
+  setUsername: (username='') -> @username.set username
+
   toggleMenu: (which, toggleOn) ->
     menu = @menu.get() || ''
 

@@ -50,13 +50,13 @@ module.exports =
       return
 
   validateInvite: (invitedId, inviteToken, cb) ->
-    @run 'validateInvite', {id: invitedId, token: inviteToken}, (err) =>
+    @run 'validateInvite', {id: invitedId, token: inviteToken}, (err, docId) =>
       return cb err if err?
 
       @cookies.unset('session')
       @session.set @constructor.create user: user = @Model['users'].read invitedId
       # @get('user').set user = @Model['users'].read invitedId
-      cb null, user
+      cb null, user, docId
 
   acceptInvite: (args, cb) ->
     @run 'acceptInvite', args, cb

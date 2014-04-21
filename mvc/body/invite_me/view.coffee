@@ -67,6 +67,15 @@ module.exports =
       if err
         switch err.code
           when "DUP_EMAIL" then break
+          when "LOGIN"
+            if service = err.msg.useOauth
+              @emailError.set "You already have an account. Just log in using #{oauthLib.name service}."
+            else
+              @depute 'setUsername', email
+              @depute 'toggleMenu', 'login', true
+              @emailError.set "You already have an account with this email. Just log in."
+            return
+
           else
             @submitError.set "Oops! There was an internal error. We're looking into it. Please try again later."
             return
@@ -93,7 +102,7 @@ module.exports =
         @oauthError.set "Connecting with #{oauthLib.name service} failed. Try another service, or try email."
         $li.removeClass 'in-progress'
       else
-        @$oauth.removeClass 'has-error'
+        @oauthError.set ''
         @inviting = true
         @session.get().invite info, (err, invitedId, inviteToken) =>
           delete @inviting
@@ -105,6 +114,15 @@ module.exports =
               when "NOEMAIL"
                 @info = info
                 @depute 'toggleDialog', 'missingEmail', true
+                return
+              when "LOGIN"
+                if service = err.msg.useOauth
+                  @oauthError.set "Looks like you've already signed up with #{oauthLib.name service}. Just log in."
+                else
+                  if email = err.msg.email
+                    @depute 'setUsername', email
+                    @depute 'toggleMenu', 'login', true
+                  @oauthError.set "Looks like you've already signed up using email. Just log in."
                 return
               else
                 @oauthError.set "Oops! There was an internal error. We're looking into it. Please try again later."

@@ -63,7 +63,7 @@ Synopsi is starting small with a clear focus and a narrow target, then working i
 
 3. Make it social
 
-	This means content discovery, mentions, timelines, etc., possibly within a separate, less minimal domain (like https://explore.synop.si). This would be more visually engaging, like a music discovery service, but focused on the text, images and videos that have been posted.
+	This means content discovery, mentions, timelines, etc., possibly within a separate, less minimalist site (like https://explore.synop.si). This would be more visually engaging, like a music discovery service, but focused on the text, images and videos that have been posted.
 
 3. Disrupt small-scale publishing
 
@@ -93,9 +93,9 @@ Revenue will come from various sources, in this order:
 	What's fantastic?
 
 	- supporting native customized keystrokes (`DefaultKeyBinding.dict` on a mac)
-	- *native* system-wide undo, spell check, and auto correct (not hacky solutions built by the editor)
+	- *native* system-wide undo, spell check, and auto correct (not hacky solutions written in JavaScript)
 	- really fast key response (5ms or less). You can *feel* the difference when a key takes more than 10ms to go through (as it does on many online editors)
-	- making complex operations accessible and really simple
+	- making complex operations accessible and simple
 	- leveraging the separation of content (text) and presentation (formatting)
 	- making the edits live and immediate, so you never have to save or sync
 
@@ -124,6 +124,22 @@ Revenue will come from various sources, in this order:
 	- enhanced metadata
 	- metadata associated with tags
 
+## Competitive Advantages
+
+There are a number of key competitive advantages for Synopsi, many of which are technology-based and hard to reproduce.
+
+1. Everything is live and pushed to the browser. This is extremely important and creates a novel, incredible user experience. 
+
+2. Finding text, navigating to it within a document and changing it is a *single* click, faster and easier than anyone else.
+
+3. The content and presentation are separated, making the content portable and presentable in lots of ways and easily pipelined over an API to other services.
+
+4. The editor is incredible, but also native, unlike hacky JavaScript solutions present in almost every other online editor. This has a lot of advantages.
+
+5. The interface encourages a focus on content, rather than bombarding the user with options and features. Focused writing tools are a big desktop app market; Synopsi brings that to a live web where it belongs.
+
+6. Adding media content is instantaneous. You drag in an image and it uploads in the background, letting you see and use it while it's uploading. (This was a key insight in Instagram, but not widely used elsewhere.)
+
 ## Development Timeline
 
 April 2014: 
@@ -131,6 +147,7 @@ April 2014:
  - Scaling
  - Editor improvements
  - Outline improvements
+ - Search engine optimizations
 
 May:
  - Better tag display in search
@@ -167,7 +184,7 @@ First enterprise customer: November
 
 ## Numbers
 
- - Evernote alone is a ~$10 billion company and has raised over $250 million in capital
+ - Evernote alone is valued at well over $2 billion and has raised over $250 million in capital
 	They have 86 million users and likely over 8 *billion* notes stored in a custom XML format called ENML
  - Tumblr was recently bought for $1 billion and generates $15 million a year in revenues
 
@@ -182,13 +199,13 @@ These are some of the awesome people who have helped to make Synopsi a reality b
 
 Synopsi is the product of a "slow-moving epiphany" that started as early as 2007 when I first started taking notes in text files, word documents and sending myself emails to write down stories and jokes; take notes on books, movies, and papers; and record code samples and stock valuation formulas so I could use them for work (I worked as a trader at the time at a hedge fund called Weiss Capital in Boston). Other people were doing similar things. One person took copious notes in Excel every time he talked to a broker, so he had a huge log of all his interactions, which he was very proud of. But I dare say, it probably wasn't very useful. 
 
-Even today – years later with lots of solutions on the market going after this problem of recording and finding your own thoughts and notes – I still see people sitting in meetings and at conferences writing down notes in Apple's Notes program on their iPhone. Those notes are quarantined to Apple and hard to find and extract later. The most likely outcome is the person writing them will just forget about it. And certainly no one else at the conference knows about them.
+Even today – years later with lots of solutions on the market going after this problem of recording and finding your own thoughts and notes – I still see people sitting in meetings and at conferences writing down notes in Apple's Notes program on their iPhone. Those notes are quarantined to Apple and hard to find and extract later. The most likely outcome is the person writing them will just forget about it. And certainly no one else at the conference knows about it.
 
-After working for another company where people were sending themselves email attachments with notes on procedures that would be most useful if colleagues could see them and edit them, and realizing that no one was using the corporate wiki at two finance companies I'd worked for, I decided something needed to be done.
+After working for another company where people were sending themselves email attachments with notes on procedures that would be far more useful if colleagues could see and edit them, and realizing that no one was using the corporate wiki at two finance companies I'd worked for, I decided something needed to be done.
 
-I also noticed that there were existing solutions skirting around this problem and doing a great job with some aspects – like tagging or collaboration – but failing to hit a home run at all of them. My goal is to hit a home run in every dimension while keeping the product simple and usable.
+There are existing solutions skirting around this problem and doing a great job with some aspects – like tagging or collaboration – but failing to hit a home run at all of them. My goal is to hit a home run in every dimension while keeping the product simple and usable.
 
-I'm also inspired by GitHub's incredible collaborative tools like forking, merging, version control. I want to bring all of that to documents online. A major problem – again seen at a company I worked at, this time mostly doing software – is that software specs are written up in (binary) word documents and put into source control systems. This breaks the version control entirely and as a developer you can't easily keep track of what's changed since the last time you looked at a document. Bringing forking to documents stored in plain text (markdown) solves this problem in a great way. And it'll be incredibly useful for publishers. 
+I'm also inspired by GitHub's incredible collaborative tools for *coding* like forking, merging, version control. I want to bring all of that to documents online. A major problem – again seen at a company I worked at, this time mostly doing software – is that software specs are written up in (binary) Word documents and put into source control systems. This breaks the version control entirely and as a developer you can't easily keep track of what's changed since the last time you looked at a document. Bringing forking to documents stored in plain text (markdown) solves this problem in a compelling way. And it'll be incredibly useful for publishers. 
 
 [Mike-LinkedIn]: https://www.linkedin.com/in/mikemotif
 

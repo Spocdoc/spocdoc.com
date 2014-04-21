@@ -331,13 +331,14 @@
                         "docs/sidebar_top/view.coffee",
                         "routes.coffee",
                         "body/invite_me/hello/view.coffee",
-                        "body/invite_me/view.coffee",
                         "search/results/doc/view.coffee",
                         "search/controller.coffee",
                         "body/landing/intro_video/view.coffee",
-                        "body/view.coffee", "body/controller.coffee",
                         "body/landing/view.coffee",
-                        "models/sessions.coffee", "admin/view.coffee"
+                        "body/view.coffee", "admin/view.coffee",
+                        "body/controller.coffee",
+                        "models/sessions.coffee",
+                        "body/invite_me/view.coffee"
                     ],
                     "generated": "bundle/debug [-ie<=8 -ios debug].js"
                 },
@@ -521,13 +522,14 @@
                         "docs/sidebar_top/view.coffee",
                         "routes.coffee",
                         "body/invite_me/hello/view.coffee",
-                        "body/invite_me/view.coffee",
                         "search/results/doc/view.coffee",
                         "search/controller.coffee",
                         "body/landing/intro_video/view.coffee",
-                        "body/view.coffee", "body/controller.coffee",
                         "body/landing/view.coffee",
-                        "models/sessions.coffee", "admin/view.coffee"
+                        "body/view.coffee", "admin/view.coffee",
+                        "body/controller.coffee",
+                        "models/sessions.coffee",
+                        "body/invite_me/view.coffee"
                     ],
                     "generated": "bundle/debug [-ie<=8 debug ios].js"
                 }

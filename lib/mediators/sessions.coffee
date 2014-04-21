@@ -294,7 +294,6 @@ module.exports = (Base) ->
 
         (synopsiUser, next) =>
           maxActiveUsers = +max if max = synopsiUser?.maxActiveUsers
-          console.log "numactive: ",numActiveUsers,"max active:",maxActiveUsers
 
           # email is required
           unless details.email
@@ -353,12 +352,46 @@ module.exports = (Base) ->
           @_create 'users_priv', userPriv, (err) =>
             if err?
               @_delete 'users', id, ->
+
               err ||= ''
-              # duplicate email -- means the user exists already.  not an error
+
               if /\bduplicate key\b/.test(err) and /\busers_priv.\$email\b/.test(err)
-                err = null
+                # duplicate email -- means the user exists already. not an error
+
+                prevInviteNow = inviteNow
                 inviteNow = false
-              next err
+                currentUserPriv = currentUser = null
+                done = next
+
+                async.waterfall [
+                  (next) =>
+                    @db.run 'findOne', 'users_priv', {email: userPriv.email}, next
+                  (currentUserPriv_, next) =>
+                    return next 1 unless currentUserPriv = currentUserPriv_
+                    @_read 'users', currentUserPriv._id, next
+                  (currentUser_, next) =>
+                    return next 1 unless currentUser = currentUser_
+                    return next 1 unless currentUser.active or currentUserPriv.invited
+
+                    useOauth = currentUserPriv.oauthProvider
+
+                    if details.provider
+                      # try logging in with the oauth credentials that were sent
+                      @logInOAuth details, currentUser, currentUserPriv, null, (err) =>
+                        if err? # can't log in with this ID
+                          unless err instanceof Reject and err.code is 'INVITED'
+                            return done new Reject 'LOGIN', {useOauth, email: currentUserPriv.email}
+                        inviteNow = true
+                        userPriv = currentUserPriv
+                        user = currentUser
+                        next null
+                    else
+                      # immediately send a LOGIN reject telling them to just log in (user/pass or another oauth)
+                      done new Reject "LOGIN", {useOauth}
+
+                ], (err) => done()
+              else
+                next err
             else
               next()
       ], (err) =>
@@ -371,13 +404,19 @@ module.exports = (Base) ->
 
 
     validateInvite: (id, token, cb) ->
+      userPriv = null
       async.waterfall [
         (next) =>
           @_read 'users_priv', id, next
 
-        (userPriv, next) =>
-          return next new Reject "INVALID" if userPriv.invite isnt token
-          @session.setUser userPriv, cb
+        (userPriv_, next) =>
+          return next new Reject "INVALID" unless (userPriv = userPriv_) and userPriv.invite is token
+          @session.setUser userPriv, next
+
+        (next) =>
+          if docId = userPriv.introDoc
+            docId = ''+docId
+          next null, docId
 
       ], cb
 
@@ -389,6 +428,9 @@ module.exports = (Base) ->
       unless utils.validUsername username
         return cb new Reject 'USERNAME'
 
+      introDocId = null
+      userPriv = null
+
       async.waterfall [
         (next) =>
           @session.readUser next
@@ -399,7 +441,9 @@ module.exports = (Base) ->
 
           @session.readUserPriv next
 
-        (userPriv, next) =>
+        (userPriv_, next) =>
+          return next new Reject 'NOUSER' unless userPriv = userPriv_
+
           unless userPriv.oauthProvider # then require password
             return next new Reject "PASSWORD" unless (password = args.password) and utils.validPassword(password) and password = utils.checksum password
 
@@ -423,8 +467,16 @@ module.exports = (Base) ->
           doc = utils.makeFork doc, id
 
           @_create 'docs', doc, (err) =>
+            return next err if err?
             @clientCreate 'docs', doc
-            next err, (''+doc._id)
+            introDocId = doc._id
+            next()
+
+        (next) =>
+          @_updateClient 'users_priv', userPriv._id, null, [{'o': 1, 'k': 'introDoc', 'v': introDocId}], next
+
+        (next) =>
+          next null, (''+introDocId)
 
       ], cb
 
@@ -527,12 +579,14 @@ module.exports = (Base) ->
 
       async.waterfall [
         (next) =>
+          return next null, userPriv if userPriv
           @_read 'users_priv', null, null, {oauthProvider, oauthId}, next
         (userPriv_, next) =>
           unless (userPriv = if Array.isArray(userPriv_) then userPriv_[0] else userPriv_)
             return next err or new Reject 'NOTFOUND'
           oauth.verifyId details, next
         (next) =>
+          return next null, user if user
           @_read 'users', userPriv._id, null, next
         (user_, next) =>
           unless user = user_
