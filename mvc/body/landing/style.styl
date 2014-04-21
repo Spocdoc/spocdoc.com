@@ -1,5 +1,26 @@
 @import '../../utils'
 
+.logged-in
+  .body-landing
+    .landing_button_div
+      .play_video, .sign_up
+        display none
+      .write
+        display inline-block
+    .promo
+      display none
+.logged-out
+  .body-landing
+    .landing_button_div
+      .play_video, .sign_up
+        display inline-block
+      .write
+        display none
+    .promo
+      display block
+      
+
+
 .body-landing
   // background LANDING_GRAY
   min-height 26em
@@ -41,6 +62,9 @@
   .landing_button_div
     text-align center
     margin-top 1em
+
+    .write
+      font-size 1.5em
 
   .headliner
     margin-bottom 64px

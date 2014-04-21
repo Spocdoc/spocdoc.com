@@ -7,6 +7,7 @@ module.exports =
     doc: @Model['docs'].read constants.docAbout
   $playVideo: link: ['depute','toggleDialog','introVideo']
   $signUp: link: ['depute', 'toggleDialog','signUp']
+  $write: link: ['depute','toggleMenu','plus']
 
   outletMethods: [
     (inWindow) ->
