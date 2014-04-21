@@ -52,8 +52,8 @@ module.exports =
   $logIn: linkup: ['toggleMenu', 'login']
   $logInOverlay: linkup: ['toggleMenu', 'login']
   $logInBack: linkdown: ['toggleMenu','login']
-  $inviteMe1: linkdown: ['toggleDialog','inviteMe']
-  $inviteMe2: linkdown: ['toggleDialog','inviteMe']
+  $inviteMe1: linkdown: ['toggleDialog','signUp']
+  $inviteMe2: linkdown: ['toggleDialog','signUp']
   $dialog: view: 'dialogView'
   $name: 'text'
   $nameHeading: 'text': 'name'

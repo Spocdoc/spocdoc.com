@@ -111,7 +111,7 @@ module.exports =
                 return
 
           if invitedId and inviteToken
-            @depute 'toggleDialog', 'inviteMe', false
+            @depute 'toggleDialog', 'signUp', false
             @depute 'doInvite', invitedId, inviteToken
           else
             @depute 'toggleDialog', 'youreInvited', true

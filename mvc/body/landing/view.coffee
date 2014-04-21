@@ -2,13 +2,11 @@ constants = require '../../constants'
 HEADLINER_MARGIN = 64
 
 module.exports =
-  # $inviteMe3: link: ['depute','toggleDialog','inviteMe']
-  # $findOutMore: link: ['depute','showPage','about']
-
   $downArrow: link: ['scrollFold']
   $marketing: view: -> new @View['md/article'] this, 'marketing',
     doc: @Model['docs'].read constants.docAbout
   $playVideo: link: ['depute','toggleDialog','introVideo']
+  $signUp: link: ['depute', 'toggleDialog','signUp']
 
   outletMethods: [
     (inWindow) ->

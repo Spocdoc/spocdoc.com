@@ -15,7 +15,7 @@ $button
 
   line-height 1.125em
   padding 5px 0.8em
-  margin 0 0.5em
+  margin 0.5em
 
   -webkit-touch-callout none
   user-select none
@@ -45,7 +45,10 @@ $button
 
 $button-blue
   @extend $button
-  color white
+
+  &, &:link, &:visited
+    color white !important
+
   background BUTTON_BLUE_BACKGROUND
 
   border 0

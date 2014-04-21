@@ -106,12 +106,12 @@ module.exports =
           title: ' '
           content: @controllers['introVideoContent'] ||= new @View['body/landing/intro_video'] this, 'introVideoContent', deputy: @view
 
-      when 'inviteMe', 'youreInvited', 'missingEmail', 'hello'
+      when 'inviteMe', 'signUp', 'youreInvited', 'missingEmail', 'hello'
         controller = @controllers['inviteMe'] ||= new @View['dialog'] this, "inviteMe",
           small: true
 
         switch which
-          when 'inviteMe'
+          when 'inviteMe', 'signUp'
             controller.title.set 'Sign up'
             controller.content.set @controllers['inviteMeContent'] ||= new @View['body/invite_me'] this, 'inviteMeContent', deputy: @view
           when 'youreInvited'

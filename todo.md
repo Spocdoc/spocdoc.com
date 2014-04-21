@@ -27,6 +27,7 @@
  [] when the sidebar visibility is toggled, the tabs don't recalculate whether they should be side-by-side or stacked
  [] add a command to open the sidebar and highlight the search within in a document
  [] when the sidebar is opened, immediately focus on search and update the tabs layout
+ [] set the page title (allows easier history lookup in the browser)
 
 # implementation
 
@@ -40,9 +41,7 @@
  [] the invite hello screen should use the prefUsername if it's available 
  [] if there's an error creating a document, ace will go into an infinite loop repeatedly trying to create if there's a client-side update pending
  [] sessions are never cleared from the database and there's no way to know which ones are old or out of use...
- [] after an invite has been accepted, it should log you in immediately
  [] fix the cheerio data and attributes problem (allow use of `data()` function, but also set the attributes)
- [] the dates are foobar. e.g., "yesterday-thur" when both dates are yesterday
  [] image upload:
       - handle text updates or cursor moves during async file read op...
       - show errors on image read or bad drop type
@@ -62,6 +61,7 @@
 
     but because the function isn't named, there's no way to invoke it on the server with an href
  [] I'd like a way to refer to the last value within an outlet function, so you could have a function assigned to an outlet and when it runs it can conditionally return whatever the current value is
+ [] if a paragraph is turned into a heading at the top of a document (e.g., the polyfills document) all the rest of the content is updated in the
 
 ## optimization
 
@@ -94,6 +94,7 @@
  [] use for photo blogging (see https://synop.si/doc/Photo-blog-test/5353027139fee3405a9c4567). 
  [] graphical CSS editor
  [] make the search results sort by text ranking then by date. text content match should add 0. title and tag matches should add. then sort by date
+ [] narrow search by word count
 
 # Mobile
 
