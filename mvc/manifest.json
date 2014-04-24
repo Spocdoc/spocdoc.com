@@ -334,11 +334,11 @@
                         "search/results/doc/view.coffee",
                         "search/controller.coffee",
                         "body/landing/intro_video/view.coffee",
-                        "body/landing/view.coffee",
                         "body/view.coffee", "admin/view.coffee",
-                        "body/controller.coffee",
                         "models/sessions.coffee",
-                        "body/invite_me/view.coffee"
+                        "body/invite_me/view.coffee",
+                        "body/controller.coffee",
+                        "body/landing/view.coffee"
                     ],
                     "generated": "bundle/debug [-ie<=8 -ios debug].js"
                 },
@@ -525,11 +525,11 @@
                         "search/results/doc/view.coffee",
                         "search/controller.coffee",
                         "body/landing/intro_video/view.coffee",
-                        "body/landing/view.coffee",
                         "body/view.coffee", "admin/view.coffee",
-                        "body/controller.coffee",
                         "models/sessions.coffee",
-                        "body/invite_me/view.coffee"
+                        "body/invite_me/view.coffee",
+                        "body/controller.coffee",
+                        "body/landing/view.coffee"
                     ],
                     "generated": "bundle/debug [-ie<=8 debug ios].js"
                 }

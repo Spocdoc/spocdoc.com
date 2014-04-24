@@ -28,6 +28,8 @@
  [] add a command to open the sidebar and highlight the search within in a document
  [] when the sidebar is opened, immediately focus on search and update the tabs layout
  [] set the page title (allows easier history lookup in the browser)
+ [] add tabs showing all docs, recent docs, and starred in the search & rename it "docs" then rename "doc" to "working" or "current"
+ [] move the compose feather to a separate tab that adds a new document or into the "working" tab
 
 # implementation
 
@@ -95,6 +97,7 @@
  [] graphical CSS editor
  [] make the search results sort by text ranking then by date. text content match should add 0. title and tag matches should add. then sort by date
  [] narrow search by word count
+ [] make it usable offline
 
 # Mobile
 
