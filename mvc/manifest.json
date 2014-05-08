@@ -8,7 +8,7 @@
         "fileCacheFor": ["styl"],
         "hashAssets": true,
         "assetRoot": "../public",
-        "uploadsRoot": "../public/uploads",
+        "uploadsRoot": "/Users/mikerobe/Documents/Projects/javascript/app_promo local/uploads",
         "templateGlobals": "template_globals.coffee",
         "disableClientJS": false
     },

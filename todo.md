@@ -64,6 +64,8 @@
     but because the function isn't named, there's no way to invoke it on the server with an href
  [] I'd like a way to refer to the last value within an outlet function, so you could have a function assigned to an outlet and when it runs it can conditionally return whatever the current value is
  [] if a paragraph is turned into a heading at the top of a document (e.g., the polyfills document) all the rest of the content is updated in the
+ [] Canonical URL should be separate from redirect URL so pages that just toggle menus, etc don't show up separately in google 
+ [] Tags sort by date of last use show limited number with search
 
 ## optimization
 
@@ -98,6 +100,7 @@
  [] make the search results sort by text ranking then by date. text content match should add 0. title and tag matches should add. then sort by date
  [] narrow search by word count
  [] make it usable offline
+ [] prevent duplicate imports
 
 # Mobile
 
